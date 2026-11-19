@@ -5,10 +5,15 @@ deedni is een platform waar bedrijven zelf hun nieuwe medewerkers kiezen. Kandid
 ## Wat staat waar
 
 - **homepage/**: het ontwerp van de website als losse HTML-pagina's, die je direct in je browser kunt openen.
-  - `index.html`: de homepage (de nieuwste versie).
-  - `profiel.html`: het aanmaken van een kandidaatprofiel.
-  - `prototype.html`: een klikbaar prototype van de hele site.
-  - `index-v2.html` t/m `index-v8.html`: eerdere versies van de homepage, ter vergelijking.
+  - `index.html`: de homepage voor bezoekers (de nieuwste versie).
+  - `inloggen.html`: inloggen of een account maken, als marketeer of werkgever.
+  - `kandidaat-overzicht.html` en `mijn-profiel.html`: de pagina's voor een ingelogde marketeer.
+  - `werkgever-overzicht.html`, `kandidaten-zoeken.html` en `kandidaat.html`: de pagina's voor een ingelogde werkgever.
+  - `profiel.html`: het aanmaken van een kandidaatprofiel (de eerste keer).
+  - `prototype.html`: een klikbaar prototype van de hele site (oudere opzet).
+  - `index-v2.html` t/m `index-v9.html`: eerdere versies van de homepage, ter vergelijking.
+  - `assets/menu.js` en `assets/menu.css`: het vaste menu per rol (bezoeker, marketeer, werkgever). Pas je hier een menu aan, dan verandert het op alle pagina's van die rol.
+  - `assets/deedni.css` en `assets/deedni.js`: de gedeelde huisstijl, knoppen en pop-ups.
   - `images/`: de foto's die de pagina's gebruiken.
 - **wordpress/**: de echte website, gebouwd voor WordPress.
   - `thema/deedni/`: het WordPress-thema (de vormgeving).
