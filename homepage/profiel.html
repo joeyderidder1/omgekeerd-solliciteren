@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Maak je anoniem profiel op deedni: persoonlijke gegevens, werkervaring, projecten met resultaten en wat je zoekt.">
+<title>deedni, maak je profiel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Idee: de zwarte balk van een geredigeerd document. Hij staat voor "hier ben je nog anoniem"
+   en verdwijnt pas als de marketeer ja zegt. Geel gebruiken we alleen voor salaris. */
+:root {
+  --bg: #F5F7FC;
+  --bg-alt: #EBEFFA;
+  --surface: #FFFFFF;
+  --ink: #0F1A3D;
+  --muted: #4A5578;
+  --line: #D5DBEE;
+  --line-strong: #AEB8DB;
+  --accent: #2842E0;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E6EAFF;
+  --marker: #FFE14D;
+  --marker-ink: #1A1400;
+  --ok: #0B7A4F;
+  --ok-soft: #DDF3E8;
+  --danger: #B42318;
+  --redact: #0F1A3D;
+  --focus: #2842E0;
+  --shadow: 0 1px 2px rgba(15, 26, 61, 0.06), 0 28px 48px -20px rgba(15, 26, 61, 0.28);
+  --font: "Instrument Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  /* Omgekeerd palet voor blokken die tegen het thema in gaan: donker in licht, licht in donker */
+  --i-bg: #0B1130; --i-bg-alt: #111943; --i-surface: #161F4A; --i-ink: #EEF1FF; --i-muted: #A8B2DB;
+  --i-line: #2A3570; --i-line-strong: #46549A; --i-accent: #8EA2FF; --i-accent-ink: #0B1130; --i-accent-soft: #1F2B66;
+  --i-ok: #5BD6A0; --i-ok-soft: #12382C; --i-redact: #E7EAF7; --i-focus: #B5C2FF;
+  /* Kopie van het gewone palet, voor onderdelen die binnen een omgekeerd blok weer normaal moeten zijn */
+  --n-bg: var(--bg); --n-bg-alt: var(--bg-alt); --n-surface: var(--surface); --n-ink: var(--ink); --n-muted: var(--muted);
+  --n-line: var(--line); --n-line-strong: var(--line-strong); --n-accent: var(--accent); --n-accent-ink: var(--accent-ink); --n-accent-soft: var(--accent-soft);
+  --n-ok: var(--ok); --n-ok-soft: var(--ok-soft); --n-redact: var(--redact);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1130;
+    --bg-alt: #111943;
+    --surface: #161F4A;
+    --ink: #EEF1FF;
+    --muted: #A8B2DB;
+    --line: #2A3570;
+    --line-strong: #46549A;
+    --accent: #8EA2FF;
+    --accent-ink: #0B1130;
+    --accent-soft: #1F2B66;
+    --ok: #5BD6A0;
+    --ok-soft: #12382C;
+    --danger: #FF9B8F;
+    --redact: #E7EAF7;
+    --focus: #B5C2FF;
+    --i-bg: #F5F7FC; --i-bg-alt: #EBEFFA; --i-surface: #FFFFFF; --i-ink: #0F1A3D; --i-muted: #4A5578;
+    --i-line: #D5DBEE; --i-line-strong: #AEB8DB; --i-accent: #2842E0; --i-accent-ink: #FFFFFF; --i-accent-soft: #E6EAFF;
+    --i-ok: #0B7A4F; --i-ok-soft: #DDF3E8; --i-redact: #0F1A3D; --i-focus: #2842E0;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 28px 48px -20px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1130;
+  --bg-alt: #111943;
+  --surface: #161F4A;
+  --ink: #EEF1FF;
+  --muted: #A8B2DB;
+  --line: #2A3570;
+  --line-strong: #46549A;
+  --accent: #8EA2FF;
+  --accent-ink: #0B1130;
+  --accent-soft: #1F2B66;
+  --ok: #5BD6A0;
+  --ok-soft: #12382C;
+  --danger: #FF9B8F;
+  --redact: #E7EAF7;
+  --focus: #B5C2FF;
+  --i-bg: #F5F7FC; --i-bg-alt: #EBEFFA; --i-surface: #FFFFFF; --i-ink: #0F1A3D; --i-muted: #4A5578;
+    --i-line: #D5DBEE; --i-line-strong: #AEB8DB; --i-accent: #2842E0; --i-accent-ink: #FFFFFF; --i-accent-soft: #E6EAFF;
+    --i-ok: #0B7A4F; --i-ok-soft: #DDF3E8; --i-redact: #0F1A3D; --i-focus: #2842E0;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 28px 48px -20px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 60; }
+h1, h2, h3, p, ul, ol, dl, dd, figure, fieldset { margin: 0; padding: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.invert { --bg: var(--i-bg); --bg-alt: var(--i-bg-alt); --surface: var(--i-surface); --ink: var(--i-ink); --muted: var(--i-muted); --line: var(--i-line); --line-strong: var(--i-line-strong); --accent: var(--i-accent); --accent-ink: var(--i-accent-ink); --accent-soft: var(--i-accent-soft); --ok: var(--i-ok); --ok-soft: var(--i-ok-soft); --redact: var(--i-redact); --focus: var(--i-focus); background: var(--bg); color: var(--ink); }
+.wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 8vw, 104px); }
+.band--alt { background: var(--bg-alt); }
+.skip { position: absolute; left: 16px; top: -80px; z-index: 100; background: var(--ink); color: var(--bg); padding: 12px 16px; border-radius: 10px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* Typografie: één familie, onderscheid door gewicht en maat */
+h1 { font-weight: 700; font-size: clamp(2.75rem, 1.4rem + 5.2vw, 4.75rem); line-height: 1.02; letter-spacing: -0.03em; }
+h2 { font-weight: 780; font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3rem); line-height: 1.06; letter-spacing: -0.025em; }
+h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.01em; }
+.lead { font-size: 1.25rem; line-height: 1.5; color: var(--muted); max-width: 34em; }
+.section-head { display: flex; flex-direction: column; gap: 16px; max-width: 44rem; margin-bottom: clamp(32px, 5vw, 56px); }
+.fine { font-size: 0.9375rem; color: var(--muted); }
+
+/* Knoppen: ruim doel (minimaal 48 px), één primaire actie per scherm */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 0 24px;
+  border: 2px solid transparent; border-radius: 12px;
+  font-weight: 700; font-size: 1.0625rem; line-height: 1.2; text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--accent); color: var(--accent-ink); }
+.btn--primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--ink)); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn--ghost:hover { border-color: var(--ink); }
+.btn--small { min-height: 48px; padding: 0 18px; font-size: 1rem; }
+.link-btn { background: none; border: 0; padding: 0; min-height: 44px; color: var(--accent); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* Kop */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--bg); border-bottom: 1px solid transparent; }
+@supports (background: color-mix(in srgb, red 50%, blue)) {
+  .site-header { background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: saturate(1.4) blur(10px); }
+}
+.site-header.is-scrolled { border-bottom-color: var(--line); }
+.header-row { display: flex; align-items: center; gap: 24px; min-height: 72px; }
+.logo { display: inline-flex; align-items: baseline; gap: 3px; font-weight: 850; font-size: 1.65rem; letter-spacing: -0.04em; color: var(--ink); text-decoration: none; }
+.logo i { display: block; width: 0.5em; height: 0.17em; background: var(--accent); border-radius: 1px; }
+.site-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.site-nav a:not(.btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; color: var(--ink); font-weight: 550; text-decoration: none; border-radius: 8px; }
+.site-nav a:not(.btn):hover { background: var(--bg-alt); }
+.site-nav .btn { margin-left: 8px; }
+.menu-toggle { display: none; margin-left: auto; min-height: 48px; padding: 0 16px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px; font-weight: 650; cursor: pointer; align-items: center; gap: 10px; }
+@media (max-width: 860px) {
+  .menu-toggle { display: inline-flex; }
+  .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; margin: 0; padding: 8px max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px)); background: var(--bg); border-bottom: 1px solid var(--line); }
+  .site-nav.is-open { display: flex; }
+  .site-nav a:not(.btn) { min-height: 52px; font-size: 1.125rem; }
+  .site-nav .btn { margin: 12px 0 0; }
+  .site-header .wrap { position: relative; }
+}
+
+/* Voorbeeldkaart: het enige element met schaduw */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(20px, 3vw, 28px); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.9375rem; color: var(--muted); }
+.card-top strong { color: var(--ink); font-weight: 650; }
+.sample { font-size: 0.875rem; color: var(--muted); }
+.card-title { font-size: 1.75rem; line-height: 1.12; font-weight: 780; letter-spacing: -0.02em; text-wrap: balance; }
+.card-sub { color: var(--muted); margin-top: 6px; }
+.salary-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.salary { display: inline-block; padding: 0.04em 0.4em; background: var(--marker); color: var(--marker-ink); border-radius: 4px; font-weight: 800; font-size: 1.625rem; letter-spacing: -0.02em; }
+.salary-unit { color: var(--muted); }
+.quote { padding-left: 14px; border-left: 3px solid var(--line-strong); color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.tags li { padding: 4px 12px; background: var(--bg-alt); border-radius: 999px; font-size: 0.9375rem; font-weight: 560; }
+.sees { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; background: var(--bg-alt); border-radius: 12px; }
+.sees > p { font-size: 0.9375rem; color: var(--muted); }
+.sees-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.sees-row dt { font-weight: 650; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.card-actions .btn { flex: 1 1 180px; }
+.card-result { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 14px 16px; background: var(--ok-soft); color: var(--ink); border-radius: 12px; font-weight: 560; }
+.card-result:empty { display: none; }
+.card-result .link-btn { min-height: 44px; }
+
+/* De zwarte balk. Zonder script blijft de balk staan; de tekst eronder is dan voor lezers verborgen. */
+.secret { position: relative; display: inline-block; min-width: 11ch; min-height: 1.4em; line-height: 1.4; vertical-align: middle; border-radius: 3px; font-weight: 650; }
+.secret-text { opacity: 0; transition: opacity 0.25s 0.2s; }
+.secret::before { content: ""; position: absolute; inset: 0; background: var(--redact); border-radius: 3px; transform-origin: left center; transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1); transition-delay: calc(var(--i, 0) * 70ms); }
+.secret.is-revealed .secret-text { opacity: 1; transition-delay: calc(var(--i, 0) * 70ms + 0.2s); }
+.secret.is-revealed::before { transform: scaleX(0); transform-origin: right center; }
+.secret.draw::before { animation: redact-in 0.7s 0.4s cubic-bezier(0.65, 0, 0.35, 1) both; }
+@keyframes redact-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Aanmelden */
+.signup { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+@media (max-width: 920px) { .signup { grid-template-columns: minmax(0, 1fr); } }
+.signup-copy { display: flex; flex-direction: column; gap: 20px; }
+.form-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: clamp(20px, 3.5vw, 36px); }
+.form-stack { display: flex; flex-direction: column; gap: 20px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field label { font-weight: 650; }
+.field input[type="email"], .field input[type="text"], .field select { width: 100%; min-height: 52px; padding: 0 16px; background: var(--bg); border: 2px solid var(--line-strong); border-radius: 10px; }
+.field select { appearance: auto; }
+.field input:hover, .field select:hover { border-color: var(--ink); }
+.field input:focus-visible, .field select:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--focus); }
+.field input[aria-invalid="true"] { border-color: var(--danger); }
+.hint { font-size: 0.9375rem; color: var(--muted); }
+.error { color: var(--danger); font-weight: 600; font-size: 0.9375rem; }
+.success { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.success:focus { outline: none; }
+.success-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); }
+.success-actions { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+
+/* Voet */
+.site-footer { padding-block: 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9375rem; }
+.footer-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 0 8px; margin-left: auto; }
+.site-footer nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; color: var(--ink); text-decoration: none; font-weight: 550; }
+.site-footer .logo { font-size: 1.35rem; }
+
+/* Weergave-kiezer: alleen voor dit ontwerp, niet voor de echte site */
+.keep { --bg: var(--n-bg); --bg-alt: var(--n-bg-alt); --surface: var(--n-surface); --ink: var(--n-ink); --muted: var(--n-muted); --line: var(--n-line); --line-strong: var(--n-line-strong); --accent: var(--n-accent); --accent-ink: var(--n-accent-ink); --accent-soft: var(--n-accent-soft); --ok: var(--n-ok); --ok-soft: var(--n-ok-soft); --redact: var(--n-redact); --focus: var(--n-accent); color: var(--ink); }
+.viewbar { padding-block: 10px; font-size: 0.9375rem; }
+.viewbar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.viewbar-row p { font-weight: 600; }
+.viewbar .audience { flex-wrap: wrap; border-radius: 16px; }
+.viewbar .audience button { padding: 0 16px; }
+.who { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 6px 0 14px; margin-left: 8px; border: 1px solid var(--line-strong); border-radius: 999px; font-weight: 650; }
+.who b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 0.8125rem; }
+.site-nav .who { order: 9; }
+@media (max-width: 860px) { .who { margin: 12px 0 0; align-self: flex-start; } }
+.field input[type="number"], .field input[type="month"], .field input[type="url"], .field input[type="tel"], .field textarea { width: 100%; min-height: 52px; padding: 0 16px; background: var(--bg); border: 2px solid var(--line-strong); border-radius: 10px; }
+.field textarea { padding: 12px 16px; min-height: 112px; resize: vertical; line-height: 1.5; }
+.field input[type="number"]:hover, .field textarea:hover { border-color: var(--ink); }
+.field input:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--focus); }
+.field textarea[aria-invalid="true"] { border-color: var(--danger); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+
+
+/* Profielpagina */
+.audience { display: inline-flex; padding: 4px; background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px; }
+.audience button { min-height: 44px; padding: 0 20px; background: transparent; border: 0; border-radius: 999px; font-weight: 650; color: var(--muted); cursor: pointer; }
+.audience button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.pg-head { padding-block: clamp(32px, 5vw, 56px) 8px; display: flex; flex-direction: column; gap: 16px; }
+.pg-head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 3.5rem); }
+.crumb { font-size: 0.9375rem; }
+.choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+@media (max-width: 820px) { .choices { grid-template-columns: minmax(0, 1fr); } }
+.choice { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 22px; min-height: 150px; background: var(--surface); border: 2px solid var(--line-strong); border-radius: 16px; text-align: left; cursor: pointer; color: var(--ink); }
+.choice:hover { border-color: var(--ink); }
+.choice strong { font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; }
+.choice span { color: var(--muted); }
+.choice input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.choice:has(input:focus-visible), .choice:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.start-note { margin-top: 20px; }
+.notice { padding: 14px 16px; background: var(--accent-soft); border-radius: 12px; font-weight: 550; }
+
+.builder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 390px); gap: clamp(28px, 5vw, 64px); align-items: start; padding-block: 24px clamp(64px, 8vw, 104px); }
+@media (max-width: 960px) { .builder { grid-template-columns: minmax(0, 1fr); } }
+.builder-main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.sp { list-style: none; display: flex; border-bottom: 1px solid var(--line); }
+.sp li { flex: 1; min-width: 0; }
+.sp button { width: 100%; min-height: 60px; display: flex; align-items: center; gap: 10px; padding: 0 8px; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px; cursor: pointer; color: var(--muted); font-weight: 650; text-align: left; }
+.sp .num { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line-strong); color: var(--ink); font-weight: 800; font-size: 0.9375rem; }
+.sp button[aria-current="step"] { color: var(--ink); border-bottom-color: var(--accent); }
+.sp button[aria-current="step"] .num { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sp button.is-done .num { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.step-label { display: none; font-weight: 700; }
+@media (max-width: 720px) { .sp .nm { display: none; } .sp button { justify-content: center; padding: 0; } .step-label { display: block; } }
+.panel { display: flex; flex-direction: column; gap: 22px; }
+.panel h2 { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.25rem); }
+.panel .lead { font-size: 1.125rem; }
+.vis { display: inline-block; margin-left: 8px; padding: 1px 9px; border-radius: 999px; background: var(--bg-alt); color: var(--muted); font-size: 0.8125rem; font-weight: 600; vertical-align: 2px; }
+.vis--yes { background: var(--ink); color: var(--bg); }
+.field .opt { font-weight: 450; color: var(--muted); }
+.counter { font-size: 0.9375rem; color: var(--muted); text-align: right; }
+.check { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-weight: 500; cursor: pointer; }
+.check input { flex: none; width: 24px; height: 24px; margin: 8px 0 0; accent-color: var(--accent); cursor: pointer; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; border: 0; }
+.pills legend { padding: 0; margin-bottom: 10px; font-weight: 650; }
+.pill { position: relative; display: inline-flex; align-items: center; min-height: 48px; padding: 0 18px; border: 2px solid var(--line-strong); border-radius: 999px; font-weight: 600; cursor: pointer; background: var(--surface); }
+.pill input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.pill:has(input:checked) { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.pill:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.pills-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.items { list-style: none; display: flex; flex-direction: column; border-top: 2px solid var(--ink); }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.item h3 { font-size: 1.125rem; }
+.item p { color: var(--muted); font-size: 0.9375rem; }
+.item-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.item-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; justify-content: flex-end; }
+.item-actions .link-btn { padding: 0 8px; }
+.icon-btn { display: grid; place-items: center; min-width: 44px; min-height: 44px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; cursor: pointer; color: var(--ink); }
+.icon-btn:disabled { opacity: 0.4; cursor: default; }
+@media (max-width: 620px) { .item { grid-template-columns: minmax(0, 1fr); } .item-actions { justify-content: flex-start; } }
+.empty { padding: 24px 0; color: var(--muted); border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.editor { padding: clamp(18px, 3vw, 28px); background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.editor h3 { font-size: 1.375rem; margin-bottom: 16px; }
+.res-list { display: flex; flex-direction: column; gap: 10px; }
+.res { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) auto; gap: 10px 12px; align-items: end; padding: 14px; background: var(--bg-alt); border-radius: 12px; }
+.res .field { gap: 4px; }
+.res .field label { font-size: 0.9375rem; }
+.res .field input { background: var(--surface); }
+.delta { display: inline-block; padding: 1px 8px; border-radius: 6px; background: var(--ok-soft); color: var(--ok); font-weight: 750; font-size: 0.9375rem; white-space: nowrap; }
+@media (max-width: 720px) { .res { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .res .f-what { grid-column: 1 / -1; } }
+.tagbox { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tagbox .chip-x { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 6px 0 14px; background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px; font-weight: 600; }
+.chip-x button { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; font-size: 1.125rem; line-height: 1; }
+.chip-x button:hover { background: var(--line); }
+.tag-add { display: flex; gap: 8px; }
+.tag-add input { flex: 1; min-width: 0; }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 0.9375rem; color: var(--muted); }
+.suggest button { min-height: 40px; padding: 0 12px; border: 1px dashed var(--line-strong); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font-weight: 550; }
+.undo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 14px; background: var(--ink); color: var(--bg); border-radius: 12px; }
+.undo .link-btn { color: var(--bg); }
+.undo:empty { display: none; }
+.nav-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-top: 8px; }
+.nav-row .spacer { flex: 1; }
+.cl { list-style: none; display: flex; flex-direction: column; border-top: 2px solid var(--ink); }
+.cl li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.cl .ico { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line-strong); color: transparent; }
+.cl li.is-ok .ico { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.bar-meter { height: 10px; background: var(--bg-alt); border-radius: 5px; overflow: hidden; border: 1px solid var(--line); }
+.bar-meter i { display: block; height: 100%; background: var(--accent); width: 0; transition: width 0.3s; }
+.meter-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-weight: 650; }
+.picks { display: flex; flex-direction: column; gap: 4px; }
+.errsum { padding: 14px 16px; border: 2px solid var(--danger); border-radius: 12px; }
+.errsum ul { margin: 8px 0 0; padding-left: 20px; }
+
+.preview { position: sticky; top: 104px; border: 1px solid var(--line); border-radius: 20px; padding: 6px 20px 20px; }
+@media (max-width: 960px) { .preview { position: static; } }
+.preview summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; font-weight: 780; font-size: 1.25rem; cursor: pointer; list-style: none; }
+.preview summary::-webkit-details-marker { display: none; }
+.preview summary::after { content: ""; flex: none; width: 11px; height: 11px; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg) translateY(-3px); }
+.preview details[open] summary::after { transform: rotate(-135deg) translateY(-3px); }
+.pv-body { display: flex; flex-direction: column; gap: 16px; }
+.pv-card { gap: 14px; padding: 20px; box-shadow: none; }
+.pv-card h3 { font-size: 1.375rem; line-height: 1.15; letter-spacing: -0.015em; }
+.pv-card .pfacts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 14px; font-size: 0.9375rem; align-items: center; }
+.pv-card .pfacts dt { color: var(--muted); }
+.pv-card .pfacts dd { margin: 0; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.pv-muted { color: var(--muted); font-weight: 450 !important; }
+.bar-only { display: inline-block; width: var(--w, 9ch); max-width: 100%; height: 1.15em; background: var(--redact); border-radius: 3px; vertical-align: middle; }
+.pv-res { padding: 10px 12px; background: var(--bg-alt); border-radius: 10px; font-size: 0.9375rem; }
+.pv-res strong { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-right: 6px; }
+.pv-note { font-size: 0.9375rem; color: var(--muted); }
+.salary { display: inline-block; padding: 0.04em 0.4em; background: var(--marker); color: var(--marker-ink); border-radius: 4px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.tags li { padding: 4px 12px; background: var(--bg-alt); border-radius: 999px; font-size: 0.9375rem; font-weight: 560; }
+.link-btn:disabled { color: var(--muted); cursor: default; text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+.seg { border: 0; display: flex; flex-direction: column; gap: 8px; }
+.seg legend { padding: 0; font-weight: 650; margin-bottom: 8px; }
+.seg-options { align-self: flex-start; max-width: 100%; display: inline-flex; flex-wrap: wrap; padding: 4px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; gap: 4px; }
+.seg label { position: relative; display: flex; align-items: center; min-height: 48px; padding: 0 18px; border-radius: 10px; font-weight: 650; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg label:has(input:checked) { background: var(--ink); color: var(--bg); }
+.seg label:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.seg label:not(:has(input:checked)):hover { background: var(--bg-alt); }
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.site-nav a[aria-current="page"] { background: var(--bg-alt); }
+@media (max-width: 520px) { .row2 { grid-template-columns: minmax(0, 1fr); } .res .row2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 1199px) { .sp .nm { display: none; } .sp button { justify-content: center; padding: 0; } .step-label { display: block; } }
+.sp .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+</style>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="site-header" id="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html#ingelogd-marketeer" aria-label="deedni, naar je overzicht">deedni<i aria-hidden="true"></i></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <a href="profiel.html" aria-current="page">Mijn profiel</a>
+      <a href="index.html#ingelogd-marketeer">Aanbiedingen</a>
+      <a href="index.html#vragen">Vragen</a>
+      <span class="who"><span>Sanne</span><b aria-hidden="true">S</b></span>
+    </nav>
+  </div>
+</header>
+
+<main id="inhoud" tabindex="-1">
+  <div class="wrap pg-head">
+    <p class="crumb"><a href="index.html#ingelogd-marketeer">Terug naar je overzicht</a></p>
+    <h1 id="pg-titel">Maak je profiel</h1>
+    <p class="lead">Bedrijven zien je ervaring, tools en resultaten. Je naam, werkgevers en projectnamen blijven verborgen tot jij ja zegt op een aanbod.</p>
+  </div>
+
+  <section class="wrap band" id="start" style="padding-block: 24px 48px" aria-labelledby="start-titel">
+    <h2 id="start-titel" style="font-size:1.5rem;margin-bottom:16px">Hoe wil je beginnen?</h2>
+    <div class="choices">
+      <label class="choice"><input type="file" id="file-cv" accept=".pdf,.doc,.docx"><strong>Cv uploaden</strong><span>Pdf of Word. We zetten je gegevens klaar, jij controleert ze.</span></label>
+      <label class="choice"><input type="file" id="file-li" accept=".pdf"><strong>LinkedIn-profiel als pdf</strong><span>Download je profiel als pdf op LinkedIn en kies het hier.</span></label>
+      <button class="choice" type="button" id="start-zelf"><strong>Zelf invullen</strong><span>Begin met een leeg profiel. Duurt ongeveer tien minuten.</span></button>
+    </div>
+    <p class="fine start-note">Je cv komt nooit bij bedrijven terecht. Alleen de velden die je hieronder aanvinkt worden gedeeld, en pas na jouw ja.</p>
+  </section>
+
+  <div class="wrap builder" id="builder" hidden>
+    <div class="builder-main">
+      <div id="start-msg" class="notice" role="status" hidden></div>
+      <ol class="sp" id="sp" aria-label="Stappen">
+        <li><button type="button" data-go="1"><span class="num">1</span><span class="nm">Persoonlijk</span></button></li>
+        <li><button type="button" data-go="2"><span class="num">2</span><span class="nm">Werkervaring</span></button></li>
+        <li><button type="button" data-go="3"><span class="num">3</span><span class="nm">Projecten</span></button></li>
+        <li><button type="button" data-go="4"><span class="num">4</span><span class="nm">Wat zoek je</span></button></li>
+        <li><button type="button" data-go="5"><span class="num">5</span><span class="nm">Controleren</span></button></li>
+      </ol>
+      <p class="step-label" id="step-label" aria-hidden="true"></p>
+
+      <!-- Stap 1 -->
+      <form class="panel" id="p1" data-step="1" novalidate aria-labelledby="h1-1">
+        <h2 id="h1-1" tabindex="-1">Persoonlijk</h2>
+        <p class="lead">Bij elk veld zie je wie het te zien krijgt. Naam en contactgegevens blijven verborgen tot jouw ja.</p>
+        <div class="row2">
+          <div class="field"><label for="f-first">Voornaam <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="f-first" autocomplete="given-name" aria-describedby="e-first"><p class="error" id="e-first" hidden></p></div>
+          <div class="field"><label for="f-last">Achternaam <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="f-last" autocomplete="family-name" aria-describedby="e-last"><p class="error" id="e-last" hidden></p></div>
+        </div>
+        <div class="field"><label for="f-title">Functietitel <span class="vis">Iedereen</span></label><input type="text" id="f-title" aria-describedby="h-title e-title" placeholder="Bijvoorbeeld Senior performance marketeer"><span class="hint" id="h-title">Hoe je jezelf noemt. Dit is de kop van je profiel.</span><p class="error" id="e-title" hidden></p></div>
+        <div class="row2">
+          <div class="field"><label for="f-email">E-mailadres <span class="vis vis--yes">Na jouw ja</span></label><input type="email" id="f-email" autocomplete="email" aria-describedby="e-email" inputmode="email"><p class="error" id="e-email" hidden></p></div>
+          <div class="field"><label for="f-phone">Telefoon <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="tel" id="f-phone" autocomplete="tel"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="f-prov">Provincie <span class="vis">Iedereen</span></label>
+            <select id="f-prov" aria-describedby="e-prov"><option value="">Kies een provincie</option><option>Drenthe</option><option>Flevoland</option><option>Friesland</option><option>Gelderland</option><option>Groningen</option><option>Limburg</option><option>Noord-Brabant</option><option>Noord-Holland</option><option>Overijssel</option><option>Utrecht</option><option>Zeeland</option><option>Zuid-Holland</option></select><p class="error" id="e-prov" hidden></p></div>
+          <div class="field"><label for="f-li">LinkedIn <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="url" id="f-li" autocomplete="url" placeholder="https://www.linkedin.com/in/…"></div>
+        </div>
+        <div class="field"><label for="f-about">Over jou <span class="opt">(niet verplicht)</span> <span class="vis">Iedereen</span></label><textarea id="f-about" maxlength="400" aria-describedby="h-about c-about"></textarea><span class="hint" id="h-about">Wat voor werk wil je doen en waar ben je goed in? Laat je naam en werkgevers weg.</span><span class="counter" id="c-about">0 van 400 tekens</span></div>
+        <p class="fine">We vragen niet naar foto, leeftijd, geslacht of afkomst. Bedrijven kunnen daar ook niet op filteren.</p>
+        <div class="nav-row"><span class="spacer"></span><button class="btn btn--primary" type="submit">Volgende: werkervaring</button></div>
+      </form>
+
+      <!-- Stap 2 -->
+      <section class="panel" id="p2" data-step="2" hidden aria-labelledby="h1-2">
+        <h2 id="h1-2" tabindex="-1">Werkervaring</h2>
+        <p class="lead">Voeg je functies toe, de nieuwste bovenaan. Bedrijven zien de functie, het soort bedrijf en de duur. De naam van de werkgever blijft verborgen, tenzij jij die zelf toont.</p>
+        <div id="exp-list"></div>
+        <div class="undo" id="exp-undo" role="status"></div>
+        <div><button class="btn btn--ghost" type="button" id="exp-add">Werkervaring toevoegen</button></div>
+        <form class="editor" id="exp-form" novalidate hidden aria-labelledby="exp-ft">
+          <h3 id="exp-ft">Werkervaring toevoegen</h3>
+          <div class="form-stack">
+            <div class="field"><label for="x-role">Functie</label><input type="text" id="x-role" aria-describedby="e-xrole"><p class="error" id="e-xrole" hidden></p></div>
+            <div class="row2">
+              <div class="field"><label for="x-org">Werkgever <span class="vis vis--yes">Verborgen</span></label><input type="text" id="x-org" aria-describedby="e-xorg"><p class="error" id="e-xorg" hidden></p></div>
+              <div class="field"><label for="x-kind">Soort bedrijf <span class="vis">Iedereen</span></label><select id="x-kind"><option>Marketingbureau</option><option>Webshop</option><option>B2B-software</option><option>Uitgeverij of media</option><option>Zorg of onderwijs</option><option>Industrie of handel</option><option>Overig</option></select></div>
+            </div>
+            <label class="check"><input type="checkbox" id="x-show"><span>Toon de naam van deze werkgever aan bedrijven<br><span class="hint">Standaard blijft de naam verborgen tot jouw ja.</span></span></label>
+            <div class="row2">
+              <div class="field"><label for="x-from">Van</label><input type="month" id="x-from" placeholder="jjjj-mm" aria-describedby="e-xfrom"><p class="error" id="e-xfrom" hidden></p></div>
+              <div class="field"><label for="x-to">Tot</label><input type="month" id="x-to" placeholder="jjjj-mm" aria-describedby="e-xto"><p class="error" id="e-xto" hidden></p></div>
+            </div>
+            <label class="check"><input type="checkbox" id="x-now"><span>Ik werk hier nu</span></label>
+            <div class="form-actions"><button class="btn btn--primary" type="submit" id="exp-save">Opslaan</button><button class="link-btn" type="button" id="exp-cancel">Annuleren</button></div>
+          </div>
+        </form>
+        <div class="nav-row"><button class="btn btn--ghost" type="button" data-go="1">Vorige</button><span class="spacer"></span><button class="btn btn--primary" type="button" data-go="3">Volgende: projecten</button></div>
+      </section>
+
+      <!-- Stap 3 -->
+      <section class="panel" id="p3" data-step="3" hidden aria-labelledby="h1-3">
+        <h2 id="h1-3" tabindex="-1">Projecten en cases</h2>
+        <p class="lead">Dit is wat je opvalt. Beschrijf per project wat je deed en wat het opleverde, in cijfers. Projectnamen en klanten blijven verborgen.</p>
+        <div id="proj-list"></div>
+        <div class="undo" id="proj-undo" role="status"></div>
+        <div><button class="btn btn--ghost" type="button" id="proj-add">Project toevoegen</button></div>
+        <form class="editor" id="proj-form" novalidate hidden aria-labelledby="proj-ft">
+          <h3 id="proj-ft">Project toevoegen</h3>
+          <div class="form-stack">
+            <div class="field"><label for="y-title">Korte titel <span class="vis">Iedereen</span></label><input type="text" id="y-title" aria-describedby="h-ytitle e-ytitle"><span class="hint" id="h-ytitle">Zonder klantnaam, bijvoorbeeld “Webshop-groei met Google Ads”.</span><p class="error" id="e-ytitle" hidden></p></div>
+            <div class="field"><label for="y-client">Klant of projectnaam <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="y-client"></div>
+            <div class="row2">
+              <div class="field"><label for="y-exp">Bij welke werkervaring</label><select id="y-exp"></select></div>
+              <div class="field"><label for="y-role">Jouw rol</label><input type="text" id="y-role" aria-describedby="e-yrole" placeholder="Bijvoorbeeld Campagneleider"><p class="error" id="e-yrole" hidden></p></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="y-from">Gestart <span class="opt">(niet verplicht)</span></label><input type="month" id="y-from" placeholder="jjjj-mm"></div>
+              <div class="field"><label for="y-to">Afgerond <span class="opt">(niet verplicht)</span></label><input type="month" id="y-to" placeholder="jjjj-mm"></div>
+            </div>
+            <div class="field"><label for="y-what">Uitdaging en aanpak <span class="opt">(niet verplicht)</span> <span class="vis">Iedereen</span></label><textarea id="y-what" maxlength="300" aria-describedby="c-ywhat"></textarea><span class="counter" id="c-ywhat">0 van 300 tekens</span></div>
+            <fieldset class="field" style="border:0;padding:0;margin:0">
+              <legend style="padding:0;font-weight:650;margin-bottom:8px">Resultaten <span class="vis">Iedereen</span></legend>
+              <div class="res-list" id="res-list"></div>
+              <p class="error" id="e-yres" role="alert" hidden></p>
+              <div style="margin-top:10px"><button class="btn btn--ghost btn--small" type="button" id="res-add">Resultaat toevoegen</button> <span class="hint" id="res-hint"></span></div>
+            </fieldset>
+            <div class="field"><label for="y-tool">Tools</label>
+              <div class="tagbox" id="y-tags" aria-live="polite"></div>
+              <div class="tag-add"><input type="text" id="y-tool" aria-describedby="h-ytool"><button class="btn btn--ghost btn--small" type="button" id="tool-add">Toevoegen</button></div>
+              <span class="hint" id="h-ytool">Typ een tool en druk op Enter.</span>
+              <div class="suggest" id="tool-suggest"></div>
+            </div>
+            <div class="field"><label for="y-link">Link naar bewijs <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="url" id="y-link" placeholder="https://" aria-describedby="h-ylink"><span class="hint" id="h-ylink">Bijvoorbeeld een rapport, case of portfolio. Bedrijven zien de link pas na jouw ja.</span></div>
+            <div class="form-actions"><button class="btn btn--primary" type="submit">Project opslaan</button><button class="link-btn" type="button" id="proj-cancel">Annuleren</button></div>
+          </div>
+        </form>
+        <div class="nav-row"><button class="btn btn--ghost" type="button" data-go="2">Vorige</button><span class="spacer"></span><button class="btn btn--primary" type="button" data-go="4">Volgende: wat zoek je</button></div>
+      </section>
+
+      <!-- Stap 4 -->
+      <form class="panel" id="p4" data-step="4" hidden novalidate aria-labelledby="h1-4">
+        <h2 id="h1-4" tabindex="-1">Wat zoek je</h2>
+        <p class="lead">Hiermee vinden bedrijven je, en andersom. Het salaris dat je invult is een minimum. Bedrijven zien het afgerond.</p>
+        <fieldset class="pills" id="w-roles"><legend>Welk werk zoek je? Kies er minstens één.</legend></fieldset>
+        <p class="error" id="e-wroles" role="alert" hidden></p>
+        <div class="row2">
+          <div class="field"><label for="w-min">Minimum salaris per maand, bruto</label><input type="number" id="w-min" inputmode="numeric" min="0" step="100" aria-describedby="h-wmin e-wmin"><span class="hint" id="h-wmin">Voor een volledige werkweek.</span><p class="error" id="e-wmin" hidden></p></div>
+          <div class="field"><label>Uren per week</label>
+            <div class="row2"><div class="field"><label for="w-h1" class="visually-hidden">Minimaal aantal uur</label><select id="w-h1"><option>16</option><option>24</option><option selected>32</option><option>36</option><option>40</option></select></div><div class="field"><label for="w-h2" class="visually-hidden">Maximaal aantal uur</label><select id="w-h2"><option>24</option><option>32</option><option>36</option><option selected>40</option></select></div></div>
+            <span class="hint">Van minimaal tot maximaal.</span></div>
+        </div>
+        <fieldset class="pills" id="w-place"><legend>Werkplek</legend>
+          <label class="pill"><input type="checkbox" value="Op kantoor">Op kantoor</label><label class="pill"><input type="checkbox" value="Hybride">Hybride</label><label class="pill"><input type="checkbox" value="Thuis">Thuis</label></fieldset>
+        <fieldset class="pills" id="w-prov"><legend>In welke provincies wil je werken?</legend></fieldset>
+        <div class="row2">
+          <div class="field"><label for="w-dist">Reisafstand</label><select id="w-dist"><option value="10">Tot 10 km</option><option value="20">Tot 20 km</option><option value="30" selected>Tot 30 km</option><option value="50">Tot 50 km</option><option value="0">Geen limiet</option></select></div>
+          <div class="field"><label for="w-avail">Beschikbaar per</label><input type="month" id="w-avail" placeholder="jjjj-mm" aria-describedby="h-avail"><span class="hint" id="h-avail">Laat leeg als je direct kunt beginnen.</span></div>
+        </div>
+        <fieldset class="seg" style="border:0;padding:0;margin:0"><legend>Hoe actief zoek je?</legend>
+          <div class="seg-options" style="display:flex;flex-direction:column;align-items:stretch">
+            <label><input type="radio" name="w-status" value="actief">Ik zoek actief</label>
+            <label><input type="radio" name="w-status" value="open" checked>Ik sta open voor aanbod</label>
+            <label><input type="radio" name="w-status" value="kijk">Ik zoek niet, ik kijk mee</label>
+          </div>
+        </fieldset>
+        <div class="nav-row"><button class="btn btn--ghost" type="button" data-go="3">Vorige</button><span class="spacer"></span><button class="btn btn--primary" type="submit">Volgende: controleren</button></div>
+      </form>
+
+      <!-- Stap 5 -->
+      <section class="panel" id="p5" data-step="5" hidden aria-labelledby="h1-5">
+        <div id="p5-main" class="panel">
+          <h2 id="h1-5" tabindex="-1">Controleren</h2>
+          <div>
+            <div class="meter-row"><span>Je profiel is <span id="pct">0</span>% compleet</span></div>
+            <div class="bar-meter" aria-hidden="true"><i id="pct-bar"></i></div>
+          </div>
+          <ul class="cl" id="checklist"></ul>
+          <fieldset class="field" style="border:0;padding:0;margin:0">
+            <legend style="padding:0;font-weight:650;margin-bottom:6px">Je beste resultaten</legend>
+            <p class="hint" id="h-picks">Kies er maximaal drie. Bedrijven zien deze bovenaan je profiel.</p>
+            <div class="picks" id="picks"></div>
+          </fieldset>
+          <div class="field">
+            <label for="b-dom">Wie mag je profiel nooit zien?</label>
+            <div class="tag-add"><input type="text" id="b-dom" aria-describedby="h-bdom e-bdom" placeholder="bureauzuid.nl" autocapitalize="off" inputmode="url"><button class="btn btn--ghost btn--small" type="button" id="b-add">Blokkeren</button></div>
+            <span class="hint" id="h-bdom">Vul het domein van je e-mailadres bij werk in, bijvoorbeeld bureauzuid.nl. Medewerkers van dat bedrijf zien je profiel nooit.</span>
+            <p class="error" id="e-bdom" role="alert" hidden></p>
+            <div class="tagbox" id="b-tags" aria-live="polite"></div>
+          </div>
+          <div class="errsum" id="pub-err" role="alert" hidden></div>
+          <div class="nav-row"><button class="btn btn--ghost" type="button" data-go="4">Vorige</button><span class="spacer"></span><button class="btn btn--primary" type="button" id="publish">Profiel publiceren</button></div>
+        </div>
+        <div class="success" id="pub-ok" tabindex="-1" hidden>
+          <div class="success-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+          <h2>Je profiel staat live</h2>
+          <p class="lead" id="pub-text"></p>
+          <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center">
+            <a class="btn btn--primary" href="index.html#ingelogd-marketeer">Bekijk je aanbiedingen</a>
+            <button class="btn btn--ghost" type="button" id="pdf-btn">Download als pdf-cv</button>
+            <button class="link-btn" type="button" id="pub-edit">Profiel nog aanpassen</button>
+          </div>
+          <p class="notice" id="pdf-note" role="status" hidden>In dit ontwerp downloadt er niets. Op de echte site krijg je hier je cv als pdf, zonder de velden die verborgen blijven.</p>
+        </div>
+      </section>
+    </div>
+
+    <aside class="preview invert" aria-label="Voorbeeld van je profiel">
+      <details id="pv-details" open>
+        <summary>Zo zien bedrijven je</summary>
+        <div class="pv-body">
+          <div class="audience" role="group" aria-label="Wie kijkt mee">
+            <button type="button" data-pv="bedrijf" aria-pressed="true">Bedrijf</button>
+            <button type="button" data-pv="bezoeker" aria-pressed="false">Bezoeker</button>
+          </div>
+          <article class="card keep pv-card" id="pv" aria-live="polite"></article>
+        </div>
+      </details>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer invert">
+  <div class="wrap footer-row">
+    <span class="logo" aria-label="deedni">deedni<i aria-hidden="true"></i></span>
+    <span>© 2026 deedni. Voorbeeld met fictieve gegevens.</span>
+    <nav aria-label="Footer"><a href="index.html#ingelogd-marketeer">Overzicht</a><a href="index.html#vragen">Vragen</a></nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var MONTHS = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+  var ROLES = ['SEA', 'SEO', 'Contentmarketing', 'Social media', 'E-mailmarketing', 'Marketing-automation', 'Data en analytics', 'CRO', 'Marketingmanager'];
+  var PROVS = ['Utrecht', 'Noord-Holland', 'Zuid-Holland', 'Gelderland', 'Noord-Brabant', 'Overijssel', 'Flevoland', 'Overig'];
+  var TOOLS = ['Google Ads', 'Meta Ads', 'GA4', 'Semrush', 'HubSpot', 'Looker Studio'];
+  var uid = 0;
+  var S = { exp: [], proj: [], picks: [], blocks: [], published: false };
+  var step = 1, pvMode = 'bedrijf', editExp = null, editProj = null, formTools = [], formRes = [];
+
+  // Menu
+  var toggle = $('menu-toggle'), nav = $('site-nav');
+  toggle.addEventListener('click', function () { var o = nav.classList.toggle('is-open'); toggle.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { nav.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); } });
+  var header = $('site-header');
+  window.addEventListener('scroll', function () { header.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+
+  // Helpers
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function eur(n) { return '€' + new Intl.NumberFormat('nl-NL').format(n); }
+  function nlNum(n) { return new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 1 }).format(n); }
+  function monthLabel(v) { var m = /^(\d{4})-(\d{2})$/.exec(v || ''); return m ? MONTHS[Number(m[2]) - 1] + ' ' + m[1] : ''; }
+  function validMonth(v) { var m = /^(\d{4})-(\d{2})$/.exec(v || ''); return !!m && Number(m[2]) >= 1 && Number(m[2]) <= 12; }
+  function nowMonth() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); }
+  function monthIdx(v) { var m = /^(\d{4})-(\d{2})$/.exec(v); return Number(m[1]) * 12 + Number(m[2]); }
+  function monthsOf(x) { if (!validMonth(x.from)) return 0; var end = x.now ? nowMonth() : x.to; if (!validMonth(end)) return 0; return Math.max(0, monthIdx(end) - monthIdx(x.from)); }
+  function spanText(m) { var y = Math.floor(m / 12), r = m % 12; var a = []; if (y) a.push(y + ' jaar'); if (r) a.push(r + (r === 1 ? ' maand' : ' maanden')); return a.join(' ') || 'korter dan een maand'; }
+  function delta(r) {
+    var a = parseFloat(String(r.from).replace(',', '.')), b = parseFloat(String(r.to).replace(',', '.'));
+    if (!isFinite(a) || !isFinite(b) || a === 0) return null;
+    var d = (b - a) / Math.abs(a) * 100;
+    return (d > 0 ? '+' : d < 0 ? '−' : '') + nlNum(Math.abs(Math.round(d * 10) / 10)) + '%';
+  }
+  function setErr(input, errEl, text) {
+    if (text) { errEl.textContent = text; errEl.hidden = false; if (input) input.setAttribute('aria-invalid', 'true'); }
+    else { errEl.hidden = true; if (input) input.removeAttribute('aria-invalid'); }
+    return !!text;
+  }
+  function val(id) { return $(id).value.trim(); }
+
+  // Pills
+  function buildPills(fieldsetId, list, name) {
+    var fs = $(fieldsetId);
+    list.forEach(function (t) { var l = document.createElement('label'); l.className = 'pill'; l.innerHTML = '<input type="checkbox" value="' + esc(t) + '">' + esc(t); fs.appendChild(l); });
+  }
+  buildPills('w-roles', ROLES); buildPills('w-prov', PROVS);
+  function checked(fsId) { return Array.prototype.map.call($(fsId).querySelectorAll('input:checked'), function (i) { return i.value; }); }
+  function setChecked(fsId, vals) { $(fsId).querySelectorAll('input').forEach(function (i) { i.checked = vals.indexOf(i.value) >= 0; }); }
+
+  // ---- Stappen
+  var NAMES = ['Persoonlijk', 'Werkervaring', 'Projecten', 'Wat zoek je', 'Controleren'];
+  function go(n, focus) {
+    step = n;
+    [1, 2, 3, 4, 5].forEach(function (i) { $('p' + i).hidden = i !== n; });
+    document.querySelectorAll('#sp button').forEach(function (b) {
+      var i = Number(b.getAttribute('data-go'));
+      if (i === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      b.classList.toggle('is-done', i !== n && stepDone(i));
+    });
+    $('step-label').textContent = 'Stap ' + n + ' van 5: ' + NAMES[n - 1];
+    if (n === 5) renderReview();
+    if (n === 3) fillExpSelect();
+    if (focus !== false) { var h = $('h1-' + n); if (h) { h.focus({ preventScroll: true }); $('sp').scrollIntoView({ block: 'start' }); } }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]');
+    if (b) go(Number(b.getAttribute('data-go')));
+  });
+
+  // Controle per stap
+  function s1Errors() {
+    var e = {};
+    if (!val('f-first')) e.first = 'Vul je voornaam in.';
+    if (!val('f-last')) e.last = 'Vul je achternaam in.';
+    if (!val('f-title')) e.title = 'Vul je functietitel in, bijvoorbeeld Senior performance marketeer.';
+    var em = val('f-email');
+    if (!em) e.email = 'Vul je e-mailadres in, bijvoorbeeld naam@voorbeeld.nl.';
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) e.email = 'Dit e-mailadres klopt niet. Controleer of er een @ en een extensie in staan.';
+    if (!$('f-prov').value) e.prov = 'Kies de provincie waar je woont.';
+    return e;
+  }
+  var S1 = { first: 'f-first', last: 'f-last', title: 'f-title', email: 'f-email', prov: 'f-prov' };
+  function showS1(e) {
+    var first = null;
+    Object.keys(S1).forEach(function (k) {
+      var bad = setErr($(S1[k]), $('e-' + k), e[k] || '');
+      if (bad && !first) first = $(S1[k]);
+    });
+    return first;
+  }
+  Object.keys(S1).forEach(function (k) {
+    $(S1[k]).addEventListener('input', function () { if ($(S1[k]).getAttribute('aria-invalid')) setErr($(S1[k]), $('e-' + k), s1Errors()[k] || ''); });
+  });
+  function s4Errors() {
+    var e = {};
+    if (!checked('w-roles').length) e.roles = 'Kies minstens één soort werk.';
+    var m = Number($('w-min').value);
+    if (!$('w-min').value || m <= 0) e.min = 'Vul een minimum salaris in, bijvoorbeeld 4200.';
+    return e;
+  }
+  function stepDone(i) {
+    if (i === 1) return Object.keys(s1Errors()).length === 0;
+    if (i === 2) return S.exp.length > 0;
+    if (i === 3) return S.proj.length > 0;
+    if (i === 4) return Object.keys(s4Errors()).length === 0;
+    return false;
+  }
+  $('p1').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var f = showS1(s1Errors());
+    if (f) { f.focus(); return; }
+    go(2);
+  });
+  $('p4').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var e = s4Errors();
+    setErr(null, $('e-wroles'), e.roles || '');
+    setErr($('w-min'), $('e-wmin'), e.min || '');
+    if (e.roles) { $('w-roles').querySelector('input').focus(); return; }
+    if (e.min) { $('w-min').focus(); return; }
+    go(5);
+  });
+  $('w-min').addEventListener('input', function () { if ($('w-min').getAttribute('aria-invalid')) setErr($('w-min'), $('e-wmin'), s4Errors().min || ''); });
+  $('w-roles').addEventListener('change', function () { if (!$('e-wroles').hidden) setErr(null, $('e-wroles'), s4Errors().roles || ''); });
+  $('f-about').addEventListener('input', function () { $('c-about').textContent = $('f-about').value.length + ' van 400 tekens'; });
+
+  // ---- Werkervaring
+  function expTitle(x) { return esc(x.role) + (x.org && x.show ? ' bij ' + esc(x.org) : ''); }
+  function renderExp() {
+    var box = $('exp-list');
+    if (!S.exp.length) { box.innerHTML = '<p class="empty">Nog geen werkervaring. Voeg je laatste functie toe, dan begin je met het belangrijkste.</p>'; update(); return; }
+    box.innerHTML = '<ul class="items">' + S.exp.map(function (x, i) {
+      var per = monthLabel(x.from) + ' tot ' + (x.now ? 'nu' : monthLabel(x.to));
+      var m = monthsOf(x);
+      return '<li class="item"><div class="item-body"><h3>' + expTitle(x) + '</h3>' +
+        '<p>' + esc(x.kind) + ', ' + per + (m ? ' (' + spanText(m) + ')' : '') + '</p>' +
+        '<p>' + (x.show ? 'Bedrijven zien de naam van deze werkgever.' : 'Werkgever verborgen: ' + esc(x.org)) + '</p></div>' +
+        '<div class="item-actions">' +
+        '<button class="icon-btn" type="button" data-exp-up="' + x.id + '" aria-label="Verplaats omhoog: ' + esc(x.role) + '"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+        '<button class="icon-btn" type="button" data-exp-down="' + x.id + '" aria-label="Verplaats omlaag: ' + esc(x.role) + '"' + (i === S.exp.length - 1 ? ' disabled' : '') + '>↓</button>' +
+        '<button class="link-btn" type="button" data-exp-edit="' + x.id + '" aria-label="Wijzig ' + esc(x.role) + '">Wijzig</button>' +
+        '<button class="link-btn" type="button" data-exp-del="' + x.id + '" aria-label="Verwijder ' + esc(x.role) + '">Verwijder</button></div></li>';
+    }).join('') + '</ul>';
+    update();
+  }
+  function openExp(id) {
+    editExp = id;
+    var x = S.exp.filter(function (e) { return e.id === id; })[0] || { role: '', org: '', kind: 'Marketingbureau', show: false, from: '', to: '', now: false };
+    $('exp-ft').textContent = id ? 'Werkervaring wijzigen' : 'Werkervaring toevoegen';
+    $('x-role').value = x.role; $('x-org').value = x.org; $('x-kind').value = x.kind; $('x-show').checked = x.show;
+    $('x-from').value = x.from; $('x-to').value = x.to; $('x-now').checked = x.now; $('x-to').disabled = x.now;
+    ['e-xrole', 'e-xorg', 'e-xfrom', 'e-xto'].forEach(function (i) { $(i).hidden = true; });
+    ['x-role', 'x-org', 'x-from', 'x-to'].forEach(function (i) { $(i).removeAttribute('aria-invalid'); });
+    $('exp-form').hidden = false; $('exp-add').hidden = true;
+    $('x-role').focus(); $('exp-form').scrollIntoView({ block: 'center' });
+  }
+  function closeExp() { $('exp-form').hidden = true; $('exp-add').hidden = false; editExp = null; $('exp-add').focus(); }
+  $('exp-add').addEventListener('click', function () { openExp(null); });
+  $('exp-cancel').addEventListener('click', closeExp);
+  $('x-now').addEventListener('change', function () { $('x-to').disabled = $('x-now').checked; if ($('x-now').checked) setErr($('x-to'), $('e-xto'), ''); });
+  $('exp-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var bad = [];
+    function chk(input, err, msg) { if (setErr($('' + input), $(err), msg)) bad.push($(input)); }
+    chk('x-role', 'e-xrole', val('x-role') ? '' : 'Vul je functie in, bijvoorbeeld SEA-specialist.');
+    chk('x-org', 'e-xorg', val('x-org') ? '' : 'Vul de werkgever in. Bedrijven zien de naam niet, tenzij je die toont.');
+    chk('x-from', 'e-xfrom', validMonth($('x-from').value) ? '' : 'Vul de startmaand in als jjjj-mm, bijvoorbeeld 2022-03.');
+    var now = $('x-now').checked;
+    var toMsg = '';
+    if (!now) {
+      if (!validMonth($('x-to').value)) toMsg = 'Vul de eindmaand in als jjjj-mm, of vink “Ik werk hier nu” aan.';
+      else if (validMonth($('x-from').value) && monthIdx($('x-to').value) < monthIdx($('x-from').value)) toMsg = 'De eindmaand ligt voor de startmaand. Controleer de datums.';
+    }
+    chk('x-to', 'e-xto', toMsg);
+    if (bad.length) { bad[0].focus(); return; }
+    var data = { role: val('x-role'), org: val('x-org'), kind: $('x-kind').value, show: $('x-show').checked, from: $('x-from').value, to: now ? '' : $('x-to').value, now: now };
+    if (editExp) { S.exp = S.exp.map(function (e) { return e.id === editExp ? Object.assign({ id: editExp }, data) : e; }); }
+    else { data.id = 'e' + (++uid); S.exp.push(data); }
+    S.exp.sort(function (a, b) { return (b.now ? 9999999 : validMonth(b.to) ? monthIdx(b.to) : 0) - (a.now ? 9999999 : validMonth(a.to) ? monthIdx(a.to) : 0); });
+    $('exp-form').hidden = true; $('exp-add').hidden = false; editExp = null;
+    renderExp(); fillExpSelect();
+    $('exp-add').focus();
+  });
+  var lastDel = null;
+  $('p2').addEventListener('click', function (e) {
+    var t = e.target.closest('button'); if (!t) return;
+    var up = t.getAttribute('data-exp-up'), dn = t.getAttribute('data-exp-down'), ed = t.getAttribute('data-exp-edit'), dl = t.getAttribute('data-exp-del');
+    function idx(id) { return S.exp.map(function (x) { return x.id; }).indexOf(id); }
+    if (up || dn) {
+      var id = up || dn, i = idx(id), j = up ? i - 1 : i + 1;
+      var tmp = S.exp[i]; S.exp[i] = S.exp[j]; S.exp[j] = tmp;
+      renderExp();
+      var nb = document.querySelector('[data-exp-' + (up ? 'up' : 'down') + '="' + id + '"]');
+      (nb && !nb.disabled ? nb : document.querySelector('[data-exp-' + (up ? 'down' : 'up') + '="' + id + '"]')).focus();
+    } else if (ed) openExp(ed);
+    else if (dl) {
+      var i2 = idx(dl); lastDel = { item: S.exp[i2], at: i2, refs: S.proj.filter(function (p) { return p.expId === dl; }).map(function (p) { return p.id; }) };
+      S.exp.splice(i2, 1);
+      S.proj.forEach(function (p) { if (p.expId === dl) p.expId = ''; });
+      renderExp(); renderProj();
+      $('exp-undo').innerHTML = '<span>Werkervaring verwijderd.</span><button class="link-btn" type="button" id="exp-undo-btn">Ongedaan maken</button>';
+      $('exp-undo-btn').focus();
+      $('exp-undo-btn').addEventListener('click', function () {
+        S.exp.splice(lastDel.at, 0, lastDel.item);
+        S.proj.forEach(function (p) { if (lastDel.refs.indexOf(p.id) >= 0) p.expId = lastDel.item.id; });
+        $('exp-undo').innerHTML = ''; renderExp(); renderProj();
+        document.querySelector('[data-exp-edit="' + lastDel.item.id + '"]').focus();
+      });
+    }
+  });
+
+  // ---- Projecten
+  function fillExpSelect() {
+    var sel = $('y-exp'), cur = sel.value;
+    sel.innerHTML = '<option value="">Eigen project, naast mijn werk</option>' + S.exp.map(function (x) { return '<option value="' + x.id + '">' + esc(x.role) + ', ' + esc(x.kind) + '</option>'; }).join('');
+    sel.value = cur && S.exp.some(function (x) { return x.id === cur; }) ? cur : '';
+  }
+  function renderProj() {
+    var box = $('proj-list');
+    if (!S.proj.length) { box.innerHTML = '<p class="empty">Nog geen projecten. Een project met een cijfer erin valt het meest op, bijvoorbeeld “kosten per lead 40% lager”.</p>'; update(); return; }
+    box.innerHTML = '<ul class="items">' + S.proj.map(function (p, i) {
+      var ex = S.exp.filter(function (x) { return x.id === p.expId; })[0];
+      return '<li class="item"><div class="item-body"><h3>' + esc(p.title) + '</h3>' +
+        '<p>' + esc(p.role) + ', ' + (ex ? esc(ex.kind) : 'eigen project') + '</p>' +
+        '<p>' + p.res.map(function (r) { var d = delta(r); return esc(r.what) + ' ' + esc(r.from) + ' naar ' + esc(r.to) + (d ? ' <span class="delta">' + d + '</span>' : ''); }).join('<br>') + '</p>' +
+        (p.tools.length ? '<ul class="tags">' + p.tools.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') + '</div>' +
+        '<div class="item-actions">' +
+        '<button class="icon-btn" type="button" data-p-up="' + p.id + '" aria-label="Verplaats omhoog: ' + esc(p.title) + '"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+        '<button class="icon-btn" type="button" data-p-down="' + p.id + '" aria-label="Verplaats omlaag: ' + esc(p.title) + '"' + (i === S.proj.length - 1 ? ' disabled' : '') + '>↓</button>' +
+        '<button class="link-btn" type="button" data-p-edit="' + p.id + '" aria-label="Wijzig ' + esc(p.title) + '">Wijzig</button>' +
+        '<button class="link-btn" type="button" data-p-del="' + p.id + '" aria-label="Verwijder ' + esc(p.title) + '">Verwijder</button></div></li>';
+    }).join('') + '</ul>';
+    update();
+  }
+  function renderRes() {
+    $('res-list').innerHTML = formRes.map(function (r, i) {
+      var d = delta(r);
+      return '<div class="res" data-i="' + i + '">' +
+        '<div class="field f-what"><label for="r-what-' + i + '">Wat is verbeterd</label><input type="text" id="r-what-' + i + '" data-k="what" value="' + esc(r.what) + '" placeholder="Bijvoorbeeld kosten per lead"></div>' +
+        '<div class="field"><label for="r-from-' + i + '">Van</label><input type="text" inputmode="decimal" id="r-from-' + i + '" data-k="from" value="' + esc(r.from) + '"></div>' +
+        '<div class="field"><label for="r-to-' + i + '">Naar</label><input type="text" inputmode="decimal" id="r-to-' + i + '" data-k="to" value="' + esc(r.to) + '"></div>' +
+        '<div class="field"><label for="r-in-' + i + '">Binnen</label><input type="text" id="r-in-' + i + '" data-k="within" value="' + esc(r.within) + '" placeholder="5 maanden"></div>' +
+        '<div style="display:flex;align-items:center;gap:8px;min-height:52px">' + (d ? '<span class="delta" id="r-d-' + i + '">' + d + '</span>' : '<span class="delta" id="r-d-' + i + '" hidden></span>') +
+        '<button class="icon-btn" type="button" data-res-del="' + i + '" aria-label="Verwijder resultaat ' + (i + 1) + '">×</button></div></div>';
+    }).join('');
+    $('res-add').disabled = formRes.length >= 4;
+    $('res-hint').textContent = formRes.length >= 4 ? 'Je kunt vier resultaten per project invullen.' : '';
+  }
+  $('res-list').addEventListener('input', function (e) {
+    var row = e.target.closest('.res'); if (!row) return;
+    var i = Number(row.getAttribute('data-i'));
+    formRes[i][e.target.getAttribute('data-k')] = e.target.value;
+    var d = delta(formRes[i]), b = $('r-d-' + i);
+    b.hidden = !d; if (d) b.textContent = d;
+    if (!$('e-yres').hidden) setErr(null, $('e-yres'), '');
+  });
+  $('res-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-res-del]'); if (!b) return;
+    formRes.splice(Number(b.getAttribute('data-res-del')), 1);
+    if (!formRes.length) formRes.push({ what: '', from: '', to: '', within: '' });
+    renderRes(); $('res-add').focus();
+  });
+  $('res-add').addEventListener('click', function () { formRes.push({ what: '', from: '', to: '', within: '' }); renderRes(); $('r-what-' + (formRes.length - 1)).focus(); });
+  function renderTags() {
+    $('y-tags').innerHTML = formTools.map(function (t, i) { return '<span class="chip-x">' + esc(t) + '<button type="button" data-tool-del="' + i + '" aria-label="Verwijder tool ' + esc(t) + '">×</button></span>'; }).join('');
+    $('tool-suggest').innerHTML = formTools.length < 8 ? '<span>Snel toevoegen:</span>' + TOOLS.filter(function (t) { return formTools.indexOf(t) < 0; }).map(function (t) { return '<button type="button" data-tool="' + esc(t) + '">' + esc(t) + '</button>'; }).join('') : '';
+  }
+  function addTool(t) { t = t.trim(); if (!t || formTools.indexOf(t) >= 0 || formTools.length >= 8) return; formTools.push(t); renderTags(); }
+  $('tool-add').addEventListener('click', function () { addTool($('y-tool').value); $('y-tool').value = ''; $('y-tool').focus(); });
+  $('y-tool').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTool($('y-tool').value); $('y-tool').value = ''; } });
+  $('p3').addEventListener('click', function (e) {
+    var d = e.target.closest('[data-tool-del]'), a = e.target.closest('[data-tool]');
+    if (d) { formTools.splice(Number(d.getAttribute('data-tool-del')), 1); renderTags(); $('y-tool').focus(); }
+    if (a) { addTool(a.getAttribute('data-tool')); $('y-tool').focus(); }
+  });
+  $('y-what').addEventListener('input', function () { $('c-ywhat').textContent = $('y-what').value.length + ' van 300 tekens'; });
+  function openProj(id) {
+    editProj = id;
+    var p = S.proj.filter(function (x) { return x.id === id; })[0] || { title: '', client: '', expId: '', role: '', from: '', to: '', what: '', res: [{ what: '', from: '', to: '', within: '' }], tools: [], link: '' };
+    fillExpSelect();
+    $('proj-ft').textContent = id ? 'Project wijzigen' : 'Project toevoegen';
+    $('y-title').value = p.title; $('y-client').value = p.client; $('y-exp').value = p.expId; $('y-role').value = p.role;
+    $('y-from').value = p.from; $('y-to').value = p.to; $('y-what').value = p.what; $('c-ywhat').textContent = p.what.length + ' van 300 tekens';
+    $('y-link').value = p.link;
+    formRes = p.res.map(function (r) { return Object.assign({}, r); }); formTools = p.tools.slice();
+    renderRes(); renderTags();
+    ['e-ytitle', 'e-yrole', 'e-yres'].forEach(function (i) { $(i).hidden = true; });
+    ['y-title', 'y-role'].forEach(function (i) { $(i).removeAttribute('aria-invalid'); });
+    $('proj-form').hidden = false; $('proj-add').hidden = true;
+    $('y-title').focus(); $('proj-form').scrollIntoView({ block: 'center' });
+  }
+  $('proj-add').addEventListener('click', function () { openProj(null); });
+  $('proj-cancel').addEventListener('click', function () { $('proj-form').hidden = true; $('proj-add').hidden = false; editProj = null; $('proj-add').focus(); });
+  $('proj-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var bad = [];
+    if (setErr($('y-title'), $('e-ytitle'), val('y-title') ? '' : 'Geef het project een korte titel, zonder klantnaam.')) bad.push($('y-title'));
+    if (setErr($('y-role'), $('e-yrole'), val('y-role') ? '' : 'Vul in wat jouw rol was, bijvoorbeeld Campagneleider.')) bad.push($('y-role'));
+    var filled = formRes.filter(function (r) { return r.what.trim() || String(r.from).trim() || String(r.to).trim(); });
+    var resMsg = '';
+    if (!filled.length) resMsg = 'Voeg minstens één resultaat toe. Een cijfer maakt je profiel sterker.';
+    else if (filled.some(function (r) { return !r.what.trim() || !String(r.from).trim() || !String(r.to).trim(); })) resMsg = 'Vul bij elk resultaat in wat er verbeterde, en de waarde van en naar.';
+    if (setErr(null, $('e-yres'), resMsg)) { if (!bad.length) bad.push($('res-list').querySelector('input')); }
+    if (bad.length) { bad[0].focus(); return; }
+    var data = { title: val('y-title'), client: val('y-client'), expId: $('y-exp').value, role: val('y-role'), from: $('y-from').value, to: $('y-to').value, what: val('y-what'), res: filled.map(function (r) { return { what: r.what.trim(), from: String(r.from).trim(), to: String(r.to).trim(), within: r.within.trim() }; }), tools: formTools.slice(), link: val('y-link') };
+    if (editProj) S.proj = S.proj.map(function (p) { return p.id === editProj ? Object.assign({ id: editProj }, data) : p; });
+    else { data.id = 'p' + (++uid); S.proj.push(data); }
+    $('proj-form').hidden = true; $('proj-add').hidden = false; editProj = null;
+    renderProj(); $('proj-add').focus();
+  });
+  var lastProj = null;
+  $('p3').addEventListener('click', function (e) {
+    var t = e.target.closest('button'); if (!t) return;
+    var up = t.getAttribute('data-p-up'), dn = t.getAttribute('data-p-down'), ed = t.getAttribute('data-p-edit'), dl = t.getAttribute('data-p-del');
+    function idx(id) { return S.proj.map(function (x) { return x.id; }).indexOf(id); }
+    if (up || dn) {
+      var id = up || dn, i = idx(id), j = up ? i - 1 : i + 1, tmp = S.proj[i]; S.proj[i] = S.proj[j]; S.proj[j] = tmp;
+      renderProj();
+      var nb = document.querySelector('[data-p-' + (up ? 'up' : 'down') + '="' + id + '"]');
+      (nb && !nb.disabled ? nb : document.querySelector('[data-p-' + (up ? 'down' : 'up') + '="' + id + '"]')).focus();
+    } else if (ed) openProj(ed);
+    else if (dl) {
+      var i2 = idx(dl); lastProj = { item: S.proj[i2], at: i2 };
+      S.proj.splice(i2, 1); S.picks = S.picks.filter(function (k) { return k.indexOf(dl + ':') !== 0; });
+      renderProj();
+      $('proj-undo').innerHTML = '<span>Project verwijderd.</span><button class="link-btn" type="button" id="proj-undo-btn">Ongedaan maken</button>';
+      $('proj-undo-btn').focus();
+      $('proj-undo-btn').addEventListener('click', function () { S.proj.splice(lastProj.at, 0, lastProj.item); $('proj-undo').innerHTML = ''; renderProj(); document.querySelector('[data-p-edit="' + lastProj.item.id + '"]').focus(); });
+    }
+  });
+
+  // ---- Controleren
+  function allResults() { var out = []; S.proj.forEach(function (p) { p.res.forEach(function (r, i) { out.push({ key: p.id + ':' + i, p: p, r: r }); }); }); return out; }
+  function pct() {
+    var n = 0;
+    if (stepDone(1)) n += 25; if (stepDone(2)) n += 20; if (stepDone(3)) n += 30; if (stepDone(4)) n += 25;
+    return n;
+  }
+  function renderReview() {
+    var items = [[1, 'Persoonlijk'], [2, 'Werkervaring'], [3, 'Projecten met resultaat'], [4, 'Wat je zoekt']];
+    $('checklist').innerHTML = items.map(function (it) {
+      var ok = stepDone(it[0]);
+      return '<li class="' + (ok ? 'is-ok' : '') + '"><span class="ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span>' + it[1] + '<span class="visually-hidden">: ' + (ok ? 'af' : 'nog niet af') + '</span></span>' + (ok ? '<button class="link-btn" type="button" data-go="' + it[0] + '">Wijzig</button>' : '<button class="link-btn" type="button" data-go="' + it[0] + '">Aanvullen</button>') + '</li>';
+    }).join('');
+    var res = allResults();
+    S.picks = S.picks.filter(function (k) { return res.some(function (x) { return x.key === k; }); });
+    $('picks').innerHTML = res.length ? res.map(function (x) {
+      var d = delta(x.r), on = S.picks.indexOf(x.key) >= 0, dis = !on && S.picks.length >= 3;
+      return '<label class="check"><input type="checkbox" data-pick="' + x.key + '"' + (on ? ' checked' : '') + (dis ? ' disabled' : '') + '><span>' + esc(x.r.what) + ' ' + esc(x.r.from) + ' naar ' + esc(x.r.to) + (d ? ' <span class="delta">' + d + '</span>' : '') + '<br><span class="hint">' + esc(x.p.title) + '</span></span></label>';
+    }).join('') : '<p class="hint">Je hebt nog geen resultaten. Voeg een project toe bij stap 3.</p>';
+    var p = pct(); $('pct').textContent = p; $('pct-bar').style.width = p + '%';
+    renderBlocks(); update();
+  }
+  $('picks').addEventListener('change', function (e) {
+    var k = e.target.getAttribute('data-pick'); if (!k) return;
+    if (e.target.checked) S.picks.push(k); else S.picks = S.picks.filter(function (x) { return x !== k; });
+    $('picks').querySelectorAll('input').forEach(function (i) { i.disabled = !i.checked && S.picks.length >= 3; });
+    update();
+  });
+  function renderBlocks() {
+    $('b-tags').innerHTML = S.blocks.map(function (d, i) { return '<span class="chip-x">' + esc(d) + '<button type="button" data-b-del="' + i + '" aria-label="Verwijder ' + esc(d) + ' van de blokkeerlijst">×</button></span>'; }).join('');
+  }
+  function addBlock() {
+    var v = $('b-dom').value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+    var msg = '';
+    if (!v) msg = 'Vul een domein in, bijvoorbeeld bureauzuid.nl.';
+    else if (v.indexOf('@') >= 0) msg = 'Vul alleen het domein in, zonder naam en @. Dus bureauzuid.nl in plaats van naam@bureauzuid.nl.';
+    else if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(v)) msg = 'Dit ziet er niet uit als een domein. Gebruik bijvoorbeeld bureauzuid.nl.';
+    else if (S.blocks.indexOf(v) >= 0) msg = v + ' staat al op je blokkeerlijst.';
+    if (setErr($('b-dom'), $('e-bdom'), msg)) { $('b-dom').focus(); return; }
+    S.blocks.push(v); $('b-dom').value = ''; renderBlocks(); $('b-dom').focus();
+  }
+  $('b-add').addEventListener('click', addBlock);
+  $('b-dom').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addBlock(); } });
+  $('b-tags').addEventListener('click', function (e) { var b = e.target.closest('[data-b-del]'); if (!b) return; S.blocks.splice(Number(b.getAttribute('data-b-del')), 1); renderBlocks(); $('b-dom').focus(); });
+  $('publish').addEventListener('click', function () {
+    var miss = [];
+    if (!stepDone(1)) miss.push([1, 'Vul je persoonlijke gegevens aan']);
+    if (!stepDone(2)) miss.push([2, 'Voeg minstens één werkervaring toe']);
+    if (!stepDone(3)) miss.push([3, 'Voeg minstens één project met resultaat toe']);
+    if (!stepDone(4)) miss.push([4, 'Vul in wat je zoekt']);
+    var box = $('pub-err');
+    if (miss.length) {
+      box.innerHTML = '<strong>Je profiel is nog niet af.</strong><ul>' + miss.map(function (m) { return '<li><button class="link-btn" type="button" data-go="' + m[0] + '">' + m[1] + '</button></li>'; }).join('') + '</ul>';
+      box.hidden = false; return;
+    }
+    box.hidden = true;
+    S.published = true;
+    $('pub-text').textContent = 'Bedrijven kunnen je nu vinden. ' + (S.blocks.length ? S.blocks.join(' en ') + ' ' + (S.blocks.length === 1 ? 'staat' : 'staan') + ' op je blokkeerlijst en ' + (S.blocks.length === 1 ? 'ziet' : 'zien') + ' je nooit.' : 'Je hebt nog geen bedrijven geblokkeerd. Je kunt dat altijd nog doen.') + ' We sturen een e-mail naar ' + val('f-email') + ' bij een aanbod.';
+    $('p5-main').hidden = true; $('pub-ok').hidden = false; $('pub-ok').focus();
+  });
+  $('pdf-btn').addEventListener('click', function () { $('pdf-note').hidden = false; });
+  $('pub-edit').addEventListener('click', function () { $('pub-ok').hidden = true; $('p5-main').hidden = false; $('pdf-note').hidden = true; go(1); });
+
+  // ---- Voorbeeld
+  function topTools(n) {
+    var c = {};
+    S.proj.forEach(function (p) { p.tools.forEach(function (t) { c[t] = (c[t] || 0) + 1; }); });
+    return Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, n);
+  }
+  function resultsFor(n) {
+    var res = allResults();
+    var picked = S.picks.map(function (k) { return res.filter(function (x) { return x.key === k; })[0]; }).filter(Boolean);
+    return (picked.length ? picked : res.filter(function (x) { return delta(x.r); })).slice(0, n);
+  }
+  function bars(w) { return '<span class="bar-only" style="--w:' + w + 'ch" role="img" aria-label="Verborgen"></span>'; }
+  function update() {
+    document.querySelectorAll('#sp button').forEach(function (b) { var i = Number(b.getAttribute('data-go')); b.classList.toggle('is-done', i !== step && stepDone(i)); });
+    var bedrijf = pvMode === 'bedrijf';
+    var title = val('f-title'), prov = $('f-prov').value, min = Number($('w-min').value) || 0;
+    var months = S.exp.reduce(function (a, x) { return a + monthsOf(x); }, 0), yrs = Math.floor(months / 12);
+    var shown = bedrijf ? min : Math.floor(min / 500) * 500;
+    var sal = min ? '<div class="salary-row"><span class="salary">vanaf ' + eur(shown) + '</span><span class="salary-unit">per maand</span></div>' : '<p class="pv-note">Vul je minimum salaris in bij stap 4.</p>';
+    var res = resultsFor(bedrijf ? 3 : 1);
+    var tools = topTools(bedrijf ? 5 : 3);
+    var about = val('f-about');
+    var h = '<div class="card-top"><strong>K-2041</strong><span class="sample">' + (bedrijf ? 'Bedrijf kijkt mee' : 'Bezoeker kijkt mee') + '</span></div>' +
+      '<h3>' + (title ? esc(title) : '<span class="pv-muted">Je functietitel</span>') + '</h3>' + sal +
+      '<dl class="pfacts"><dt>Ervaring</dt><dd>' + (months ? (yrs ? yrs + ' jaar' : 'minder dan 1 jaar') : '<span class="pv-muted">nog niet ingevuld</span>') + '</dd>' +
+      '<dt>Regio</dt><dd>' + (prov ? esc(prov) + (bedrijf ? ', tot ' + ($('w-dist').value === '0' ? 'geen limiet' : $('w-dist').value + ' km') : '') : '<span class="pv-muted">nog niet ingevuld</span>') + '</dd>' +
+      (bedrijf ? '<dt>Uren</dt><dd>' + $('w-h1').value + ' tot ' + $('w-h2').value + ' per week</dd>' : '') +
+      '<dt>Naam</dt><dd>' + bars(13) + '</dd><dt>Werkgevers</dt><dd>' + bars(16) + '</dd>' + (bedrijf ? '<dt>Contact</dt><dd>' + bars(18) + '</dd>' : '') + '</dl>';
+    if (bedrijf && about) h += '<p class="pv-note">' + esc(about.length > 140 ? about.slice(0, 140) + '…' : about) + '</p>';
+    if (res.length) h += res.map(function (x) { var d = delta(x.r); return '<p class="pv-res"><strong>' + (d || esc(x.r.to)) + '</strong>' + esc(x.r.what) + ', ' + esc(x.r.from) + ' naar ' + esc(x.r.to) + '</p>'; }).join('');
+    else h += '<p class="pv-note">Zodra je een project met resultaat toevoegt, zien bedrijven dat hier.</p>';
+    if (tools.length) h += '<ul class="tags">' + tools.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+    if (bedrijf && S.exp.length) h += '<dl class="pfacts">' + S.exp.slice(0, 3).map(function (x) { return '<dt>' + esc(x.kind) + '</dt><dd>' + esc(x.role) + (x.show && x.org ? ', ' + esc(x.org) : '') + (x.show ? '' : ' ' + bars(8)) + '</dd>'; }).join('') + '</dl>';
+    $('pv').innerHTML = h;
+  }
+  document.querySelectorAll('[data-pv]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      pvMode = b.getAttribute('data-pv');
+      document.querySelectorAll('[data-pv]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      update();
+    });
+  });
+  ['f-title', 'f-prov', 'f-about', 'w-min', 'w-h1', 'w-h2', 'w-dist'].forEach(function (id) { $(id).addEventListener('input', update); $(id).addEventListener('change', update); });
+  var mq = window.matchMedia ? matchMedia('(max-width: 960px)') : null;
+  function syncDetails() { if (mq) $('pv-details').open = !mq.matches; }
+  syncDetails(); if (mq && mq.addEventListener) mq.addEventListener('change', syncDetails);
+
+  // ---- Start
+  function demo() {
+    $('f-first').value = 'Sanne'; $('f-last').value = 'de Vries'; $('f-title').value = 'Senior performance marketeer';
+    $('f-email').value = 'sanne@voorbeeld.nl'; $('f-phone').value = '06 12345678'; $('f-prov').value = 'Utrecht';
+    $('f-li').value = 'https://www.linkedin.com/in/voorbeeld';
+    $('f-about').value = 'Ik haal meer uit advertentiebudget voor webshops en B2B-bedrijven. Ik werk het liefst met data, korte lijnen en een vaste testcyclus.';
+    $('c-about').textContent = $('f-about').value.length + ' van 400 tekens';
+    S.exp = [
+      { id: 'e1', role: 'Senior SEA-specialist', org: 'Bureau Zuid', kind: 'Marketingbureau', show: false, from: '2022-03', to: '', now: true },
+      { id: 'e2', role: 'SEA-specialist', org: 'Webshop Noord', kind: 'Webshop', show: false, from: '2019-06', to: '2022-02', now: false },
+      { id: 'e3', role: 'Junior marketeer', org: 'Delta Software', kind: 'B2B-software', show: false, from: '2018-01', to: '2019-05', now: false }
+    ];
+    S.proj = [{ id: 'p1', title: 'Webshop-groei met Google Ads', client: 'Webshop Noord', expId: 'e2', role: 'Campagneleider', from: '2020-01', to: '2020-06', what: '', res: [{ what: 'Rendement op advertentie-uitgaven', from: '3,1', to: '4,6', within: '5 maanden' }], tools: ['Google Ads', 'GA4', 'Merchant Center'], link: '' }];
+    setChecked('w-roles', ['SEA', 'CRO']); $('w-min').value = '4200'; $('w-h1').value = '32'; $('w-h2').value = '40';
+    setChecked('w-place', ['Hybride']); setChecked('w-prov', ['Utrecht', 'Gelderland']); $('w-dist').value = '30';
+    uid = 10; renderExp(); renderProj();
+  }
+  function begin(msg, withDemo, at) {
+    $('start').hidden = true; $('builder').hidden = false;
+    if (withDemo) demo(); else { renderExp(); renderProj(); }
+    if (msg) { $('start-msg').textContent = msg; $('start-msg').hidden = false; }
+    update(); go(at || 1, false);
+    window.scrollTo(0, 0);
+    $('h1-' + (at || 1)).focus({ preventScroll: true });
+  }
+  $('start-zelf').addEventListener('click', function () { begin('', false); });
+  [['file-cv', 'cv'], ['file-li', 'LinkedIn-profiel']].forEach(function (x) {
+    $(x[0]).addEventListener('change', function () {
+      var f = $(x[0]).files[0]; if (!f) return;
+      begin('We hebben “' + f.name + '” ontvangen. In dit ontwerp vullen we voorbeeldgegevens in. Op de echte site komen hier de gegevens uit je ' + x[1] + ' te staan. Controleer alles voor je verdergaat.', true);
+    });
+  });
+  if (location.hash === '#projecten' || location.hash === '#project-toevoegen') {
+    begin('Dit is het profiel van Sanne, met voorbeeldgegevens.', true, 3);
+    openProj(null);
+  } else renderExp(), renderProj();
+  update();
+})();
+</script>
+</body>
+</html>
