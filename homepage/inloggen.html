@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Inloggen of account maken · deedni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/deedni.css">
+<link rel="stylesheet" href="assets/menu.css">
+<style>
+.auth { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .auth { grid-template-columns: 1fr; } }
+.auth h1 { font-size: clamp(2.5rem, 1.6rem + 3vw, 3.5rem); }
+.auth .card { display: flex; flex-direction: column; gap: 18px; }
+.rolkeuze { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rolkeuze label { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 16px; border: 2px solid var(--line-strong); border-radius: 12px; font-weight: 650; cursor: pointer; }
+.rolkeuze label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.rolkeuze input { width: 20px; height: 20px; accent-color: var(--accent); }
+.check { display: flex; gap: 10px; align-items: flex-start; }
+.check input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+</style>
+</head>
+<body>
+<div data-menu data-rol="bezoeker" data-pagina="inloggen"></div>
+<script src="assets/menu.js"></script>
+
+<main id="inhoud" class="wrap page">
+  <div class="auth">
+    <form class="card" id="login" novalidate>
+      <h1>Inloggen</h1>
+      <fieldset class="stack-s"><legend>Ik log in als</legend>
+        <div class="rolkeuze">
+          <label><input type="radio" name="rol" value="kandidaat" checked>Marketeer</label>
+          <label><input type="radio" name="rol" value="werkgever">Werkgever</label>
+        </div>
+      </fieldset>
+      <div class="field"><label for="l-mail">E-mailadres</label><input id="l-mail" type="email" autocomplete="email" value="sanne@voorbeeld.nl"></div>
+      <div class="field"><label for="l-ww">Wachtwoord</label><input id="l-ww" type="password" autocomplete="current-password" value="voorbeeld123"></div>
+      <div class="row"><button class="btn btn--primary" type="submit">Inloggen</button><a href="#">Wachtwoord vergeten?</a></div>
+      <p class="fine">Dit is een ontwerp. Inloggen brengt je naar het overzicht van de rol die je kiest.</p>
+    </form>
+
+    <form class="card" id="aanmelden" novalidate>
+      <h2>Account maken</h2>
+      <fieldset class="stack-s"><legend>Ik ben</legend>
+        <div class="rolkeuze">
+          <label><input type="radio" name="nrol" value="kandidaat" checked>Marketeer</label>
+          <label><input type="radio" name="nrol" value="werkgever">Werkgever</label>
+        </div>
+      </fieldset>
+      <div class="field"><label for="a-naam" id="a-naam-lbl">Je voornaam</label><input id="a-naam" autocomplete="given-name" required><span class="hint" id="a-naam-hint">Bedrijven zien je naam pas als jij ja zegt.</span></div>
+      <div class="field"><label for="a-mail">E-mailadres</label><input id="a-mail" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="a-ww">Wachtwoord</label><input id="a-ww" type="password" autocomplete="new-password" minlength="8" required><span class="hint">Minstens 8 tekens.</span></div>
+      <label class="check"><input type="checkbox" required>Ik ga akkoord met de privacyverklaring.</label>
+      <div><button class="btn btn--primary" type="submit">Account maken</button></div>
+      <p class="fine">Gratis voor marketeers. Bedrijven betalen alleen bij een aanname.</p>
+    </form>
+  </div>
+</main>
+
+<div data-voet data-rol="bezoeker"></div>
+<script src="assets/deedni.js"></script>
+<script>
+(function () {
+  var doel = { kandidaat: 'kandidaat-overzicht.html', werkgever: 'werkgever-overzicht.html' };
+  document.getElementById('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    location.href = doel[this.querySelector('[name="rol"]:checked').value];
+  });
+  var af = document.getElementById('aanmelden');
+  af.addEventListener('change', function (e) {
+    if (e.target.name !== 'nrol') return;
+    var wg = e.target.value === 'werkgever';
+    document.getElementById('a-naam-lbl').textContent = wg ? 'Bedrijfsnaam' : 'Je voornaam';
+    document.getElementById('a-naam-hint').textContent = wg ? 'Gebruik je zakelijke e-mailadres. We controleren elk bedrijf.' : 'Bedrijven zien je naam pas als jij ja zegt.';
+  });
+  af.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!af.reportValidity()) return;
+    location.href = af.querySelector('[name="nrol"]:checked').value === 'werkgever' ? 'werkgever-overzicht.html#bedrijfsprofiel' : 'mijn-profiel.html#persoonlijk';
+  });
+  if (location.hash === '#aanmelden') setTimeout(function () { document.getElementById('a-naam').focus(); }, 50);
+})();
+</script>
+</body>
+</html>

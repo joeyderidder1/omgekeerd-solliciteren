@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Kandidaat K-2041 · deedni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/deedni.css">
+<link rel="stylesheet" href="assets/menu.css">
+<style>
+.topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.view-note { padding: 12px 16px; border-radius: 12px; background: var(--bg-alt); font-size: .9375rem; }
+body.is-shared .view-note { background: var(--accent-soft); }
+.hero-k { display: flex; flex-direction: column; gap: 16px; padding-bottom: 28px; border-bottom: 2px solid var(--ink); }
+.hero-k h1 { font-size: clamp(2.5rem, 1.4rem + 4vw, 4rem); }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 640px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.facts dt { color: var(--muted); font-size: .9375rem; }
+.facts dd { font-weight: 700; font-size: 1.125rem; }
+.blok { display: flex; flex-direction: column; gap: 16px; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.job { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 8px 24px; padding-block: 14px; }
+@media (max-width: 640px) { .job { grid-template-columns: 1fr; } }
+.job .when { color: var(--muted); font-weight: 600; }
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.case .big { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.case .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 12px; font-size: .9375rem; }
+.case .kv dt { color: var(--muted); }
+.v-shared { display: none; }
+body.is-shared .v-shared { display: revert; }
+body.is-shared .v-pub { display: none; }
+.v-shared { color: var(--accent); font-weight: 650; }
+a.v-shared { display: none; }
+body.is-shared a.v-shared { display: inline-flex; }
+.side-card { display: flex; flex-direction: column; gap: 16px; }
+.side-card .salaris { font-size: 1.5rem; }
+.share-list h3 { font-size: 1rem; margin-top: 4px; }
+.share-list li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: .9375rem; }
+.share-list svg { flex: none; margin-top: 3px; }
+.contact-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
+.contact-kv dt { color: var(--muted); }
+</style>
+</head>
+<body>
+<div data-menu data-rol="werkgever" data-pagina="zoeken"></div>
+<script src="assets/menu.js"></script>
+
+<main id="inhoud" class="wrap page" style="gap:24px">
+  <div class="topbar">
+    <a class="crumb" href="kandidaten-zoeken.html">← Terug naar resultaten</a>
+    <div class="seg" role="group" aria-label="Weergave van dit profiel">
+      <button type="button" aria-pressed="true" data-view="pub">Zo ziet iedereen het</button>
+      <button type="button" aria-pressed="false" data-view="shared">Na jouw aanbod en een ja</button>
+    </div>
+  </div>
+  <p class="view-note" role="status">
+    <span class="v-pub">Publieke weergave. Dit zien bedrijven en bezoekers. De zwarte balken zijn namen die verborgen blijven.</span>
+    <span class="v-shared" style="color:inherit;font-weight:400">Na een ja. De kandidaat heeft jouw aanbod geaccepteerd. Wat eerst verborgen was, is nu zichtbaar voor jouw bedrijf, in blauw.</span>
+  </p>
+
+  <div class="split">
+    <article>
+      <section class="hero-k" aria-labelledby="h-k">
+        <div class="row"><strong>K-2041</strong><span class="tag tag--ok">Actief op zoek</span><span class="fine">Bevestigd deze week</span></div>
+        <h1 id="h-k">Senior performance marketeer</h1>
+        <p class="row">Naam <span class="redact redact--l v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Sanne de Wit</span></p>
+        <dl class="facts">
+          <div><dt>Ervaring</dt><dd>7 jaar</dd></div>
+          <div><dt>Regio</dt><dd>Utrecht + 30 km</dd></div>
+          <div><dt>Werkplek</dt><dd>Hybride of remote</dd></div>
+          <div><dt>Opzegtermijn</dt><dd>1 maand</dd></div>
+        </dl>
+      </section>
+
+      <section class="blok" aria-labelledby="h-over">
+        <h2 id="h-over">Over mij</h2>
+        <p style="max-width:40em">Ik help webwinkels groeien met betaald zoeken en social. Ik werk graag met cijfers, praat helder met klanten en wil de komende jaren een klein team leiden. Het liefst bij een bureau of in-house team met eigen accounts.</p>
+        <div class="tools"><span class="tool">Google Ads</span><span class="tool">Meta Ads</span><span class="tool">GA4</span><span class="tool">Merchant Center</span><span class="tool">Looker Studio</span><span class="tool">Tag Manager</span></div>
+      </section>
+
+      <section class="blok" aria-labelledby="h-werk">
+        <div class="between"><h2 id="h-werk">Werkervaring</h2><span class="fine">3 functies</span></div>
+        <div class="job"><span class="when">2022 tot nu</span><div class="stack-s"><span class="fine">Werkgever <span class="redact v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Studio Noord Digital</span></span><strong>Senior performance marketeer</strong><span class="fine">Bureau voor webwinkels</span><p>Beheer van 14 accounts met samen €1,2 miljoen advertentiebudget per jaar. Coach van twee medewerkers. Verantwoordelijk voor rapportage aan klanten.</p></div></div>
+        <div class="job"><span class="when">2019 tot 2022</span><div class="stack-s"><span class="fine">Werkgever <span class="redact v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Huisraad Online</span></span><strong>Performance marketeer</strong><span class="fine">Online retailer in woonartikelen</span><p>Alle betaalde kanalen voor een webshop met 40.000 bestellingen per jaar. Nieuwe feedstructuur en bidstrategie opgezet.</p></div></div>
+        <div class="job"><span class="when">2018 tot 2019</span><div class="stack-s"><span class="fine">Werkgever <span class="redact v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Bureau Vlam</span></span><strong>Marketing medewerker</strong><span class="fine">Reclamebureau</span><p>Campagnes ingericht en gerapporteerd voor midden- en kleinbedrijf.</p></div></div>
+      </section>
+
+      <section class="blok" aria-labelledby="h-cases">
+        <div class="between"><h2 id="h-cases">Cases</h2><span class="fine">Resultaten zijn altijd zichtbaar</span></div>
+        <div class="cases">
+          <div class="card case stack-s" style="gap:12px"><div class="big">3,1 → 5,4</div><p>Rendement op advertentie-uitgaven in zes maanden</p>
+            <dl class="kv"><dt>Branche</dt><dd>Webwinkel in woonartikelen</dd><dt>Project</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Actie Tuinseizoen</span></dd><dt>Klant</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Huisraad Online</span></dd></dl>
+            <a class="v-shared" href="#">Bekijk het werk</a></div>
+          <div class="card case stack-s" style="gap:12px"><div class="big">−38%</div><p>Kosten per aanvraag na drie maanden</p>
+            <dl class="kv"><dt>Branche</dt><dd>Aanbieder van energieadvies</dd><dt>Project</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Zonnepanelen 2025</span></dd><dt>Klant</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Zonvast Energie</span></dd></dl>
+            <a class="v-shared" href="#">Bekijk het werk</a></div>
+          <div class="card case stack-s" style="gap:12px"><div class="big">+120%</div><p>Omzet uit Shopping-advertenties in een jaar</p>
+            <dl class="kv"><dt>Branche</dt><dd>Sportmerk, webshop</dd><dt>Project</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Feedmigratie</span></dd><dt>Klant</dt><dd><span class="redact redact--s v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Run &amp; Co</span></dd></dl>
+            <a class="v-shared" href="#">Bekijk het werk</a></div>
+        </div>
+      </section>
+
+      <section class="blok" aria-labelledby="h-opl">
+        <h2 id="h-opl">Opleiding en certificaten</h2>
+        <ul class="stack-s"><li>HBO Commerciële economie · afgerond 2018</li><li>Google Ads Search en Shopping · 2024</li></ul>
+      </section>
+
+      <section class="blok" aria-labelledby="h-contact" style="border-bottom:0">
+        <div class="between"><h2 id="h-contact">Contactgegevens</h2><span class="tag tag--ink">Alleen na ja</span></div>
+        <dl class="contact-kv">
+          <dt>Naam</dt><dd><span class="redact v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Sanne de Wit</span></dd>
+          <dt>E-mail</dt><dd><span class="redact redact--l v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">sanne.dewit@mail.nl</span></dd>
+          <dt>Telefoon</dt><dd><span class="redact v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">06 12 34 56 78</span></dd>
+          <dt>LinkedIn</dt><dd><span class="redact redact--l v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">linkedin.com/in/sannedewit</span></dd>
+        </dl>
+      </section>
+    </article>
+
+    <aside class="sticky-side stack">
+      <div class="card side-card">
+        <div><div class="fine">Salarisindicatie van de kandidaat</div><span class="salaris">€4.000–4.800</span> <span class="fine">per maand, bruto</span></div>
+        <p class="fine">Jij biedt een eigen bedrag, daarna beslist de kandidaat.</p>
+        <button type="button" class="btn btn--primary" data-open="aanbod-sturen" data-voor="K-2041">Aanbod sturen</button>
+        <button type="button" class="btn btn--ghost" aria-pressed="false" id="bewaar">Bewaren</button>
+      </div>
+      <div class="card share-list">
+        <h3>Wat deel je na een ja</h3>
+        <p class="fine" style="margin:8px 0 4px">Nu al zichtbaar</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Functie, ervaring, regio en werkplek</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tools, opleiding en certificaten</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Resultaten van de cases</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Werkervaring zonder werkgever</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Salarisindicatie, afgerond</li>
+        </ul>
+        <p class="fine" style="margin:12px 0 4px">Pas na een ja</p>
+        <ul>
+          <li><span class="redact" style="width:16px;margin-top:3px" aria-hidden="true"></span>Voor- en achternaam</li>
+          <li><span class="redact" style="width:16px;margin-top:3px" aria-hidden="true"></span>Namen van werkgevers</li>
+          <li><span class="redact" style="width:16px;margin-top:3px" aria-hidden="true"></span>Projectnamen en klanten</li>
+          <li><span class="redact" style="width:16px;margin-top:3px" aria-hidden="true"></span>Links naar werk</li>
+          <li><span class="redact" style="width:16px;margin-top:3px" aria-hidden="true"></span>E-mail, telefoon en LinkedIn</li>
+        </ul>
+      </div>
+      <p class="fine">Voorbeeld met fictieve gegevens.</p>
+    </aside>
+  </div>
+</main>
+
+<!-- Pop-up: aanbod sturen -->
+<dialog class="modal" id="aanbod-sturen" aria-labelledby="as-kop">
+  <form data-verstuur>
+    <div class="modal-head">
+      <div class="stack-s">
+        <h2 id="as-kop">Aanbod sturen aan <span data-voor-naam>K-2041</span></h2>
+        <p class="fine">Senior performance marketeer · 7 jaar · Utrecht en omgeving</p>
+      </div>
+      <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label for="as-functie">Functie</label><input id="as-functie" value="Senior performance marketeer" required></div>
+      <fieldset>
+        <legend>Salaris per maand <span class="tag tag--ink who-sees">Verplicht</span></legend>
+        <div class="fields" style="margin-top:8px">
+          <div class="field"><label for="as-van">Van</label><div class="euro"><input id="as-van" inputmode="numeric" value="4.200" required></div></div>
+          <div class="field"><label for="as-tot">Tot</label><div class="euro"><input id="as-tot" inputmode="numeric" value="4.800" required></div></div>
+        </div>
+        <p class="fine" style="margin-top:6px">Bruto, bij 40 uur. Zonder salaris gaat een aanbod niet de deur uit.</p>
+      </fieldset>
+      <div class="fields">
+        <div class="field"><label for="as-uren">Uren per week</label><input id="as-uren" value="36 tot 40"></div>
+        <div class="field"><label for="as-contract">Contract</label><select id="as-contract"><option>Vast, na 6 maanden proef</option><option>Jaarcontract</option><option>Freelance</option></select></div>
+      </div>
+      <fieldset class="stack-s">
+        <legend>Werkplek</legend>
+        <div class="chips" data-een>
+          <button type="button" class="chip" aria-pressed="false">Op kantoor</button>
+          <button type="button" class="chip" aria-pressed="true">Hybride</button>
+          <button type="button" class="chip" aria-pressed="false">Remote</button>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="as-bericht">Persoonlijk bericht</label>
+        <textarea id="as-bericht" required aria-describedby="as-tip">Je cases in e-commerce sluiten precies aan op onze klanten. Je krijgt bij ons eigen accounts en ruimte om een team op te bouwen.</textarea>
+        <span class="hint" id="as-tip">Schrijf waarom dit profiel past. Dat wordt vaker beantwoord dan een standaardtekst.</span>
+      </div>
+      <p class="note">De kandidaat ziet je bedrijfsnaam, het salaris en je bericht. Jij ziet de naam pas als de kandidaat ja zegt.</p>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="link-btn" data-close>Bewaar voor later</button>
+      <div class="push">
+        <button type="button" class="btn btn--ghost" data-close>Annuleren</button>
+        <button type="submit" class="btn btn--primary">Verstuur aanbod</button>
+      </div>
+    </div>
+  </form>
+  <div class="modal-done" data-klaar hidden>
+    <span class="ok-dot" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <h2>Aanbod verstuurd</h2>
+    <p><span data-voor-naam>K-2041</span> ziet je aanbod nu in de inbox. Je vindt het terug onder Verstuurd op je overzicht. Zodra er een antwoord is, krijg je een melding.</p>
+    <div class="row"><a class="btn btn--primary" href="werkgever-overzicht.html">Naar overzicht</a><button type="button" class="btn btn--ghost" data-close>Sluiten</button></div>
+  </div>
+</dialog>
+
+<div data-voet data-rol="werkgever"></div>
+<script src="assets/deedni.js"></script>
+<script>
+(function () {
+  var knoppen = document.querySelectorAll('[data-view]');
+  function zet(v) {
+    document.body.classList.toggle('is-shared', v === 'shared');
+    knoppen.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === v)); });
+  }
+  knoppen.forEach(function (b) { b.addEventListener('click', function () { zet(b.getAttribute('data-view')); }); });
+  if (location.hash === '#gedeeld') zet('shared');
+  var bw = document.getElementById('bewaar');
+  bw.addEventListener('click', function () {
+    var aan = bw.getAttribute('aria-pressed') !== 'true';
+    bw.setAttribute('aria-pressed', String(aan)); bw.textContent = aan ? 'Bewaard' : 'Bewaren';
+  });
+})();
+</script>
+</body>
+</html>
