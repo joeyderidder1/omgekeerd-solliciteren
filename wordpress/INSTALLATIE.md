@@ -1,135 +1,112 @@
-# deedni in WordPress: installatie
+# deedni in WordPress: installatie en aanpassen
 
-Je krijgt twee onderdelen:
+Je krijgt twee zip-bestanden:
 
-- **deedni-core.zip**: de plugin. Hierin zitten de custom post types, de rollen, de ACF-velden, het zoeken voor werkgevers, aanbiedingen en e-mails.
-- **deedni-thema.zip**: het thema. Het is gebaseerd op het homepage-ontwerp en geeft alle pagina's dezelfde stijl.
+- **deedni-core.zip** is de plugin. Die regelt alles wat "doet": rollen, inloggen en account maken, profielen, zoeken, het matchpercentage, aanbiedingen, "Ja, maar", resultaten en e-mails. Ook alle blokken waarmee je de pagina's opbouwt zitten hierin.
+- **deedni-thema.zip** is het thema. Het zorgt voor de vormgeving: kleuren, lettertype, de kop met menu en de voet.
+
+Je hebt **geen betaalde plugins** nodig. ACF is ook niet meer nodig.
 
 ## Wat je nodig hebt
 
-- WordPress 6.3 of nieuwer, met PHP 8.0 of nieuwer.
-- **ACF Pro** (6.x). De pagina-blokken gebruiken flexible content, clones, repeaters en een optiepagina, en die zitten alleen in Pro. Heb je geen Pro, dan werkt de gratis plugin **Secure Custom Fields** ook: die heeft dezelfde functies.
-- Een SMTP-plugin zoals WP Mail SMTP, zodat de e-mails echt aankomen.
+- WordPress 6.6 of nieuwer.
+- PHP 8.0 of nieuwer.
+- Een gratis SMTP-plugin, bijvoorbeeld *WP Mail SMTP*. Zonder zo'n plugin komen e-mails vaak niet aan.
 
-## Installeren in 6 stappen
+## Installeren (nieuwe site)
 
-1. Installeer en activeer **ACF Pro** (of *Secure Custom Fields* via Plugins > Nieuwe plugin).
-2. Ga naar **Plugins > Nieuwe plugin > Plugin uploaden**, kies `deedni-core.zip` en activeer de plugin.
-   De plugin maakt dan automatisch vijf pagina's aan:
+1. Ga naar **Plugins > Nieuwe plugin > Plugin uploaden**. Kies `deedni-core.zip` en klik op *Activeren*.
+   De plugin maakt dan deze pagina's aan: Inloggen, Account maken, Overzicht, Mijn profiel en Kandidaten zoeken.
+2. Ga naar **Weergave > Thema's > Nieuw thema > Thema uploaden**. Kies `deedni-thema.zip` en klik op *Activeren*.
+   Het thema zet dan de menu's klaar en vult de homepage met alle secties uit het ontwerp.
+   Het thema zet de pagina *Home* ook meteen als homepage (dat zie je bij **Instellingen > Lezen**).
+3. Ga naar **Instellingen > Permalinks**, kies *Berichtnaam* en klik op *Opslaan*.
+4. Ga naar **Instellingen > deedni** en kijk de instellingen na (zie hieronder).
 
-   | Pagina | Adres | Shortcode |
-   |---|---|---|
-   | Aanmelden | /aanmelden | `[deedni_registreren]` |
-   | Inloggen | /inloggen | `[deedni_inloggen]` |
-   | Mijn deedni (overzicht) | /mijn-deedni | `[deedni_dashboard]` |
-   | Mijn profiel | /mijn-profiel | `[deedni_profiel]` |
-   | Kandidaten zoeken | /kandidaten | `[deedni_zoeken]` |
+**Via FTP?** Pak de zips uit. Zet de map `deedni-core` in `wp-content/plugins/` en de map `deedni` in `wp-content/themes/`. Activeer ze daarna in wp-admin.
 
-3. Ga naar **Weergave > Thema's > Nieuw thema > Thema uploaden**, kies `deedni-thema.zip` en activeer het thema.
-4. Ga naar **Instellingen > Permalinks** en kies *Berichtnaam*. Klik op Opslaan, ook als die optie al aan stond.
-5. Ga naar **Instellingen > Algemeen** en zet de taal van de site op *Nederlands*. Datums en de teksten van ACF worden dan ook Nederlands.
-**Via FTP?** Pak de zips uit en zet de map `deedni-core` in `wp-content/plugins/` en de map `deedni` in `wp-content/themes/`. Activeer ze daarna in wp-admin. Bestaan de mappen al, overschrijf ze dan; je ingevulde blokken staan in de database en blijven bewaard.
+## Overstappen vanaf de oude versie (v1 met ACF)
 
-6. Maak onder **Instellingen > Privacy** een privacyverklaring. Het aanmeldformulier linkt daar automatisch naar.
+Doe dit eerst op een testkopie van de site, of maak een volledige back-up.
+
+1. Upload de nieuwe `deedni-core.zip` en kies *Vervangen door geüploade versie*.
+2. Upload de nieuwe `deedni-thema.zip` en kies ook *Vervangen*.
+3. Ga naar **Instellingen > deedni** en klik op *Ontbrekende pagina's aanmaken* en *Ontbrekende menu's aanmaken*. Bestaande pagina's die alleen een oude shortcode hadden, worden automatisch omgezet naar de nieuwe blokken.
+4. Klik daar ook op *Homepage opnieuw vullen*. Je oude homepage wordt dan vervangen door de nieuwe homepage met alle secties. De oude versie blijft bewaard als revisie.
+5. Werkt alles, dan kun je ACF uitzetten.
+
+Wat blijft er bewaard: gebruikers, rollen, kandidaatprofielen, bedrijven en aanbiedingen met hun status. De oude shortcodes blijven ook werken. De blokken die je in de oude versie met ACF had ingevuld, komen niet vanzelf over. Die vul je opnieuw in met de nieuwe blokken.
+
+## Pagina's aanpassen
+
+Elke pagina bestaat uit **blokken**. Elk deel van het ontwerp is een eigen blok, bijvoorbeeld "Homepage: hero", "Homepage: prijzen", "Overzicht (aanbiedingen)" of "Kandidaten zoeken".
+
+1. Ga naar **Pagina's** en open de pagina, bijvoorbeeld *Home*.
+2. Klik op een blok. Rechts verschijnen alle velden van dat blok: teksten, knoppen met links, afbeeldingen en lijstjes (zoals de vragen of de prijzen).
+3. Pas aan wat je wilt. Je ziet het blok meteen veranderen.
+4. Klik op *Bijwerken*.
+
+Handig om te weten:
+
+- **Volgorde veranderen** doe je met de pijltjes boven een blok, of door te slepen.
+- **Een blok weghalen** kan via de drie puntjes boven het blok. Je kunt het later weer toevoegen via de **+**.
+- **Wie ziet deze sectie?** Per blok kies je of iedereen het ziet, of alleen bezoekers, marketeers of werkgevers.
+- **Achtergrond** kies je per blok (standaard, zacht, accentkleur of donker).
+- **Voorbeeld in de editor bekijken als**: veel blokken tonen iets anders voor een bezoeker, een marketeer of een werkgever. Met dit veld zie je in de editor hoe het blok eruitziet voor elke rol. Op de site zelf ziet iedereen gewoon zijn eigen versie.
+- Je kunt ook gewone WordPress-blokken (tekst, afbeelding, knoppen) tussen de deedni-blokken zetten.
+- Kandidaatprofielen gebruiken het blok *Kandidaatprofiel*. Dat pas je aan via **Weergave > Editor > Templates**, bij het template voor één kandidaat.
+
+## Menu's aanpassen
+
+Ga naar **Weergave > Menu's**. Er is een menu per rol:
+
+| Menu | Wie ziet het |
+|---|---|
+| Menu bezoeker | Iedereen die niet is ingelogd |
+| Menu marketeer | Ingelogde marketeers |
+| Menu werkgever | Ingelogde werkgevers |
+| Accountmenu marketeer | Het menuutje onder de initialen van een marketeer |
+| Accountmenu werkgever | Het menuutje onder de initialen van een werkgever |
+| Links onderaan | De voet van elke pagina |
+
+De knoppen in de kop (zoals "Inloggen" en "Account maken") en de teksten in de voet pas je aan door in een pagina op de kop of de voet te klikken. Je kunt ook gaan naar **Weergave > Editor > Patronen**, onder *Template-onderdelen*: *Kop met menu* en *Voet*.
+
+## Kleuren en lettertype
+
+Ga naar **Weergave > Editor > Stijlen** (het halve-maan-icoon). Onder *Kleuren* staan alle kleuren van deedni, zoals Achtergrond, Inkt (tekst), Accent (oranje) en Nacht (de donkere vlakken). Verander je een kleur, dan verandert die op de hele site.
+
+## Instellingen > deedni
+
+- **Pagina's**: welke pagina het inloggen, het overzicht, het profiel en het zoeken toont.
+- **Werkgevers eerst goedkeuren**: staat aan. Een nieuwe werkgever kan pas zoeken als jij het account goedkeurt. Dat doe je bij **Gebruikers**, met de link *Goedkeuren*.
+- **Reactietermijn**: hoeveel dagen een marketeer heeft om op een aanbod te reageren.
+- **Wie keek mee**: laat marketeers zien hoe vaak hun profiel is bekeken. Dit is optioneel.
+- **Standaard opnieuw klaarzetten**: knoppen om ontbrekende pagina's of menu's opnieuw aan te maken. Bestaande pagina's worden niet overschreven. De knop *Homepage opnieuw vullen* zet de homepage wel terug naar de standaardteksten.
 
 ## Hoe het werkt
 
 **Rollen**
-- *Kandidaat*: een marketeer. Heeft één anoniem profiel en ontvangt aanbiedingen.
-- *Werkgever*: een bedrijf. Heeft een bedrijfsprofiel en kan zoeken en aanbiedingen sturen.
+- *Marketeer* (kandidaat): heeft één anoniem profiel en krijgt aanbiedingen.
+- *Werkgever*: heeft een bedrijfsprofiel, zoekt kandidaten en stuurt aanbiedingen.
 
-Beide rollen komen nooit in wp-admin. Alles gaat via de pagina's op de site.
-
-**Custom post types**
-- *Kandidaten* (`kandidaat`): het anonieme profiel. Bedrijven zien een code zoals K-1010, nooit een naam.
-- *Bedrijven* (`bedrijf`): bedrijfsnaam, plaats, website, KvK-nummer, omschrijving en logo.
-- *Aanbiedingen* (`aanbod`): functie, salaris van en tot, uren, werkplek, bericht en status. De status is *wacht op reactie*, *geaccepteerd*, *afgewezen* of *aangenomen*.
-
-**Taxonomieën** (voor de filters): *Specialismen*, *Tools en vaardigheden* en *Provincies*. Bij activeren worden ze gevuld met de specialismen uit het ontwerp, 21 tools en de 12 provincies. Je kunt ze aanvullen in wp-admin onder Kandidaten.
+Beide rollen komen niet in wp-admin. Alles gaat via de pagina's op de site.
 
 **De flow**
-1. Een marketeer meldt zich aan en vult het profiel in. Dat is een ACF-formulier met twee tabbladen: het anonieme deel en het deel *Pas zichtbaar na jouw ja* (naam, telefoon, LinkedIn, huidige werkgever en cv).
-2. Een werkgever meldt zich aan. Jij krijgt een mail en keurt het account goed bij **Gebruikers** (link *Goedkeuren* in de kolom deedni). Wil je dat niet, zet het dan uit onder **Instellingen > deedni**.
-3. De werkgever zoekt en filtert op zoekwoord, specialisme, provincie, werkplek, ervaring, beschikbaarheid, salariswens, tools en *alleen actief op zoek*. Daarna stuurt de werkgever een aanbod met salaris. Een salaris is verplicht.
-4. De kandidaat krijgt een mail en kiest *Interesse* of *Nee, bedankt*.
-5. Bij een ja ziet de werkgever naam, e-mail, telefoon, LinkedIn, huidige werkgever en het cv. Het cv gaat via een beveiligde downloadlink. De werkgever kan daarna *Kandidaat aangenomen* melden, en jij krijgt een mail om te factureren.
+1. Een marketeer maakt een account en vult het profiel in vijf stappen in. Daarna zet de marketeer het profiel online.
+2. Een werkgever maakt een account en vult het bedrijfsprofiel in, ook "Wie je zoekt". Jij keurt het account goed.
+3. De werkgever ziet matches met een matchpercentage, of zoekt zelf met filters. De werkgever bewaart kandidaten en stuurt een aanbod met salaris.
+4. De marketeer kiest *Ja*, *Ja, maar* (met een tegenvoorstel) of *Nee*. Bij *Ja, maar* kan de werkgever akkoord gaan, een nieuw voorstel doen of stoppen.
+5. Na een ja ziet de werkgever naam en contactgegevens. Daarna kan de werkgever melden dat de kandidaat is aangenomen. Jij krijgt dan een mail.
 
 **Privacy**
-- Kandidaatprofielen staan niet in de REST API, de zoekfunctie van WordPress of de sitemap. Ze hebben ook een noindex-tag.
-- Alleen goedgekeurde werkgevers, beheerders en de kandidaat zelf kunnen een profiel openen.
-- Een kandidaat kan e-maildomeinen blokkeren, bijvoorbeeld van de huidige werkgever. Werkgevers met dat domein vinden het profiel niet en kunnen het ook niet openen.
-- Er zijn geen velden voor leeftijd, geslacht of foto.
+- Werkgevers zien een code (zoals K-1010) en geen naam, tot de marketeer ja zegt.
+- Kandidaatprofielen staan niet in de zoekfunctie van WordPress, de REST API of de sitemap.
+- Een marketeer kan bedrijven blokkeren. Die vinden het profiel dan niet.
 
-## ACF-velden aanpassen
+## Wat niet getest is
 
-De veldgroepen staan als ACF JSON in `deedni-core/acf-json/` en laden automatisch. Je ziet ze onder **ACF > Veldgroepen** met de optie *Synchroniseren*.
+Alles is getest in een lokale WordPress 6.6 met alle rollen: account maken, profiel invullen, zoeken, bewaren, een aanbod sturen, "Ja, maar", akkoord, ja en aangenomen. Wat nog niet getest is:
 
-- Wil je velden aanpassen, synchroniseer dan eerst. Daarna bewaart ACF je wijzigingen in de database, of in de map `acf-json` van je thema als die bestaat.
-- Laat de **veldnamen** van deze velden staan: `functietitel`, `profiel_zichtbaar`, `salaris_min`, `ervaring_jaren`, `werkvorm`, `beschikbaarheid`, `zoekstatus`, `voornaam`, `achternaam`, `cv`, `bedrijfsnaam`, `plaats` en de velden van het aanbod. Het zoeken en de privacyregels gebruiken die namen.
-- Nieuwe velden toevoegen kan zonder problemen. Ze komen vanzelf in het profielformulier. Wil je ze ook op het profiel laten zien, pas dan het template aan (zie hieronder).
-
-## Pagina's opbouwen met blokken
-
-Elke sectie op een pagina is een ACF-blok, ook op de homepage. Je bouwt een pagina op met **Nieuwe rij** en sleept rijen in de volgorde die je wilt. De WordPress-editor is voor pagina's uitgezet, alles gaat via de velden.
-
-**Veldgroepen** (staan als ACF JSON in `deedni/acf-json/` van het thema, zie ACF > Veldgroepen > *Synchroniseren*):
-
-| Veldgroep | Waar |
-|---|---|
-| Template: Default pagina | Alle pagina's behalve de homepage. Tabblad *Banner* (boventitel, titel, tekst, 2 buttons, afbeelding, USP's aan/uit) en tabblad *Blokken*. |
-| Template: Homepage | De pagina die als homepage is ingesteld. Alleen blokken, de hero is zelf een blok. |
-| Blokken | De flexible content met alle blokken. Inactief, wordt in beide templates gecloned. |
-| Block: … (12 stuks) | Eén groep per blok, inactief, gecloned in *Blokken*. Pas je een blok aan, dan verandert het overal. |
-| Stijl | Optiepagina *Thema-instellingen*, accordion *Kleuren* (zie hieronder). |
-| Thema-instellingen | Zelfde optiepagina: de USP's in de banner en de footertekst. |
-
-**De blokken**: Hero (met keuze marketeer/werkgever en voorbeeldkaart), Chips, Stappen, Kolommen, Vergelijking, Prijzen (met rekenvoorbeeld), FAQ, Aanmelden, Content, Afbeelding + content, Call to action en **Onderdeel**. Elk blok heeft een tabblad *Instellingen* met achtergrond (standaard of wit) en een anker, zodat menu-links als `/#prijzen` werken.
-
-**Homepage**: bij het activeren van het thema maakt het thema een pagina *Home* aan, zet die als homepage en vult hem met alle secties uit het ontwerp. Is de homepage leeg, dan zie je in wp-admin een knop *Homepage vullen met de standaardblokken*.
-
-**Pagina's van de plugin** (aanmelden, inloggen, mijn deedni, profiel, kandidaten): zolang je daar geen blokken toevoegt, toont het thema gewoon de shortcode. Wil je er blokken omheen, voeg dan het blok *Onderdeel* toe en kies welk formulier of overzicht erin moet.
-
-**Nieuw blok maken**: maak een veldgroep *Block: Naam* (inactief), voeg in *Blokken* een layout toe met een clone (naadloos) van die groep, en maak een bestand `template-parts/blocks/naam.php` in het thema. De layoutnaam bepaalt de bestandsnaam (underscores worden streepjes).
-
-**Kleuren** stel je in bij **Thema-instellingen > Stijl > Kleuren**:
-
-- *Primair* (kleur + tekst): accentkleur van knoppen, gekleurde woorden in titels, labels en de voorbeeldkaart.
-- *Secundair*: achtergrond van de pagina en de gewone tekstkleur. Lijnen en grijze teksten worden daar automatisch van afgeleid.
-- *Tertiair*: donkere vlakken en donkere knoppen.
-- *Licht*: witte vlakken zoals kaarten en formulieren.
-- *Rood*: foutmeldingen. *Groen*: meldingen dat iets gelukt is en de vinkjes op donkere vlakken.
-- *Donkere modus*: aan = bezoekers met donkere modus zien een donkere versie, waarin alleen de primaire kleur meegaat. Uit = iedereen ziet precies jouw kleuren.
-
-Het thema zet de kleuren om in CSS-variabelen. Is een kleur te licht om als tekst leesbaar te zijn (bijvoorbeeld geel op lichtgrijs), dan maakt het thema hem voor tekst iets donkerder. Knoppen en vlakken houden de kleur die je kiest.
-
-In teksten van titels kun je `*woord*` gebruiken voor de accentkleur en `**woord**` voor vet.
-
-## Templates aanpassen
-
-Alle HTML van de plugin staat in `deedni-core/templates/`. Wil je iets anders, kopieer het bestand dan naar een map `deedni/` in je thema en pas het daar aan. Een update van de plugin overschrijft je wijziging dan niet.
-Voorbeeld: `wp-content/themes/deedni/deedni/kandidaat-kaart.php`.
-
-Menu's kun je instellen onder **Weergave > Menu's** (Hoofdmenu en Footer). Zonder menu toont het thema de links uit het ontwerp.
-
-## Getest
-
-Getest op WordPress 6.8.3 met PHP 8.3. De blokken zijn getest met Secure Custom Fields (ACF Pro kon ik hier niet installeren); het formaat van de velden is gelijk aan ACF Pro. De rest is getest met ACF 6.8, op desktop en mobiel. Deze flow werkt van begin tot eind:
-
-- aanmelden met foutmeldingen en profiel invullen, inclusief tools, provincie en cv-upload
-- een werkgever die op goedkeuring wacht, wordt goedgekeurd en daarna zoekt en filtert
-- een aanbod versturen, met controle op ontbrekende velden
-- de kandidaat accepteert
-- de werkgever ziet contactgegevens, downloadt het cv en meldt de aanname
-
-Een geblokkeerde werkgever vindt het profiel niet en krijgt geen toegang tot het profiel of het cv.
-
-## Nog niet ingebouwd
-
-Deze onderdelen kun je later toevoegen:
-
-- **Betalen.** De prijzen op de homepage (€195 per contact, abonnement of 10% bij aanname) zijn nog niet gekoppeld. Een aanname wordt wel geregistreerd en jij krijgt een mail.
-- **Limieten per abonnement.** Bijvoorbeeld maximaal 5 open aanbiedingen.
-- **Meer gebruikers per bedrijf**, en gedeelde shortlists.
-- **Chat** tussen bedrijf en kandidaat. Nu verloopt het contact na een ja via e-mail of telefoon.
-- **Account verwijderen door de gebruiker zelf.** Voor de AVG kan dat nu via wp-admin, bij Gebruikers.
-- **Cv-bestanden** staan in de gewone uploads-map. De link op de site is beveiligd, maar wie het exacte adres van het bestand kent, kan het openen. Wil je dat helemaal dichtzetten, blokkeer dan de uploads-map voor .pdf/.doc in je serverconfiguratie, of vraag je hostingpartij om hulp.
+- **De blok-editor zelf**, dus het klikken op blokken en het rechterpaneel. De testomgeving kon de editor niet laden. Alle blokken zijn wel los getest en geven geen fouten. Probeer het eerst op een testkopie.
+- **E-mails**. Er was geen mailserver. Test dit na het installeren van de SMTP-plugin.
+- **Overstappen met de echte gegevens** van joey-ridder.nl. Doe dit eerst op een kopie.

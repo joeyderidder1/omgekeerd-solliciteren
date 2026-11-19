@@ -17,7 +17,8 @@ deedni is een platform waar bedrijven zelf hun nieuwe medewerkers kiezen. Kandid
   - `images/`: de foto's die de pagina's gebruiken.
 - **wordpress/**: de echte website, gebouwd voor WordPress.
   - `thema/deedni/`: het WordPress-thema (de vormgeving).
-  - `plugin/deedni-core/`: de WordPress-plugin (profielen, zoeken, aanbiedingen en e-mails).
+  - `plugin/deedni-core/`: de WordPress-plugin (rollen, inloggen, profielen, zoeken, matchpercentage, aanbiedingen, e-mails en alle bewerkbare blokken).
+  - `deedni-core.zip` en `deedni-thema.zip`: dezelfde twee onderdelen, klaar om te uploaden in WordPress.
   - `INSTALLATIE.md`: stap voor stap uitleg om het thema en de plugin te installeren.
 
 ## Live voorbeeld
@@ -31,4 +32,4 @@ Elke wijziging die op de branch `main` komt, staat daar binnen een paar minuten.
 
 ## Installeren in WordPress
 
-WordPress wil het thema en de plugin elk als zip-bestand. Pak daarvoor de map `wordpress/thema/deedni` in als `deedni.zip` en de map `wordpress/plugin/deedni-core` als `deedni-core.zip`, of zet de mappen via FTP direct in `wp-content/themes/` en `wp-content/plugins/`. De rest staat in `wordpress/INSTALLATIE.md`.
+Upload `wordpress/deedni-core.zip` bij Plugins en `wordpress/deedni-thema.zip` bij Thema's. Je hebt geen betaalde plugins nodig. De stappen en uitleg over het aanpassen van pagina's staan in `wordpress/INSTALLATIE.md`.

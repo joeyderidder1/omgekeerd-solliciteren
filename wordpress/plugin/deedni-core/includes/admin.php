@@ -1,6 +1,7 @@
 <?php
 /**
- * Beheer: instellingen, werkgevers goedkeuren en extra kolommen in de overzichten.
+ * Beheer: Instellingen > deedni, werkgevers goedkeuren, extra kolommen en een leesbaar overzicht
+ * van profielen en aanbiedingen in wp-admin.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,45 +18,62 @@ add_action(
 add_action(
 	'admin_init',
 	function () {
-		register_setting(
-			'deedni',
-			'deedni_pages',
-			array(
-				'type'              => 'array',
-				'sanitize_callback' => function ( $value ) {
-					return array_map( 'absint', (array) $value );
-				},
-			)
-		);
-		register_setting(
-			'deedni',
-			'deedni_werkgever_goedkeuring',
-			array(
-				'type'              => 'integer',
-				'default'           => 1,
-				'sanitize_callback' => function ( $value ) {
-					return $value ? 1 : 0;
-				},
-			)
-		);
+		$int = function ( $min, $max ) {
+			return function ( $v ) use ( $min, $max ) {
+				return max( $min, min( $max, absint( $v ) ) );
+			};
+		};
+		$bool = function ( $v ) {
+			return $v ? 1 : 0;
+		};
+		register_setting( 'deedni', 'deedni_pages', array( 'type' => 'array', 'sanitize_callback' => function ( $v ) { return array_map( 'absint', (array) $v ); } ) );
+		register_setting( 'deedni', 'deedni_werkgever_goedkeuring', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
+		register_setting( 'deedni', 'deedni_wie_keek_mee', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
+		register_setting( 'deedni', 'deedni_reactietermijn', array( 'type' => 'integer', 'default' => 5, 'sanitize_callback' => $int( 1, 60 ) ) );
+		register_setting( 'deedni', 'deedni_actueel_dagen', array( 'type' => 'integer', 'default' => 0, 'sanitize_callback' => $int( 0, 365 ) ) );
+	}
+);
+
+/** Knoppen "standaard opnieuw klaarzetten". */
+add_action(
+	'admin_post_deedni_herstel',
+	function () {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Geen toegang.' );
+		}
+		check_admin_referer( 'deedni_herstel' );
+		$wat = isset( $_POST['wat'] ) ? sanitize_key( wp_unslash( $_POST['wat'] ) ) : '';
+		if ( 'paginas' === $wat ) {
+			deedni_create_pages();
+		} elseif ( 'menus' === $wat ) {
+			deedni_installeer_menus( true );
+		} elseif ( 'home' === $wat ) {
+			deedni_installeer_homepage( true );
+		}
+		wp_safe_redirect( admin_url( 'options-general.php?page=deedni&deedni_hersteld=' . $wat ) );
+		exit;
 	}
 );
 
 function deedni_settings_page() {
 	$labels = array(
-		'registreren' => 'Aanmelden',
 		'inloggen'    => 'Inloggen',
-		'dashboard'   => 'Overzicht (dashboard)',
-		'profiel'     => 'Profiel bewerken',
+		'registreren' => 'Account maken',
+		'dashboard'   => 'Overzicht',
+		'profiel'     => 'Mijn profiel',
 		'zoeken'      => 'Kandidaten zoeken',
 	);
 	?>
 	<div class="wrap">
 		<h1>deedni</h1>
+		<?php if ( ! empty( $_GET['deedni_hersteld'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+			<div class="notice notice-success is-dismissible"><p>Klaar.</p></div>
+		<?php endif; ?>
+		<p>Teksten, afbeeldingen en blokken pas je aan op de pagina zelf (Pagina's &gt; bewerken). Menu's onder Weergave &gt; Menu's. Kleuren en lettertypes onder Weergave &gt; Editor &gt; Stijlen.</p>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'deedni' ); ?>
 			<h2>Pagina's</h2>
-			<p>De plugin heeft deze pagina's bij activeren aangemaakt. Je kunt ze hernoemen of een andere pagina kiezen; zet dan wel de shortcode op die pagina.</p>
+			<p>Deze pagina's maakte de plugin aan. Kies je een andere pagina, zet daar dan het bijbehorende deedni-blok op.</p>
 			<table class="form-table" role="presentation">
 				<?php foreach ( $labels as $key => $label ) : ?>
 					<tr>
@@ -64,7 +82,7 @@ function deedni_settings_page() {
 							<?php
 							wp_dropdown_pages(
 								array(
-									'name'              => 'deedni_pages[' . $key . ']',
+									'name'              => 'deedni_pages[' . esc_attr( $key ) . ']',
 									'id'                => 'deedni-page-' . $key,
 									'selected'          => deedni_page_id( $key ),
 									'show_option_none'  => '— Kies een pagina —',
@@ -72,7 +90,6 @@ function deedni_settings_page() {
 								)
 							);
 							?>
-							<code>[deedni_<?php echo esc_html( $key ); ?>]</code>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -81,15 +98,48 @@ function deedni_settings_page() {
 			<table class="form-table" role="presentation">
 				<tr>
 					<th scope="row">Goedkeuring</th>
-					<td>
-						<label><input type="checkbox" name="deedni_werkgever_goedkeuring" value="1" <?php checked( get_option( 'deedni_werkgever_goedkeuring', 1 ) ); ?>>
-						Nieuwe werkgevers pas laten zoeken nadat ik ze heb goedgekeurd</label>
-						<p class="description">Je keurt een werkgever goed bij Gebruikers. Aanbevolen, zodat alleen echte bedrijven profielen zien.</p>
-					</td>
+					<td><label><input type="checkbox" name="deedni_werkgever_goedkeuring" value="1" <?php checked( get_option( 'deedni_werkgever_goedkeuring', 1 ) ); ?>> Nieuwe werkgevers pas laten zoeken nadat ik ze heb goedgekeurd</label>
+					<p class="description">Je keurt een werkgever goed bij Gebruikers. Aanbevolen, zodat alleen echte bedrijven profielen zien.</p></td>
+				</tr>
+			</table>
+			<h2>Marketeers</h2>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="deedni-termijn">Reageren binnen</label></th>
+					<td><input id="deedni-termijn" type="number" min="1" max="60" name="deedni_reactietermijn" value="<?php echo (int) get_option( 'deedni_reactietermijn', 5 ); ?>" class="small-text"> dagen
+					<p class="description">Staat bij elk aanbod: "Reageer binnen 5 dagen".</p></td>
+				</tr>
+				<tr>
+					<th scope="row">Wie keek mee</th>
+					<td><label><input type="checkbox" name="deedni_wie_keek_mee" value="1" <?php checked( get_option( 'deedni_wie_keek_mee', 1 ) ); ?>> Marketeers zien welke soort bedrijven hun profiel bekeken (zonder bedrijfsnaam)</label></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="deedni-actueel">Alleen actuele profielen</label></th>
+					<td><input id="deedni-actueel" type="number" min="0" max="365" name="deedni_actueel_dagen" value="<?php echo (int) get_option( 'deedni_actueel_dagen', 0 ); ?>" class="small-text"> dagen
+					<p class="description">Profielen die langer dan zoveel dagen niet zijn bevestigd, verdwijnen uit de zoekresultaten. 0 = altijd tonen.</p></td>
 				</tr>
 			</table>
 			<?php submit_button(); ?>
 		</form>
+
+		<h2>Standaard opnieuw klaarzetten</h2>
+		<p>Handig als je iets kwijt bent. Bestaande pagina's en menu-items blijven staan, tenzij hieronder anders staat.</p>
+		<?php
+		foreach (
+			array(
+				'paginas' => array( 'Ontbrekende pagina\'s aanmaken', 'Maakt alleen pagina\'s aan die er niet (meer) zijn.' ),
+				'menus'   => array( 'Ontbrekende menu\'s aanmaken', 'Maakt de menu\'s per rol aan als ze er niet zijn en koppelt ze aan hun plek.' ),
+				'home'    => array( 'Homepage opnieuw vullen', 'Let op: zet alle homepage-blokken terug met de standaardteksten. De oude versie blijft als revisie bewaard.' ),
+			) as $wat => $tekst
+		) :
+			?>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin:0 0 12px">
+				<input type="hidden" name="action" value="deedni_herstel"><input type="hidden" name="wat" value="<?php echo esc_attr( $wat ); ?>">
+				<?php wp_nonce_field( 'deedni_herstel' ); ?>
+				<button type="submit" class="button"<?php echo 'home' === $wat ? ' onclick="return confirm(\'Homepage terugzetten naar de standaard?\')"' : ''; ?>><?php echo esc_html( $tekst[0] ); ?></button>
+				<span class="description"><?php echo esc_html( $tekst[1] ); ?></span>
+			</form>
+		<?php endforeach; ?>
 	</div>
 	<?php
 }
@@ -111,7 +161,7 @@ function deedni_user_profile_fields( $user ) {
 	if ( ! deedni_is_werkgever( $user ) || ! current_user_can( 'edit_users' ) ) {
 		return;
 	}
-	$profile = deedni_profile_id( $user->ID );
+	$profile = deedni_profile_id( $user->ID, 'bedrijf' );
 	?>
 	<h2>deedni</h2>
 	<table class="form-table" role="presentation">
@@ -153,8 +203,8 @@ add_filter(
 			return $output;
 		}
 		if ( deedni_is_kandidaat( $user_id ) ) {
-			$id = deedni_profile_id( $user_id );
-			return $id ? '<a href="' . esc_url( get_edit_post_link( $id ) ) . '">' . esc_html( deedni_code( $id ) ) . '</a>' : 'Kandidaat';
+			$id = deedni_profile_id( $user_id, 'kandidaat' );
+			return $id ? '<a href="' . esc_url( get_edit_post_link( $id ) ) . '">Marketeer ' . esc_html( deedni_code( $id ) ) . '</a>' : 'Marketeer';
 		}
 		if ( deedni_is_werkgever( $user_id ) ) {
 			if ( get_user_meta( $user_id, 'deedni_goedgekeurd', true ) || ! get_option( 'deedni_werkgever_goedkeuring', 1 ) ) {
@@ -189,8 +239,13 @@ add_action(
 	'admin_notices',
 	function () {
 		$screen = get_current_screen();
-		if ( $screen && 'users' === $screen->id && ! empty( $_GET['deedni_goedgekeurd'] ) ) {
+		if ( $screen && 'users' === $screen->id && ! empty( $_GET['deedni_goedgekeurd'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			echo '<div class="notice notice-success is-dismissible"><p>Werkgever goedgekeurd. Er is een mail verstuurd.</p></div>';
+		}
+		if ( ! wp_is_block_theme() || ( 'deedni' !== get_template() ) ) {
+			if ( current_user_can( 'switch_themes' ) && $screen && in_array( $screen->id, array( 'dashboard', 'plugins', 'themes' ), true ) ) {
+				echo '<div class="notice notice-warning"><p>deedni Core werkt het best met het thema <strong>deedni</strong> (versie 2). Activeer het onder Weergave &gt; Thema\'s.</p></div>';
+			}
 		}
 	}
 );
@@ -215,20 +270,19 @@ add_filter(
 add_action(
 	'manage_aanbod_posts_custom_column',
 	function ( $column, $post_id ) {
+		$o = deedni_aanbod( $post_id );
 		switch ( $column ) {
 			case 'kandidaat':
-				$id = (int) deedni_field( $post_id, 'kandidaat' );
-				echo $id ? '<a href="' . esc_url( get_edit_post_link( $id ) ) . '">' . esc_html( deedni_code( $id ) ) . '</a>' : '–';
+				echo $o['kandidaat_id'] ? '<a href="' . esc_url( get_edit_post_link( $o['kandidaat_id'] ) ) . '">' . esc_html( deedni_code( $o['kandidaat_id'] ) ) . '</a>' : '–';
 				break;
 			case 'bedrijf':
-				$id = (int) deedni_field( $post_id, 'bedrijf' );
-				echo $id ? esc_html( get_the_title( $id ) ) : '–';
+				echo $o['bedrijf_id'] ? esc_html( get_the_title( $o['bedrijf_id'] ) ) : '–';
 				break;
 			case 'salaris':
-				echo esc_html( deedni_euro( deedni_field( $post_id, 'salaris_min' ) ) . '–' . deedni_number( deedni_field( $post_id, 'salaris_max' ) ) );
+				echo esc_html( deedni_euro( $o['salaris_min'] ) . '–' . deedni_number( $o['salaris_max'] ) );
 				break;
 			case 'status':
-				echo esc_html( deedni_label( 'aanbod_status', deedni_field( $post_id, 'status' ) ) );
+				echo esc_html( deedni_label( 'aanbod_status', $o['status'] ) . ( $o['ronde'] > 1 ? ' (ronde ' . $o['ronde'] . ')' : '' ) );
 				break;
 		}
 	},
@@ -246,7 +300,8 @@ add_filter(
 			}
 			$new[ $key ] = $label;
 			if ( 'title' === $key ) {
-				$new['zichtbaar'] = 'Zichtbaar';
+				$new['zichtbaar'] = 'Online';
+				$new['compleet']  = 'Compleet';
 			}
 		}
 		return $new;
@@ -260,9 +315,112 @@ add_action(
 			echo esc_html( deedni_code( $post_id ) );
 		}
 		if ( 'zichtbaar' === $column ) {
-			echo deedni_field( $post_id, 'profiel_zichtbaar' ) && deedni_profile_complete( $post_id ) ? 'Ja' : 'Nee';
+			echo deedni_field( $post_id, 'profiel_zichtbaar' ) ? 'Ja' : 'Nee';
+		}
+		if ( 'compleet' === $column ) {
+			$c = deedni_compleet( deedni_kandidaat( $post_id ) );
+			echo (int) $c['procent'] . '%';
 		}
 	},
 	10,
 	2
 );
+
+/* ---------- Leesbaar overzicht in wp-admin ---------- */
+
+add_action(
+	'add_meta_boxes',
+	function () {
+		add_meta_box( 'deedni-kandidaat', 'Profiel (zoals de marketeer het invulde)', 'deedni_metabox_kandidaat', 'kandidaat', 'normal', 'high' );
+		add_meta_box( 'deedni-bedrijf', 'Bedrijfsprofiel', 'deedni_metabox_bedrijf', 'bedrijf', 'normal', 'high' );
+		add_meta_box( 'deedni-aanbod', 'Aanbod', 'deedni_metabox_aanbod', 'aanbod', 'normal', 'high' );
+	}
+);
+
+/** Tabel met label en waarde. */
+function deedni_admin_tabel( $rijen ) {
+	echo '<table class="widefat striped"><tbody>';
+	foreach ( $rijen as $label => $waarde ) {
+		if ( is_array( $waarde ) ) {
+			$waarde = implode( ', ', array_filter( array_map( 'strval', $waarde ) ) );
+		}
+		echo '<tr><th style="width:200px">' . esc_html( $label ) . '</th><td>' . ( '' === (string) $waarde ? '<span style="color:#888">–</span>' : nl2br( esc_html( $waarde ) ) ) . '</td></tr>';
+	}
+	echo '</tbody></table>';
+}
+
+function deedni_metabox_kandidaat( $post ) {
+	$k = deedni_kandidaat( $post->ID );
+	echo '<p>Marketeers passen hun profiel zelf aan op de site. Hier zie je wat er is ingevuld. <a href="' . esc_url( get_permalink( $post ) ) . '">Bekijk het profiel op de site</a>.</p>';
+	deedni_admin_tabel(
+		array(
+			'Code'            => $k['code'],
+			'Online'          => $k['zichtbaar'] ? 'Ja' : 'Nee',
+			'Naam'            => deedni_naam( $k ),
+			'E-mail'          => $k['email'],
+			'Telefoon'        => $k['telefoon'],
+			'Functietitel'    => $k['functietitel'],
+			'Specialisme'     => $k['specialisme'],
+			'Ervaring'        => $k['ervaring_jaren'] ? $k['ervaring_jaren'] . ' jaar' : '',
+			'Regio'           => deedni_regio_tekst( $k ),
+			'Werkplek'        => deedni_werkplek_tekst( $k['werkplekken'] ),
+			'Salaris vanaf'   => $k['salaris_min'] ? deedni_euro( $k['salaris_min'] ) : '',
+			'Uren'            => $k['uren'],
+			'Beschikbaar'     => deedni_label( 'beschikbaarheid', $k['beschikbaarheid'] ),
+			'Tools'           => $k['tools'],
+			'Over mij'        => $k['samenvatting'],
+			'Werkervaring'    => array_map( function ( $w ) { return trim( ( $w['functie'] ?? '' ) . ' bij ' . ( $w['werkgever'] ?? '' ) . ' ' . ( $w['periode'] ?? '' ) ); }, $k['werkervaring'] ),
+			'Projecten'       => wp_list_pluck( $k['projecten'], 'titel' ),
+			'Blokkeerlijst'   => $k['blokkeerlijst'],
+			'Laatst bevestigd' => $k['bevestigd_op'] ? wp_date( 'j F Y', $k['bevestigd_op'] ) : '',
+		)
+	);
+}
+
+function deedni_metabox_bedrijf( $post ) {
+	$b = deedni_bedrijf( $post->ID );
+	$u = $b['user_id'] ? get_userdata( $b['user_id'] ) : null;
+	if ( $u ) {
+		echo '<p>Account: <a href="' . esc_url( get_edit_user_link( $u->ID ) ) . '">' . esc_html( $u->user_email ) . '</a> · ' . ( deedni_werkgever_goedgekeurd( $u ) ? 'goedgekeurd' : '<strong>wacht op goedkeuring</strong> (keur goed bij Gebruikers)' ) . '</p>';
+	}
+	deedni_admin_tabel(
+		array(
+			'Soort'          => $b['soort'],
+			'Plaats'         => $b['plaats'],
+			'Website'        => $b['website'],
+			'Medewerkers'    => $b['medewerkers'],
+			'KvK'            => $b['kvk_nummer'],
+			'Contactpersoon' => $b['contactpersoon'],
+			'Telefoon'       => $b['telefoon'],
+			'Omschrijving'   => $b['omschrijving'],
+			'Zoekt'          => deedni_bedrijf_voorkeuren_tekst( $b ),
+		)
+	);
+}
+
+function deedni_metabox_aanbod( $post ) {
+	$o = deedni_aanbod( $post->ID );
+	deedni_admin_tabel(
+		array(
+			'Status'      => deedni_label( 'aanbod_status', $o['status'] ) . ( $o['ronde'] > 1 ? ' (ronde ' . $o['ronde'] . ')' : '' ),
+			'Kandidaat'   => $o['kandidaat_id'] ? deedni_code( $o['kandidaat_id'] ) : '',
+			'Bedrijf'     => $o['bedrijf_id'] ? get_the_title( $o['bedrijf_id'] ) : '',
+			'Functie'     => $o['functie'],
+			'Salaris'     => deedni_euro( $o['salaris_min'] ) . '–' . deedni_number( $o['salaris_max'] ),
+			'Uren'        => $o['uren'],
+			'Contract'    => deedni_label( 'contract', $o['contract'] ),
+			'Werkplek'    => deedni_label( 'werkvorm', $o['werkplek'] ),
+			'Standplaats' => $o['standplaats'],
+			'Bericht'     => $o['bericht'],
+			'Ja, maar'    => $o['tegen']['bericht'] ? implode( ', ', array_map( function ( $v ) { return deedni_label( 'voorwaarden', $v ); }, $o['tegen']['voorwaarden'] ) ) . "\n" . $o['tegen']['bericht'] : '',
+		)
+	);
+	$log = deedni_list( $post->ID, 'historie' );
+	if ( $log ) {
+		echo '<h4>Geschiedenis</h4><ul>';
+		foreach ( $log as $l ) {
+			echo '<li>' . esc_html( wp_date( 'j M Y H:i', (int) $l['t'] ) . ' · ' . $l['tekst'] ) . '</li>';
+		}
+		echo '</ul>';
+	}
+}
