@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Overzicht en aanbiedingen · deedni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/deedni.css">
+<link rel="stylesheet" href="assets/menu.css">
+<style>
+.hello { display: flex; flex-direction: column; gap: 14px; }
+.hello h1 { font-size: clamp(2.75rem, 1.6rem + 4.4vw, 4.5rem); }
+.offer { display: flex; flex-direction: column; gap: 16px; border-radius: 18px; }
+.offer.is-new { border: 2px solid var(--accent); }
+.offer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: center; }
+.offer-co { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.125rem; }
+.co-logo { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ink); color: var(--bg); font-size: .875rem; font-weight: 700; flex: none; }
+.offer h3 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.75rem); letter-spacing: -0.02em; }
+.offer .salaris { font-size: 1.25rem; }
+.quote { padding-left: 14px; border-left: 3px solid var(--accent); max-width: 40em; }
+.sees { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; background: var(--bg-alt); border-radius: 12px; font-size: .9375rem; }
+.answer { display: flex; flex-wrap: wrap; gap: 10px; }
+.answer .btn { flex: 1 1 170px; }
+.offer-state { padding: 14px 16px; border-radius: 12px; font-weight: 600; }
+.offer-state.ok { background: var(--ok-soft); color: var(--ok); }
+.offer-state.nee { background: var(--bg-alt); color: var(--ink); }
+.deadline { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; color: var(--muted); }
+.done-list li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.done-list li:last-child { border-bottom: 0; }
+.bar { height: 10px; border-radius: 999px; background: var(--bg-alt); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 85%; background: var(--ok); border-radius: inherit; transform-origin: left; animation: grow 1.2s cubic-bezier(.2, .8, .2, 1); }
+@keyframes grow { from { transform: scaleX(0); } }
+.todo li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.todo li:last-child { border-bottom: 0; }
+.watch li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .9375rem; }
+.watch li span:last-child { color: var(--muted); white-space: nowrap; }
+.side { display: flex; flex-direction: column; gap: 20px; }
+.side .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.side .stats dd { font-size: 2.25rem; }
+</style>
+</head>
+<body>
+<div data-menu data-rol="kandidaat" data-pagina="overzicht"></div>
+<script src="assets/menu.js"></script>
+
+<main id="inhoud" class="wrap page">
+  <div class="hello">
+    <h1>Hoi Sanne</h1>
+    <p class="lead">Je hebt <strong>2 nieuwe aanbiedingen</strong>. Bedrijven zien je naam pas als jij ja zegt.</p>
+  </div>
+
+  <div class="split">
+    <section id="aanbiedingen" class="stack" aria-labelledby="aanbod-kop">
+      <div class="between">
+        <h2 id="aanbod-kop">Aanbiedingen</h2>
+        <div class="seg" role="tablist" aria-label="Aanbiedingen filteren">
+          <button type="button" role="tab" id="tab-nieuw" aria-selected="true" aria-controls="paneel-nieuw">Nieuw (2)</button>
+          <button type="button" role="tab" id="tab-klaar" aria-selected="false" aria-controls="paneel-klaar" tabindex="-1">Beantwoord (3)</button>
+        </div>
+      </div>
+
+      <div id="paneel-nieuw" role="tabpanel" aria-labelledby="tab-nieuw" class="stack">
+        <article class="card offer is-new" id="aanbod-studio-noord" aria-labelledby="sn-titel">
+          <div class="offer-top">
+            <div class="offer-co"><span class="co-logo" aria-hidden="true">SN</span>Studio Noord <span class="tag tag--accent">Nieuw</span></div>
+            <span class="fine">2 dagen geleden</span>
+          </div>
+          <h3 id="sn-titel">Senior performance marketeer</h3>
+          <p class="fine">32 tot 40 uur, hybride, Utrecht</p>
+          <p><span class="salaris">€4.200–4.800</span> per maand</p>
+          <blockquote class="quote">Je cases passen bij onze klanten.</blockquote>
+          <div class="sees"><strong>Studio Noord ziet nu:</strong> Naam <span class="redact" role="img" aria-label="verborgen"></span></div>
+          <div class="answer" data-antwoord>
+            <button type="button" class="btn btn--primary" data-ja>Ja, deel mijn naam</button>
+            <button type="button" class="btn btn--ghost" data-open="ja-maar" data-voor="Studio Noord">Ja, maar...</button>
+            <button type="button" class="btn btn--ghost" data-nee>Nee, bedankt</button>
+          </div>
+          <p class="offer-state ok" data-staat-ja hidden role="status">Je naam en contactgegevens zijn gedeeld met Studio Noord. Ze nemen binnen een paar dagen contact op.</p>
+          <p class="offer-state nee" data-staat-nee hidden role="status">Afgewezen. Studio Noord krijgt een nette afwijzing en jij blijft anoniem.</p>
+          <p class="fine" data-uitleg>Met “Ja, maar...” reageer je met een voorwaarde, bijvoorbeeld een hoger salaris. Je naam blijft verborgen tot je ja zegt. <span class="deadline">Reageer binnen 5 dagen.</span></p>
+        </article>
+
+        <article class="card offer" aria-labelledby="mo-titel">
+          <div class="offer-top">
+            <div class="offer-co"><span class="co-logo" aria-hidden="true">MO</span>Marketingbureau Oost <span class="tag tag--accent">Nieuw</span></div>
+            <span class="fine">1 dag geleden</span>
+          </div>
+          <h3 id="mo-titel">Senior SEO-specialist</h3>
+          <p class="fine">36 uur, hybride, Zwolle</p>
+          <p><span class="salaris">€4.500–5.000</span> per maand</p>
+          <blockquote class="quote">We zoeken iemand die onze organische groei overneemt.</blockquote>
+          <div class="row"><button type="button" class="btn btn--ghost btn--small" data-open="ja-maar" data-voor="Marketingbureau Oost">Reageer op dit aanbod</button><span class="deadline">Reageer binnen 5 dagen</span></div>
+        </article>
+      </div>
+
+      <div id="paneel-klaar" role="tabpanel" aria-labelledby="tab-klaar" hidden>
+        <ul class="card card--flush done-list">
+          <li><span><strong>Webshop Het Zuiden</strong><br><span class="fine">Online marketeer, Eindhoven</span></span><span class="tag">Afgewezen</span></li>
+          <li><span><strong>Bureau Noordwest</strong><br><span class="fine">SEA-specialist e-commerce, Houten</span></span><span class="tag tag--ok">Ja, naam gedeeld</span></li>
+          <li><span><strong>Marketingbureau Kust</strong><br><span class="fine">Performance marketeer, Haarlem</span></span><span class="tag tag--accent">Tegenvoorstel gestuurd</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <aside class="side" aria-label="Je profiel in cijfers">
+      <dl class="stats">
+        <div><dt>keer bekeken deze week</dt><dd>14</dd></div>
+        <div><dt>keer bewaard door bedrijven</dt><dd>3</dd></div>
+        <div><dt>van je profiel ingevuld</dt><dd>85%</dd></div>
+      </dl>
+      <section class="card stack" aria-labelledby="profiel-kop">
+        <div class="between"><h3 id="profiel-kop">Je profiel</h3><span class="fine">85% compleet</span></div>
+        <div class="bar" role="img" aria-label="85 procent compleet"><i></i></div>
+        <ul class="todo">
+          <li><span>Voeg een project met resultaat toe</span><a href="mijn-profiel.html#projecten">Toevoegen</a></li>
+          <li><span>Zet je huidige werkgever op de blokkeerlijst</span><a href="mijn-profiel.html#blokkeerlijst">Instellen</a></li>
+        </ul>
+        <a class="btn btn--ghost btn--small" href="mijn-profiel.html">Profiel bekijken</a>
+      </section>
+      <section class="card stack" aria-labelledby="keek-kop">
+        <h3 id="keek-kop">Wie keek mee</h3>
+        <ul class="watch">
+          <li><span>Een marketingbureau in Utrecht</span><span>gisteren</span></li>
+          <li><span>Een webshop in Gelderland</span><span>3 dagen geleden</span></li>
+          <li><span>Een softwarebedrijf in Noord-Holland</span><span>5 dagen geleden</span></li>
+        </ul>
+        <p class="fine">Je ziet nooit de naam van het bedrijf, tenzij het je een aanbod stuurt.</p>
+      </section>
+    </aside>
+  </div>
+  <p class="fine">Voorbeeld met fictieve gegevens.</p>
+</main>
+
+<!-- Pop-up: Reageren op aanbod met "Ja, maar..." -->
+<dialog class="modal" id="ja-maar" aria-labelledby="jm-kop">
+  <form data-verstuur>
+    <div class="modal-head">
+      <div class="stack-s">
+        <h2 id="jm-kop">Ja, maar...</h2>
+        <p class="fine">Reageer met een voorwaarde op het aanbod van <span data-voor-naam>Studio Noord</span>.</p>
+      </div>
+      <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="summary"><span><strong>Senior performance marketeer</strong> · Utrecht, hybride</span><span class="salaris">€4.200–4.800</span></div>
+      <fieldset class="stack-s">
+        <legend>Waar gaat je voorwaarde over?</legend>
+        <div class="chips" style="margin-top:8px">
+          <button type="button" class="chip" aria-pressed="true">Salaris te laag</button>
+          <button type="button" class="chip" aria-pressed="true">Auto van de zaak</button>
+          <button type="button" class="chip" aria-pressed="false">Meer vakantiedagen</button>
+          <button type="button" class="chip" aria-pressed="false">Thuiswerken</button>
+          <button type="button" class="chip" aria-pressed="false">Opleidingsbudget</button>
+          <button type="button" class="chip" aria-pressed="false">Andere uren</button>
+          <button type="button" class="chip" aria-pressed="false">Pensioen of bonus</button>
+          <button type="button" class="chip" aria-pressed="false">Iets anders</button>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Salaris dat je wilt, per maand</legend>
+        <div class="fields" style="margin-top:8px">
+          <div class="field"><label for="jm-van">Van</label><div class="euro"><input id="jm-van" inputmode="numeric" value="4.800"></div></div>
+          <div class="field"><label for="jm-tot">Tot</label><div class="euro"><input id="jm-tot" inputmode="numeric" value="5.100"></div></div>
+        </div>
+        <p class="fine" style="margin-top:6px">Alleen invullen als het over salaris gaat.</p>
+      </fieldset>
+      <div class="field"><label for="jm-wens">Extra wens</label><input id="jm-wens" value="Auto van de zaak"></div>
+      <div class="field">
+        <label for="jm-bericht">Bericht aan het bedrijf</label>
+        <textarea id="jm-bericht" required aria-describedby="jm-tip">Alle voorwaarden zijn goed, maar het salaris is te laag. Met €4.800 tot €5.100 ga ik graag in gesprek. Een auto van de zaak is een pluspunt.</textarea>
+        <span class="hint" id="jm-tip">Schrijf er duidelijk bij wat wel goed is. Dat helpt het bedrijf je aanbod aan te passen.</span>
+      </div>
+      <p class="note">Je naam blijft verborgen. Het bedrijf kan het aanbod aanpassen, akkoord gaan of het laten vallen. Pas als jij daarna ja zegt, deel je je naam.</p>
+    </div>
+    <div class="modal-foot">
+      <div class="push">
+        <button type="button" class="btn btn--ghost" data-close>Annuleren</button>
+        <button type="submit" class="btn btn--primary">Verstuur reactie</button>
+      </div>
+    </div>
+  </form>
+  <div class="modal-done" data-klaar hidden>
+    <span class="ok-dot" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <h2>Reactie verstuurd</h2>
+    <p><span data-voor-naam>Studio Noord</span> ziet je voorwaarde, zonder je naam. Je hoort binnen 5 dagen of ze het aanbod aanpassen. Je vindt het terug onder Beantwoord.</p>
+    <button type="button" class="btn btn--primary" data-close>Sluiten</button>
+  </div>
+</dialog>
+
+<div data-voet data-rol="kandidaat"></div>
+<script src="assets/deedni.js"></script>
+<script>
+(function () {
+  // Tabbladen Nieuw en Beantwoord
+  var tabs = [document.getElementById('tab-nieuw'), document.getElementById('tab-klaar')];
+  function kies(t) {
+    tabs.forEach(function (x) {
+      var aan = x === t;
+      x.setAttribute('aria-selected', String(aan));
+      x.tabIndex = aan ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !aan;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { kies(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var n = tabs[(i + 1) % 2]; kies(n); n.focus(); }
+    });
+  });
+
+  // Ja of nee op het aanbod van Studio Noord
+  var kaart = document.getElementById('aanbod-studio-noord');
+  function antwoord(soort) {
+    kaart.querySelector('[data-antwoord]').hidden = true;
+    kaart.querySelector('[data-uitleg]').hidden = true;
+    kaart.querySelector('[data-staat-' + soort + ']').hidden = false;
+    var sees = kaart.querySelector('.sees');
+    if (soort === 'ja') sees.innerHTML = '<strong>Studio Noord ziet nu:</strong> <span class="shown">Sanne de Vries</span>, e-mail, telefoon en cv';
+  }
+  kaart.querySelector('[data-ja]').addEventListener('click', function () { antwoord('ja'); });
+  kaart.querySelector('[data-nee]').addEventListener('click', function () { antwoord('nee'); });
+
+  if (location.hash === '#aanbiedingen') kies(tabs[0]);
+})();
+</script>
+</body>
+</html>

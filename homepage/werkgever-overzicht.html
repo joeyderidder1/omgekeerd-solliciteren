@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Overzicht werkgever · deedni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/deedni.css">
+<link rel="stylesheet" href="assets/menu.css">
+<style>
+.hello { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.hello h1 { font-size: clamp(2.75rem, 1.6rem + 4.4vw, 4.5rem); }
+.counter { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 760px) { .counter { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.reply { padding: 4px 16px 20px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+.reply .inner { display: flex; flex-direction: column; gap: 12px; padding-top: 16px; }
+.reply blockquote { padding-left: 14px; border-left: 3px solid var(--accent); max-width: 44em; }
+.saved li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--line); }
+.saved li:last-child { border-bottom: 0; }
+.contact { margin-top: 8px; padding: 8px 10px; background: var(--ok-soft); border-radius: 10px; }
+.bedrijf { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 760px) { .bedrijf { grid-template-columns: 1fr; } }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
+.kv dt { color: var(--muted); }
+.kv dd { font-weight: 600; }
+.logo-blok { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 1.25rem; }
+</style>
+</head>
+<body>
+<div data-menu data-rol="werkgever" data-pagina="overzicht"></div>
+<script src="assets/menu.js"></script>
+
+<main id="inhoud" class="wrap page">
+  <div class="hello">
+    <h1>Hoi Studio Noord</h1>
+    <p class="lead">Zoek anonieme profielen en stuur een aanbod met salaris. Je betaalt pas bij een aanname.</p>
+    <a class="cta-pill cta-pill--accent" href="kandidaten-zoeken.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span class="cta-txt">Kandidaten zoeken</span></a>
+  </div>
+
+  <dl class="stats counter">
+    <div><dt>aanbiedingen verstuurd</dt><dd>3</dd></div>
+    <div><dt>wacht op antwoord</dt><dd>1</dd></div>
+    <div><dt>tegenvoorstel</dt><dd>1</dd></div>
+    <div><dt>keer ja gezegd</dt><dd>1</dd></div>
+    <div><dt>kandidaten bewaard</dt><dd>2</dd></div>
+  </dl>
+
+  <section class="stack" aria-labelledby="h-verstuurd">
+    <div class="between"><h2 id="h-verstuurd">Verstuurd <span class="count">(3)</span></h2><span class="fine">Tot nu toe betaald: €0</span></div>
+    <div class="rows">
+      <div class="r r--head" aria-hidden="true"><span>Kandidaat</span><span>Aanbod</span><span>Verstuurd</span><span>Status</span></div>
+      <div class="r">
+        <div><a href="kandidaat.html" style="font-weight:650">K-1010</a><div class="sub">Senior SEA-specialist</div></div>
+        <div><span class="lbl">Aanbod</span>€4.200–4.800 per maand</div>
+        <div class="sub"><span class="lbl">Verstuurd</span>2 dagen geleden</div>
+        <div><span class="tag">Wacht op antwoord</span></div>
+      </div>
+      <div class="r">
+        <div><a href="kandidaat.html#gedeeld" style="font-weight:650">K-1031</a><div class="sub">Marketing-automationspecialist</div>
+          <div class="contact"><strong>Lotte Jansen</strong><div class="sub">lotte@voorbeeld.nl · 06 98 76 54 32</div></div></div>
+        <div><span class="lbl">Aanbod</span>€4.800–5.200 per maand</div>
+        <div class="sub"><span class="lbl">Verstuurd</span>5 dagen geleden</div>
+        <div class="stack-s" style="align-items:flex-start"><span class="tag tag--ok">Ja, naam zichtbaar</span><button type="button" class="link-btn" data-aangenomen>Kandidaat aangenomen melden</button></div>
+      </div>
+      <div class="r" id="rij-2041">
+        <div><a href="kandidaat.html" style="font-weight:650">K-2041</a><div class="sub">Senior performance marketeer</div></div>
+        <div><span class="lbl">Aanbod</span>€4.200–4.800 per maand</div>
+        <div class="sub"><span class="lbl">Verstuurd</span>1 dag geleden</div>
+        <div><span class="tag tag--accent" data-status-2041>Tegenvoorstel</span></div>
+      </div>
+      <div class="reply" id="reactie-2041">
+        <div class="inner">
+          <div class="row"><strong>Reactie van K-2041</strong><span class="tag tag--accent">Ja, maar</span></div>
+          <blockquote>Alle voorwaarden zijn goed, maar het salaris is te laag. Met €4.800 tot €5.100 ga ik graag in gesprek. Een auto van de zaak is een pluspunt.</blockquote>
+          <div class="row"><span class="fine">Gevraagd salaris</span><span class="salaris" style="font-size:1.125rem">€4.800–5.100</span><span class="tool">Auto van de zaak</span></div>
+          <div class="row" data-keuzes>
+            <button type="button" class="btn btn--primary btn--small" data-open="aanbod-sturen" data-voor="K-2041">Pas aanbod aan</button>
+            <button type="button" class="btn btn--ghost btn--small" data-keuze="akkoord">Ga akkoord</button>
+            <button type="button" class="btn btn--ghost btn--small" data-keuze="vallen">Laat vallen</button>
+          </div>
+          <p class="fine" role="status" data-keuze-uitkomst>De naam van de kandidaat blijft verborgen tot er ja is gezegd.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" aria-labelledby="h-bewaard">
+    <div class="between"><h2 id="h-bewaard">Bewaard <span class="count">(2)</span></h2><span class="fine">Kandidaten waar je later op terugkomt</span></div>
+    <ul class="rows saved">
+      <li><div><a href="kandidaat.html" style="font-weight:650">K-1017</a><div class="sub fine">Performance marketeer, 5 jaar, Amersfoort</div><div style="margin-top:6px"><span class="salaris">vanaf €3.800</span></div></div>
+        <div class="row"><a class="btn btn--ghost btn--small" href="kandidaat.html">Bekijk profiel</a><button type="button" class="btn btn--primary btn--small" data-open="aanbod-sturen" data-voor="K-1017">Stuur aanbod</button></div></li>
+      <li><div><a href="kandidaat.html" style="font-weight:650">K-1024</a><div class="sub fine">Contentmarketeer, 4 jaar, Gelderland</div><div style="margin-top:6px"><span class="salaris">vanaf €3.300</span></div></div>
+        <div class="row"><a class="btn btn--ghost btn--small" href="kandidaat.html">Bekijk profiel</a><button type="button" class="btn btn--primary btn--small" data-open="aanbod-sturen" data-voor="K-1024">Stuur aanbod</button></div></li>
+    </ul>
+  </section>
+
+  <section class="stack" aria-labelledby="h-afgewezen">
+    <div class="between"><h2 id="h-afgewezen">Afgewezen <span class="count">(1)</span></h2><span class="fine">Een afwijzing is netjes en anoniem</span></div>
+    <div class="rows">
+      <div class="r r--head" aria-hidden="true"><span>Kandidaat</span><span>Aanbod</span><span>Verstuurd</span><span>Status</span></div>
+      <div class="r">
+        <div><a href="kandidaat.html" style="font-weight:650">K-1042</a><div class="sub">SEA- en CRO-specialist</div><div class="sub" style="margin-top:6px">De kandidaat bleef anoniem.</div></div>
+        <div><span class="lbl">Aanbod</span>€3.600–4.000 per maand</div>
+        <div class="sub"><span class="lbl">Verstuurd</span>9 dagen geleden</div>
+        <div><span class="tag">Afgewezen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" id="bedrijfsprofiel" aria-labelledby="h-bedrijf">
+    <div class="between"><h2 id="h-bedrijf">Bedrijfsprofiel</h2><span class="fine">Kandidaten zien dit bij elk aanbod</span></div>
+    <div class="bedrijf">
+      <div class="card stack">
+        <div class="row"><span class="logo-blok" aria-hidden="true">SN</span><div><strong style="font-size:1.25rem">Studio Noord</strong><div class="fine">Online marketingbureau</div></div></div>
+        <dl class="kv">
+          <dt>Plaats</dt><dd>Utrecht</dd>
+          <dt>Website</dt><dd>studionoord.example</dd>
+          <dt>Medewerkers</dt><dd>25 tot 50</dd>
+          <dt>KvK</dt><dd>Gecontroleerd <span class="tag tag--ok">Goedgekeurd</span></dd>
+        </dl>
+        <div><button type="button" class="btn btn--ghost btn--small">Wijzig bedrijfsgegevens</button></div>
+      </div>
+      <div class="card stack">
+        <h3>Wie je zoekt</h3>
+        <p class="fine">Hierop berekenen we je matches.</p>
+        <dl class="kv">
+          <dt>Specialisme</dt><dd>Performance en SEA</dd>
+          <dt>Tools</dt><dd>Google Ads, GA4, Meta Ads</dd>
+          <dt>Salarisbudget</dt><dd><span class="salaris">€4.000–5.000</span></dd>
+          <dt>Regio</dt><dd>Utrecht, hybride</dd>
+          <dt>Uren</dt><dd>32 tot 40</dd>
+        </dl>
+        <div><button type="button" class="btn btn--ghost btn--small">Wijzig voorkeuren</button></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="fine">Voorbeeld met fictieve gegevens.</p>
+</main>
+
+<!-- Pop-up: aanbod sturen -->
+<dialog class="modal" id="aanbod-sturen" aria-labelledby="as-kop">
+  <form data-verstuur>
+    <div class="modal-head">
+      <div class="stack-s">
+        <h2 id="as-kop">Aanbod sturen aan <span data-voor-naam>K-2041</span></h2>
+        <p class="fine">Senior performance marketeer · 7 jaar · Utrecht en omgeving</p>
+      </div>
+      <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label for="as-functie">Functie</label><input id="as-functie" value="Senior performance marketeer" required></div>
+      <fieldset>
+        <legend>Salaris per maand <span class="tag tag--ink who-sees">Verplicht</span></legend>
+        <div class="fields" style="margin-top:8px">
+          <div class="field"><label for="as-van">Van</label><div class="euro"><input id="as-van" inputmode="numeric" value="4.200" required></div></div>
+          <div class="field"><label for="as-tot">Tot</label><div class="euro"><input id="as-tot" inputmode="numeric" value="4.800" required></div></div>
+        </div>
+        <p class="fine" style="margin-top:6px">Bruto, bij 40 uur. Zonder salaris gaat een aanbod niet de deur uit.</p>
+      </fieldset>
+      <div class="fields">
+        <div class="field"><label for="as-uren">Uren per week</label><input id="as-uren" value="36 tot 40"></div>
+        <div class="field"><label for="as-contract">Contract</label><select id="as-contract"><option>Vast, na 6 maanden proef</option><option>Jaarcontract</option><option>Freelance</option></select></div>
+      </div>
+      <fieldset class="stack-s">
+        <legend>Werkplek</legend>
+        <div class="chips" data-een>
+          <button type="button" class="chip" aria-pressed="false">Op kantoor</button>
+          <button type="button" class="chip" aria-pressed="true">Hybride</button>
+          <button type="button" class="chip" aria-pressed="false">Remote</button>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="as-bericht">Persoonlijk bericht</label>
+        <textarea id="as-bericht" required aria-describedby="as-tip">Je cases in e-commerce sluiten precies aan op onze klanten. Je krijgt bij ons eigen accounts en ruimte om een team op te bouwen.</textarea>
+        <span class="hint" id="as-tip">Schrijf waarom dit profiel past. Dat wordt vaker beantwoord dan een standaardtekst.</span>
+      </div>
+      <p class="note">De kandidaat ziet je bedrijfsnaam, het salaris en je bericht. Jij ziet de naam pas als de kandidaat ja zegt.</p>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="link-btn" data-close>Bewaar voor later</button>
+      <div class="push">
+        <button type="button" class="btn btn--ghost" data-close>Annuleren</button>
+        <button type="submit" class="btn btn--primary">Verstuur aanbod</button>
+      </div>
+    </div>
+  </form>
+  <div class="modal-done" data-klaar hidden>
+    <span class="ok-dot" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <h2>Aanbod verstuurd</h2>
+    <p><span data-voor-naam>K-2041</span> ziet je aanbod nu in de inbox. Je vindt het terug onder Verstuurd op je overzicht. Zodra er een antwoord is, krijg je een melding.</p>
+    <div class="row"><a class="btn btn--primary" href="werkgever-overzicht.html">Naar overzicht</a><button type="button" class="btn btn--ghost" data-close>Sluiten</button></div>
+  </div>
+</dialog>
+
+<div data-voet data-rol="werkgever"></div>
+<script src="assets/deedni.js"></script>
+<script>
+(function () {
+  var uitkomst = document.querySelector('[data-keuze-uitkomst]');
+  var status = document.querySelector('[data-status-2041]');
+  var keuzes = document.querySelector('[data-keuzes]');
+  document.querySelectorAll('[data-keuze]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      keuzes.hidden = true;
+      if (b.getAttribute('data-keuze') === 'akkoord') {
+        status.textContent = 'Akkoord, wacht op ja'; status.className = 'tag tag--ok';
+        uitkomst.textContent = 'Je gaat akkoord met €4.800–5.100 en een auto van de zaak. K-2041 krijgt een melding en beslist nu.';
+      } else {
+        status.textContent = 'Gestopt'; status.className = 'tag';
+        uitkomst.textContent = 'Je laat dit aanbod vallen. K-2041 blijft anoniem en jij betaalt niets.';
+      }
+    });
+  });
+  document.getElementById('aanbod-sturen').addEventListener('verstuurd', function () {
+    var van = this._opener && this._opener.getAttribute('data-voor');
+    if (van === 'K-2041' && !keuzes.hidden) {
+      keuzes.hidden = true;
+      status.textContent = 'Aangepast aanbod'; status.className = 'tag tag--accent';
+      uitkomst.textContent = 'Je aangepaste aanbod is verstuurd. K-2041 beslist nu.';
+    }
+  });
+  document.querySelector('[data-aangenomen]').addEventListener('click', function (e) {
+    var p = document.createElement('span'); p.className = 'fine'; p.setAttribute('role', 'status');
+    p.textContent = 'Gemeld. Je ontvangt de factuur per e-mail.';
+    e.target.replaceWith(p);
+  });
+})();
+</script>
+</body>
+</html>

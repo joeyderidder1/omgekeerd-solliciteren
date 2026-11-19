@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Kandidaten zoeken · deedni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/deedni.css">
+<link rel="stylesheet" href="assets/menu.css">
+<style>
+.search { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; background: var(--surface); border: 2px solid var(--line-strong); border-radius: 16px; }
+.search:focus-within { border-color: var(--focus); }
+.search label { display: flex; align-items: center; gap: 10px; flex: 1 1 260px; padding-left: 10px; color: var(--muted); }
+.search input { flex: 1; min-height: 48px; border: 0; background: transparent; font-size: 1.0625rem; outline: none; min-width: 0; }
+.active-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.active-filters button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 8px 0 14px; border-radius: 999px; border: 0; background: var(--accent-soft); color: var(--accent); font-weight: 650; font-size: .9375rem; }
+.active-filters button::after { content: "×"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); font-size: 1.1rem; }
+.filters { display: flex; flex-direction: column; gap: 4px; }
+.filters details { border-bottom: 1px solid var(--line); }
+.filters summary { display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 700; cursor: pointer; list-style: none; }
+.filters summary::-webkit-details-marker { display: none; }
+.filters summary::after { content: "+"; font-size: 1.4rem; font-weight: 500; color: var(--muted); }
+.filters details[open] summary::after { content: "−"; }
+.filters .opts { display: flex; flex-direction: column; padding-bottom: 12px; }
+.filters label { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; }
+.filters input[type="checkbox"], .filters input[type="radio"] { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.filters .n { margin-left: auto; color: var(--muted); font-size: .875rem; }
+.filter-toggle { display: none; }
+@media (max-width: 900px) {
+  .filter-toggle { display: inline-flex; }
+  .filters-box:not(.is-open) { display: none; }
+}
+.result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.cands { display: flex; flex-direction: column; gap: 16px; }
+.cand { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 24px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.cand:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
+@media (prefers-reduced-motion: no-preference) { .cand:hover { transform: translateY(-2px); } }
+.cand h2 { font-size: 1.5rem; letter-spacing: -0.02em; }
+.cand h2 a { color: var(--ink); text-decoration: none; }
+.cand h2 a:hover { text-decoration: underline; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font-size: .9375rem; }
+.hidden-row { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9375rem; color: var(--muted); align-items: center; }
+.cand .right { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; gap: 12px; text-align: right; }
+.cand .right .salaris { font-size: 1.25rem; }
+.cand .acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.save { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--line-strong); background: var(--surface); color: var(--ink); }
+.save[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.save[aria-pressed="true"] svg path { fill: currentColor; }
+@media (max-width: 640px) {
+  .cand { grid-template-columns: 1fr; }
+  .cand .right { align-items: flex-start; text-align: left; }
+  .cand .acts { justify-content: flex-start; }
+}
+.empty { text-align: center; padding: 48px 24px; }
+</style>
+</head>
+<body>
+<div data-menu data-rol="werkgever" data-pagina="zoeken"></div>
+<script src="assets/menu.js"></script>
+
+<main id="inhoud" class="wrap page">
+  <div class="stack">
+    <h1>Kandidaten zoeken</h1>
+    <p class="lead">Anonieme profielen van online marketeers. Je ziet ervaring, tools, cases en salarisindicatie. De naam komt pas als de kandidaat ja zegt op jouw aanbod.</p>
+    <form class="search" role="search" onsubmit="event.preventDefault()">
+      <label><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="visually-hidden">Zoek op functie, tool of branche</span><input id="q" type="search" placeholder="Zoek op functie, tool of branche"></label>
+      <div class="active-filters" id="actief" aria-label="Actieve filters"></div>
+    </form>
+  </div>
+
+  <div class="split split--left">
+    <aside class="stack-s" aria-labelledby="h-filters">
+      <div class="between"><h2 id="h-filters" style="font-size:1.375rem">Filters</h2><button type="button" class="link-btn" id="wis">Wis alles</button></div>
+      <button type="button" class="btn btn--ghost filter-toggle" aria-expanded="false" aria-controls="filters-box" id="ftoggle">Toon filters</button>
+      <form class="filters filters-box" id="filters-box">
+        <details open><summary>Specialisme</summary><div class="opts">
+          <label><input type="checkbox" name="spec" value="performance" checked>Performance marketing<span class="n">64</span></label>
+          <label><input type="checkbox" name="spec" value="seo">SEO en content<span class="n">41</span></label>
+          <label><input type="checkbox" name="spec" value="automation">Marketing-automation<span class="n">22</span></label>
+          <label><input type="checkbox" name="spec" value="data">Data en analyse<span class="n">19</span></label>
+        </div></details>
+        <details open><summary>Tools</summary><div class="opts">
+          <label><input type="checkbox" name="tool" value="Google Ads" checked>Google Ads<span class="n">58</span></label>
+          <label><input type="checkbox" name="tool" value="Meta Ads">Meta Ads<span class="n">47</span></label>
+          <label><input type="checkbox" name="tool" value="GA4">GA4<span class="n">71</span></label>
+          <label><input type="checkbox" name="tool" value="HubSpot">HubSpot<span class="n">26</span></label>
+        </div></details>
+        <details open><summary>Ervaring</summary><div class="opts">
+          <label><input type="radio" name="erv" value="5" checked>Vanaf 5 jaar<span class="n">52</span></label>
+          <label><input type="radio" name="erv" value="2">2 tot 5 jaar<span class="n">48</span></label>
+          <label><input type="radio" name="erv" value="0">Alle niveaus<span class="n">128</span></label>
+        </div></details>
+        <details open><summary>Regio</summary><div class="opts">
+          <label><input type="checkbox" name="regio" value="Utrecht" checked>Utrecht<span class="n">31</span></label>
+          <label><input type="checkbox" name="regio" value="Noord-Holland">Noord-Holland<span class="n">44</span></label>
+          <label><input type="checkbox" name="regio" value="Remote">Remote in heel NL<span class="n">67</span></label>
+        </div></details>
+        <details><summary>Werkplek</summary><div class="opts">
+          <label><input type="checkbox" name="plek" value="Hybride">Hybride<span class="n">80</span></label>
+          <label><input type="checkbox" name="plek" value="Kantoor">Op kantoor<span class="n">23</span></label>
+          <label><input type="checkbox" name="plek" value="Remote">Remote<span class="n">25</span></label>
+        </div></details>
+        <details><summary>Beschikbaar binnen</summary><div class="opts">
+          <label><input type="radio" name="besch" value="1">1 maand<span class="n">36</span></label>
+          <label><input type="radio" name="besch" value="3">3 maanden<span class="n">59</span></label>
+          <label><input type="radio" name="besch" value="0" checked>Maakt niet uit<span class="n">128</span></label>
+        </div></details>
+      </form>
+    </aside>
+
+    <section class="stack" aria-labelledby="h-res">
+      <div class="result-head">
+        <h2 id="h-res" style="font-size:1.25rem" aria-live="polite"><span id="aantal">4</span> van 128 profielen</h2>
+        <span class="fine">Gesorteerd op laatst bevestigd</span>
+      </div>
+      <div class="cands" id="lijst"></div>
+      <div class="card empty" id="leeg" hidden><h3>Geen profielen met deze filters</h3><p class="fine">Haal een filter weg of zoek op een andere tool.</p></div>
+      <p class="fine">Voorbeeld met fictieve gegevens.</p>
+    </section>
+  </div>
+</main>
+
+<!-- Pop-up: aanbod sturen -->
+<dialog class="modal" id="aanbod-sturen" aria-labelledby="as-kop">
+  <form data-verstuur>
+    <div class="modal-head">
+      <div class="stack-s">
+        <h2 id="as-kop">Aanbod sturen aan <span data-voor-naam>K-2041</span></h2>
+        <p class="fine">Senior performance marketeer · 7 jaar · Utrecht en omgeving</p>
+      </div>
+      <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label for="as-functie">Functie</label><input id="as-functie" value="Senior performance marketeer" required></div>
+      <fieldset>
+        <legend>Salaris per maand <span class="tag tag--ink who-sees">Verplicht</span></legend>
+        <div class="fields" style="margin-top:8px">
+          <div class="field"><label for="as-van">Van</label><div class="euro"><input id="as-van" inputmode="numeric" value="4.200" required></div></div>
+          <div class="field"><label for="as-tot">Tot</label><div class="euro"><input id="as-tot" inputmode="numeric" value="4.800" required></div></div>
+        </div>
+        <p class="fine" style="margin-top:6px">Bruto, bij 40 uur. Zonder salaris gaat een aanbod niet de deur uit.</p>
+      </fieldset>
+      <div class="fields">
+        <div class="field"><label for="as-uren">Uren per week</label><input id="as-uren" value="36 tot 40"></div>
+        <div class="field"><label for="as-contract">Contract</label><select id="as-contract"><option>Vast, na 6 maanden proef</option><option>Jaarcontract</option><option>Freelance</option></select></div>
+      </div>
+      <fieldset class="stack-s">
+        <legend>Werkplek</legend>
+        <div class="chips" data-een>
+          <button type="button" class="chip" aria-pressed="false">Op kantoor</button>
+          <button type="button" class="chip" aria-pressed="true">Hybride</button>
+          <button type="button" class="chip" aria-pressed="false">Remote</button>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="as-bericht">Persoonlijk bericht</label>
+        <textarea id="as-bericht" required aria-describedby="as-tip">Je cases in e-commerce sluiten precies aan op onze klanten. Je krijgt bij ons eigen accounts en ruimte om een team op te bouwen.</textarea>
+        <span class="hint" id="as-tip">Schrijf waarom dit profiel past. Dat wordt vaker beantwoord dan een standaardtekst.</span>
+      </div>
+      <p class="note">De kandidaat ziet je bedrijfsnaam, het salaris en je bericht. Jij ziet de naam pas als de kandidaat ja zegt.</p>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="link-btn" data-close>Bewaar voor later</button>
+      <div class="push">
+        <button type="button" class="btn btn--ghost" data-close>Annuleren</button>
+        <button type="submit" class="btn btn--primary">Verstuur aanbod</button>
+      </div>
+    </div>
+  </form>
+  <div class="modal-done" data-klaar hidden>
+    <span class="ok-dot" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <h2>Aanbod verstuurd</h2>
+    <p><span data-voor-naam>K-2041</span> ziet je aanbod nu in de inbox. Je vindt het terug onder Verstuurd op je overzicht. Zodra er een antwoord is, krijg je een melding.</p>
+    <div class="row"><a class="btn btn--primary" href="werkgever-overzicht.html">Naar overzicht</a><button type="button" class="btn btn--ghost" data-close>Sluiten</button></div>
+  </div>
+</dialog>
+
+<div data-voet data-rol="werkgever"></div>
+<script src="assets/deedni.js"></script>
+<script>
+(function () {
+  var K = [
+    { code: 'K-2041', t: 'Senior performance marketeer', st: 'Actief op zoek', spec: 'performance', jaar: 7, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht + 30 km', plek: ['Hybride', 'Remote'], tools: ['Google Ads', 'Meta Ads', 'GA4', 'Merchant Center'], cases: 3, sal: '€4.000–4.800', besch: 1 },
+    { code: 'K-1873', t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 5, regio: ['Utrecht'], plaats: 'Amersfoort + 40 km', plek: ['Hybride'], tools: ['Google Ads', 'GA4', 'Tag Manager'], cases: 2, sal: '€3.600–4.200', besch: 3 },
+    { code: 'K-1910', t: 'SEA-specialist e-commerce', st: 'Actief op zoek', spec: 'performance', jaar: 6, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht', plek: ['Remote'], tools: ['Google Ads', 'Shopping', 'Looker Studio'], cases: 4, sal: '€3.900–4.500', besch: 1 },
+    { code: 'K-2007', t: 'Paid social lead', st: 'Open voor aanbod', spec: 'performance', jaar: 8, regio: ['Utrecht'], plaats: 'Utrecht + 50 km', plek: ['Hybride'], tools: ['Meta Ads', 'TikTok Ads', 'GA4', 'Google Ads'], cases: 3, sal: '€4.400–5.200', besch: 3 },
+    { code: 'K-3320', t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 6, regio: ['Remote'], plaats: 'Rotterdam', plek: ['Remote', 'Hybride'], tools: ['Google Ads', 'Meta Ads', 'GA4'], cases: 2, sal: '€4.200–4.800', besch: 3 },
+    { code: 'K-1024', t: 'Contentmarketeer', st: 'Open voor aanbod', spec: 'seo', jaar: 4, regio: ['Remote'], plaats: 'Gelderland', plek: ['Hybride'], tools: ['WordPress', 'Semrush', 'GA4'], cases: 3, sal: '€3.300–3.800', besch: 1 },
+    { code: 'K-1031', t: 'Marketing-automationspecialist', st: 'Actief op zoek', spec: 'automation', jaar: 8, regio: ['Noord-Holland'], plaats: 'Haarlem + 25 km', plek: ['Hybride', 'Kantoor'], tools: ['HubSpot', 'ActiveCampaign', 'Zapier'], cases: 4, sal: '€5.000–5.600', besch: 3 },
+    { code: 'K-1187', t: 'SEA-specialist', st: 'Actief op zoek', spec: 'performance', jaar: 3, regio: ['Utrecht'], plaats: 'Nieuwegein', plek: ['Kantoor', 'Hybride'], tools: ['Google Ads', 'GA4'], cases: 2, sal: '€3.200–3.700', besch: 1 },
+    { code: 'K-0877', t: 'Data-analist marketing', st: 'Open voor aanbod', spec: 'data', jaar: 5, regio: ['Noord-Holland', 'Remote'], plaats: 'Amsterdam', plek: ['Remote'], tools: ['GA4', 'BigQuery', 'Looker Studio'], cases: 3, sal: '€4.300–4.900', besch: 3 }
+  ];
+  var lijst = document.getElementById('lijst'), form = document.getElementById('filters-box');
+  var namen = { performance: 'Performance marketing', seo: 'SEO en content', automation: 'Marketing-automation', data: 'Data en analyse', '5': 'Vanaf 5 jaar', '2': '2 tot 5 jaar', '1': 'Binnen 1 maand', '3': 'Binnen 3 maanden', Remote: 'Remote' };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function kaart(k) {
+    return '<article class="card cand reveal is-in" aria-labelledby="t-' + k.code + '">' +
+      '<div class="stack-s" style="gap:12px">' +
+        '<div class="row"><strong>' + k.code + '</strong><span class="tag ' + (k.st === 'Actief op zoek' ? 'tag--ok' : 'tag--accent') + '">' + k.st + '</span></div>' +
+        '<h2 id="t-' + k.code + '"><a href="kandidaat.html">' + esc(k.t) + '</a></h2>' +
+        '<div class="meta"><span>' + k.jaar + ' jaar ervaring</span><span>' + esc(k.plaats) + '</span><span>' + k.plek.join(' of ') + '</span></div>' +
+        '<div class="tools">' + k.tools.map(function (t) { return '<span class="tool">' + esc(t) + '</span>'; }).join('') + '</div>' +
+        '<div class="hidden-row"><span>' + k.cases + ' cases in portfolio</span><span>Naam <span class="redact redact--s" role="img" aria-label="verborgen"></span></span><span>Werkgevers <span class="redact" role="img" aria-label="verborgen"></span></span></div>' +
+      '</div>' +
+      '<div class="right"><div><div class="fine">Salarisindicatie</div><span class="salaris">' + k.sal + '</span></div>' +
+        '<div class="acts"><button type="button" class="save" aria-pressed="false" aria-label="Bewaar ' + k.code + '"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>' +
+        '<a class="btn btn--ghost btn--small" href="kandidaat.html">Bekijk profiel</a>' +
+        '<button type="button" class="btn btn--primary btn--small" data-open="aanbod-sturen" data-voor="' + k.code + '">Aanbod sturen</button></div></div>' +
+    '</article>';
+  }
+  function waarden(n) { return Array.prototype.map.call(form.querySelectorAll('[name="' + n + '"]:checked'), function (i) { return i.value; }); }
+  function teken() {
+    var spec = waarden('spec'), tool = waarden('tool'), regio = waarden('regio'), plek = waarden('plek');
+    var erv = waarden('erv')[0] || '0', besch = waarden('besch')[0] || '0';
+    var q = document.getElementById('q').value.trim().toLowerCase();
+    var res = K.filter(function (k) {
+      if (spec.length && spec.indexOf(k.spec) < 0) return false;
+      if (tool.length && !tool.some(function (t) { return k.tools.indexOf(t) >= 0; })) return false;
+      if (regio.length && !regio.some(function (r) { return k.regio.indexOf(r) >= 0; })) return false;
+      if (plek.length && !plek.some(function (p) { return k.plek.indexOf(p) >= 0; })) return false;
+      if (erv === '5' && k.jaar < 5) return false;
+      if (erv === '2' && (k.jaar < 2 || k.jaar >= 5)) return false;
+      if (besch !== '0' && k.besch > +besch) return false;
+      if (q && (k.t + ' ' + k.tools.join(' ') + ' ' + k.plaats).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    lijst.innerHTML = res.map(kaart).join('');
+    document.getElementById('aantal').textContent = res.length;
+    document.getElementById('leeg').hidden = res.length > 0;
+    // Actieve filters bovenin
+    var act = document.getElementById('actief'); act.innerHTML = '';
+    form.querySelectorAll('input:checked').forEach(function (i) {
+      if (i.value === '0') return;
+      var b = document.createElement('button'); b.type = 'button';
+      b.textContent = namen[i.value] && i.name !== 'regio' && i.name !== 'plek' ? namen[i.value] : i.value;
+      b.setAttribute('aria-label', 'Filter ' + b.textContent + ' weghalen');
+      b.addEventListener('click', function () {
+        if (i.type === 'radio') { var alle = form.querySelector('[name="' + i.name + '"][value="0"]'); if (alle) alle.checked = true; } else i.checked = false;
+        teken();
+      });
+      act.appendChild(b);
+    });
+  }
+  form.addEventListener('change', teken);
+  document.getElementById('q').addEventListener('input', teken);
+  document.getElementById('wis').addEventListener('click', function () {
+    form.querySelectorAll('input').forEach(function (i) { i.checked = i.value === '0'; });
+    document.getElementById('q').value = ''; teken();
+  });
+  lijst.addEventListener('click', function (e) {
+    var s = e.target.closest('.save'); if (s) s.setAttribute('aria-pressed', String(s.getAttribute('aria-pressed') !== 'true'));
+  });
+  var ft = document.getElementById('ftoggle');
+  ft.addEventListener('click', function () {
+    var open = ft.getAttribute('aria-expanded') !== 'true';
+    ft.setAttribute('aria-expanded', String(open)); form.classList.toggle('is-open', open);
+    ft.textContent = open ? 'Verberg filters' : 'Toon filters';
+  });
+  teken();
+})();
+</script>
+</body>
+</html>
