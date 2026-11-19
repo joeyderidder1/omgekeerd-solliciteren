@@ -68,26 +68,29 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
 .link-btn { background: none; border: 0; padding: 0 4px; min-height: 44px; color: var(--accent); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 /* De ingesnoerde knop: rond icoon links, pil rechts, vloeiend verbonden */
-.cta-pill { --c-bg: var(--ink); --c-fg: var(--bg); --c-h: 60px; --c-neck: 18px;
-  position: relative; display: inline-flex; align-items: stretch; height: var(--c-h); color: var(--c-fg); text-decoration: none; font-weight: 700; font-size: 1rem; letter-spacing: .02em; border: 0; padding: 0; background: none; cursor: pointer; isolation: isolate; -webkit-tap-highlight-color: transparent; }
-.cta-pill .cta-ico { flex: none; display: grid; place-items: center; width: var(--c-h); height: var(--c-h); border-radius: 50%; background: var(--c-bg); transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
-.cta-pill .cta-ico svg { width: 24px; height: 24px; transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
-.cta-pill .cta-txt { display: inline-flex; align-items: center; padding: 0 30px; border-radius: 999px; background: var(--c-bg); margin-left: calc(var(--c-neck) - 4px); white-space: nowrap; text-transform: uppercase; transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
-.cta-pill::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(var(--c-h) - 12px); width: calc(var(--c-neck) + 20px); background: var(--c-bg);
-  -webkit-mask: radial-gradient(54% calc(var(--c-h) * .4) at 50% 0, #0000 98%, #000) top / 100% 51% no-repeat, radial-gradient(54% calc(var(--c-h) * .4) at 50% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
-          mask: radial-gradient(54% calc(var(--c-h) * .4) at 50% 0, #0000 98%, #000) top / 100% 51% no-repeat, radial-gradient(54% calc(var(--c-h) * .4) at 50% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
-  transition: transform .45s cubic-bezier(.2, .8, .2, 1); transform-origin: left center; }
-.cta-pill:hover .cta-ico, .cta-pill:focus-visible .cta-ico { transform: translateX(4px) rotate(-12deg); }
-.cta-pill:hover .cta-ico svg { transform: rotate(12deg) scale(1.08); }
+/* De ingesnoerde knop: vierkant icoonblok en tekstblok, vloeiend verbonden.
+   In rust zitten ze aan elkaar vast, bij hover gaan ze uit elkaar. */
+.cta-pill { --c-bg: var(--ink); --c-fg: var(--bg); --c-h: 64px; --c-r: 18px; --c-gap: 14px;
+  position: relative; display: inline-flex; align-items: stretch; height: var(--c-h); color: var(--c-fg); text-decoration: none; font-weight: 700; font-size: 1rem; letter-spacing: .03em; border: 0; padding: 0; background: none; cursor: pointer; isolation: isolate; -webkit-tap-highlight-color: transparent; }
+.cta-pill .cta-ico { flex: none; display: grid; place-items: center; width: var(--c-h); height: var(--c-h); border-radius: var(--c-r); background: var(--c-bg); transition: transform .5s cubic-bezier(.3, 1.3, .4, 1); }
+.cta-pill .cta-ico svg { width: 26px; height: 26px; transition: transform .5s cubic-bezier(.3, 1.3, .4, 1); }
+.cta-pill .cta-txt { display: inline-flex; align-items: center; padding: 0 30px; border-radius: var(--c-r); background: var(--c-bg); margin-left: var(--c-gap); white-space: nowrap; text-transform: uppercase; transition: transform .5s cubic-bezier(.3, 1.3, .4, 1); }
+/* De bolling tussen de twee blokken */
+.cta-pill::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(var(--c-h) - var(--c-r)); width: calc(var(--c-gap) + var(--c-r) * 2); background: var(--c-bg);
+  -webkit-mask: radial-gradient(50% 52% at 50% 0, #0000 98%, #000) top / 100% 51% no-repeat, radial-gradient(50% 52% at 50% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+          mask: radial-gradient(50% 52% at 50% 0, #0000 98%, #000) top / 100% 51% no-repeat, radial-gradient(50% 52% at 50% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .25s; }
+.cta-pill:hover .cta-ico, .cta-pill:focus-visible .cta-ico { transform: translateX(-6px) rotate(-6deg); }
+.cta-pill:hover .cta-ico svg { transform: rotate(6deg) scale(1.1); }
 .cta-pill:hover .cta-txt, .cta-pill:focus-visible .cta-txt { transform: translateX(6px); }
-.cta-pill:hover::before, .cta-pill:focus-visible::before { transform: scaleX(1.3); }
+.cta-pill:hover::before, .cta-pill:focus-visible::before { transform: scaleY(0); opacity: 0; }
 .cta-pill:focus-visible { outline: none; }
 .cta-pill:focus-visible .cta-txt { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--focus); }
 .cta-pill--accent { --c-bg: var(--accent); --c-fg: var(--accent-ink); }
 .cta-pill--light { --c-bg: #FFFFFF; --c-fg: #0F1A3D; }
-.cta-pill--small { --c-h: 48px; --c-neck: 14px; font-size: .9375rem; }
+.cta-pill--small { --c-h: 52px; --c-r: 15px; --c-gap: 11px; font-size: .9375rem; }
 .cta-pill--small .cta-txt { padding: 0 22px; }
-.cta-pill--small .cta-ico svg { width: 20px; height: 20px; }
+.cta-pill--small .cta-ico svg { width: 22px; height: 22px; }
 @media (max-width: 420px) { .cta-pill .cta-txt { padding: 0 20px; font-size: .9375rem; } }
 
 /* Kaarten en vlakken */

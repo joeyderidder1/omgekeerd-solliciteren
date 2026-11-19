@@ -21,9 +21,10 @@
       if (d && typeof d.showModal === 'function') {
         e.preventDefault();
         zetVerstuurd(d, false);
-        if (open.hasAttribute('data-voor')) {
-          d.querySelectorAll('[data-voor-naam]').forEach(function (el) { el.textContent = open.getAttribute('data-voor'); });
-        }
+        [['data-voor', '[data-voor-naam]'], ['data-voor-titel', '[data-voor-titel]'], ['data-voor-salaris', '[data-voor-salaris]']].forEach(function (p) {
+          if (!open.hasAttribute(p[0])) return;
+          d.querySelectorAll(p[1]).forEach(function (el) { el.textContent = open.getAttribute(p[0]); });
+        });
         d.showModal();
         d._opener = open;
       }

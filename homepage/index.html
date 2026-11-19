@@ -142,9 +142,9 @@
 /* Snel zoeken */
 .quick { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
 @media (max-width: 860px) { .quick { grid-template-columns: 1fr; } }
-.quick .result { background: var(--accent); color: var(--accent-ink); border-radius: 28px; padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 16px; justify-content: space-between; }
+.quick .result { background: #0F1A3D; color: #EEF1FF; border-radius: 28px; padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 16px; justify-content: space-between; }
 .quick .num { font-weight: 700; font-size: clamp(5rem, 3rem + 8vw, 10rem); line-height: .85; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
-.quick .result .cta-pill { --c-bg: var(--accent-ink); --c-fg: var(--accent); }
+.quick .result .cta-pill { --c-bg: #FFFFFF; --c-fg: #0F1A3D; }
 
 /* Cijfers */
 .cbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; border-top: 2px solid var(--ink); padding-top: 24px; }
@@ -207,6 +207,45 @@
 .finale .lead { margin: 28px auto 36px; }
 .finale .cta-row { justify-content: center; }
 
+
+
+/* Persoonlijk welkom voor ingelogde marketeers en werkgevers */
+.welkom { background: #0B1130; color: #EEF1FF; margin: 12px clamp(8px, 1.5vw, 24px) 0; border-radius: clamp(28px, 5vw, 56px); padding-block: clamp(36px, 5vw, 64px); --ink: #EEF1FF; --muted: #B4BEE6; --line: #2A3570; --line-strong: #46549A; --accent: #8EA2FF; --accent-ink: #0B1130; --bg: #0B1130; --bg-alt: #161F4A; --focus: #B5C2FF; }
+.welkom-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 520px); gap: clamp(24px, 4vw, 56px); align-items: center; }
+@media (max-width: 900px) { .welkom-grid { grid-template-columns: 1fr; } }
+.welkom h1 { font-size: clamp(2.5rem, 1.4rem + 4vw, 4.5rem); line-height: 1; letter-spacing: -0.04em; }
+.welkom h1 em { font-style: normal; color: #8EA2FF; }
+.welkom .stats { border-top-color: #EEF1FF; margin-top: 28px; }
+.welkom .stats dt { color: #B4BEE6; }
+.wcard { background: #fff; color: #0F1A3D; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 12px; --ink: #0F1A3D; --muted: #4A5578; --line: #D5DBEE; --line-strong: #AEB8DB; --accent: #2842E0; --accent-ink: #fff; --bg: #F5F7FC; --bg-alt: #EBEFFA; --redact: #0F1A3D; --focus: #2842E0; --surface: #fff; }
+.js .wcard.is-in { animation: kaart-in .45s cubic-bezier(.2, .8, .2, 1); }
+@keyframes kaart-in { from { opacity: 0; transform: translateX(28px) rotate(2deg); } }
+.wcard .t { font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1.1; }
+.match { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #0B7A4F; }
+.match .ring { --p: 92; width: 44px; height: 44px; border-radius: 50%; background: conic-gradient(#0B7A4F calc(var(--p) * 1%), #DDF3E8 0); display: grid; place-items: center; font-size: .75rem; }
+.match .ring::before { content: ""; grid-area: 1 / 1; width: 34px; height: 34px; border-radius: 50%; background: #fff; }
+.match .ring span { grid-area: 1 / 1; position: relative; color: #0F1A3D; }
+.why li { display: flex; gap: 8px; font-size: .9375rem; }
+.why li::before { content: "✓"; color: #0B7A4F; font-weight: 800; }
+.kpis { display: flex; flex-wrap: wrap; gap: 8px; }
+.kpis span { padding: 6px 10px; border-radius: 10px; background: #EBEFFA; font-size: .875rem; }
+.kpis strong { font-size: 1.0625rem; margin-right: 4px; }
+.wacts { display: flex; flex-wrap: wrap; gap: 8px; }
+.wacts .btn { flex: 1 1 auto; min-height: 44px; padding: 0 14px; font-size: .9375rem; }
+
+/* Gekleurde blokken, zodat de pagina niet overal dezelfde achtergrond heeft */
+.blk { margin: clamp(24px, 4vw, 48px) clamp(8px, 1.5vw, 24px); border-radius: clamp(28px, 5vw, 64px); padding-block: clamp(56px, 8vw, 112px) !important; }
+.blk--soft { background: var(--accent-soft); }
+.blk--soft .pcard { border-color: transparent; }
+.blk--ink { background: #0F1A3D; color: #EEF1FF; --ink: #EEF1FF; --muted: #B4BEE6; --line: #2A3570; --line-strong: #46549A; --accent: #8EA2FF; --accent-ink: #0B1130; --accent-soft: #1F2B66; --bg: #0F1A3D; --focus: #B5C2FF; }
+.blk--ink .big-h .soft { color: #A8B2DB; }
+.blk--accent { background: var(--accent); color: var(--accent-ink); }
+.blk--accent .big-h .soft { color: color-mix(in srgb, var(--accent-ink) 70%, transparent); }
+.blk--accent .lead { color: var(--accent-ink); }
+.light-island { --bg: #F5F7FC; --bg-alt: #EBEFFA; --surface: #FFFFFF; --ink: #0F1A3D; --muted: #4A5578; --line: #D5DBEE; --line-strong: #AEB8DB; --accent: #2842E0; --accent-ink: #FFFFFF; --accent-soft: #E6EAFF; --focus: #2842E0; color: #0F1A3D; }
+.blk--ink .prices { border-top-color: #EEF1FF; }
+.blk--ink .prices li.ref .amt { -webkit-text-stroke-color: #B4BEE6; }
+
 /* Vaste knop onderin op mobiel */
 .sticky-cta { display: none; }
 @media (max-width: 720px) {
@@ -230,10 +269,57 @@
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<div data-menu data-rol="bezoeker" data-pagina="home"></div>
+<div data-menu data-rol="auto" data-pagina="home"></div>
 <script src="assets/menu.js"></script>
 
 <main id="inhoud">
+  <!-- Alleen voor een ingelogde marketeer -->
+  <section class="welkom" data-voor-rol="kandidaat" hidden aria-labelledby="h-welkom-k">
+    <div class="wrap welkom-grid">
+      <div>
+        <h1 id="h-welkom-k">Hoi Sanne, je hebt <em>2 nieuwe aanbiedingen</em>.</h1>
+        <dl class="stats">
+          <div><dt>keer bekeken deze week</dt><dd>14</dd></div>
+          <div><dt>keer bewaard</dt><dd>3</dd></div>
+          <div><dt>profiel compleet</dt><dd>85%</dd></div>
+        </dl>
+      </div>
+      <article class="wcard" aria-label="Nieuwste aanbod">
+        <div class="between fine"><strong style="color:#0F1A3D">Studio Noord</strong><span>2 dagen geleden</span></div>
+        <div class="t">Performance marketeer</div>
+        <p><span class="salaris" style="font-size:1.25rem">€4.200–4.800</span> per maand</p>
+        <p class="fine">Reageer binnen 5 dagen. Je naam blijft verborgen tot jij ja zegt.</p>
+        <div class="wacts"><a class="btn btn--primary" href="kandidaat-overzicht.html">Bekijk aanbod</a><a class="btn btn--ghost" href="kandidaat-overzicht.html#aanbiedingen">Alle aanbiedingen (2)</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Alleen voor een ingelogde werkgever: beste matches als kaarten -->
+  <section class="welkom" data-voor-rol="werkgever" hidden aria-labelledby="h-welkom-w">
+    <div class="wrap welkom-grid">
+      <div>
+        <h1 id="h-welkom-w"><em>12 marketeers</em> passen bij Studio Noord.</h1>
+        <p class="lead" style="color:#B4BEE6;margin-top:16px">Op basis van je bedrijfsprofiel: performance en SEA, Google Ads, Utrecht, €4.000 tot €5.000. Liever zelf zoeken? <a href="kandidaten-zoeken.html" style="color:#fff">Naar alle filters</a>.</p>
+      </div>
+      <div>
+        <div class="between" style="margin-bottom:10px"><span class="fine" style="color:#B4BEE6">Beste matches</span><span class="fine" style="color:#B4BEE6" aria-live="polite"><span id="m-nr">1</span> / 12</span></div>
+        <article class="wcard is-in" id="mcard" aria-live="polite">
+          <div class="between"><strong id="m-code">K-1010</strong><span class="match"><span class="ring" id="m-ring" style="--p:92"><span id="m-pct">92%</span></span>match</span></div>
+          <div class="t" id="m-titel">Senior SEA-specialist</div>
+          <p class="fine" id="m-meta">vanaf €4.000 · 32 uur · per 1 februari · Utrecht</p>
+          <div class="kpis" id="m-kpis"></div>
+          <div><strong style="font-size:.9375rem">Waarom deze match</strong><ul class="why" id="m-why" style="margin-top:6px"></ul></div>
+          <div class="wacts">
+            <button type="button" class="btn btn--ghost" data-m="niet">Niet nu</button>
+            <button type="button" class="btn btn--ghost" data-m="bewaar">Bewaren</button>
+            <a class="btn btn--ghost" href="kandidaat.html">Bekijk profiel</a>
+            <a class="btn btn--primary" href="kandidaat.html">Stuur aanbod</a>
+          </div>
+        </article>
+        <p class="fine" id="m-melding" role="status" style="color:#B4BEE6;margin-top:10px">Bewaard en Niet nu vind je terug op je overzicht.</p>
+      </div>
+    </div>
+  </section>
   <!-- Hero -->
   <section class="hero" aria-labelledby="h-hero">
     <div class="wrap">
@@ -309,7 +395,7 @@
   </section>
 
   <!-- Profielen -->
-  <section class="sec" aria-labelledby="h-zien">
+  <section class="sec blk blk--soft" aria-labelledby="h-zien">
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-zien" class="big-h">Dit zien bedrijven <span class="soft">van jou.</span></h2>
@@ -399,14 +485,14 @@
   </section>
 
   <!-- Snel zoeken voor werkgevers -->
-  <section class="sec" style="padding-top:0" aria-labelledby="h-quick">
+  <section class="sec blk blk--accent" aria-labelledby="h-quick">
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-quick" class="big-h">Snel kandidaten <span class="soft">zoeken.</span></h2>
         <p class="lead">Voor werkgevers. Kies een vak, ervaring en regio en zie meteen hoeveel anonieme profielen passen.</p>
       </div>
       <div class="quick">
-        <div class="card stack" style="border-radius:28px">
+        <div class="card stack light-island" style="border-radius:28px">
           <fieldset class="stack-s"><legend>Specialisme</legend><div class="chips" data-een data-q="spec">
             <button type="button" class="chip" aria-pressed="true" data-v="64">Performance en SEA</button><button type="button" class="chip" aria-pressed="false" data-v="41">SEO en content</button><button type="button" class="chip" aria-pressed="false" data-v="22">Marketing-automation</button><button type="button" class="chip" aria-pressed="false" data-v="19">Data en analytics</button>
           </div></fieldset>
@@ -428,7 +514,7 @@
   </section>
 
   <!-- Cijfers -->
-  <section class="sec" style="padding-top:0" aria-labelledby="h-cbs">
+  <section class="sec" aria-labelledby="h-cbs">
     <div class="wrap">
       <div class="between reveal" style="margin-bottom:24px"><h2 id="h-cbs">De arbeidsmarkt in cijfers</h2><span class="fine">Bron: CBS, derde kwartaal 2026</span></div>
       <dl class="cbs reveal">
@@ -488,7 +574,7 @@
   </section>
 
   <!-- Prijzen -->
-  <section class="sec" id="prijzen" style="padding-top:0" aria-labelledby="h-prijs">
+  <section class="sec blk blk--ink" id="prijzen" aria-labelledby="h-prijs">
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-prijs" class="big-h">Betaal pas <span class="soft">bij resultaat.</span></h2>
@@ -503,7 +589,7 @@
   </section>
 
   <!-- Vragen -->
-  <section class="sec" id="vragen" style="padding-top:0" aria-labelledby="h-faq">
+  <section class="sec blk blk--soft" id="vragen" aria-labelledby="h-faq">
     <div class="wrap">
       <div class="sec-head reveal"><h2 id="h-faq" class="big-h">Veelgestelde <span class="soft">vragen.</span></h2></div>
       <div class="faq">
@@ -526,7 +612,13 @@
         <span class="line" aria-hidden="true" data-drift="-1"><span class="w">vinden.</span></span>
       </h2>
       <p class="lead">Gratis voor marketeers. Bedrijven betalen alleen bij een aanname.</p>
-      <div class="cta-row">
+      <div class="cta-row" data-voor-rol="kandidaat" hidden>
+        <a class="cta-pill cta-pill--accent" href="mijn-profiel.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></svg></span><span class="cta-txt">Maak je profiel compleet</span></a>
+      </div>
+      <div class="cta-row" data-voor-rol="werkgever" hidden>
+        <a class="cta-pill cta-pill--accent" href="kandidaten-zoeken.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span class="cta-txt">Zoek kandidaten</span></a>
+      </div>
+      <div class="cta-row" data-alleen-bezoeker>
         <a class="cta-pill cta-pill--accent" href="inloggen.html#aanmelden"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="cta-txt">Account maken</span></a>
         <a class="cta-pill" href="inloggen.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6"/></svg></span><span class="cta-txt">Inloggen</span></a>
       </div>
@@ -534,17 +626,28 @@
   </section>
 </main>
 
-<div class="sticky-cta" id="sticky-cta">
+<div class="sticky-cta" id="sticky-cta" data-alleen-bezoeker>
   <a class="cta-pill cta-pill--accent cta-pill--small" href="inloggen.html#aanmelden"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></svg></span><span class="cta-txt">Maak gratis je profiel</span></a>
 </div>
 
-<div data-voet data-rol="bezoeker"></div>
+<div data-voet data-rol="auto"></div>
 <script src="assets/deedni.js"></script>
 <script>
 (function () {
   'use strict';
   var minder = window.deedni && window.deedni.minderBeweging;
   var fijn = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* 0. Ingelogd? Dan dezelfde homepage, met een persoonlijk welkom bovenaan */
+  var rol = document.documentElement.getAttribute('data-rol') || 'bezoeker';
+  document.querySelectorAll('[data-voor-rol]').forEach(function (el) { el.hidden = el.getAttribute('data-voor-rol') !== rol; });
+  document.querySelectorAll('[data-alleen-bezoeker]').forEach(function (el) { if (rol !== 'bezoeker') el.hidden = true; });
+  if (rol !== 'bezoeker') {
+    // Het welkom heeft nu de h1, dus de grote kop wordt een h2
+    var heroH = document.getElementById('h-hero');
+    var tag = document.createElement('h2'); tag.className = heroH.className; tag.innerHTML = heroH.innerHTML; tag.setAttribute('data-mega', ''); tag.id = 'h-hero';
+    heroH.parentNode.replaceChild(tag, heroH);
+  }
 
   /* 1. Grote koppen opknippen in letters, zodat ze kunnen bewegen */
   var letters = [];
@@ -714,6 +817,41 @@
       });
     });
   });
+  /* 11. Rol toepassen op de hero, en de matchkaarten voor werkgevers */
+  if (rol === 'kandidaat') {
+    document.querySelector('.hero .seg').hidden = true;
+    cta.href = 'kandidaat-overzicht.html'; ctaTxt.textContent = 'Bekijk je aanbiedingen'; note.textContent = 'Je hebt 2 nieuwe aanbiedingen';
+  } else if (rol === 'werkgever') {
+    document.querySelector('[data-wie="personeel"]').click();
+    document.querySelector('.hero .seg').hidden = true;
+  }
+  if (rol === 'werkgever') {
+    var M = [
+      { code: 'K-1010', p: 92, t: 'Senior SEA-specialist', meta: 'vanaf €4.000 · 32 uur · per 1 februari · Utrecht', k: [['5,4', 'ROAS'], ['−40%', 'CPL'], ['6 jr', 'ervaring']], w: ['Google Ads en GA4, net als jullie', 'Binnen je salarisbudget', 'Hybride in Utrecht'] },
+      { code: 'K-2041', p: 88, t: 'Senior performance marketeer', meta: 'vanaf €4.000 · 32 tot 40 uur · per direct · Utrecht + 30 km', k: [['3,1 → 5,4', 'ROAS'], ['3', 'cases'], ['7 jr', 'ervaring']], w: ['Google Ads, Meta Ads en GA4', 'Binnen je salarisbudget', 'Wil een klein team leiden'] },
+      { code: 'K-1910', p: 81, t: 'SEA-specialist e-commerce', meta: 'vanaf €3.900 · 36 uur · binnen 1 maand · Remote', k: [['+120%', 'Shopping-omzet'], ['4', 'cases'], ['6 jr', 'ervaring']], w: ['Google Ads en Shopping', 'Onder je salarisbudget', 'Alleen remote, jullie zijn hybride'] }
+    ];
+    var mi = 0, bewaard = 0, card = document.getElementById('mcard');
+    function toonMatch() {
+      var m = M[mi % M.length];
+      document.getElementById('m-nr').textContent = (mi % 12) + 1;
+      document.getElementById('m-code').textContent = m.code;
+      document.getElementById('m-pct').textContent = m.p + '%';
+      document.getElementById('m-ring').style.setProperty('--p', m.p);
+      document.getElementById('m-titel').textContent = m.t;
+      document.getElementById('m-meta').textContent = m.meta;
+      document.getElementById('m-kpis').innerHTML = m.k.map(function (x) { return '<span><strong>' + x[0] + '</strong>' + x[1] + '</span>'; }).join('');
+      document.getElementById('m-why').innerHTML = m.w.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+      card.classList.remove('is-in'); void card.offsetWidth; card.classList.add('is-in');
+    }
+    card.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-m]'); if (!b) return;
+      if (b.getAttribute('data-m') === 'bewaar') bewaard++;
+      document.getElementById('m-melding').textContent = (b.getAttribute('data-m') === 'bewaar' ? M[mi % M.length].code + ' is bewaard. ' : M[mi % M.length].code + ' staat onder Niet nu. ') + 'Je vindt ze terug op je overzicht.';
+      mi++; toonMatch();
+    });
+    toonMatch();
+  }
 })();
 </script>
 </body>

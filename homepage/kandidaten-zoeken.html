@@ -54,6 +54,8 @@
   .cand .right { align-items: flex-start; text-align: left; }
   .cand .acts { justify-content: flex-start; }
 }
+.match-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px 3px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); font-size: .8125rem; font-weight: 700; }
+.match-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .empty { text-align: center; padding: 48px 24px; }
 </style>
 </head>
@@ -114,7 +116,7 @@
     <section class="stack" aria-labelledby="h-res">
       <div class="result-head">
         <h2 id="h-res" style="font-size:1.25rem" aria-live="polite"><span id="aantal">4</span> van 128 profielen</h2>
-        <span class="fine">Gesorteerd op laatst bevestigd</span>
+        <span class="fine">Gesorteerd op beste match met je bedrijfsprofiel</span>
       </div>
       <div class="cands" id="lijst"></div>
       <div class="card empty" id="leeg" hidden><h3>Geen profielen met deze filters</h3><p class="fine">Haal een filter weg of zoek op een andere tool.</p></div>
@@ -183,15 +185,15 @@
 <script>
 (function () {
   var K = [
-    { code: 'K-2041', t: 'Senior performance marketeer', st: 'Actief op zoek', spec: 'performance', jaar: 7, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht + 30 km', plek: ['Hybride', 'Remote'], tools: ['Google Ads', 'Meta Ads', 'GA4', 'Merchant Center'], cases: 3, sal: '€4.000–4.800', besch: 1 },
-    { code: 'K-1873', t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 5, regio: ['Utrecht'], plaats: 'Amersfoort + 40 km', plek: ['Hybride'], tools: ['Google Ads', 'GA4', 'Tag Manager'], cases: 2, sal: '€3.600–4.200', besch: 3 },
-    { code: 'K-1910', t: 'SEA-specialist e-commerce', st: 'Actief op zoek', spec: 'performance', jaar: 6, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht', plek: ['Remote'], tools: ['Google Ads', 'Shopping', 'Looker Studio'], cases: 4, sal: '€3.900–4.500', besch: 1 },
-    { code: 'K-2007', t: 'Paid social lead', st: 'Open voor aanbod', spec: 'performance', jaar: 8, regio: ['Utrecht'], plaats: 'Utrecht + 50 km', plek: ['Hybride'], tools: ['Meta Ads', 'TikTok Ads', 'GA4', 'Google Ads'], cases: 3, sal: '€4.400–5.200', besch: 3 },
-    { code: 'K-3320', t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 6, regio: ['Remote'], plaats: 'Rotterdam', plek: ['Remote', 'Hybride'], tools: ['Google Ads', 'Meta Ads', 'GA4'], cases: 2, sal: '€4.200–4.800', besch: 3 },
-    { code: 'K-1024', t: 'Contentmarketeer', st: 'Open voor aanbod', spec: 'seo', jaar: 4, regio: ['Remote'], plaats: 'Gelderland', plek: ['Hybride'], tools: ['WordPress', 'Semrush', 'GA4'], cases: 3, sal: '€3.300–3.800', besch: 1 },
-    { code: 'K-1031', t: 'Marketing-automationspecialist', st: 'Actief op zoek', spec: 'automation', jaar: 8, regio: ['Noord-Holland'], plaats: 'Haarlem + 25 km', plek: ['Hybride', 'Kantoor'], tools: ['HubSpot', 'ActiveCampaign', 'Zapier'], cases: 4, sal: '€5.000–5.600', besch: 3 },
-    { code: 'K-1187', t: 'SEA-specialist', st: 'Actief op zoek', spec: 'performance', jaar: 3, regio: ['Utrecht'], plaats: 'Nieuwegein', plek: ['Kantoor', 'Hybride'], tools: ['Google Ads', 'GA4'], cases: 2, sal: '€3.200–3.700', besch: 1 },
-    { code: 'K-0877', t: 'Data-analist marketing', st: 'Open voor aanbod', spec: 'data', jaar: 5, regio: ['Noord-Holland', 'Remote'], plaats: 'Amsterdam', plek: ['Remote'], tools: ['GA4', 'BigQuery', 'Looker Studio'], cases: 3, sal: '€4.300–4.900', besch: 3 }
+    { code: 'K-2041', m: 88, t: 'Senior performance marketeer', st: 'Actief op zoek', spec: 'performance', jaar: 7, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht + 30 km', plek: ['Hybride', 'Remote'], tools: ['Google Ads', 'Meta Ads', 'GA4', 'Merchant Center'], cases: 3, sal: '€4.000–4.800', besch: 1 },
+    { code: 'K-1873', m: 84, t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 5, regio: ['Utrecht'], plaats: 'Amersfoort + 40 km', plek: ['Hybride'], tools: ['Google Ads', 'GA4', 'Tag Manager'], cases: 2, sal: '€3.600–4.200', besch: 3 },
+    { code: 'K-1910', m: 81, t: 'SEA-specialist e-commerce', st: 'Actief op zoek', spec: 'performance', jaar: 6, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht', plek: ['Remote'], tools: ['Google Ads', 'Shopping', 'Looker Studio'], cases: 4, sal: '€3.900–4.500', besch: 1 },
+    { code: 'K-2007', m: 76, t: 'Paid social lead', st: 'Open voor aanbod', spec: 'performance', jaar: 8, regio: ['Utrecht'], plaats: 'Utrecht + 50 km', plek: ['Hybride'], tools: ['Meta Ads', 'TikTok Ads', 'GA4', 'Google Ads'], cases: 3, sal: '€4.400–5.200', besch: 3 },
+    { code: 'K-3320', m: 72, t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 6, regio: ['Remote'], plaats: 'Rotterdam', plek: ['Remote', 'Hybride'], tools: ['Google Ads', 'Meta Ads', 'GA4'], cases: 2, sal: '€4.200–4.800', besch: 3 },
+    { code: 'K-1024', m: 41, t: 'Contentmarketeer', st: 'Open voor aanbod', spec: 'seo', jaar: 4, regio: ['Remote'], plaats: 'Gelderland', plek: ['Hybride'], tools: ['WordPress', 'Semrush', 'GA4'], cases: 3, sal: '€3.300–3.800', besch: 1 },
+    { code: 'K-1031', m: 38, t: 'Marketing-automationspecialist', st: 'Actief op zoek', spec: 'automation', jaar: 8, regio: ['Noord-Holland'], plaats: 'Haarlem + 25 km', plek: ['Hybride', 'Kantoor'], tools: ['HubSpot', 'ActiveCampaign', 'Zapier'], cases: 4, sal: '€5.000–5.600', besch: 3 },
+    { code: 'K-1187', m: 69, t: 'SEA-specialist', st: 'Actief op zoek', spec: 'performance', jaar: 3, regio: ['Utrecht'], plaats: 'Nieuwegein', plek: ['Kantoor', 'Hybride'], tools: ['Google Ads', 'GA4'], cases: 2, sal: '€3.200–3.700', besch: 1 },
+    { code: 'K-0877', m: 45, t: 'Data-analist marketing', st: 'Open voor aanbod', spec: 'data', jaar: 5, regio: ['Noord-Holland', 'Remote'], plaats: 'Amsterdam', plek: ['Remote'], tools: ['GA4', 'BigQuery', 'Looker Studio'], cases: 3, sal: '€4.300–4.900', besch: 3 }
   ];
   var lijst = document.getElementById('lijst'), form = document.getElementById('filters-box');
   var namen = { performance: 'Performance marketing', seo: 'SEO en content', automation: 'Marketing-automation', data: 'Data en analyse', '5': 'Vanaf 5 jaar', '2': '2 tot 5 jaar', '1': 'Binnen 1 maand', '3': 'Binnen 3 maanden', Remote: 'Remote' };
@@ -199,7 +201,7 @@
   function kaart(k) {
     return '<article class="card cand reveal is-in" aria-labelledby="t-' + k.code + '">' +
       '<div class="stack-s" style="gap:12px">' +
-        '<div class="row"><strong>' + k.code + '</strong><span class="tag ' + (k.st === 'Actief op zoek' ? 'tag--ok' : 'tag--accent') + '">' + k.st + '</span></div>' +
+        '<div class="row"><strong>' + k.code + '</strong><span class="match-tag" title="Hoe goed dit profiel past bij je bedrijfsprofiel">' + k.m + '% match</span><span class="tag ' + (k.st === 'Actief op zoek' ? 'tag--ok' : 'tag--accent') + '">' + k.st + '</span></div>' +
         '<h2 id="t-' + k.code + '"><a href="kandidaat.html">' + esc(k.t) + '</a></h2>' +
         '<div class="meta"><span>' + k.jaar + ' jaar ervaring</span><span>' + esc(k.plaats) + '</span><span>' + k.plek.join(' of ') + '</span></div>' +
         '<div class="tools">' + k.tools.map(function (t) { return '<span class="tool">' + esc(t) + '</span>'; }).join('') + '</div>' +
@@ -227,6 +229,7 @@
       if (q && (k.t + ' ' + k.tools.join(' ') + ' ' + k.plaats).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
+    res.sort(function (a, b) { return b.m - a.m; });
     lijst.innerHTML = res.map(kaart).join('');
     document.getElementById('aantal').textContent = res.length;
     document.getElementById('leeg').hidden = res.length > 0;
