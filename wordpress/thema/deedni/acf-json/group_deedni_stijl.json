@@ -1,0 +1,331 @@
+{
+    "key": "group_deedni_stijl",
+    "title": "Stijl",
+    "fields": [
+        {
+            "key": "field_dn_stijl_acc_kleuren",
+            "label": "Kleuren",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_dn_stijl_primair",
+            "label": "Primair",
+            "name": "primair",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "De accentkleur: belangrijkste knoppen, gekleurde woorden in titels, labels en de rand van de voorbeeldkaart. Tekst = tekst op deze kleur.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_dn_stijl_primair_kleur",
+                    "label": "Kleur",
+                    "name": "kleur",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#C2410C",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_dn_stijl_primair_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#FFFFFF",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                }
+            ]
+        },
+        {
+            "key": "field_dn_stijl_secundair",
+            "label": "Secundair",
+            "name": "secundair",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Achtergrond van de pagina en de gewone tekstkleur. Lijnen en grijze teksten worden hier automatisch van afgeleid.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_dn_stijl_secundair_kleur",
+                    "label": "Kleur",
+                    "name": "kleur",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#F6F5F1",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_dn_stijl_secundair_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#16213A",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                }
+            ]
+        },
+        {
+            "key": "field_dn_stijl_tertiair",
+            "label": "Tertiair",
+            "name": "tertiair",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Donkere vlakken (zoals het aanmeldblok en de call to action) en de donkere knoppen.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_dn_stijl_tertiair_kleur",
+                    "label": "Kleur",
+                    "name": "kleur",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#16213A",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_dn_stijl_tertiair_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#FFFFFF",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                }
+            ]
+        },
+        {
+            "key": "field_dn_stijl_rood",
+            "label": "Rood",
+            "name": "rood",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Foutmeldingen in formulieren.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#B42318",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_dn_stijl_groen",
+            "label": "Groen",
+            "name": "groen",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Meldingen dat iets gelukt is, en de vinkjes op donkere vlakken.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#16A34A",
+            "enable_opacity": 0,
+            "return_format": "string"
+        },
+        {
+            "key": "field_dn_stijl_licht",
+            "label": "Licht",
+            "name": "licht",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Witte vlakken: kaarten, formulieren, de witte achtergrond van blokken en de kop na scrollen.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_dn_stijl_licht_kleur",
+                    "label": "Kleur",
+                    "name": "kleur",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#FFFFFF",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_dn_stijl_licht_tekst",
+                    "label": "Tekst",
+                    "name": "tekst",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#16213A",
+                    "enable_opacity": 0,
+                    "return_format": "string"
+                }
+            ]
+        },
+        {
+            "key": "field_dn_stijl_donkere_modus",
+            "label": "Donkere modus",
+            "name": "donkere_modus",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Aan: bezoekers met donkere modus op hun apparaat zien een donkere versie. Daarin wordt alleen de primaire kleur overgenomen. Uit: iedereen ziet precies de kleuren hierboven.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "message": ""
+        },
+        {
+            "key": "field_dn_stijl_acc_einde",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "deedni-instellingen"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793222400
+}

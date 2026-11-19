@@ -1,0 +1,503 @@
+{
+    "key": "group_deedni_kandidaat",
+    "title": "Kandidaatprofiel",
+    "fields": [
+        {
+            "key": "field_dn_k_tab_openbaar",
+            "label": "Je anonieme profiel",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_dn_k_intro_openbaar",
+            "label": "",
+            "name": "intro_openbaar",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Dit zien bedrijven. Zet hier geen naam, foto of namen van werkgevers of klanten in.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_dn_k_functietitel",
+            "label": "Functietitel",
+            "name": "functietitel",
+            "type": "text",
+            "instructions": "Bijvoorbeeld: Senior SEA- en performance marketeer",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 80,
+            "placeholder": ""
+        },
+        {
+            "key": "field_dn_k_specialisme",
+            "label": "Specialisme",
+            "name": "specialisme",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "specialisme",
+            "field_type": "checkbox",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0
+        },
+        {
+            "key": "field_dn_k_vaardigheden",
+            "label": "Tools en vaardigheden",
+            "name": "vaardigheden",
+            "type": "taxonomy",
+            "instructions": "Kies de tools waar je echt mee werkt.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "vaardigheid",
+            "field_type": "multi_select",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0
+        },
+        {
+            "key": "field_dn_k_ervaring_jaren",
+            "label": "Jaren ervaring",
+            "name": "ervaring_jaren",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "max": 50,
+            "step": 1
+        },
+        {
+            "key": "field_dn_k_soort_bedrijven",
+            "label": "Soort bedrijven",
+            "name": "soort_bedrijven",
+            "type": "text",
+            "instructions": "Bijvoorbeeld: bureau, e-commerce, SaaS",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_certificaten",
+            "label": "Certificaten",
+            "name": "certificaten",
+            "type": "text",
+            "instructions": "Bijvoorbeeld: Google Ads Search, HubSpot Inbound",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_provincie",
+            "label": "Provincie",
+            "name": "provincie",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "provincie",
+            "field_type": "select",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 0
+        },
+        {
+            "key": "field_dn_k_regio",
+            "label": "Regio",
+            "name": "regio",
+            "type": "text",
+            "instructions": "Bijvoorbeeld: Utrecht + 30 km",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_werkvorm",
+            "label": "Werkplek",
+            "name": "werkvorm",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "op_locatie": "Op locatie",
+                "hybride": "Hybride",
+                "remote": "Remote"
+            },
+            "default_value": "hybride",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0
+        },
+        {
+            "key": "field_dn_k_uren",
+            "label": "Uren per week",
+            "name": "uren",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "16-24": "16–24 uur",
+                "24-32": "24–32 uur",
+                "32-40": "32–40 uur"
+            },
+            "default_value": "32-40",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0
+        },
+        {
+            "key": "field_dn_k_salaris_min",
+            "label": "Gewenst salaris vanaf",
+            "name": "salaris_min",
+            "type": "number",
+            "instructions": "Bruto per maand, bij 40 uur",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "prepend": "€",
+            "min": 0,
+            "step": 50
+        },
+        {
+            "key": "field_dn_k_beschikbaarheid",
+            "label": "Beschikbaar",
+            "name": "beschikbaarheid",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "direct": "Direct",
+                "1_maand": "Binnen 1 maand",
+                "2_3_maanden": "Binnen 2 à 3 maanden",
+                "in_overleg": "In overleg"
+            },
+            "default_value": "1_maand",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0
+        },
+        {
+            "key": "field_dn_k_zoekstatus",
+            "label": "Hoe actief zoek je?",
+            "name": "zoekstatus",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "actief": "Actief op zoek",
+                "open": "Staat open voor een aanbod"
+            },
+            "default_value": "open",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0
+        },
+        {
+            "key": "field_dn_k_samenvatting",
+            "label": "Korte introductie",
+            "name": "samenvatting",
+            "type": "textarea",
+            "instructions": "Wat kun je en waar ben je trots op? Noem resultaten, geen namen.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 5,
+            "maxlength": 1200,
+            "new_lines": ""
+        },
+        {
+            "key": "field_dn_k_wensen",
+            "label": "Wat zoek je in een werkgever?",
+            "name": "wensen",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "maxlength": 600,
+            "new_lines": ""
+        },
+        {
+            "key": "field_dn_k_blokkeerlijst",
+            "label": "Blokkeerlijst",
+            "name": "blokkeerlijst",
+            "type": "textarea",
+            "instructions": "E-maildomeinen van bedrijven die je profiel nooit mogen zien, één per regel. Bijvoorbeeld: mijnwerkgever.nl",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_dn_k_profiel_zichtbaar",
+            "label": "Zichtbaarheid",
+            "name": "profiel_zichtbaar",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Werkgevers kunnen mijn anonieme profiel vinden",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Aan",
+            "ui_off_text": "Uit"
+        },
+        {
+            "key": "field_dn_k_tab_prive",
+            "label": "Pas zichtbaar na jouw ja",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_dn_k_intro_prive",
+            "label": "",
+            "name": "intro_prive",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Deze gegevens ziet een bedrijf pas als jij een aanbod van dat bedrijf accepteert.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_dn_k_voornaam",
+            "label": "Voornaam",
+            "name": "voornaam",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_achternaam",
+            "label": "Achternaam",
+            "name": "achternaam",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_telefoon",
+            "label": "Telefoonnummer",
+            "name": "telefoon",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_linkedin",
+            "label": "LinkedIn-profiel",
+            "name": "linkedin",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_huidige_werkgever",
+            "label": "Huidige werkgever",
+            "name": "huidige_werkgever",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_k_cv",
+            "label": "Cv",
+            "name": "cv",
+            "type": "file",
+            "instructions": "Pdf of Word, maximaal 5 MB.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "uploadedTo",
+            "min_size": "",
+            "max_size": 5,
+            "mime_types": "pdf,doc,docx"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "kandidaat"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Beheerd door de plugin deedni Core.",
+    "show_in_rest": 0,
+    "modified": 1792699200
+}

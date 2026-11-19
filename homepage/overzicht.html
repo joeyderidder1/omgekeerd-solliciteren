@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>deedni, overzicht van pagina's</title>
+<style>
+  :root { --bg:#f7f6f2; --kaart:#fff; --tekst:#1c1b19; --zacht:#6b6962; --rand:#e4e1d8; --accent:#2f5d50; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161614; --kaart:#201f1c; --tekst:#f1efe8; --zacht:#a3a097; --rand:#34322d; --accent:#8cc5b2; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--tekst); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:48px 16px; }
+  h1 { font-size:28px; margin:0 0 4px; }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:.06em; color:var(--zacht); margin:36px 0 12px; }
+  p { color:var(--zacht); margin:0 0 8px; }
+  ul { list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+  a { display:block; background:var(--kaart); border:1px solid var(--rand); border-radius:12px; padding:14px 18px; color:var(--tekst); text-decoration:none; }
+  a:hover { border-color:var(--accent); }
+  a strong { display:block; color:var(--accent); }
+  a span { color:var(--zacht); font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>deedni, live voorbeeld</h1>
+  <p>Dit zijn de ontwerppagina's uit de map <code>homepage/</code>. Elke goedgekeurde wijziging staat hier binnen een paar minuten.</p>
+
+  <h2>Nieuwste versie</h2>
+  <ul>
+    <li><a href="index.html"><strong>Homepage</strong><span>De voorpagina van deedni</span></a></li>
+    <li><a href="profiel.html"><strong>Profiel maken</strong><span>Een kandidaat maakt stap voor stap een profiel</span></a></li>
+    <li><a href="prototype.html"><strong>Klikbaar prototype</strong><span>De hele site om doorheen te klikken</span></a></li>
+  </ul>
+
+  <h2>Eerdere versies van de homepage</h2>
+  <ul>
+    <li><a href="index-v8.html"><strong>Versie 8</strong></a></li>
+    <li><a href="index-v5.html"><strong>Versie 5</strong></a></li>
+    <li><a href="index-v3.html"><strong>Versie 3</strong></a></li>
+    <li><a href="index-v2.html"><strong>Versie 2</strong></a></li>
+  </ul>
+</main>
+</body>
+</html>

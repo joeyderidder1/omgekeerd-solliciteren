@@ -1,0 +1,146 @@
+{
+    "key": "group_deedni_bedrijf",
+    "title": "Bedrijfsprofiel",
+    "fields": [
+        {
+            "key": "field_dn_b_bedrijfsnaam",
+            "label": "Bedrijfsnaam",
+            "name": "bedrijfsnaam",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_b_plaats",
+            "label": "Vestigingsplaats",
+            "name": "plaats",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_b_website",
+            "label": "Website",
+            "name": "website",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_b_kvk_nummer",
+            "label": "KvK-nummer",
+            "name": "kvk_nummer",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "maxlength": 8
+        },
+        {
+            "key": "field_dn_b_omschrijving",
+            "label": "Over het bedrijf",
+            "name": "omschrijving",
+            "type": "textarea",
+            "instructions": "Kandidaten zien dit bij je aanbod.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "maxlength": 800,
+            "new_lines": ""
+        },
+        {
+            "key": "field_dn_b_logo",
+            "label": "Logo",
+            "name": "logo",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "uploadedTo",
+            "max_size": 2,
+            "mime_types": "png,jpg,jpeg,svg,webp"
+        },
+        {
+            "key": "field_dn_b_contactpersoon",
+            "label": "Contactpersoon",
+            "name": "contactpersoon",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_dn_b_telefoon",
+            "label": "Telefoonnummer",
+            "name": "telefoon",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "bedrijf"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Beheerd door de plugin deedni Core.",
+    "show_in_rest": 0,
+    "modified": 1792699200
+}
