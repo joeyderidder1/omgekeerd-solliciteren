@@ -27,6 +27,7 @@
 .offer-state { padding: 14px 16px; border-radius: 12px; font-weight: 600; }
 .offer-state.ok { background: var(--ok-soft); color: var(--ok); }
 .offer-state.nee { background: var(--bg-alt); color: var(--ink); }
+.offer-state.maar { background: var(--accent-soft); color: var(--ink); }
 .deadline { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; color: var(--muted); }
 .done-list li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
 .done-list li:last-child { border-bottom: 0; }
@@ -63,36 +64,46 @@
       </div>
 
       <div id="paneel-nieuw" role="tabpanel" aria-labelledby="tab-nieuw" class="stack">
-        <article class="card offer is-new" id="aanbod-studio-noord" aria-labelledby="sn-titel">
+        <article class="card offer is-new" id="aanbod-studio-noord" data-aanbod="Studio Noord" aria-labelledby="aanbod-studio-noord-titel">
           <div class="offer-top">
             <div class="offer-co"><span class="co-logo" aria-hidden="true">SN</span>Studio Noord <span class="tag tag--accent">Nieuw</span></div>
             <span class="fine">2 dagen geleden</span>
           </div>
-          <h3 id="sn-titel">Senior performance marketeer</h3>
+          <h3 id="aanbod-studio-noord-titel">Senior performance marketeer</h3>
           <p class="fine">32 tot 40 uur, hybride, Utrecht</p>
           <p><span class="salaris">€4.200–4.800</span> per maand</p>
           <blockquote class="quote">Je cases passen bij onze klanten.</blockquote>
-          <div class="sees"><strong>Studio Noord ziet nu:</strong> Naam <span class="redact" role="img" aria-label="verborgen"></span></div>
+          <div class="sees" data-ziet><strong>Studio Noord ziet nu:</strong> Naam <span class="redact" role="img" aria-label="verborgen"></span></div>
           <div class="answer" data-antwoord>
             <button type="button" class="btn btn--primary" data-ja>Ja, deel mijn naam</button>
-            <button type="button" class="btn btn--ghost" data-open="ja-maar" data-voor="Studio Noord">Ja, maar...</button>
+            <button type="button" class="btn btn--ghost" data-open="ja-maar" data-voor="Studio Noord" data-voor-titel="Senior performance marketeer · Utrecht" data-voor-salaris="€4.200–4.800">Ja, maar...</button>
             <button type="button" class="btn btn--ghost" data-nee>Nee, bedankt</button>
           </div>
           <p class="offer-state ok" data-staat-ja hidden role="status">Je naam en contactgegevens zijn gedeeld met Studio Noord. Ze nemen binnen een paar dagen contact op.</p>
           <p class="offer-state nee" data-staat-nee hidden role="status">Afgewezen. Studio Noord krijgt een nette afwijzing en jij blijft anoniem.</p>
+          <p class="offer-state maar" data-staat-maar hidden role="status">Je voorwaarde is verstuurd. Studio Noord past het aanbod aan, gaat akkoord of laat het vallen. Je naam blijft verborgen.</p>
           <p class="fine" data-uitleg>Met “Ja, maar...” reageer je met een voorwaarde, bijvoorbeeld een hoger salaris. Je naam blijft verborgen tot je ja zegt. <span class="deadline">Reageer binnen 5 dagen.</span></p>
         </article>
 
-        <article class="card offer" aria-labelledby="mo-titel">
+        <article class="card offer is-new" id="aanbod-oost" data-aanbod="Marketingbureau Oost" aria-labelledby="aanbod-oost-titel">
           <div class="offer-top">
             <div class="offer-co"><span class="co-logo" aria-hidden="true">MO</span>Marketingbureau Oost <span class="tag tag--accent">Nieuw</span></div>
             <span class="fine">1 dag geleden</span>
           </div>
-          <h3 id="mo-titel">Senior SEO-specialist</h3>
+          <h3 id="aanbod-oost-titel">Senior SEO-specialist</h3>
           <p class="fine">36 uur, hybride, Zwolle</p>
           <p><span class="salaris">€4.500–5.000</span> per maand</p>
           <blockquote class="quote">We zoeken iemand die onze organische groei overneemt.</blockquote>
-          <div class="row"><button type="button" class="btn btn--ghost btn--small" data-open="ja-maar" data-voor="Marketingbureau Oost">Reageer op dit aanbod</button><span class="deadline">Reageer binnen 5 dagen</span></div>
+          <div class="sees" data-ziet><strong>Marketingbureau Oost ziet nu:</strong> Naam <span class="redact" role="img" aria-label="verborgen"></span></div>
+          <div class="answer" data-antwoord>
+            <button type="button" class="btn btn--primary" data-ja>Ja, deel mijn naam</button>
+            <button type="button" class="btn btn--ghost" data-open="ja-maar" data-voor="Marketingbureau Oost" data-voor-titel="Senior SEO-specialist · Zwolle" data-voor-salaris="€4.500–5.000">Ja, maar...</button>
+            <button type="button" class="btn btn--ghost" data-nee>Nee, bedankt</button>
+          </div>
+          <p class="offer-state ok" data-staat-ja hidden role="status">Je naam en contactgegevens zijn gedeeld met Marketingbureau Oost. Ze nemen binnen een paar dagen contact op.</p>
+          <p class="offer-state nee" data-staat-nee hidden role="status">Afgewezen. Marketingbureau Oost krijgt een nette afwijzing en jij blijft anoniem.</p>
+          <p class="offer-state maar" data-staat-maar hidden role="status">Je voorwaarde is verstuurd. Marketingbureau Oost past het aanbod aan, gaat akkoord of laat het vallen. Je naam blijft verborgen.</p>
+          <p class="fine" data-uitleg>Met “Ja, maar...” reageer je met een voorwaarde, bijvoorbeeld een hoger salaris. Je naam blijft verborgen tot je ja zegt. <span class="deadline">Reageer binnen 5 dagen.</span></p>
         </article>
       </div>
 
@@ -145,7 +156,7 @@
       <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
     </div>
     <div class="modal-body">
-      <div class="summary"><span><strong>Senior performance marketeer</strong> · Utrecht, hybride</span><span class="salaris">€4.200–4.800</span></div>
+      <div class="summary"><span data-voor-titel>Senior performance marketeer · Utrecht</span><span class="salaris" data-voor-salaris>€4.200–4.800</span></div>
       <fieldset class="stack-s">
         <legend>Waar gaat je voorwaarde over?</legend>
         <div class="chips" style="margin-top:8px">
@@ -156,8 +167,9 @@
           <button type="button" class="chip" aria-pressed="false">Opleidingsbudget</button>
           <button type="button" class="chip" aria-pressed="false">Andere uren</button>
           <button type="button" class="chip" aria-pressed="false">Pensioen of bonus</button>
-          <button type="button" class="chip" aria-pressed="false">Iets anders</button>
+          <button type="button" class="chip" aria-pressed="false" data-anders aria-controls="jm-anders-veld">Iets anders</button>
         </div>
+        <div class="field" id="jm-anders-veld" hidden style="margin-top:12px"><label for="jm-anders">Wat wil je anders?</label><input id="jm-anders" placeholder="Bijvoorbeeld: een vierdaagse werkweek"></div>
       </fieldset>
       <fieldset>
         <legend>Salaris dat je wilt, per maand</legend>
@@ -211,17 +223,31 @@
     });
   });
 
-  // Ja of nee op het aanbod van Studio Noord
-  var kaart = document.getElementById('aanbod-studio-noord');
-  function antwoord(soort) {
+  // Ja, nee of ja maar, per aanbod
+  function antwoord(kaart, soort) {
     kaart.querySelector('[data-antwoord]').hidden = true;
     kaart.querySelector('[data-uitleg]').hidden = true;
     kaart.querySelector('[data-staat-' + soort + ']').hidden = false;
-    var sees = kaart.querySelector('.sees');
-    if (soort === 'ja') sees.innerHTML = '<strong>Studio Noord ziet nu:</strong> <span class="shown">Sanne de Vries</span>, e-mail, telefoon en cv';
+    kaart.classList.remove('is-new');
+    var tag = kaart.querySelector('.offer-co .tag'); if (tag) tag.remove();
+    if (soort === 'ja') kaart.querySelector('[data-ziet]').innerHTML = '<strong>' + kaart.getAttribute('data-aanbod') + ' ziet nu:</strong> <span class="shown">Sanne de Vries</span>, e-mail, telefoon en cv';
   }
-  kaart.querySelector('[data-ja]').addEventListener('click', function () { antwoord('ja'); });
-  kaart.querySelector('[data-nee]').addEventListener('click', function () { antwoord('nee'); });
+  document.querySelectorAll('[data-aanbod]').forEach(function (k) {
+    k.querySelector('[data-ja]').addEventListener('click', function () { antwoord(k, 'ja'); });
+    k.querySelector('[data-nee]').addEventListener('click', function () { antwoord(k, 'nee'); });
+  });
+  var jm = document.getElementById('ja-maar');
+  jm.addEventListener('verstuurd', function () {
+    var k = jm._opener && jm._opener.closest('[data-aanbod]');
+    if (k) antwoord(k, 'maar');
+  });
+  // "Iets anders" laat een invulveld zien
+  var anders = jm.querySelector('[data-anders]'), veld = document.getElementById('jm-anders-veld');
+  jm.addEventListener('chip', function () {
+    var aan = anders.getAttribute('aria-pressed') === 'true';
+    veld.hidden = !aan;
+    if (aan) document.getElementById('jm-anders').focus();
+  });
 
   if (location.hash === '#aanbiedingen') kies(tabs[0]);
 })();

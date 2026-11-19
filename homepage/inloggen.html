@@ -65,7 +65,7 @@
 <script src="assets/deedni.js"></script>
 <script>
 (function () {
-  var doel = { kandidaat: 'kandidaat-overzicht.html', werkgever: 'werkgever-overzicht.html' };
+  var doel = { kandidaat: 'index.html?rol=kandidaat', werkgever: 'index.html?rol=werkgever' };
   document.getElementById('login').addEventListener('submit', function (e) {
     e.preventDefault();
     location.href = doel[this.querySelector('[name="rol"]:checked').value];

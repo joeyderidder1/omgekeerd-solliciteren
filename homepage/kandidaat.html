@@ -39,6 +39,11 @@ body.is-shared a.v-shared { display: inline-flex; }
 .share-list h3 { font-size: 1rem; margin-top: 4px; }
 .share-list li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: .9375rem; }
 .share-list svg { flex: none; margin-top: 3px; }
+.match-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px 3px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); font-size: .8125rem; font-weight: 700; white-space: nowrap; }
+.match-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.why li { display: flex; gap: 8px; padding: 4px 0; font-size: .9375rem; }
+.why li::before { content: "✓"; color: var(--ok); font-weight: 800; }
+.why li.mis::before { content: "•"; color: var(--muted); }
 .contact-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
 .contact-kv dt { color: var(--muted); }
 </style>
@@ -63,7 +68,7 @@ body.is-shared a.v-shared { display: inline-flex; }
   <div class="split">
     <article>
       <section class="hero-k" aria-labelledby="h-k">
-        <div class="row"><strong>K-2041</strong><span class="tag tag--ok">Actief op zoek</span><span class="fine">Bevestigd deze week</span></div>
+        <div class="row"><strong>K-2041</strong><span class="tag tag--ok">Actief op zoek</span><span class="match-tag">88% match met Studio Noord</span><span class="fine">Bevestigd deze week</span></div>
         <h1 id="h-k">Senior performance marketeer</h1>
         <p class="row">Naam <span class="redact redact--l v-pub" role="img" aria-label="verborgen"></span><span class="v-shared">Sanne de Wit</span></p>
         <dl class="facts">
@@ -124,6 +129,16 @@ body.is-shared a.v-shared { display: inline-flex; }
         <p class="fine">Jij biedt een eigen bedrag, daarna beslist de kandidaat.</p>
         <button type="button" class="btn btn--primary" data-open="aanbod-sturen" data-voor="K-2041">Aanbod sturen</button>
         <button type="button" class="btn btn--ghost" aria-pressed="false" id="bewaar">Bewaren</button>
+      </div>
+      <div class="card stack-s">
+        <div class="between"><h3 style="font-size:1rem">Waarom deze match</h3><span class="match-tag">88%</span></div>
+        <ul class="why">
+          <li>Google Ads, Meta Ads en GA4, net als jullie</li>
+          <li>Salarisindicatie past binnen je budget</li>
+          <li>Hybride in de regio Utrecht</li>
+          <li>Wil een klein team leiden, net als jullie vacature</li>
+        </ul>
+        <p class="fine">Berekend op je bedrijfsprofiel en wie je zoekt.</p>
       </div>
       <div class="card share-list">
         <h3>Wat deel je na een ja</h3>
