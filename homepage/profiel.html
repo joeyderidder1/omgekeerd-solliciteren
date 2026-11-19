@@ -370,27 +370,15 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
 @media (max-width: 1199px) { .sp .nm { display: none; } .sp button { justify-content: center; padding: 0; } .step-label { display: block; } }
 .sp .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 </style>
+<link rel="stylesheet" href="assets/menu.css">
 </head>
 <body>
-<a class="skip" href="#inhoud">Naar de inhoud</a>
-<header class="site-header" id="site-header">
-  <div class="wrap header-row">
-    <a class="logo" href="index.html#ingelogd-marketeer" aria-label="deedni, naar je overzicht">deedni<i aria-hidden="true"></i></a>
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu
-    </button>
-    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
-      <a href="profiel.html" aria-current="page">Mijn profiel</a>
-      <a href="index.html#ingelogd-marketeer">Aanbiedingen</a>
-      <a href="index.html#vragen">Vragen</a>
-      <span class="who"><span>Sanne</span><b aria-hidden="true">S</b></span>
-    </nav>
-  </div>
-</header>
+<div data-menu data-rol="kandidaat" data-pagina="profiel"></div>
+<script src="assets/menu.js"></script>
 
 <main id="inhoud" tabindex="-1">
   <div class="wrap pg-head">
-    <p class="crumb"><a href="index.html#ingelogd-marketeer">Terug naar je overzicht</a></p>
+    <p class="crumb"><a href="kandidaat-overzicht.html">Terug naar je overzicht</a></p>
     <h1 id="pg-titel">Maak je profiel</h1>
     <p class="lead">Bedrijven zien je ervaring, tools en resultaten. Je naam, werkgevers en projectnamen blijven verborgen tot jij ja zegt op een aanbod.</p>
   </div>
@@ -565,7 +553,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
           <h2>Je profiel staat live</h2>
           <p class="lead" id="pub-text"></p>
           <div class="cta-row" style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center">
-            <a class="btn btn--primary" href="index.html#ingelogd-marketeer">Bekijk je aanbiedingen</a>
+            <a class="btn btn--primary" href="kandidaat-overzicht.html">Bekijk je aanbiedingen</a>
             <button class="btn btn--ghost" type="button" id="pdf-btn">Download als pdf-cv</button>
             <button class="link-btn" type="button" id="pub-edit">Profiel nog aanpassen</button>
           </div>
@@ -589,13 +577,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   </div>
 </main>
 
-<footer class="site-footer invert">
-  <div class="wrap footer-row">
-    <span class="logo" aria-label="deedni">deedni<i aria-hidden="true"></i></span>
-    <span>© 2026 deedni. Voorbeeld met fictieve gegevens.</span>
-    <nav aria-label="Footer"><a href="index.html#ingelogd-marketeer">Overzicht</a><a href="index.html#vragen">Vragen</a></nav>
-  </div>
-</footer>
+<div data-voet data-rol="kandidaat"></div>
 
 <script>
 (function () {
@@ -608,12 +590,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   var S = { exp: [], proj: [], picks: [], blocks: [], published: false };
   var step = 1, pvMode = 'bedrijf', editExp = null, editProj = null, formTools = [], formRes = [];
 
-  // Menu
-  var toggle = $('menu-toggle'), nav = $('site-nav');
-  toggle.addEventListener('click', function () { var o = nav.classList.toggle('is-open'); toggle.setAttribute('aria-expanded', o ? 'true' : 'false'); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { nav.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); } });
-  var header = $('site-header');
-  window.addEventListener('scroll', function () { header.classList.toggle('is-scrolled', window.scrollY > 8); }, { passive: true });
+  // Menu: komt uit assets/menu.js
 
   // Helpers
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }

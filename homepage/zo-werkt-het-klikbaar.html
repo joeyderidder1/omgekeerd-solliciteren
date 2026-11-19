@@ -297,18 +297,11 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
 .m-meta { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
 .m-tag { font-size: 11px; font-weight: 650; color: var(--ok); }
 </style>
+<link rel="stylesheet" href="assets/menu.css">
 </head>
 <body>
-<a class="skip" href="#inhoud">Direct naar de inhoud</a>
-<header class="site-header">
-  <div class="wrap header-row">
-    <a class="logo" href="index.html" aria-label="deedni, naar de homepage">deedni<i aria-hidden="true"></i></a>
-    <nav class="top-nav" aria-label="Hoofdmenu">
-      <a href="index.html#zo-werkt-het">Stap-voor-stap versie</a>
-      <a class="optional" href="index.html">Homepage</a>
-    </nav>
-  </div>
-</header>
+<div data-menu data-rol="bezoeker" data-pagina="zo-werkt-het"></div>
+<script src="assets/menu.js"></script>
 
 <main id="inhoud" tabindex="-1">
   <section class="band invert" aria-labelledby="titel">
@@ -353,12 +346,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="wrap footer-row">
-    <span class="logo" aria-label="deedni">deedni<i aria-hidden="true"></i></span>
-    <span>Bedrijven komen naar jou. Jij beslist wie je naam ziet.</span>
-  </div>
-</footer>
+<div data-voet data-rol="bezoeker"></div>
 
 <script>
 (function () {
