@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Klik zelf door de vijf stappen van deedni, als marketeer of als bedrijf.">
+<title>deedni, zo werkt het (klikbaar)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Klikbare versie van "Zo werkt het". Kleuren, knoppen en telefoon komen uit index.html. */
+/* Idee: de zwarte balk van een geredigeerd document. Hij staat voor "hier ben je nog anoniem"
+   en verdwijnt pas als de marketeer ja zegt. Geel gebruiken we alleen voor salaris. */
+:root {
+  --bg: #F5F7FC;
+  --bg-alt: #EBEFFA;
+  --surface: #FFFFFF;
+  --ink: #0F1A3D;
+  --muted: #4A5578;
+  --line: #D5DBEE;
+  --line-strong: #AEB8DB;
+  --accent: #2842E0;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E6EAFF;
+  --marker: #FFE14D;
+  --marker-ink: #1A1400;
+  --ok: #0B7A4F;
+  --ok-soft: #DDF3E8;
+  --danger: #B42318;
+  --redact: #0F1A3D;
+  --focus: #2842E0;
+  --shadow: 0 1px 2px rgba(15, 26, 61, 0.06), 0 28px 48px -20px rgba(15, 26, 61, 0.28);
+  --font: "Instrument Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  /* Omgekeerd palet voor blokken die tegen het thema in gaan: donker in licht, licht in donker */
+  --i-bg: #0B1130; --i-bg-alt: #111943; --i-surface: #161F4A; --i-ink: #EEF1FF; --i-muted: #A8B2DB;
+  --i-line: #2A3570; --i-line-strong: #46549A; --i-accent: #8EA2FF; --i-accent-ink: #0B1130; --i-accent-soft: #1F2B66;
+  --i-ok: #5BD6A0; --i-ok-soft: #12382C; --i-redact: #E7EAF7; --i-focus: #B5C2FF;
+  /* Kopie van het gewone palet, voor onderdelen die binnen een omgekeerd blok weer normaal moeten zijn */
+  --n-bg: var(--bg); --n-bg-alt: var(--bg-alt); --n-surface: var(--surface); --n-ink: var(--ink); --n-muted: var(--muted);
+  --n-line: var(--line); --n-line-strong: var(--line-strong); --n-accent: var(--accent); --n-accent-ink: var(--accent-ink); --n-accent-soft: var(--accent-soft);
+  --n-ok: var(--ok); --n-ok-soft: var(--ok-soft); --n-redact: var(--redact);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1130;
+    --bg-alt: #111943;
+    --surface: #161F4A;
+    --ink: #EEF1FF;
+    --muted: #A8B2DB;
+    --line: #2A3570;
+    --line-strong: #46549A;
+    --accent: #8EA2FF;
+    --accent-ink: #0B1130;
+    --accent-soft: #1F2B66;
+    --ok: #5BD6A0;
+    --ok-soft: #12382C;
+    --danger: #FF9B8F;
+    --redact: #E7EAF7;
+    --focus: #B5C2FF;
+    --i-bg: #F5F7FC; --i-bg-alt: #EBEFFA; --i-surface: #FFFFFF; --i-ink: #0F1A3D; --i-muted: #4A5578;
+    --i-line: #D5DBEE; --i-line-strong: #AEB8DB; --i-accent: #2842E0; --i-accent-ink: #FFFFFF; --i-accent-soft: #E6EAFF;
+    --i-ok: #0B7A4F; --i-ok-soft: #DDF3E8; --i-redact: #0F1A3D; --i-focus: #2842E0;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 28px 48px -20px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1130;
+  --bg-alt: #111943;
+  --surface: #161F4A;
+  --ink: #EEF1FF;
+  --muted: #A8B2DB;
+  --line: #2A3570;
+  --line-strong: #46549A;
+  --accent: #8EA2FF;
+  --accent-ink: #0B1130;
+  --accent-soft: #1F2B66;
+  --ok: #5BD6A0;
+  --ok-soft: #12382C;
+  --danger: #FF9B8F;
+  --redact: #E7EAF7;
+  --focus: #B5C2FF;
+  --i-bg: #F5F7FC; --i-bg-alt: #EBEFFA; --i-surface: #FFFFFF; --i-ink: #0F1A3D; --i-muted: #4A5578;
+    --i-line: #D5DBEE; --i-line-strong: #AEB8DB; --i-accent: #2842E0; --i-accent-ink: #FFFFFF; --i-accent-soft: #E6EAFF;
+    --i-ok: #0B7A4F; --i-ok-soft: #DDF3E8; --i-redact: #0F1A3D; --i-focus: #2842E0;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 28px 48px -20px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 60; }
+h1, h2, h3, p, ul, ol, dl, dd, figure, fieldset { margin: 0; padding: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.invert { --bg: var(--i-bg); --bg-alt: var(--i-bg-alt); --surface: var(--i-surface); --ink: var(--i-ink); --muted: var(--i-muted); --line: var(--i-line); --line-strong: var(--i-line-strong); --accent: var(--i-accent); --accent-ink: var(--i-accent-ink); --accent-soft: var(--i-accent-soft); --ok: var(--i-ok); --ok-soft: var(--i-ok-soft); --redact: var(--i-redact); --focus: var(--i-focus); background: var(--bg); color: var(--ink); }
+.wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 8vw, 104px); }
+.band--alt { background: var(--bg-alt); }
+
+/* Knoppen: ruim doel (minimaal 48 px), één primaire actie per scherm */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 0 24px;
+  border: 2px solid transparent; border-radius: 12px;
+  font-weight: 700; font-size: 1.0625rem; line-height: 1.2; text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--accent); color: var(--accent-ink); }
+.btn--primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--ink)); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn--ghost:hover { border-color: var(--ink); }
+.btn--small { min-height: 48px; padding: 0 18px; font-size: 1rem; }
+.header-row { display: flex; align-items: center; gap: 24px; min-height: 72px; }
+.logo { display: inline-flex; align-items: baseline; gap: 3px; font-weight: 850; font-size: 1.65rem; letter-spacing: -0.04em; color: var(--ink); text-decoration: none; }
+.logo i { display: block; width: 0.5em; height: 0.17em; background: var(--accent); border-radius: 1px; }
+/* Zo werkt het: stappen links, telefoon rechts */
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); grid-template-areas: "head phone" "steps phone"; gap: 0 clamp(32px, 7vw, 96px); align-items: start; }
+.stage-head { grid-area: head; margin-bottom: 24px; }
+.stage-steps { grid-area: steps; min-width: 0; }
+.stage-phone { grid-area: phone; display: flex; flex-direction: column; align-items: center; gap: 14px; position: sticky; top: 104px; }
+@media (max-width: 920px) {
+  .stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "phone" "steps"; }
+  .stage-phone { position: static; margin-bottom: 32px; }
+}
+.stepper { list-style: none; border-top: 1px solid var(--line); }
+.stepper li { border-bottom: 1px solid var(--line); }
+.step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; width: 100%; min-height: 76px; padding: 16px 8px 18px 0; background: none; border: 0; text-align: left; color: var(--muted); cursor: pointer; }
+.step .num { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--line-strong); font-weight: 800; font-size: 1.125rem; color: var(--ink); transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+.step-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.step-text strong { font-size: 1.1875rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.step[aria-current="step"] { color: var(--ink); }
+.step[aria-current="step"] .num { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.step .bar { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left center; }
+.step[aria-current="step"] .bar { animation: m-progress var(--dur, 4500ms) linear forwards; }
+.stepper.is-paused .step[aria-current="step"] .bar { animation-play-state: paused; }
+@keyframes m-progress { to { transform: scaleX(1); } }
+.play { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; margin-top: 20px; padding: 0 18px; background: transparent; border: 2px solid var(--line-strong); border-radius: 12px; color: var(--ink); font-weight: 650; cursor: pointer; }
+.play:hover { border-color: var(--ink); }
+.play svg { flex: none; }
+.play .i-play { display: none; }
+.play[aria-pressed="true"] .i-play { display: block; }
+.play[aria-pressed="true"] .i-pause { display: none; }
+.stage-note { text-align: center; }
+/* Telefoon: gewone kleuren, ook binnen een omgekeerd blok */
+.phone { --bg: var(--n-bg); --bg-alt: var(--n-bg-alt); --surface: var(--n-surface); --ink: var(--n-ink); --muted: var(--n-muted); --line: var(--n-line); --line-strong: var(--n-line-strong); --accent: var(--n-accent); --accent-ink: var(--n-accent-ink); --accent-soft: var(--n-accent-soft); --ok: var(--n-ok); --ok-soft: var(--n-ok-soft); --redact: var(--n-redact);
+  width: min(300px, 100%); aspect-ratio: 300 / 610; padding: 9px; border-radius: 42px; background: #0A0F24; box-shadow: 0 0 0 2px var(--line-strong), 0 40px 60px -24px rgba(0, 0, 0, 0.55); }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: var(--bg); color: var(--ink); font-size: 13px; line-height: 1.35; }
+.statusbar { display: flex; align-items: center; justify-content: space-between; height: 34px; padding: 0 22px; font-size: 12px; font-weight: 650; }
+.statusbar i { width: 72px; height: 20px; border-radius: 12px; background: #0A0F24; }
+.phone-set { position: absolute; inset: 34px 0 0; }
+.scene { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 10px; padding: 10px 14px 14px; opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; pointer-events: none; }
+.scene.is-active { opacity: 1; transform: none; }
+.m-h { font-weight: 780; font-size: 17px; letter-spacing: -0.01em; }
+.m-k { font-size: 11px; color: var(--muted); }
+.m-muted { color: var(--muted); font-size: 12px; }
+.m-card { display: flex; flex-direction: column; gap: 4px; padding: 11px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.m-card strong { font-weight: 700; }
+.m-dim { opacity: 0.5; }
+.m-hit { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.m-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.m-chips i { font-style: normal; padding: 2px 9px; background: var(--bg-alt); border-radius: 999px; font-size: 12px; font-weight: 560; }
+.m-search { display: flex; flex-wrap: wrap; gap: 6px; }
+.m-search span { padding: 4px 11px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 12px; font-weight: 600; }
+.m-salary { align-self: flex-start; font-size: 16px; }
+.m-btn { position: relative; display: flex; align-items: center; justify-content: center; min-height: 42px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 14px; }
+.m-btn--ghost { background: transparent; color: var(--ink); border: 2px solid var(--line-strong); }
+.m-actions { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.m-notif { display: flex; flex-direction: column; padding: 11px 13px; background: var(--ink); color: var(--bg); border-radius: 14px; }
+.m-notif span { opacity: 0.85; font-size: 12px; }
+.m-quote { color: var(--muted); padding-left: 10px; border-left: 3px solid var(--line-strong); }
+.m-bubble { max-width: 86%; padding: 9px 12px; border-radius: 16px; }
+.m-bubble--them { align-self: flex-start; background: var(--bg-alt); border-bottom-left-radius: 4px; }
+.m-bubble--me { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-bottom-right-radius: 4px; }
+.m-field { display: flex; flex-direction: column; gap: 3px; padding: 9px 12px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; }
+.m-type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: var(--w, 12ch); font-weight: 650; }
+.m-status { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--bg-alt); font-weight: 600; }
+.m-status--ok { background: var(--ok-soft); color: var(--ok); }
+.m-secret { position: relative; display: inline-block; min-width: 11ch; min-height: 1.35em; vertical-align: middle; font-weight: 650; }
+.m-secret::before { content: ""; position: absolute; inset: 0; background: var(--redact); border-radius: 3px; transform-origin: right center; }
+.m-secret[data-auto]::before { transform: scaleX(0); }
+.m-tap::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px; border-radius: 50%; background: var(--accent-ink); opacity: 0; }
+.m-btn--ghost.m-tap::after { background: var(--ink); }
+.scene.is-active .m-in { animation: m-in 0.45s calc(var(--d, 0) * 1ms) backwards; }
+.scene.is-active .m-slide { animation: m-slide 0.55s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.scene.is-active .m-type { animation: m-type 1.3s steps(var(--n, 14), end) calc(var(--d, 0) * 1ms) backwards; }
+.scene.is-active .m-tap::after { animation: m-tap 0.9s calc(var(--td, 1500) * 1ms) both; }
+.scene.is-active .m-secret[data-auto]::before { animation: m-lift 0.5s 1.9s cubic-bezier(0.65, 0, 0.35, 1) backwards; }
+.scene.is-active .m-secret[data-auto] span { animation: m-show 0.3s 2.2s backwards; }
+@keyframes m-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes m-slide { from { opacity: 0; transform: translateY(-36px); } }
+@keyframes m-type { from { width: 0; } }
+@keyframes m-tap { 0% { opacity: 0; transform: scale(0.4); } 30% { opacity: 0.4; } 100% { opacity: 0; transform: scale(3.2); } }
+@keyframes m-lift { from { transform: scaleX(1); } }
+@keyframes m-show { from { opacity: 0; } }
+
+.audience { display: inline-flex; padding: 4px; background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px; flex-wrap: wrap; }
+.audience button { min-height: 44px; padding: 0 20px; background: transparent; border: 0; border-radius: 999px; font-weight: 650; color: var(--muted); cursor: pointer; transition: background-color 0.15s, color 0.15s; }
+.audience button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.skip { position: absolute; left: 16px; top: -80px; z-index: 100; background: var(--ink); color: var(--bg); padding: 12px 16px; border-radius: 10px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
+
+.salary { display: inline-block; padding: 0.04em 0.4em; background: var(--marker); color: var(--marker-ink); border-radius: 4px; font-weight: 800; font-size: 1.625rem; letter-spacing: -0.02em; }
+
+/* Kop en voet van deze pagina */
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; }
+.top-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: var(--ink); font-weight: 550; text-decoration: none; border-radius: 8px; }
+.top-nav a:hover { background: var(--bg-alt); }
+@media (max-width: 560px) { .top-nav a.optional { display: none; } }
+.site-footer { padding-block: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9375rem; }
+.footer-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.footer-row .logo { font-size: 1.35rem; }
+.fine { color: var(--muted); font-size: 0.9375rem; }
+
+/* Klikbare versie */
+.band.invert { min-height: calc(100vh - 73px); }
+.stage-head h1 { font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.08; letter-spacing: -0.03em; font-weight: 780; }
+.stage-head .lead { margin-top: 14px; max-width: 52ch; color: var(--muted); font-size: 1.125rem; }
+.stage-head .audience { margin-top: 22px; }
+.stage-head .alt-link { display: inline-block; margin-top: 14px; font-weight: 600; }
+.step[aria-current="step"] .bar { animation: none; transform: scaleX(1); }
+.step:disabled { cursor: not-allowed; opacity: 0.55; }
+.step.is-done .num { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--ink); }
+.step.is-done .num::after { content: ""; }
+.stage-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+
+.hint { width: min(340px, 100%); padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.hint-label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); }
+.hint-text { margin-top: 4px; font-size: 1rem; line-height: 1.45; }
+.hint-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.hint-actions .btn { flex: 1 1 140px; }
+.hint.is-done { border-color: var(--ok); }
+.hint.is-done .hint-label { color: var(--ok); }
+
+/* Telefoon: hier kun je echt in tikken */
+.screen { font-size: 13px; }
+.screen-body { position: absolute; inset: 34px 0 0; }
+.scene { pointer-events: auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.scene:focus { outline: none; }
+.m-h:focus { outline: none; }
+button.m-btn, button.m-card, button.m-notif, button.m-chip { font: inherit; cursor: pointer; text-align: left; }
+button.m-btn { width: 100%; border: 0; text-align: center; flex: none; }
+button.m-btn--ghost { border: 2px solid var(--line-strong); }
+button.m-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+button.m-btn:not(:disabled):hover { filter: brightness(1.08); }
+button.m-card { color: inherit; width: 100%; }
+button.m-card:hover { border-color: var(--line-strong); }
+button.m-notif { border: 0; width: 100%; }
+.scene :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.m-chip { padding: 5px 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); border-radius: 999px; font-size: 12px; font-weight: 600; min-height: 32px; }
+.m-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.m-chiprow { display: flex; flex-wrap: wrap; gap: 6px; }
+.m-group { display: flex; flex-direction: column; gap: 6px; padding: 11px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.m-input { width: 100%; min-height: 36px; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--bg); color: var(--ink); font-size: 13px; font-weight: 600; }
+.m-input[aria-invalid="true"] { border-color: var(--danger); }
+textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
+.m-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.m-label { display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: var(--muted); }
+.m-error { color: var(--danger); font-size: 12px; font-weight: 600; }
+.m-note { padding: 10px 12px; border-radius: 12px; background: var(--accent-soft); font-size: 12px; }
+.m-note strong { display: block; margin-bottom: 2px; font-size: 13px; }
+.m-result { padding: 11px 12px; border-radius: 12px; background: var(--bg-alt); }
+.m-result--ok { background: var(--ok-soft); color: var(--ok); font-weight: 650; }
+.m-back { align-self: flex-start; background: none; border: 0; padding: 0; min-height: 28px; color: var(--accent); font: inherit; font-weight: 650; font-size: 12px; cursor: pointer; }
+.m-spacer { margin-top: auto; }
+.m-secret span { opacity: 0; }
+.m-secret.is-open::before { transform: scaleX(0); transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1); }
+.m-secret.is-open span { opacity: 1; transition: opacity 0.3s 0.3s; }
+.m-empty { color: var(--muted); font-size: 12px; padding: 12px; text-align: center; border: 1px dashed var(--line-strong); border-radius: 12px; }
+.m-meta { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.m-tag { font-size: 11px; font-weight: 650; color: var(--ok); }
+</style>
+</head>
+<body>
+<a class="skip" href="#inhoud">Direct naar de inhoud</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html" aria-label="deedni, naar de homepage">deedni<i aria-hidden="true"></i></a>
+    <nav class="top-nav" aria-label="Hoofdmenu">
+      <a href="index.html#zo-werkt-het">Stap-voor-stap versie</a>
+      <a class="optional" href="index.html">Homepage</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inhoud" tabindex="-1">
+  <section class="band invert" aria-labelledby="titel">
+    <div class="wrap">
+      <div class="stage">
+        <div class="stage-head">
+          <h1 id="titel">Zo werkt het, klik zelf</h1>
+          <p class="lead">Dezelfde vijf stappen, maar nu doe je het zelf. Tik in de telefoon op de knoppen en kijk wat er gebeurt.</p>
+          <div class="audience" role="group" aria-label="Probeer het">
+            <button type="button" data-role="kandidaat" aria-pressed="true">Als marketeer</button>
+            <button type="button" data-role="werkgever" aria-pressed="false">Als bedrijf</button>
+          </div>
+          <br><a class="alt-link" href="index.html#zo-werkt-het">Liever kijken? Naar de stap-voor-stap versie</a>
+        </div>
+
+        <div class="stage-steps">
+          <ol class="stepper" id="stepper" role="list" aria-label="Stappen"></ol>
+          <div class="stage-actions">
+            <button type="button" class="play" id="restart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+              <span>Opnieuw beginnen</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage-phone">
+          <div class="phone">
+            <div class="screen" role="region" aria-label="Voorbeeldscherm van de app" id="screen">
+              <div class="statusbar" aria-hidden="true"><span>9:41</span><i></i><span></span></div>
+              <div class="screen-body" id="screen-body"></div>
+            </div>
+          </div>
+          <div class="hint" id="hint" aria-live="polite">
+            <p class="hint-label" id="hint-label">Wat kun je nu doen?</p>
+            <p class="hint-text" id="hint-text"></p>
+            <div class="hint-actions" id="hint-actions"></div>
+          </div>
+          <p class="fine stage-note">Voorbeeld met fictieve gegevens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span class="logo" aria-label="deedni">deedni<i aria-hidden="true"></i></span>
+    <span>Bedrijven komen naar jou. Jij beslist wie je naam ziet.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var STEPS = {
+    kandidaat: [
+      ['Je maakt een profiel', 'Specialisme, tools, ervaring en wat je zoekt. Je naam en foto laat je weg.'],
+      ['Bedrijven zoeken', 'Ze filteren op vak, tools en regio en zien alleen je anonieme profiel.'],
+      ['Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.'],
+      ['Jij zegt ja of nee', 'Bij nee ziet het bedrijf je naam nooit en krijgt het een nette afwijzing.'],
+      ['Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.']
+    ],
+    werkgever: [
+      ['Je zoekt een marketeer', 'Filter op vak, tools, regio en beschikbaarheid.'],
+      ['Je opent een profiel', 'Je ziet ervaring, cases en salarisindicatie. De naam blijft verborgen.'],
+      ['Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.'],
+      ['De marketeer beslist', 'Zegt die nee, dan betaal je niets en blijft de marketeer anoniem.'],
+      ['Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.']
+    ]
+  };
+
+  var SPECS = { sea: 'SEA en performance', seo: 'SEO en content', social: 'Social media' };
+  var TITLES = { sea: 'Senior SEA-marketeer', seo: 'Senior SEO-specialist', social: 'Social media marketeer' };
+  var TOOLS = ['Google Ads', 'GA4', 'Meta Ads', 'HubSpot'];
+  var SALARIES = ['€3.800–4.400', '€4.500–5.200', '€5.300–6.000'];
+
+  var FILTERS = ['SEA', 'Google Ads', 'Utrecht', 'Direct beschikbaar'];
+  var PEOPLE = [
+    { id: 'K-2041', name: 'Sanne de Vries', title: 'Senior SEA-marketeer', years: 7, city: 'Utrecht', tags: ['SEA', 'Google Ads', 'Utrecht', 'Direct beschikbaar'], tools: ['Google Ads', 'Meta Ads', 'GA4'], sal: '€4.500–5.200', exp: '7 jaar, e-commerce en B2B', kase: 'Rendement op advertentie-uitgaven van 3,1 naar 4,6 in vijf maanden', mail: 'sanne@voorbeeld.nl' },
+    { id: 'K-1187', name: 'Daan Bakker', title: 'SEA-specialist', years: 5, city: 'Utrecht', tags: ['SEA', 'Google Ads', 'Utrecht'], tools: ['Google Ads', 'GA4'], sal: '€3.900–4.400', exp: '5 jaar, reizen en retail', kase: 'Kosten per lead met 38 procent omlaag voor een reisorganisatie', mail: 'daan@voorbeeld.nl' },
+    { id: 'K-3320', name: 'Noor Jansen', title: 'Performance marketeer', years: 6, city: 'Rotterdam', tags: ['SEA', 'Google Ads', 'Direct beschikbaar'], tools: ['Google Ads', 'Meta Ads', 'Looker Studio'], sal: '€4.200–4.800', exp: '6 jaar, abonnementen en SaaS', kase: 'Aantal proefabonnementen verdubbeld met dezelfde mediabudgetten', mail: 'noor@voorbeeld.nl' },
+    { id: 'K-0912', name: 'Lotte Visser', title: 'SEO-specialist', years: 4, city: 'Utrecht', tags: ['Utrecht'], tools: ['Search Console', 'GA4', 'Screaming Frog'], sal: '€3.600–4.100', exp: '4 jaar, uitgevers en webshops', kase: 'Organisch verkeer 70 procent hoger in een jaar', mail: 'lotte@voorbeeld.nl' },
+    { id: 'K-4410', name: 'Milan de Boer', title: 'Social media marketeer', years: 3, city: 'Amsterdam', tags: ['Direct beschikbaar'], tools: ['Meta Ads', 'TikTok Ads'], sal: '€3.300–3.800', exp: '3 jaar, mode en lifestyle', kase: 'Campagne met 2,4 miljoen weergaven voor een kledingmerk', mail: 'milan@voorbeeld.nl' }
+  ];
+
+  var state;
+  function fresh(role) {
+    return {
+      role: role, step: 0, reached: 0, done: false,
+      k: { spec: null, tools: [], sal: 1, opened: false, answer: null, reply: null },
+      w: { filters: ['SEA', 'Google Ads'], pick: null, functie: 'Senior performance marketeer', van: '', tot: '', bericht: 'Je cases passen goed bij onze klanten.', error: '', sent: false, read: false, answer: null, slot: null }
+    };
+  }
+  state = fresh('kandidaat');
+
+  var timers = [];
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var body = $('screen-body');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function person() { for (var i = 0; i < PEOPLE.length; i++) if (PEOPLE[i].id === state.w.pick) return PEOPLE[i]; return PEOPLE[0]; }
+  function fmt(n) { return '€' + Number(n).toLocaleString('nl-NL'); }
+
+  /* ---------- Stappenlijst ---------- */
+  function renderStepper() {
+    var html = '';
+    STEPS[state.role].forEach(function (s, i) {
+      var cur = i === state.step;
+      var done = i < state.reached || (state.done && i === 4);
+      html += '<li><button type="button" class="step' + (done && !cur ? ' is-done' : '') + '" data-go="' + i + '"' +
+        (cur ? ' aria-current="step"' : '') + (i > state.reached ? ' disabled' : '') + '>' +
+        '<span class="num" aria-hidden="true">' + (done && !cur ? '✓' : (i + 1)) + '</span>' +
+        '<span class="step-text"><strong>' + s[0] + '</strong><span>' + s[1] + '</span></span>' +
+        '<span class="bar" aria-hidden="true"></span></button></li>';
+    });
+    $('stepper').innerHTML = html;
+  }
+
+  /* ---------- Hulptekst onder de telefoon ---------- */
+  function setHint(text, actions, finished) {
+    $('hint-text').textContent = text;
+    $('hint-label').textContent = finished ? 'Klaar' : 'Wat kun je nu doen?';
+    $('hint').classList.toggle('is-done', !!finished);
+    $('hint-actions').innerHTML = (actions || []).map(function (a) {
+      return '<button type="button" class="btn btn--small ' + (a.primary ? 'btn--primary' : 'btn--ghost') + '" data-hint="' + a.id + '">' + a.label + '</button>';
+    }).join('');
+  }
+
+  /* ---------- Schermen: marketeer ---------- */
+  function kScene(step) {
+    var k = state.k;
+    if (step === 0) {
+      var ok = k.spec && k.tools.length;
+      setHint('Kies een specialisme en minstens één tool. Tik daarna op Profiel opslaan.');
+      return '<p class="m-h m-in" tabindex="-1">Jouw profiel</p>' +
+        '<div class="m-group m-in" style="--d:100"><span class="m-k">Specialisme</span><div class="m-chiprow">' +
+        Object.keys(SPECS).map(function (key) { return '<button type="button" class="m-chip" data-k-spec="' + key + '" aria-pressed="' + (k.spec === key) + '">' + SPECS[key] + '</button>'; }).join('') +
+        '</div></div>' +
+        '<div class="m-group m-in" style="--d:250"><span class="m-k">Tools</span><div class="m-chiprow">' +
+        TOOLS.map(function (t) { return '<button type="button" class="m-chip" data-k-tool="' + t + '" aria-pressed="' + (k.tools.indexOf(t) > -1) + '">' + t + '</button>'; }).join('') +
+        '</div></div>' +
+        '<div class="m-group m-in" style="--d:400"><span class="m-k">Salarisindicatie per maand</span><div class="m-chiprow">' +
+        SALARIES.map(function (s, i) { return '<button type="button" class="m-chip" data-k-sal="' + i + '" aria-pressed="' + (k.sal === i) + '">' + s + '</button>'; }).join('') +
+        '</div></div>' +
+        '<div class="m-card m-in" style="--d:550"><span class="m-k">Naam en foto</span><span class="m-muted">Niet nodig</span></div>' +
+        '<button type="button" class="m-btn m-in m-spacer" style="--d:700" data-act="k-save"' + (ok ? '' : ' disabled') + '>Profiel opslaan</button>';
+    }
+    if (step === 1) {
+      setHint('Zo zien bedrijven jou tussen andere marketeers. De gemarkeerde kaart ben jij: zonder naam en zonder foto. Tik op Wacht op een aanbod.');
+      var tool = k.tools[0] || 'Google Ads';
+      return '<p class="m-h m-in" tabindex="-1">Bedrijven zoeken</p>' +
+        '<div class="m-search m-in" style="--d:150"><span>' + esc(SPECS[k.spec].split(' ')[0]) + '</span><span>' + esc(tool) + '</span><span>Utrecht</span></div>' +
+        '<div class="m-card m-dim m-in" style="--d:400"><strong>Senior content marketeer</strong><span class="m-muted">5 jaar, Amsterdam</span></div>' +
+        '<div class="m-card m-hit m-in" style="--d:900"><strong>' + esc(TITLES[k.spec]) + '</strong><span class="m-muted">7 jaar, Utrecht en omgeving</span><span class="m-chips">' +
+        k.tools.map(function (t) { return '<i>' + esc(t) + '</i>'; }).join('') + '</span><span class="salary m-salary">' + SALARIES[k.sal] + '</span><span><span class="m-secret" aria-label="Naam verborgen"></span></span></div>' +
+        '<div class="m-card m-dim m-in" style="--d:650"><strong>Performance marketeer</strong><span class="m-muted">4 jaar, Rotterdam</span></div>' +
+        '<button type="button" class="m-btn m-in m-spacer" style="--d:1300" data-act="k-wait">Wacht op een aanbod</button>';
+    }
+    if (step === 2) {
+      if (!k.opened) {
+        setHint('Er komt een melding binnen. Tik erop om het aanbod te openen.');
+        return '<p class="m-muted m-in" tabindex="-1">Een paar dagen later…</p>' +
+          '<button type="button" class="m-notif m-slide" data-act="k-open"><strong>Studio Noord</strong><span>stuurde je een aanbod. Tik om te openen.</span></button>';
+      }
+      setHint('Je ziet meteen de functie, het salaris en waarom ze jou zoeken. Tik op Beslis over dit aanbod.');
+      return '<p class="m-h m-in" tabindex="-1">Aanbod van Studio Noord</p>' +
+        '<div class="m-card m-in" style="--d:150"><strong>Senior performance marketeer</strong><span class="m-muted">Utrecht, hybride, 32 tot 40 uur</span><span class="salary m-salary">€4.200–4.800</span><span class="m-muted">per maand</span></div>' +
+        '<p class="m-quote m-in" style="--d:500">"Je cases in e-commerce passen precies bij onze klanten."</p>' +
+        '<button type="button" class="m-btn m-in m-spacer" style="--d:800" data-act="k-decide">Beslis over dit aanbod</button>';
+    }
+    if (step === 3) {
+      var top = '<p class="m-h m-in" tabindex="-1">Ja of nee?</p>' +
+        '<div class="m-card m-in" style="--d:100"><strong>Senior performance marketeer</strong><span class="m-muted">Studio Noord, Utrecht</span><span class="salary m-salary">€4.200–4.800</span></div>' +
+        '<div class="m-card m-in" style="--d:250"><span class="m-k">Studio Noord ziet nu</span><span><span class="m-secret' + (k.answer === 'ja' ? ' is-open' : '') + '" id="k-secret"><span>Sanne de Vries</span></span></span></div>';
+      if (k.answer === 'nee') {
+        setHint('Je zei nee. Studio Noord krijgt een nette afwijzing en ziet je naam nooit. Wil je zien wat er bij ja gebeurt?', [{ id: 'k-retry', label: 'Probeer ja', primary: true }]);
+        return top + '<div class="m-result m-in" style="--d:100">Studio Noord krijgt een nette afwijzing. Je naam blijft verborgen.</div>';
+      }
+      if (k.answer === 'ja') {
+        setHint('De zwarte balk verdwijnt: nu pas ziet Studio Noord je naam.');
+        return top + '<div class="m-result m-result--ok">Je naam is gedeeld met Studio Noord.</div>';
+      }
+      setHint('Jij beslist. Tik op Ja om je naam te delen, of op Nee om het aanbod netjes af te wijzen.');
+      return top + '<div class="m-actions"><button type="button" class="m-btn" data-act="k-yes">Ja, deel mijn naam</button><button type="button" class="m-btn m-btn--ghost" data-act="k-no">Nee, bedankt</button></div>';
+    }
+    // step 4
+    var chat = '<p class="m-h m-in" tabindex="-1">Studio Noord</p>' +
+      '<div class="m-bubble m-bubble--them m-in" style="--d:200">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</div>';
+    if (!k.reply) {
+      setHint('Studio Noord stuurt je een bericht. Kies een antwoord.');
+      return chat + '<div class="m-actions"><button type="button" class="m-btn" data-k-reply="do">Donderdag past goed.</button><button type="button" class="m-btn m-btn--ghost" data-k-reply="vr">Liever vrijdag.</button></div>';
+    }
+    setHint('Je antwoord is verstuurd. Even wachten op Studio Noord…');
+    var mine = k.reply === 'do' ? 'Donderdag past goed.' : 'Liever vrijdag.';
+    var theirs = k.reply === 'do' ? 'Top, we bellen je donderdag om 10 uur.' : 'Vrijdag kan ook. We bellen je om 10 uur.';
+    return chat + '<div class="m-bubble m-bubble--me">' + mine + '</div>' + (state.done ? '<div class="m-bubble m-bubble--them m-in">' + theirs + '</div>' : '');
+  }
+
+  /* ---------- Schermen: bedrijf ---------- */
+  function matches() {
+    return PEOPLE.filter(function (p) { return state.w.filters.every(function (f) { return p.tags.indexOf(f) > -1; }); });
+  }
+  function wScene(step) {
+    var w = state.w;
+    if (step === 0) {
+      var list = matches();
+      setHint('Zet filters aan of uit en kijk hoe de lijst verandert. Tik daarna op een profiel om het te openen.');
+      return '<p class="m-h m-in" tabindex="-1">Marketeers zoeken</p>' +
+        '<div class="m-chiprow m-in" style="--d:100">' + FILTERS.map(function (f) { return '<button type="button" class="m-chip" data-w-filter="' + f + '" aria-pressed="' + (w.filters.indexOf(f) > -1) + '">' + f + '</button>'; }).join('') + '</div>' +
+        '<p class="m-muted" role="status">' + (list.length === 1 ? 'Eén profiel past' : list.length + ' profielen passen') + '</p>' +
+        (list.length ? list.map(function (p) {
+          return '<button type="button" class="m-card" data-w-pick="' + p.id + '"><span class="m-meta"><strong>' + p.id + '</strong>' + (p.tags.indexOf('Direct beschikbaar') > -1 ? '<span class="m-tag">Direct beschikbaar</span>' : '') + '</span><span class="m-muted">' + p.title + ', ' + p.years + ' jaar, ' + p.city + '</span><span class="salary m-salary">' + p.sal + '</span></button>';
+        }).join('') : '<p class="m-empty">Geen profielen met deze filters. Zet er een uit.</p>');
+    }
+    var p = person();
+    if (step === 1) {
+      setHint('Je ziet ervaring, tools, een case en de salarisindicatie. De naam blijft verborgen. Tik op Stuur een aanbod.');
+      return '<button type="button" class="m-back" data-act="w-back">‹ Terug naar zoeken</button>' +
+        '<p class="m-h m-in" tabindex="-1">' + p.id + '</p>' +
+        '<div class="m-card m-in" style="--d:100"><span class="m-k">Functie</span><strong>' + p.title + '</strong></div>' +
+        '<div class="m-card m-in" style="--d:200"><span class="m-k">Ervaring</span><strong>' + p.exp + '</strong></div>' +
+        '<div class="m-card m-in" style="--d:300"><span class="m-k">Tools</span><span class="m-chips">' + p.tools.map(function (t) { return '<i>' + t + '</i>'; }).join('') + '</span></div>' +
+        '<div class="m-card m-in" style="--d:400"><span class="m-k">Case</span><span>' + p.kase + '</span></div>' +
+        '<div class="m-card m-in" style="--d:500"><span class="m-k">Salarisindicatie per maand</span><span class="salary m-salary">' + p.sal + '</span></div>' +
+        '<div class="m-card m-in" style="--d:600"><span class="m-k">Naam</span><span><span class="m-secret" aria-label="Naam verborgen"></span></span></div>' +
+        '<button type="button" class="m-btn m-in m-spacer" style="--d:700" data-act="w-offer">Stuur een aanbod</button>';
+    }
+    if (step === 2) {
+      setHint('Vul het salaris in en tik op Verstuur aanbod. Probeer het ook eens zonder salaris.');
+      return '<p class="m-h m-in" tabindex="-1">Aanbod aan ' + p.id + '</p>' +
+        '<form class="m-group m-in" id="w-form" novalidate style="--d:100">' +
+        '<label class="m-label">Functie<input class="m-input" id="w-functie" value="' + esc(w.functie) + '" autocomplete="off"></label>' +
+        '<div class="m-row"><label class="m-label">Salaris van<input class="m-input" id="w-van" type="number" inputmode="numeric" min="0" step="50" placeholder="bijv. 4500" value="' + esc(w.van) + '"' + (w.error ? ' aria-invalid="true"' : '') + ' aria-describedby="w-err"></label>' +
+        '<label class="m-label">tot, per maand<input class="m-input" id="w-tot" type="number" inputmode="numeric" min="0" step="50" placeholder="bijv. 5000" value="' + esc(w.tot) + '"' + (w.error ? ' aria-invalid="true"' : '') + ' aria-describedby="w-err"></label></div>' +
+        '<p class="m-error" id="w-err" role="alert"' + (w.error ? '' : ' hidden') + '>' + esc(w.error) + '</p>' +
+        '<label class="m-label">Bericht<textarea class="m-input" id="w-bericht" rows="3">' + esc(w.bericht) + '</textarea></label>' +
+        '</form>' +
+        '<button type="button" class="m-btn m-in m-spacer" style="--d:300" data-act="w-send">Verstuur aanbod</button>';
+    }
+    if (step === 3) {
+      var html = '<p class="m-h m-in" tabindex="-1">Aanbod aan ' + p.id + '</p>' +
+        '<div class="m-card m-in" style="--d:100"><strong>' + esc(w.functie) + '</strong><span class="salary m-salary">' + fmt(w.van) + '–' + fmt(w.tot).slice(1) + '</span><span class="m-muted">per maand</span></div>' +
+        '<div class="m-status">Verstuurd</div>' +
+        (w.read ? '<div class="m-status m-in">Gelezen</div>' : '');
+      if (!w.read) { setHint('Je aanbod is onderweg. Even wachten tot de marketeer het leest…'); return html; }
+      if (w.answer === 'nee') {
+        setHint('De marketeer zei nee. Je betaalt niets en ' + p.id + ' blijft anoniem. Wil je zien wat er bij ja gebeurt?', [{ id: 'w-retry', label: 'Laat ja zeggen', primary: true }]);
+        return html + '<div class="m-result m-in">' + p.id + ' zegt nee, bedankt. Je betaalt niets en de naam blijft verborgen.</div>';
+      }
+      if (w.answer === 'ja') { setHint('Goed nieuws: de marketeer zegt ja.'); return html + '<div class="m-status m-status--ok m-in">' + p.id + ' zegt ja</div>'; }
+      setHint('In het echt beslist de marketeer. Hier mag jij dat even doen: kies wat ' + p.id + ' antwoordt.');
+      return html + '<div class="m-note m-in"><strong>Jij speelt nu de marketeer</strong>Wat zegt ' + p.id + ' op je aanbod?</div>' +
+        '<div class="m-actions"><button type="button" class="m-btn" data-act="w-yes">Ja, deel mijn naam</button><button type="button" class="m-btn m-btn--ghost" data-act="w-no">Nee, bedankt</button></div>';
+    }
+    // step 4
+    var top = '<p class="m-h" tabindex="-1"><span class="m-secret' + (w.slot ? ' is-open' : '') + '" id="w-secret"><span>' + p.name + '</span></span></p>' +
+      '<div class="m-card m-in" style="--d:400"><span class="m-k">Contact</span><strong>' + p.mail + '</strong></div>' +
+      '<div class="m-card m-in" style="--d:600"><span class="m-k">Cv</span><strong>cv-' + p.name.split(' ')[0].toLowerCase() + '.pdf</strong></div>';
+    if (w.slot) {
+      return top + '<div class="m-result m-result--ok m-in">Gesprek gepland: ' + w.slot + '. ' + p.name.split(' ')[0] + ' krijgt een uitnodiging.</div>';
+    }
+    setHint('Nu zie je de naam, het cv en de contactgegevens. Kies een moment voor een eerste gesprek.');
+    return top + '<div class="m-group m-in" style="--d:800"><span class="m-k">Plan een gesprek</span><div class="m-chiprow">' +
+      ['Donderdag 10:00', 'Donderdag 14:00', 'Vrijdag 10:00'].map(function (s) { return '<button type="button" class="m-chip" data-w-slot="' + s + '">' + s + '</button>'; }).join('') + '</div></div>';
+  }
+
+  /* ---------- Tekenen ---------- */
+  function render(focus) {
+    renderStepper();
+    var html = state.role === 'kandidaat' ? kScene(state.step) : wScene(state.step);
+    if (state.done && state.step === 4) finishHint();
+    body.innerHTML = '<div class="scene is-active">' + html + '</div>';
+    if (focus) {
+      var h = body.querySelector('.m-h');
+      if (h) h.focus({ preventScroll: true });
+    }
+    if (state.role === 'werkgever' && state.step === 4) {
+      requestAnimationFrame(function () { requestAnimationFrame(function () { var s = $('w-secret'); if (s) s.classList.add('is-open'); }); });
+    }
+  }
+  // Alleen het scherm opnieuw tekenen, zonder in-animaties, bij kleine keuzes
+  function refresh(keepFocusSel) {
+    render(false);
+    body.querySelectorAll('.m-in, .m-slide').forEach(function (el) { el.style.animation = 'none'; });
+    if (keepFocusSel) { var el = body.querySelector(keepFocusSel); if (el) el.focus({ preventScroll: true }); }
+  }
+  function go(step) {
+    clearTimers();
+    state.step = step;
+    if (step > state.reached) state.reached = step;
+    render(true);
+    if (state.role === 'werkgever' && step === 3 && !state.w.read) {
+      later(function () { state.w.read = true; render(false); }, 1500);
+    }
+  }
+  function finishHint() {
+    var other = state.role === 'kandidaat' ? 'Bekijk het als bedrijf' : 'Bekijk het als marketeer';
+    setHint(state.role === 'kandidaat'
+      ? 'Zo werkt deedni voor marketeers: jij maakt een anoniem profiel, bedrijven komen naar jou en jij beslist wie je naam ziet.'
+      : 'Zo werkt deedni voor bedrijven: je zoekt zelf, stuurt een aanbod met salaris en ziet de naam pas na een ja.',
+      [{ id: 'switch', label: other, primary: true }, { id: 'restart', label: 'Opnieuw' }], true);
+  }
+  function setRole(role) {
+    clearTimers();
+    state = fresh(role);
+    document.querySelectorAll('[data-role]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-role') === role)); });
+    render(false);
+  }
+  function saveForm() {
+    var w = state.w;
+    ['functie', 'van', 'tot', 'bericht'].forEach(function (k) { var el = $('w-' + k); if (el) w[k] = el.value.trim(); });
+  }
+
+  /* ---------- Klikken ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('button');
+    if (!t) return;
+    var k = state.k, w = state.w, d = t.dataset;
+
+    if (d.role) { if (d.role !== state.role) setRole(d.role); return; }
+    if (d.go) { var g = +d.go; if (g <= state.reached && g !== state.step) go(g); return; }
+    if (t.id === 'restart' || d.hint === 'restart') { setRole(state.role); return; }
+    if (d.hint === 'switch') { setRole(state.role === 'kandidaat' ? 'werkgever' : 'kandidaat'); return; }
+    if (d.hint === 'k-retry') { k.answer = null; render(false); return; }
+    if (d.hint === 'w-retry') { w.answer = null; render(false); return; }
+
+    if (d.kSpec) { k.spec = d.kSpec; refresh('[data-k-spec="' + d.kSpec + '"]'); return; }
+    if (d.kTool) { var i = k.tools.indexOf(d.kTool); if (i > -1) k.tools.splice(i, 1); else k.tools.push(d.kTool); refresh('[data-k-tool="' + d.kTool + '"]'); return; }
+    if (d.kSal) { k.sal = +d.kSal; refresh('[data-k-sal="' + d.kSal + '"]'); return; }
+    if (d.kReply) {
+      k.reply = d.kReply; render(false);
+      later(function () { state.done = true; render(false); }, 1100);
+      return;
+    }
+    if (d.wFilter) { var j = w.filters.indexOf(d.wFilter); if (j > -1) w.filters.splice(j, 1); else w.filters.push(d.wFilter); refresh('[data-w-filter="' + d.wFilter + '"]'); return; }
+    if (d.wPick) { w.pick = d.wPick; w.van = ''; w.tot = ''; w.error = ''; w.read = false; w.answer = null; w.slot = null; state.reached = 1; state.done = false; go(1); return; }
+    if (d.wSlot) { w.slot = d.wSlot; state.done = true; refresh(); return; }
+
+    switch (d.act) {
+      case 'k-save': go(1); break;
+      case 'k-wait': k.opened = false; go(2); break;
+      case 'k-open': k.opened = true; render(true); break;
+      case 'k-decide': go(3); break;
+      case 'k-yes':
+        k.answer = 'ja'; refresh();
+        var s = $('k-secret'); if (s) { s.classList.remove('is-open'); requestAnimationFrame(function () { requestAnimationFrame(function () { s.classList.add('is-open'); }); }); }
+        later(function () { go(4); }, 1800);
+        break;
+      case 'k-no': k.answer = 'nee'; render(false); break;
+      case 'w-back': go(0); break;
+      case 'w-offer': go(2); break;
+      case 'w-send':
+        saveForm();
+        var van = parseFloat(w.van), tot = parseFloat(w.tot);
+        if (!w.van || !w.tot) w.error = 'Vul het salaris in. Zonder salaris gaat het aanbod niet de deur uit.';
+        else if (van > tot) w.error = 'Het eerste bedrag moet lager zijn dan het tweede.';
+        else if (van < 1000) w.error = 'Vul het bruto salaris per maand in, bijvoorbeeld 4500.';
+        else w.error = '';
+        if (w.error) { refresh(); var bad = $('w-van'); if (bad) bad.focus(); return; }
+        w.read = false; w.answer = null; go(3);
+        break;
+      case 'w-yes': w.answer = 'ja'; render(false); later(function () { go(4); }, 1400); break;
+      case 'w-no': w.answer = 'nee'; render(false); break;
+    }
+  });
+  // Formulier: Enter verstuurt niet per ongeluk de hele pagina
+  document.addEventListener('submit', function (e) { e.preventDefault(); var b = body.querySelector('[data-act="w-send"]'); if (b) b.click(); });
+  document.addEventListener('input', function (e) { if (e.target.closest('#w-form')) saveForm(); });
+
+  render(false);
+})();
+</script>
+</body>
+</html>
