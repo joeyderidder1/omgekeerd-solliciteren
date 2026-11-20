@@ -98,9 +98,31 @@ Een verborgen profiel staat niet meer in Ontdekken, bij Kandidaten zoeken of in 
 
 Elke wijziging komt rechts in het **Logboek**: wanneer, door wie, welke velden en je notitie.
 
+## Vooraanmelding voor de testfase (versie 2.3)
+
+Wil je eerst zien wie mee wil doen, zonder dat mensen al een account maken? Gebruik dan de vooraanmelding.
+
+1. Na het bijwerken van de plugin staat er een nieuwe pagina **Doe mee met de test** (adres `/vooraanmelden/`). Staat die er niet, klik dan bij **Instellingen > deedni** op *Ontbrekende pagina's aanmaken*.
+2. Deel de link. Met `/vooraanmelden/?voor=werkgever` staat de keuze *Ik zoek personeel* al aan, met `?voor=kandidaat` de keuze *Ik zoek werk*.
+3. Wil je het formulier ergens anders, bijvoorbeeld op de homepage? Voeg dan het blok **Vooraanmelding (zonder account)** toe. Alle teksten, de knop, de punten ernaast en de tekst bij het toestemmingsvakje pas je rechts aan.
+
+Mensen vullen in: wat ze zoeken (werk of personeel), naam, e-mailadres en optioneel bedrijf en functie. Ze moeten een vakje aanvinken om toestemming te geven. De tekst die ze zagen en het moment van toestemming worden bewaard. Er wordt geen IP-adres bewaard.
+
+In wp-admin staat links **Aanmeldingen**. Daar zie je:
+
+- de aantallen: totaal, marketeers, werkgevers, de laatste 7 dagen en hoeveel je er al hebt uitgenodigd;
+- per persoon *Uitgenodigd: Ja/Nee*. Klik erop om het om te zetten. Met de vinkjes en *Actie voor aangevinkte rijen* doe je dat voor meerdere tegelijk;
+- *Download als CSV*: opent meteen goed in Excel. Kies je eerst *Marketeers* of *Werkgevers*, dan download je alleen die groep;
+- *Stuur mij een mail bij elke nieuwe aanmelding* (werkt pas met een SMTP-plugin);
+- *Na de test: alles verwijderen*. Typ VERWIJDER om te bevestigen.
+
+Vraagt iemand om zijn gegevens? Bij **Extra > Persoonsgegevens exporteren** en **Persoonsgegevens wissen** worden de aanmeldingen ook gevonden.
+
+Iemand die zich twee keer aanmeldt met hetzelfde e-mailadres, staat er één keer in, met de nieuwste gegevens.
+
 ## Instellingen > deedni
 
-- **Pagina's**: welke pagina het inloggen, het overzicht, het profiel en het zoeken toont.
+- **Pagina's**: welke pagina het inloggen, het overzicht, het profiel, het zoeken en de vooraanmelding toont.
 - **Werkgevers eerst goedkeuren**: staat aan. Een nieuwe werkgever kan pas zoeken als jij het account goedkeurt. Dat doe je bij **Gebruikers**, met de link *Goedkeuren*.
 - **Reactietermijn**: hoeveel dagen een marketeer heeft om op een aanbod te reageren.
 - **Wie keek mee**: laat marketeers zien hoe vaak hun profiel is bekeken. Dit is optioneel.
@@ -127,6 +149,8 @@ Beide rollen komen niet in wp-admin. Alles gaat via de pagina's op de site.
 - Een marketeer kan bedrijven blokkeren. Die vinden het profiel dan niet.
 
 ## Wat niet getest is
+
+Zie ook `TESTKLAAR.md`: wat er nog moet gebeuren voordat je de site door echte mensen laat testen.
 
 Alles is getest in een lokale WordPress 6.6 met alle rollen: account maken, profiel invullen, zoeken, bewaren, een aanbod sturen, "Ja, maar", akkoord, ja en aangenomen. Wat nog niet getest is:
 
