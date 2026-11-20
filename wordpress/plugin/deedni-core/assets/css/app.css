@@ -1,0 +1,273 @@
+/* deedni: pagina's voor ingelogde gebruikers. Per pagina afgeschermd met een eigen klasse. */
+
+/* inloggen.html */
+.deedni-inloggen .auth { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) {
+  .deedni-inloggen .auth { grid-template-columns: 1fr; }
+}
+.deedni-inloggen .auth h1 { font-size: clamp(2.5rem, 1.6rem + 3vw, 3.5rem); }
+.deedni-inloggen .auth .card { display: flex; flex-direction: column; gap: 18px; }
+.deedni-inloggen .rolkeuze { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.deedni-inloggen .rolkeuze label { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 16px; border: 2px solid var(--line-strong); border-radius: 12px; font-weight: 650; cursor: pointer; }
+.deedni-inloggen .rolkeuze label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.deedni-inloggen .rolkeuze input { width: 20px; height: 20px; accent-color: var(--accent); }
+.deedni-inloggen .check { display: flex; gap: 10px; align-items: flex-start; }
+.deedni-inloggen .check input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+
+
+/* kandidaat-overzicht.html */
+.deedni-overzicht .hello { display: flex; flex-direction: column; gap: 14px; }
+.deedni-overzicht .hello h1 { font-size: clamp(2.75rem, 1.6rem + 4.4vw, 4.5rem); }
+.deedni-overzicht .offer { display: flex; flex-direction: column; gap: 16px; border-radius: 18px; }
+.deedni-overzicht .offer.is-new { border: 2px solid var(--accent); }
+.deedni-overzicht .offer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: center; }
+.deedni-overzicht .offer-co { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.125rem; }
+.deedni-overzicht .co-logo { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ink); color: var(--bg); font-size: .875rem; font-weight: 700; flex: none; }
+.deedni-overzicht .offer h3 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.75rem); letter-spacing: -0.02em; }
+.deedni-overzicht .offer .salaris { font-size: 1.25rem; }
+.deedni-overzicht .quote { padding-left: 14px; border-left: 3px solid var(--accent); max-width: 40em; }
+.deedni-overzicht .sees { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; background: var(--bg-alt); border-radius: 12px; font-size: .9375rem; }
+.deedni-overzicht .answer { display: flex; flex-wrap: wrap; gap: 10px; }
+.deedni-overzicht .answer .btn { flex: 1 1 170px; }
+.deedni-overzicht .offer-state { padding: 14px 16px; border-radius: 12px; font-weight: 600; }
+.deedni-overzicht .offer-state.ok { background: var(--ok-soft); color: var(--ok); }
+.deedni-overzicht .offer-state.nee { background: var(--bg-alt); color: var(--ink); }
+.deedni-overzicht .offer-state.maar { background: var(--accent-soft); color: var(--ink); }
+.deedni-overzicht .deadline { display: inline-flex; align-items: center; gap: 6px; font-size: .9375rem; color: var(--muted); }
+.deedni-overzicht .done-list li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.deedni-overzicht .done-list li:last-child { border-bottom: 0; }
+.deedni-overzicht .bar { height: 10px; border-radius: 999px; background: var(--bg-alt); overflow: hidden; }
+.deedni-overzicht .bar i { display: block; height: 100%; width: 85%; background: var(--ok); border-radius: inherit; transform-origin: left; animation: grow 1.2s cubic-bezier(.2, .8, .2, 1); }
+@keyframes grow { from { transform: scaleX(0); } }
+.deedni-overzicht .todo li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.deedni-overzicht .todo li:last-child { border-bottom: 0; }
+.deedni-overzicht .watch li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .9375rem; }
+.deedni-overzicht .watch li span:last-child { color: var(--muted); white-space: nowrap; }
+.deedni-overzicht .side { display: flex; flex-direction: column; gap: 20px; }
+.deedni-overzicht .side .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.deedni-overzicht .side .stats dd { font-size: 2.25rem; }
+
+.saved li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--line); }
+.saved li:last-child { border-bottom: 0; }
+
+/* werkgever-overzicht.html */
+.deedni-overzicht .hello { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.deedni-overzicht .hello h1 { font-size: clamp(2.75rem, 1.6rem + 4.4vw, 4.5rem); }
+.deedni-overzicht .counter { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 760px) {
+  .deedni-overzicht .counter { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.deedni-overzicht .reply { padding: 4px 16px 20px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+.deedni-overzicht .reply .inner { display: flex; flex-direction: column; gap: 12px; padding-top: 16px; }
+.deedni-overzicht .reply blockquote { padding-left: 14px; border-left: 3px solid var(--accent); max-width: 44em; }
+.deedni-overzicht .contact { margin-top: 8px; padding: 8px 10px; background: var(--ok-soft); border-radius: 10px; }
+.deedni-overzicht .bedrijf { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 760px) {
+  .deedni-overzicht .bedrijf { grid-template-columns: 1fr; }
+}
+.deedni-overzicht .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
+.deedni-overzicht .kv dt { color: var(--muted); }
+.deedni-overzicht .kv dd { font-weight: 600; }
+.deedni-overzicht .logo-blok { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 1.25rem; }
+
+
+/* werkgever-overzicht.html */
+.deedni-bedrijfsprofiel .hello { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.deedni-bedrijfsprofiel .hello h1 { font-size: clamp(2.75rem, 1.6rem + 4.4vw, 4.5rem); }
+.deedni-bedrijfsprofiel .counter { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 760px) {
+  .deedni-bedrijfsprofiel .counter { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.deedni-bedrijfsprofiel .reply { padding: 4px 16px 20px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+.deedni-bedrijfsprofiel .reply .inner { display: flex; flex-direction: column; gap: 12px; padding-top: 16px; }
+.deedni-bedrijfsprofiel .reply blockquote { padding-left: 14px; border-left: 3px solid var(--accent); max-width: 44em; }
+.deedni-bedrijfsprofiel .contact { margin-top: 8px; padding: 8px 10px; background: var(--ok-soft); border-radius: 10px; }
+.deedni-bedrijfsprofiel .bedrijf { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 760px) {
+  .deedni-bedrijfsprofiel .bedrijf { grid-template-columns: 1fr; }
+}
+.deedni-bedrijfsprofiel .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
+.deedni-bedrijfsprofiel .kv dt { color: var(--muted); }
+.deedni-bedrijfsprofiel .kv dd { font-weight: 600; }
+.deedni-bedrijfsprofiel .logo-blok { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 1.25rem; }
+
+
+/* mijn-profiel.html */
+.deedni-profiel .steps { display: flex; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.deedni-profiel .steps::-webkit-scrollbar { display: none; }
+.deedni-profiel .steps a { flex: 1 0 auto; display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 0 12px 0 4px; border-bottom: 3px solid transparent; margin-bottom: -1px; font-weight: 600; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.deedni-profiel .steps a:hover { color: var(--ink); }
+.deedni-profiel .steps .n { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line-strong); color: var(--ink); font-size: .9375rem; font-weight: 700; flex: none; }
+.deedni-profiel .steps a.is-done .n { background: var(--ok); border-color: var(--ok); color: #fff; }
+.deedni-profiel .steps a[aria-current="step"] { color: var(--ink); border-bottom-color: var(--accent); }
+.deedni-profiel .steps a[aria-current="step"] .n { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+@media (max-width: 640px) {
+  .deedni-profiel .steps a:not([aria-current="step"]) .t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+}
+.deedni-profiel .stap { display: flex; flex-direction: column; gap: 24px; }
+.deedni-profiel .stap h2 { font-size: clamp(2rem, 1.4rem + 2vw, 2.5rem); }
+.deedni-profiel .item-list { border-top: 2px solid var(--ink); }
+.deedni-profiel .item-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.deedni-profiel .item-list strong { font-size: 1.1875rem; }
+.deedni-profiel .item-list .acts { display: flex; gap: 4px; align-items: flex-start; }
+.deedni-profiel .result-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 44px; align-items: end; gap: 12px; padding: 14px; background: var(--bg-alt); border-radius: 12px; }
+@media (max-width: 560px) {
+  .deedni-profiel .result-row { grid-template-columns: minmax(0, 1fr) 44px; }
+  .deedni-profiel .result-row .field:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+}
+.deedni-profiel .result-row .weg { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-size: 1.25rem; margin-bottom: 4px; }
+.deedni-profiel .nav-steps { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+.deedni-profiel .preview { display: flex; flex-direction: column; gap: 16px; }
+.deedni-profiel .preview .seg { background: var(--night-2); border-color: var(--night-line); align-self: flex-start; }
+.deedni-profiel .preview .seg button { color: var(--night-muted); }
+.deedni-profiel .preview .seg [aria-pressed="true"] { background: var(--night-ink); color: var(--night); }
+.deedni-profiel .pcard { background: #fff; color: var(--wp--preset--color--inkt, #0F1A3D); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px; --redact: var(--wp--preset--color--inkt, #0F1A3D); --bg-alt: var(--wp--preset--color--achtergrond-2, #EBEFFA); --ink: var(--wp--preset--color--inkt, #0F1A3D); --muted: var(--wp--preset--color--gedempt, #4A5578); }
+.deedni-profiel .pcard .t { font-weight: 700; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.015em; }
+.deedni-profiel .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 14px; font-size: .9375rem; align-items: center; }
+.deedni-profiel .kv dt { color: var(--wp--preset--color--gedempt, #4A5578); }
+.deedni-profiel .kv dd { font-weight: 650; }
+.deedni-profiel .res { padding: 10px 12px; background: var(--wp--preset--color--achtergrond-2, #EBEFFA); border-radius: 10px; font-size: .9375rem; }
+.deedni-profiel .res strong { font-size: 1.25rem; margin-right: 6px; }
+.deedni-profiel .locked { padding: 12px; border: 1px dashed var(--wp--preset--color--lijn-sterk, #AEB8DB); border-radius: 10px; color: var(--wp--preset--color--gedempt, #4A5578); font-size: .9375rem; }
+.deedni-profiel .block-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.deedni-profiel .block-list span { display: inline-flex; align-items: center; gap: 8px; padding: 6px 8px 6px 14px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: .9375rem; }
+.deedni-profiel .block-list button { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: inherit; }
+.deedni-profiel .check { display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.deedni-profiel .check svg { flex: none; color: var(--ok); margin-top: 2px; }
+
+.save { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--line-strong); background: var(--surface); color: var(--ink); }
+.save[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.save[aria-pressed="true"] svg path { fill: currentColor; }
+.match-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px 3px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); font-size: .8125rem; font-weight: 700; }
+.match-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+/* kandidaten-zoeken.html */
+.deedni-zoeken .search { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; background: var(--surface); border: 2px solid var(--line-strong); border-radius: 16px; }
+.deedni-zoeken .search:focus-within { border-color: var(--focus); }
+.deedni-zoeken .search label { display: flex; align-items: center; gap: 10px; flex: 1 1 260px; padding-left: 10px; color: var(--muted); }
+.deedni-zoeken .search input { flex: 1; min-height: 48px; border: 0; background: transparent; font-size: 1.0625rem; outline: none; min-width: 0; }
+.deedni-zoeken .active-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.deedni-zoeken .active-filters button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 8px 0 14px; border-radius: 999px; border: 0; background: var(--accent-soft); color: var(--accent); font-weight: 650; font-size: .9375rem; }
+.deedni-zoeken .active-filters button::after { content: "×"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); font-size: 1.1rem; }
+.deedni-zoeken .filters { display: flex; flex-direction: column; gap: 4px; }
+.deedni-zoeken .filters details { border-bottom: 1px solid var(--line); }
+.deedni-zoeken .filters summary { display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 700; cursor: pointer; list-style: none; }
+.deedni-zoeken .filters summary::-webkit-details-marker { display: none; }
+.deedni-zoeken .filters summary::after { content: "+"; font-size: 1.4rem; font-weight: 500; color: var(--muted); }
+.deedni-zoeken .filters details[open] summary::after { content: "−"; }
+.deedni-zoeken .filters .opts { display: flex; flex-direction: column; padding-bottom: 12px; }
+.deedni-zoeken .filters label { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; }
+.deedni-zoeken .filters input[type="checkbox"], .deedni-zoeken .filters input[type="radio"] { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+.deedni-zoeken .filters .n { margin-left: auto; color: var(--muted); font-size: .875rem; }
+.deedni-zoeken .filter-toggle { display: none; }
+@media (max-width: 900px) {
+  .deedni-zoeken .filter-toggle { display: inline-flex; }
+  .deedni-zoeken .filters-box:not(.is-open) { display: none; }
+}
+.deedni-zoeken .result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.deedni-zoeken .cands { display: flex; flex-direction: column; gap: 16px; }
+.deedni-zoeken .cand { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 24px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.deedni-zoeken .cand:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
+@media (prefers-reduced-motion: no-preference) {
+  .deedni-zoeken .cand:hover { transform: translateY(-2px); }
+}
+.deedni-zoeken .cand h2 { font-size: 1.5rem; letter-spacing: -0.02em; }
+.deedni-zoeken .cand h2 a { color: var(--ink); text-decoration: none; }
+.deedni-zoeken .cand h2 a:hover { text-decoration: underline; }
+.deedni-zoeken .meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font-size: .9375rem; }
+.deedni-zoeken .hidden-row { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9375rem; color: var(--muted); align-items: center; }
+.deedni-zoeken .cand .right { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; gap: 12px; text-align: right; }
+.deedni-zoeken .cand .right .salaris { font-size: 1.25rem; }
+.deedni-zoeken .cand .acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+@media (max-width: 640px) {
+  .deedni-zoeken .cand { grid-template-columns: 1fr; }
+  .deedni-zoeken .cand .right { align-items: flex-start; text-align: left; }
+  .deedni-zoeken .cand .acts { justify-content: flex-start; }
+}
+.deedni-zoeken .empty { text-align: center; padding: 48px 24px; }
+
+
+/* kandidaat.html */
+.deedni-kandidaat .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.deedni-kandidaat .view-note { padding: 12px 16px; border-radius: 12px; background: var(--bg-alt); font-size: .9375rem; }
+.deedni-kandidaat.is-shared .view-note { background: var(--accent-soft); }
+.deedni-kandidaat .hero-k { display: flex; flex-direction: column; gap: 16px; padding-bottom: 28px; border-bottom: 2px solid var(--ink); }
+.deedni-kandidaat .hero-k h1 { font-size: clamp(2.5rem, 1.4rem + 4vw, 4rem); }
+.deedni-kandidaat .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 640px) {
+  .deedni-kandidaat .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.deedni-kandidaat .facts dt { color: var(--muted); font-size: .9375rem; }
+.deedni-kandidaat .facts dd { font-weight: 700; font-size: 1.125rem; }
+.deedni-kandidaat .blok { display: flex; flex-direction: column; gap: 16px; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.deedni-kandidaat .job { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 8px 24px; padding-block: 14px; }
+@media (max-width: 640px) {
+  .deedni-kandidaat .job { grid-template-columns: 1fr; }
+}
+.deedni-kandidaat .job .when { color: var(--muted); font-weight: 600; }
+.deedni-kandidaat .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.deedni-kandidaat .case .big { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+.deedni-kandidaat .case .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 12px; font-size: .9375rem; }
+.deedni-kandidaat .case .kv dt { color: var(--muted); }
+.deedni-kandidaat .v-shared { display: none; }
+.deedni-kandidaat.is-shared .v-shared { display: revert; }
+.deedni-kandidaat.is-shared .v-pub { display: none; }
+.deedni-kandidaat .v-shared { color: var(--accent); font-weight: 650; }
+.deedni-kandidaat a.v-shared { display: none; }
+.deedni-kandidaat.is-shared a.v-shared { display: inline-flex; }
+.deedni-kandidaat .side-card { display: flex; flex-direction: column; gap: 16px; }
+.deedni-kandidaat .side-card .salaris { font-size: 1.5rem; }
+.deedni-kandidaat .share-list h3 { font-size: 1rem; margin-top: 4px; }
+.deedni-kandidaat .share-list li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: .9375rem; }
+.deedni-kandidaat .share-list svg { flex: none; margin-top: 3px; }
+.deedni-kandidaat .why li { display: flex; gap: 8px; padding: 4px 0; font-size: .9375rem; }
+.deedni-kandidaat .why li::before { content: "✓"; color: var(--ok); font-weight: 800; }
+.deedni-kandidaat .why li.mis::before { content: "•"; color: var(--muted); }
+.deedni-kandidaat .contact-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; }
+.deedni-kandidaat .contact-kv dt { color: var(--muted); }
+
+
+/* ---------- Aanvullingen ---------- */
+.deedni-overzicht .status-cel { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.deedni-zoeken .search .btn { flex: none; }
+.deedni-zoeken .active-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.deedni-zoeken .active-filters a { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 8px 0 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 650; font-size: .9375rem; text-decoration: none; }
+.deedni-zoeken .active-filters a::after { content: "×"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); font-size: 1.1rem; }
+.deedni-zoeken .zoek-form { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 48px); }
+.deedni-zoeken .zoeken-dicht { max-width: 44em; }
+.deedni-zoeken .cand-main { gap: 12px; }
+.pager { display: flex; flex-wrap: wrap; gap: 6px; }
+.pager a { display: grid; place-items: center; min-width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line-strong); text-decoration: none; font-weight: 650; color: var(--ink); }
+.pager a[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.deedni-zoeken.is-laden [data-zoek-resultaten] { opacity: .55; transition: opacity .2s; }
+
+/* Mijn profiel */
+.deedni-profiel .profiel-form { gap: 28px; }
+.js .deedni-profiel .stap:not(.is-actief) { display: none; }
+.deedni-profiel .stap + .stap { padding-top: 28px; }
+.js .deedni-profiel .stap + .stap { padding-top: 0; }
+.deedni-profiel .item-list details > summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; list-style: none; cursor: pointer; }
+.deedni-profiel .item-list details > summary::-webkit-details-marker { display: none; }
+.deedni-profiel .item-list li.item { display: block; }
+.deedni-profiel .item-list details[open] > summary .btn { display: none; }
+.deedni-profiel .item-body { padding-top: 16px; }
+.deedni-profiel .preview .h3 { color: var(--night-ink); }
+.deedni-profiel .pcard strong { color: var(--wp--preset--color--inkt, #0F1A3D); }
+.deedni-profiel .pcard .salaris { font-size: 1.25rem; }
+.deedni-profiel .todo-lijst li { padding: 6px 0; }
+.deedni-profiel .check svg { color: var(--ok); }
+.deedni-profiel .nav-steps .btn { flex: 0 1 auto; }
+
+/* Kandidaatprofiel */
+.deedni-kandidaat { gap: 24px; }
+.deedni-kandidaat .v-plain { color: inherit; font-weight: 400; }
+.deedni-kandidaat .lees { max-width: 40em; }
+.deedni-kandidaat .blok--laatst { border-bottom: 0; }
+.deedni-kandidaat .case { gap: 12px; }
+.deedni-kandidaat .share-list .ok-ico { color: var(--ok); flex: none; }
+.deedni-kandidaat .share-list > .fine { margin: 12px 0 4px; }
+.deedni-kandidaat .why-kop { font-size: 1rem; }
+
+/* Bedrijfsprofiel */
+.deedni-bedrijfsprofiel .page-head { gap: 12px; }
+.deedni-bedrijfsprofiel fieldset legend { font-weight: 600; }

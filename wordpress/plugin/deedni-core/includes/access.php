@@ -29,11 +29,15 @@ function deedni_guard_pages() {
 		}
 		$own       = (int) get_post_field( 'post_author', $id ) === get_current_user_id();
 		$contacted = deedni_has_contact_access( $id );
-		$visible   = deedni_field( $id, 'profiel_zichtbaar' ) && ! in_array( $id, deedni_blocked_kandidaat_ids(), true );
+		$visible   = deedni_field( $id, 'profiel_zichtbaar' ) && 'publish' === get_post_status( $id ) && ! in_array( $id, deedni_blocked_kandidaat_ids(), true );
 		$allowed   = $own || deedni_is_beheerder() || $contacted || ( deedni_can_search() && $visible );
 		if ( ! $allowed ) {
 			wp_safe_redirect( deedni_page_url( deedni_is_werkgever() ? 'zoeken' : 'dashboard', array( 'deedni_melding' => 'geen_toegang' ) ) );
 			exit;
+		}
+		// Een werkgever die het profiel opent: telt als bekeken (voor "Wie keek mee").
+		if ( ! $own && deedni_is_werkgever() ) {
+			deedni_log_bekeken( $id, get_current_user_id() );
 		}
 	}
 
@@ -75,22 +79,13 @@ add_filter(
 		if ( $user instanceof WP_User && ( deedni_is_kandidaat( $user ) || deedni_is_werkgever( $user ) ) ) {
 			$admin = admin_url();
 			if ( ! $requested || 0 === strpos( $requested, $admin ) ) {
-				return deedni_page_url( 'dashboard' );
+				return home_url( '/' );
 			}
 		}
 		return $redirect_to;
 	},
 	10,
 	3
-);
-
-add_filter(
-	'logout_redirect',
-	function ( $redirect_to, $requested ) {
-		return $requested ? $redirect_to : home_url( '/' );
-	},
-	10,
-	2
 );
 
 /** Verwijzingen naar wp-login.php laten landen op de eigen inlogpagina (wachtwoord vergeten blijft werken). */
@@ -125,6 +120,9 @@ add_action(
 			wp_die( 'Je hebt geen toegang tot dit cv.', 'Geen toegang', array( 'response' => 403 ) );
 		}
 		$file = get_attached_file( (int) deedni_field( $kandidaat_id, 'cv' ) );
+		if ( (int) get_post_field( 'post_author', (int) deedni_field( $kandidaat_id, 'cv' ) ) !== (int) get_post_field( 'post_author', $kandidaat_id ) && ! deedni_is_beheerder() ) {
+			$file = '';
+		}
 		if ( ! $file || ! is_readable( $file ) ) {
 			wp_die( 'Dit cv is niet gevonden.', 'Niet gevonden', array( 'response' => 404 ) );
 		}

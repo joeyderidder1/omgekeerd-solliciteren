@@ -1,0 +1,26 @@
+/* deedni: alleen in de blokeditor. */
+.editor-styles-wrapper { background: var(--bg); color: var(--ink); font-family: var(--font); }
+/* Klikken in het voorbeeld opent geen links of formulieren */
+.editor-styles-wrapper [class*="wp-block-deedni"] a,
+.editor-styles-wrapper [class*="wp-block-deedni"] button,
+.editor-styles-wrapper [class*="wp-block-deedni"] input,
+.editor-styles-wrapper [class*="wp-block-deedni"] select,
+.editor-styles-wrapper [class*="wp-block-deedni"] textarea,
+.editor-styles-wrapper [class*="wp-block-deedni"] summary { pointer-events: none; }
+.editor-styles-wrapper .site-header { position: relative; }
+.editor-styles-wrapper .sticky-cta { display: none !important; }
+.editor-styles-wrapper .sticky-side { position: static; }
+.editor-styles-wrapper .reveal { opacity: 1 !important; transform: none !important; }
+.editor-styles-wrapper .bigphoto { height: auto; }
+.editor-styles-wrapper .bigphoto .stick { position: relative; height: 70vh; min-height: 420px; }
+.editor-styles-wrapper .bigphoto .frame, .editor-styles-wrapper .bigphoto img, .editor-styles-wrapper .bigphoto .over span, .editor-styles-wrapper .bigphoto .cap { --k: 0; }
+.deedni-blok-editor { position: relative; }
+.deedni-blok-editor .components-placeholder { min-height: 80px; }
+.deedni-blok-label { position: absolute; z-index: 5; top: 8px; left: 8px; padding: 4px 10px; border-radius: 999px; background: #1e1e1e; color: #fff; font: 600 12px/1.4 system-ui, sans-serif; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.deedni-blok-editor:hover .deedni-blok-label, .is-selected .deedni-blok-label { opacity: 1; }
+.deedni-veld-lijst { display: flex; flex-direction: column; gap: 12px; }
+.deedni-veld-item { border: 1px solid #ddd; border-radius: 6px; padding: 10px; background: #fff; }
+.deedni-veld-item-kop { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; }
+.deedni-veld-item-kop .components-button { min-width: 0; padding: 0 6px; height: 28px; }
+.deedni-veld-beeld img { max-width: 100%; height: auto; border-radius: 4px; display: block; margin-bottom: 8px; }
+.deedni-uitleg { padding: 10px 12px; margin: 0 16px 16px; background: #f0f6fc; border-left: 3px solid #2842E0; font-size: 12px; line-height: 1.5; }

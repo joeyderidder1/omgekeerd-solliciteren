@@ -70,7 +70,7 @@ function deedni_register_taxonomies() {
 		'show_admin_column' => true,
 		'show_in_rest'      => false,
 		'rewrite'           => false,
-		'meta_box_cb'       => false, // De ACF-velden tonen deze termen al.
+		'meta_box_cb'       => false, // Kandidaten kiezen dit zelf in hun profiel.
 	);
 
 	register_taxonomy(
