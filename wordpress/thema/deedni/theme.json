@@ -97,6 +97,28 @@
 					"name": "Accent op donker",
 					"color": "#8EA2FF"
 				}
+			],
+			"gradients": [
+				{
+					"slug": "nacht-gloed",
+					"name": "Donker met blauwe gloed",
+					"gradient": "radial-gradient(46% 70% at 100% 0%, rgba(40,66,224,.75), transparent 70%), radial-gradient(30% 50% at 0% 100%, rgba(255,225,77,.18), transparent 70%), linear-gradient(160deg, #161F4A, #0B1130 60%)"
+				},
+				{
+					"slug": "accent-gloed",
+					"name": "Accent met gloed",
+					"gradient": "radial-gradient(50% 70% at 85% 0%, rgba(255,255,255,.22), transparent 70%), radial-gradient(50% 80% at 0% 100%, rgba(11,17,48,.55), transparent 70%), #2842E0"
+				},
+				{
+					"slug": "geel-gloed",
+					"name": "Geel met warme gloed",
+					"gradient": "radial-gradient(46% 70% at 100% 0%, rgba(255,255,255,.55), transparent 70%), radial-gradient(50% 80% at 0% 100%, #FFC236, transparent 70%), #FFE14D"
+				},
+				{
+					"slug": "licht-gloed",
+					"name": "Licht met gloed",
+					"gradient": "radial-gradient(40% 70% at 100% 0%, rgba(40,66,224,.16), transparent 70%), radial-gradient(40% 70% at 0% 100%, rgba(255,225,77,.34), transparent 70%), #FFFFFF"
+				}
 			]
 		},
 		"typography": {

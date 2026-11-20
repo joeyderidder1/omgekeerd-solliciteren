@@ -49,7 +49,9 @@ function deedni_algemene_velden( $def ) {
 				'standaard' => 'Standaard (lichte achtergrond)',
 				'zacht'     => 'Zacht blok (lichte accentkleur)',
 				'accent'    => 'Accentkleur',
-				'donker'    => 'Donker blok',
+				'donker'    => 'Donker blok met gloed',
+				'geel'      => 'Geel blok (markeerkleur)',
+				'licht'     => 'Licht blok met gloed',
 			),
 			'standaard' => $def['achtergrond'],
 		);
@@ -272,6 +274,8 @@ function deedni_achtergrond_klasse( $a ) {
 		'zacht'  => ' blk blk--soft',
 		'accent' => ' blk blk--accent',
 		'donker' => ' blk blk--ink',
+		'geel'   => ' blk blk--geel',
+		'licht'  => ' blk blk--licht',
 	);
 	return isset( $a['achtergrond'], $map[ $a['achtergrond'] ] ) ? $map[ $a['achtergrond'] ] : '';
 }
