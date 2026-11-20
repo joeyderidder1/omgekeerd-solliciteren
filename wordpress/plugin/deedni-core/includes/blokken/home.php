@@ -51,6 +51,7 @@ deedni_blok(
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-home',
 		'velden'       => array(
+			'label'             => array( 'type' => 'text', 'label' => 'Label boven de kop (leeg = geen)', 'groep' => 'Kop', 'standaard' => 'Omgekeerd solliciteren voor online marketeers' ),
 			'kop'               => array( 'type' => 'textarea', 'label' => 'Grote kop', 'groep' => 'Kop', 'standaard' => "Bedrijven\nkomen [foto1] naar\njou. [foto2]", 'help' => 'Elke regel is een regel in beeld. Zet [foto1] of [foto2] tussen de woorden voor een foto.' ),
 			'foto1'             => array( 'type' => 'image', 'label' => 'Foto 1', 'groep' => 'Kop', 'standaard' => deedni_img( 'telefoon-laptop.jpg' ) ),
 			'foto2'             => array( 'type' => 'image', 'label' => 'Foto 2', 'groep' => 'Kop', 'standaard' => deedni_img( 'werken-laptop.jpg' ) ),
@@ -61,7 +62,7 @@ deedni_blok(
 			'werk_cta_link'     => array( 'type' => 'link', 'label' => 'Link van de knop', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => 'pagina:registreren' ),
 			'werk_link2'        => array( 'type' => 'text', 'label' => 'Tweede link', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => 'Zo werkt het' ),
 			'werk_link2_url'    => array( 'type' => 'link', 'label' => 'Waar gaat de tweede link heen?', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => '#zo-werkt-het' ),
-			'werk_notitie'      => array( 'type' => 'text', 'label' => 'Kleine tekst eronder', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => 'Gratis · anoniem · salaris altijd vooraf' ),
+			'werk_notitie'      => array( 'type' => 'text', 'label' => 'Kleine tekst eronder', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => 'Gratis · anoniem · salaris altijd vooraf', 'help' => 'Scheid met een punt (·) voor losse labels.' ),
 			'pers_cta'          => array( 'type' => 'text', 'label' => 'Knop (ik zoek personeel)', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => 'Zoek kandidaten' ),
 			'pers_cta_link'     => array( 'type' => 'link', 'label' => 'Link van de knop', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => 'pagina:zoeken' ),
 			'pers_link2'        => array( 'type' => 'text', 'label' => 'Tweede link', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => 'Bekijk de prijzen' ),
@@ -109,7 +110,8 @@ function deedni_render_hero( $a ) {
 		$m['note'] = str_replace( '{aantal}', (string) deedni_aantal_nieuw(), $a['k_notitie'] );
 	}
 
-	$h  = '<section class="hero" aria-labelledby="' . esc_attr( $id ) . '"><div class="wrap">';
+	$h  = '<section class="hero" aria-labelledby="' . esc_attr( $id ) . '"><div class="hero-gloed" aria-hidden="true"></div><div class="wrap">';
+	$h .= deedni_eyebrow( $a['label'] );
 	$h .= deedni_mega( $a['kop'], array( 1 => $a['foto1'], 2 => $a['foto2'] ), $tag, $id, 'uit' );
 	$h .= '<div class="hero-sub"><div class="hero-copy">';
 	$h .= '<p class="lead">' . deedni_tekst( $a['lead'] ) . '</p>';
@@ -124,9 +126,7 @@ function deedni_render_hero( $a ) {
 		$h .= '<a class="plain" href="' . esc_url( $m['href2'] ) . '" data-cta-2>' . esc_html( $m['cta2'] ) . '</a>';
 	}
 	$h .= '</div>';
-	if ( $m['note'] ) {
-		$h .= '<p class="fine" data-cta-note>' . esc_html( $m['note'] ) . '</p>';
-	}
+	$h .= '<ul class="hero-chips" data-cta-note' . ( $m['note'] ? '' : ' hidden' ) . '>' . deedni_chips_html( $m['note'] ) . '</ul>';
 	$h .= '</div>';
 
 	// Voorbeeldkaarten.

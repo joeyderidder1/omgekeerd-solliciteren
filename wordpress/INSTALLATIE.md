@@ -75,6 +75,14 @@ De knoppen in de kop (zoals "Inloggen" en "Account maken") en de teksten in de v
 
 Ga naar **Weergave > Editor > Stijlen** (het halve-maan-icoon). Onder *Kleuren* staan alle kleuren van deedni, zoals Achtergrond, Inkt (tekst), Accent (oranje) en Nacht (de donkere vlakken). Verander je een kleur, dan verandert die op de hele site.
 
+### Achtergronden en nieuwe blokken (versie 2.1)
+
+- Elke sectie met een kleurvlak heeft rechts onder **Opmaak > Achtergrond** de keuzes *Standaard*, *Zacht blok*, *Accentkleur*, *Donker blok met gloed*, *Geel blok* en *Licht blok met gloed*. De gloed (zachte ronde kleurverlopen) volgt automatisch je kleuren uit Stijlen.
+- De hero is nu een donker vlak met gloed. Bovenaan staat een klein label (veld *Label boven de kop*), en de kleine tekst onder de knop verschijnt als losse labels: scheid ze met een punt (·).
+- **Kandidaten in een boog**: anonieme kandidaatkaarten in een boog die langzaam doordraaien, met kop, tekst en knop in het midden. Per kaart vul je code, functie, ervaring, regio, salaris en een kleur in. Bezoekers kunnen het draaien pauzeren. Handig op de homepage en op een pagina om kandidaten te ontdekken.
+- **Quotes met foto's**: ervaringen met naam, functie en een foto. De foto's liggen als een stapel naast de quote en schuiven mee als je bladert.
+- Heb je de homepage al? Dan voeg je deze blokken toe met de **+** in de editor (categorie *deedni*). Of gebruik *Homepage opnieuw vullen* hieronder; dan staan ze er meteen in, maar gaan eigen teksten terug naar de standaard.
+
 ## Instellingen > deedni
 
 - **Pagina's**: welke pagina het inloggen, het overzicht, het profiel en het zoeken toont.

@@ -315,3 +315,24 @@ label.chip:has(input:focus-visible) { outline: 3px solid var(--focus); outline-o
 .dn-toast.is-zichtbaar { opacity: 1; transform: translate(-50%, 0); }
 
 .skip:not(:focus) { clip-path: inset(50%); }
+
+/* ---------- Sjeu: achtergrond met gloed, labels en ronde knoppen ---------- */
+/* Zachte kleurgloed achter de hele site. De kleuren volgen het palet (accent en marker). */
+body { background-color: var(--bg); }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(48rem 34rem at 108% -6%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%),
+    radial-gradient(40rem 30rem at -12% 38%, color-mix(in srgb, var(--marker) 30%, transparent), transparent 70%),
+    radial-gradient(46rem 34rem at 92% 108%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1.6px) 0 0 / 26px 26px;
+}
+.site-header { background: color-mix(in srgb, var(--bg, #F5F7FC) 72%, transparent); }
+@supports not (backdrop-filter: blur(1px)) { .site-header { background: var(--bg, #F5F7FC); } }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); background: color-mix(in srgb, currentColor 6%, transparent); font-size: .8125rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; line-height: 1.2; }
+.eyebrow-dot { width: 18px; height: 18px; border-radius: 50%; flex: none; background: radial-gradient(circle at 35% 35%, #fff 0 18%, transparent 22%), radial-gradient(circle, var(--marker) 0 46%, transparent 50%), color-mix(in srgb, var(--marker) 35%, transparent); }
+.rond { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, currentColor 30%, transparent); background: color-mix(in srgb, currentColor 6%, transparent); color: inherit; transition: background-color .2s, border-color .2s, transform .2s; }
+.rond:hover { border-color: currentColor; transform: translateY(-1px); }
+.rond.is-uit svg rect { display: none; }
+.rond.is-uit svg { background: currentColor; clip-path: polygon(30% 20%, 30% 80%, 80% 50%); }
+/* Voet met gloed */
+.site-footer { background: radial-gradient(60% 140% at 100% 0%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%), var(--wp--preset--color--nacht, #0B1130); }

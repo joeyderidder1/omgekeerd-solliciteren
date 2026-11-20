@@ -89,7 +89,16 @@
           ico.innerHTML = m.ico === 'search' ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>' : iconen.user;
         }
         if (cta2) { cta2.textContent = m.cta2; cta2.href = m.href2; cta2.hidden = !m.cta2; }
-        if (note) { note.textContent = m.note; note.hidden = !m.note; }
+        if (note) {
+          note.innerHTML = '';
+          String(m.note || '').split(/\s*[·|]\s*/).forEach(function (deel) {
+            if (!deel) return;
+            var li = document.createElement('li'), sp = document.createElement('span');
+            li.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+            sp.textContent = deel; li.appendChild(sp); note.appendChild(li);
+          });
+          note.hidden = !m.note;
+        }
         document.dispatchEvent(new CustomEvent('deedni:wie', { detail: wie === 'werk' ? 'k' : 'w' }));
       });
     });
@@ -242,5 +251,77 @@
         });
       });
     });
+  });
+
+  /* 11. Kandidaten in een boog: de kaarten schuiven één plek op, vanzelf of met de knoppen */
+  $$('[data-boog]').forEach(function (boog) {
+    var kaarten = $$('.boog-kaart', boog), n = kaarten.length;
+    if (n < 2) return;
+    var knoppen = $('[data-boog-knoppen]', boog), pauze = $('[data-boog-pauze]', boog);
+    var midden = Math.floor((n - 1) / 2), pos = 0, timer = null;
+    var gepauzeerd = minder || !boog.hasAttribute('data-boog-auto');
+    var zicht = Math.min(4, Math.floor((n - 1) / 2));
+    var vorige = kaarten.map(function (k, i) { return i - midden; });
+    function zet() {
+      kaarten.forEach(function (k, i) {
+        var o = ((i - midden - pos) % n + n) % n;
+        if (o > n / 2) o -= n;
+        var sprong = Math.abs(o - vorige[i]) > 1.5;
+        k.classList.toggle('is-sprong', sprong);
+        k.classList.toggle('is-weg', Math.abs(o) > zicht);
+        k.style.setProperty('--o', o);
+        vorige[i] = o;
+      });
+    }
+    function stap(d) { pos += d; zet(); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { stop(); if (!gepauzeerd) timer = setInterval(function () { stap(1); }, 3200); }
+    if (knoppen) {
+      knoppen.hidden = false;
+      $$('[data-boog-stap]', knoppen).forEach(function (b) {
+        b.addEventListener('click', function () { stap(+b.getAttribute('data-boog-stap')); start(); });
+      });
+    }
+    if (pauze) {
+      if (minder) { pauze.hidden = true; }
+      pauze.addEventListener('click', function () {
+        gepauzeerd = !gepauzeerd;
+        pauze.setAttribute('aria-pressed', String(gepauzeerd));
+        pauze.setAttribute('aria-label', gepauzeerd ? 'Laat de kaarten weer draaien' : 'Pauzeer het draaien');
+        pauze.classList.toggle('is-uit', gepauzeerd);
+        start();
+      });
+    }
+    boog.addEventListener('pointerenter', stop);
+    boog.addEventListener('pointerleave', start);
+    boog.addEventListener('focusin', stop);
+    boog.addEventListener('focusout', start);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) start(); else stop(); }); }).observe(boog);
+    } else { start(); }
+    zet();
+  });
+
+  /* 12. Quotes: één tegelijk, de foto van die quote komt bovenop de stapel */
+  $$('[data-quotes]').forEach(function (sec) {
+    var items = $$('[data-q-item]', sec), fotos = $$('[data-q-foto]', sec), n = items.length;
+    if (n < 2) return;
+    var nav = $('[data-q-nav]', sec), teller = $('[data-q-teller]', sec), nu = 0;
+    sec.classList.add('is-slider');
+    function toon(i) {
+      nu = (i + n) % n;
+      items.forEach(function (it, j) { it.classList.toggle('is-aan', j === nu); it.hidden = j !== nu; });
+      fotos.forEach(function (f) {
+        var j = +f.getAttribute('data-q-foto');
+        f.style.setProperty('--plek', ((j - nu) % n + n) % n);
+      });
+      if (teller) teller.textContent = (nu + 1) + ' / ' + n;
+    }
+    if (nav) {
+      nav.hidden = false;
+      $$('[data-q-stap]', nav).forEach(function (b) { b.addEventListener('click', function () { toon(nu + +b.getAttribute('data-q-stap')); }); });
+    }
+    fotos.forEach(function (f) { f.addEventListener('click', function () { toon(+f.getAttribute('data-q-foto')); }); });
+    toon(0);
   });
 })();

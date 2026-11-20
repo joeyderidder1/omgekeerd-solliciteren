@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       deedni Core
  * Description:       Het platform achter deedni: rollen (marketeer en werkgever), inloggen, anonieme profielen, zoeken met matchpercentage, aanbiedingen met "Ja, maar..." en alle deedni-blokken voor de pagina's.
- * Version:           2.0.0
+ * Version:           2.1.0
  * Requires at least: 6.6
  * Requires PHP:      8.0
  * Author:            deedni
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DEEDNI_VERSION', '2.0.0' );
+define( 'DEEDNI_VERSION', '2.1.0' );
 define( 'DEEDNI_FILE', __FILE__ );
 define( 'DEEDNI_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DEEDNI_URL', plugin_dir_url( __FILE__ ) );

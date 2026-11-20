@@ -43,7 +43,7 @@ function deedni_create_pages() {
 
 /** De blokken van de homepage, in de volgorde van het ontwerp. */
 function deedni_home_inhoud() {
-	$blokken = array( 'welkom', 'hero', 'grote-foto', 'band', 'profielen', 'zo-werkt-het', 'tijdlijn', 'snel-zoeken', 'cijfers', 'verschil', 'privacy', 'prijzen', 'vragen', 'slot' );
+	$blokken = array( 'welkom', 'hero', 'grote-foto', 'band', 'kandidaten-boog', 'profielen', 'zo-werkt-het', 'tijdlijn', 'snel-zoeken', 'cijfers', 'verschil', 'quotes', 'privacy', 'prijzen', 'vragen', 'slot' );
 	$out     = array();
 	foreach ( $blokken as $b ) {
 		if ( isset( deedni_blok_defs()[ $b ] ) ) {

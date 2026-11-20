@@ -418,6 +418,25 @@ function deedni_cta( $text, $url, $icon = 'user', $variant = 'accent', $extra = 
 	return '<a class="' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '"' . $extra . '><span class="cta-ico" aria-hidden="true">' . deedni_icon( $icon, 26 ) . '</span><span class="cta-txt">' . esc_html( $text ) . '</span></a>';
 }
 
+/** Klein pill-label boven een kop (zoals 'Over deedni'). */
+function deedni_eyebrow( $tekst, $extra = '' ) {
+	if ( '' === trim( (string) $tekst ) ) {
+		return '';
+	}
+	return '<p class="eyebrow' . ( $extra ? ' ' . esc_attr( $extra ) : '' ) . '"><span class="eyebrow-dot" aria-hidden="true"></span>' . esc_html( $tekst ) . '</p>';
+}
+
+/** Losse labels met een vinkje uit een tekst met punten ertussen: 'Gratis · anoniem'. */
+function deedni_chips_html( $tekst ) {
+	$h = '';
+	foreach ( preg_split( '/\s*[·|]\s*/u', (string) $tekst ) as $deel ) {
+		if ( '' !== trim( $deel ) ) {
+			$h .= '<li>' . deedni_icon( 'check', 16 ) . '<span>' . esc_html( trim( $deel ) ) . '</span></li>';
+		}
+	}
+	return $h;
+}
+
 function deedni_redact( $size = '', $label = 'verborgen' ) {
 	return '<span class="redact' . ( $size ? ' redact--' . esc_attr( $size ) : '' ) . '" role="img" aria-label="' . esc_attr( $label ) . '"></span>';
 }
