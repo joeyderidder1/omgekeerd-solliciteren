@@ -194,3 +194,45 @@ function deedni_zet_bewaard( $kandidaat_id, $aan, $user_id = 0 ) {
 		update_user_meta( $user_id, 'deedni_niet_nu', array_values( array_diff( deedni_niet_nu( $user_id ), array( (int) $kandidaat_id ) ) ) );
 	}
 }
+
+/* ---------- Gelijktijdige verzoeken (race conditions) ---------- */
+
+/**
+ * Status alleen wijzigen als die nog $van is, in één databasebewerking. Twee verzoeken tegelijk
+ * (dubbelklik, twee tabbladen, ja en nee tegelijk) kunnen zo nooit allebei slagen.
+ * Geeft true als dit verzoek de wijziging deed.
+ */
+function deedni_aanbod_wissel( $aanbod_id, $van, $naar ) {
+	global $wpdb;
+	$n = $wpdb->query( // phpcs:ignore WordPress.DB
+		$wpdb->prepare(
+			"UPDATE {$wpdb->postmeta} SET meta_value = %s WHERE post_id = %d AND meta_key = 'status' AND meta_value = %s",
+			$naar,
+			(int) $aanbod_id,
+			$van
+		)
+	);
+	wp_cache_delete( (int) $aanbod_id, 'post_meta' );
+	return 1 === (int) $n;
+}
+
+/**
+ * Een kort slot (MySQL GET_LOCK) rond "controleren en dan aanmaken". Wacht maximaal 5 seconden.
+ * Geeft de naam van het slot terug, of false als het niet lukte. Het slot gaat vanzelf open aan
+ * het eind van het verzoek.
+ */
+function deedni_slot( $naam ) {
+	global $wpdb;
+	$slot = 'deedni_' . md5( $wpdb->prefix . $naam );
+	$ok   = $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 5)', $slot ) ); // phpcs:ignore WordPress.DB
+	// 1 = slot gekregen, 0 = een ander verzoek houdt het slot vast. Iets anders (NULL, of een database
+	// zonder GET_LOCK zoals SQLite) betekent: zonder slot verder, zoals voorheen.
+	return '0' === (string) $ok ? false : $slot;
+}
+
+function deedni_slot_vrij( $slot ) {
+	global $wpdb;
+	if ( $slot ) {
+		$wpdb->query( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $slot ) ); // phpcs:ignore WordPress.DB
+	}
+}

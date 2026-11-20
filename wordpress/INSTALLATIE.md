@@ -120,12 +120,36 @@ Vraagt iemand om zijn gegevens? Bij **Extra > Persoonsgegevens exporteren** en *
 
 Iemand die zich twee keer aanmeldt met hetzelfde e-mailadres, staat er één keer in, met de nieuwste gegevens.
 
+## Beveiliging (versie 2.4)
+
+Versie 2.4 dicht een paar lekken en maakt de site lastiger aan te vallen. Het volledige overzicht staat in `BEVEILIGING.md`. Wat je merkt:
+
+- **Nieuwe accounts bevestigen hun e-mailadres.** Na *Account maken* krijgt iemand een mail met een link. Pas daarna kan die persoon inloggen. Daardoor verraadt het formulier niet meer welke adressen al een account hebben, en kan niemand een account maken op het adres van een ander. Dit werkt alleen als de site mail kan versturen. **Regel eerst WP Mail SMTP** (zie `TESTKLAAR.md`), of zet dit tijdelijk uit bij **Instellingen > deedni > Accounts**.
+- **Te veel pogingen worden afgeremd.** Na 10 foute wachtwoorden voor hetzelfde adres, of 20 vanaf hetzelfde IP-adres, kan er een kwartier niet worden ingelogd. Ook registreren (10 per uur per IP), *Wachtwoord vergeten* (maximaal 3 mails per uur per adres) en nieuwe aanbiedingen (25 per dag per werkgever) hebben een grens. Een plugin als *Limit Login Attempts* is daardoor niet meer nodig.
+- **Overal dezelfde foutmelding** bij een onbekend adres of een fout wachtwoord, ook op wp-login.php en bij *Wachtwoord vergeten*.
+- **Cv's staan in een eigen map** (`wp-content/uploads/deedni-cv/`) met een willekeurige bestandsnaam. Ze zijn alleen te downloaden via de beveiligde link op de site.
+- **Auteurspagina's, /?author=1, de gebruikerslijst in de REST API en XML-RPC staan uit.**
+- **Beveiligingsheaders**: de site kan niet meer in een iframe op een andere site worden geladen (clickjacking), en browsers krijgen HSTS en nosniff mee.
+
+Wat je zelf op de server regelt (vraag het je hoster als je er niet zelf bij kunt):
+
+1. **De cv-map afschermen.** Bij Apache doet de plugin dat zelf met een `.htaccess`. joey-ridder.nl draait op nginx, en daar moet deze regel in de serverconfiguratie:
+   ```
+   location ^~ /wp-content/uploads/deedni-cv/ { deny all; }
+   ```
+   Test het daarna: een cv-bestand openen via het directe adres moet *403 Forbidden* geven. Downloaden via de site blijft werken.
+2. **Cv's van voor versie 2.4** staan nog in de gewone uploadmap. Vraag marketeers hun cv opnieuw te uploaden, of verwijder de oude testbestanden bij **Media**.
+3. **Je beheerdersaccount heet `admin`.** Maak een nieuwe beheerder met een andere gebruikersnaam en een sterk wachtwoord, log daarmee in en verwijder `admin` (geef de inhoud aan de nieuwe beheerder). Zet er tweestapsverificatie op met de gratis plugin **Two Factor**.
+4. **`readme.html` en `license.txt`** in de hoofdmap verraden de WordPress-versie. Verwijder ze of laat de hoster ze blokkeren. Ze komen terug bij een WordPress-update.
+5. **Komt er later een CDN of proxy (zoals Cloudflare) voor de site?** Dan ziet de plugin voor iedereen hetzelfde IP-adres. Gebruik dan het filter `deedni_ip` om het echte adres door te geven, anders delen alle bezoekers één teller.
+
 ## Instellingen > deedni
 
 - **Pagina's**: welke pagina het inloggen, het overzicht, het profiel, het zoeken en de vooraanmelding toont.
 - **Werkgevers eerst goedkeuren**: staat aan. Een nieuwe werkgever kan pas zoeken als jij het account goedkeurt. Dat doe je bij **Gebruikers**, met de link *Goedkeuren*.
 - **Reactietermijn**: hoeveel dagen een marketeer heeft om op een aanbod te reageren.
 - **Wie keek mee**: laat marketeers zien hoe vaak hun profiel is bekeken. Dit is optioneel.
+- **E-mailadres bevestigen**: staat aan. Nieuwe accounts krijgen eerst een bevestigingslink. Zet het alleen uit als de site (nog) geen mail kan versturen.
 - **Standaard opnieuw klaarzetten**: knoppen om ontbrekende pagina's of menu's opnieuw aan te maken. Bestaande pagina's worden niet overschreven. De knop *Homepage opnieuw vullen* zet de homepage wel terug naar de standaardteksten.
 
 ## Hoe het werkt
@@ -145,7 +169,7 @@ Beide rollen komen niet in wp-admin. Alles gaat via de pagina's op de site.
 
 **Privacy**
 - Werkgevers zien een code (zoals K-1010) en geen naam, tot de marketeer ja zegt.
-- Kandidaatprofielen staan niet in de zoekfunctie van WordPress, de REST API of de sitemap.
+- Kandidaatprofielen staan niet in de zoekfunctie van WordPress, de REST API, feeds of de sitemap.
 - Een marketeer kan bedrijven blokkeren. Die vinden het profiel dan niet.
 
 ## Wat niet getest is

@@ -93,6 +93,9 @@ function deedni_melding_tekst( $key ) {
 		'niet_nu'          => array( 'Staat onder Niet nu. Je vindt deze kandidaat terug op je overzicht.', 'info' ),
 		'geen_toegang'     => array( 'Je hebt geen toegang tot dat profiel.', 'error' ),
 		'login_mislukt'    => array( 'Dat e-mailadres of wachtwoord klopt niet.', 'error' ),
+		'check_mail'       => array( 'Bijna klaar. Kijk in je mail: we hebben een link gestuurd naar het adres dat je invulde. Geen mail gezien? Kijk ook bij je spam.', 'success' ),
+		'bevestigd'        => array( 'Je e-mailadres is bevestigd. Log in om verder te gaan.', 'success' ),
+		'link_verlopen'    => array( 'Deze link werkt niet meer. Log in met je e-mailadres en wachtwoord, dan sturen we een nieuwe link.', 'error' ),
 		'uitgelogd'        => array( 'Je bent uitgelogd.', 'info' ),
 	);
 	return isset( $teksten[ $key ] ) ? $teksten[ $key ] : null;
@@ -161,9 +164,11 @@ function deedni_handle_register() {
 	if ( '' === $data['naam'] ) {
 		$errors['naam'] = 'werkgever' === $data['rol'] ? 'Vul de naam van je bedrijf in.' : 'Vul je voornaam in.';
 	}
+	$bevestigen = deedni_email_bevestigen_aan();
 	if ( ! is_email( $data['email'] ) ) {
 		$errors['email'] = 'Dit e-mailadres klopt niet. Bijvoorbeeld: naam@voorbeeld.nl';
-	} elseif ( email_exists( $data['email'] ) ) {
+	} elseif ( ! $bevestigen && email_exists( $data['email'] ) ) {
+		// Alleen als e-mailbevestiging uit staat (Instellingen > deedni). Dan verraadt deze melding wel of een adres bekend is.
 		$errors['email'] = 'Er is al een account met dit e-mailadres. Log links in.';
 	}
 	if ( strlen( $data['wachtwoord'] ) < 8 ) {
@@ -173,9 +178,20 @@ function deedni_handle_register() {
 		$errors['akkoord'] = 'Ga akkoord met de privacyverklaring.';
 	}
 	unset( $data['wachtwoord'] );
+	if ( deedni_grens_bereikt( 'registreren', deedni_ip() ) ) {
+		$errors = array( 'form' => 'Te veel pogingen vanaf dit adres. Probeer het over een uur opnieuw.' );
+	}
+	deedni_grens_tel( 'registreren', deedni_ip() );
 	if ( $errors ) {
 		deedni_fout( 'registreren', $errors, $data );
 		return;
+	}
+
+	// Met e-mailbevestiging: voor een bestaand en een nieuw adres precies dezelfde reactie.
+	$check_url = deedni_page_url( 'inloggen' );
+	if ( $bevestigen && email_exists( $data['email'] ) ) {
+		deedni_mail_bestaand_account( $data['email'] );
+		deedni_klaar( $check_url, 'check_mail', array( 'url' => add_query_arg( 'deedni_melding', 'check_mail', $check_url ) ) );
 	}
 
 	$login = sanitize_user( strstr( $data['email'], '@', true ), true );
@@ -206,12 +222,19 @@ function deedni_handle_register() {
 		update_post_meta( $profile_id, 'bedrijfsnaam', $data['naam'] );
 		if ( ! get_option( 'deedni_werkgever_goedkeuring', 1 ) ) {
 			update_user_meta( $user_id, 'deedni_goedgekeurd', 1 );
-		} else {
+		} elseif ( ! $bevestigen ) {
 			deedni_mail_admin_new_werkgever( $user_id );
 		}
 	} else {
 		$profile_id = deedni_ensure_profile( $user_id, 'kandidaat' );
 		update_post_meta( $profile_id, 'voornaam', $data['naam'] );
+	}
+
+	if ( $bevestigen ) {
+		// Niet inloggen: eerst het adres bevestigen. De welkomstmail volgt na de bevestiging.
+		update_user_meta( $user_id, 'deedni_bevestig', array( 'hash' => '', 'tot' => 0, 'gemaakt' => time() ) );
+		deedni_stuur_bevestiging( $user_id );
+		deedni_klaar( $check_url, 'check_mail', array( 'url' => add_query_arg( 'deedni_melding', 'check_mail', $check_url ) ) );
 	}
 
 	wp_set_current_user( $user_id );
@@ -237,7 +260,9 @@ function deedni_handle_login() {
 		is_ssl()
 	);
 	if ( is_wp_error( $user ) ) {
-		deedni_fout( 'inloggen', array( 'form' => 'Dat e-mailadres of wachtwoord klopt niet. Probeer het opnieuw of vraag een nieuw wachtwoord aan.' ), array( 'email' => $email ) );
+		$eigen = array_intersect( $user->get_error_codes(), array( 'deedni_te_vaak', 'deedni_onbevestigd' ) );
+		$tekst = $eigen ? $user->get_error_message( reset( $eigen ) ) : 'Dat e-mailadres of wachtwoord klopt niet. Probeer het opnieuw of vraag een nieuw wachtwoord aan.';
+		deedni_fout( 'inloggen', array( 'form' => $tekst ), array( 'email' => $email ) );
 		return;
 	}
 	$to = isset( $_POST['redirect_to'] ) ? wp_validate_redirect( esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ), '' ) : '';
@@ -249,7 +274,7 @@ function deedni_handle_login() {
 }
 
 /** Een bestand (cv of logo) uploaden als bijlage van deze gebruiker. */
-function deedni_upload( $field, $types, $max_mb, $parent ) {
+function deedni_upload( $field, $types, $max_mb, $parent, $prive = false ) {
 	if ( empty( $_FILES[ $field ]['name'] ) ) {
 		return 0;
 	}
@@ -259,7 +284,16 @@ function deedni_upload( $field, $types, $max_mb, $parent ) {
 	require_once ABSPATH . 'wp-admin/includes/file.php';
 	require_once ABSPATH . 'wp-admin/includes/media.php';
 	require_once ABSPATH . 'wp-admin/includes/image.php';
-	$id = media_handle_upload( $field, $parent, array(), array( 'test_form' => false, 'mimes' => $types ) );
+	if ( $prive ) {
+		add_filter( 'upload_dir', 'deedni_cv_map' );
+		add_filter( 'wp_handle_upload_prefilter', 'deedni_cv_bestandsnaam' );
+	}
+	$post_data = $prive ? array( 'post_title' => 'cv-' . deedni_code( $parent ) ) : array();
+	$id        = media_handle_upload( $field, $parent, $post_data, array( 'test_form' => false, 'mimes' => $types ) );
+	if ( $prive ) {
+		remove_filter( 'upload_dir', 'deedni_cv_map' );
+		remove_filter( 'wp_handle_upload_prefilter', 'deedni_cv_bestandsnaam' );
+	}
 	if ( is_wp_error( $id ) ) {
 		return new WP_Error( 'upload', 'Uploaden lukte niet. Kies een ander bestand.' );
 	}
@@ -372,7 +406,12 @@ function deedni_handle_profiel() {
 
 	// Cv.
 	if ( ! empty( $_POST['cv_verwijderen'] ) ) {
+		$oud_cv = (int) deedni_field( $id, 'cv' );
 		delete_post_meta( $id, 'cv' );
+		// Het bestand zelf ook weg: een verwijderd cv mag niet ergens blijven staan.
+		if ( $oud_cv && 'attachment' === get_post_type( $oud_cv ) && (int) get_post_field( 'post_author', $oud_cv ) === get_current_user_id() ) {
+			wp_delete_attachment( $oud_cv, true );
+		}
 	}
 	$cv = deedni_upload(
 		'cv',
@@ -382,14 +421,19 @@ function deedni_handle_profiel() {
 			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 		),
 		5,
-		$id
+		$id,
+		true
 	);
 	if ( is_wp_error( $cv ) ) {
 		deedni_fout( 'profiel', array( 'cv' => $cv->get_error_message() ) );
 		return;
 	}
 	if ( $cv ) {
+		$oud_cv = (int) deedni_field( $id, 'cv' );
 		update_post_meta( $id, 'cv', $cv );
+		if ( $oud_cv && $oud_cv !== $cv && 'attachment' === get_post_type( $oud_cv ) && (int) get_post_field( 'post_author', $oud_cv ) === get_current_user_id() ) {
+			wp_delete_attachment( $oud_cv, true );
+		}
 	}
 
 	update_post_meta( $id, 'bevestigd_op', time() );
@@ -481,7 +525,7 @@ function deedni_handle_send_offer() {
 	$bedrijf_id = deedni_profile_id( $user_id, 'bedrijf' );
 
 	// Alleen bewaren ("Bewaar voor later").
-	if ( '1' === deedni_post( 'alleen_bewaren' ) && deedni_can_search() ) {
+	if ( '1' === deedni_post( 'alleen_bewaren' ) && deedni_can_search() && 'kandidaat' === get_post_type( $kandidaat_id ) ) {
 		deedni_zet_bewaard( $kandidaat_id, true );
 		deedni_klaar( deedni_terug_url( deedni_page_url( 'dashboard' ) ), 'bewaard' );
 	}
@@ -500,13 +544,21 @@ function deedni_handle_send_offer() {
 	}
 	if ( $aanbod_id ) {
 		$oud = deedni_aanbod( $aanbod_id );
-		if ( 'aanbod' !== get_post_type( $aanbod_id ) || $oud['werkgever_id'] !== $user_id || 'tegenvoorstel' !== $oud['status'] ) {
+		if ( 'aanbod' !== get_post_type( $aanbod_id ) || $oud['werkgever_id'] !== $user_id || 'tegenvoorstel' !== $oud['status'] || $oud['kandidaat_id'] !== $kandidaat_id ) {
 			deedni_fout( 'aanbod', array( 'form' => 'Dit aanbod kun je niet meer aanpassen.' ) );
 			return;
 		}
-	} elseif ( deedni_offers_between( $kandidaat_id, $user_id, array( 'verstuurd', 'tegenvoorstel' ) ) ) {
-		deedni_fout( 'aanbod', array( 'form' => 'Je hebt deze kandidaat al een aanbod gestuurd. Wacht op een reactie.' ) );
-		return;
+	} else {
+		if ( deedni_grens_bereikt( 'aanbod', $user_id ) && ! deedni_is_beheerder() ) {
+			deedni_fout( 'aanbod', array( 'form' => 'Je hebt vandaag al veel aanbiedingen gestuurd. Morgen kun je weer verder.' ) );
+			return;
+		}
+		// Twee keer snel op Versturen (of twee tabbladen): maar één aanbod.
+		$slot = deedni_slot( 'aanbod_' . $user_id . '_' . $kandidaat_id );
+		if ( ! $slot || deedni_offers_between( $kandidaat_id, $user_id, array( 'verstuurd', 'tegenvoorstel' ) ) ) {
+			deedni_fout( 'aanbod', array( 'form' => 'Je hebt deze kandidaat al een aanbod gestuurd. Wacht op een reactie.' ) );
+			return;
+		}
 	}
 
 	$data = array(
@@ -540,10 +592,13 @@ function deedni_handle_send_offer() {
 	}
 
 	if ( $aanbod_id ) {
+		if ( ! deedni_aanbod_wissel( $aanbod_id, 'tegenvoorstel', 'verstuurd' ) ) {
+			deedni_fout( 'aanbod', array( 'form' => 'Dit aanbod kun je niet meer aanpassen.' ) );
+			return;
+		}
 		foreach ( $data as $name => $value ) {
 			deedni_set_field( $aanbod_id, $name, $value );
 		}
-		update_post_meta( $aanbod_id, 'status', 'verstuurd' );
 		update_post_meta( $aanbod_id, 'ronde', $oud['ronde'] + 1 );
 		update_post_meta( $aanbod_id, 'akkoord', 0 );
 		wp_update_post( array( 'ID' => $aanbod_id ) );
@@ -568,6 +623,8 @@ function deedni_handle_send_offer() {
 	update_post_meta( $aanbod_id, 'bedrijf', $bedrijf_id );
 	update_post_meta( $aanbod_id, 'status', 'verstuurd' );
 	update_post_meta( $aanbod_id, 'ronde', 1 );
+	deedni_slot_vrij( $slot );
+	deedni_grens_tel( 'aanbod', $user_id );
 	deedni_aanbod_log( $aanbod_id, 'Aanbod verstuurd: ' . deedni_range( $data['salaris_min'], $data['salaris_max'] ) );
 
 	do_action( 'deedni_aanbod_verstuurd', $aanbod_id );
@@ -591,7 +648,10 @@ function deedni_handle_offer_response() {
 		return;
 	}
 	$status = 'ja' === deedni_post( 'keuze' ) ? 'geaccepteerd' : 'afgewezen';
-	update_post_meta( $aanbod_id, 'status', $status );
+	if ( ! deedni_aanbod_wissel( $aanbod_id, 'verstuurd', $status ) ) {
+		deedni_fout( 'reageren', array( 'form' => 'Je hebt al op dit aanbod gereageerd.' ) );
+		return;
+	}
 	update_post_meta( $aanbod_id, 'reactie_op', current_time( 'mysql' ) );
 	wp_update_post( array( 'ID' => $aanbod_id ) );
 	deedni_aanbod_log( $aanbod_id, 'geaccepteerd' === $status ? 'Kandidaat zegt ja' : 'Kandidaat zegt nee' );
@@ -626,13 +686,16 @@ function deedni_handle_ja_maar() {
 		deedni_fout( 'jamaar', $errors );
 		return;
 	}
+	if ( ! deedni_aanbod_wissel( $aanbod_id, 'verstuurd', 'tegenvoorstel' ) ) {
+		deedni_fout( 'jamaar', array( 'form' => 'Je hebt al op dit aanbod gereageerd.' ) );
+		return;
+	}
 	update_post_meta( $aanbod_id, 'tegen_voorwaarden', $voorwaarden );
 	update_post_meta( $aanbod_id, 'tegen_min', $min );
 	update_post_meta( $aanbod_id, 'tegen_max', $max );
 	update_post_meta( $aanbod_id, 'tegen_wens', deedni_post( 'tegen_wens' ) );
 	update_post_meta( $aanbod_id, 'tegen_anders', deedni_post( 'tegen_anders' ) );
 	update_post_meta( $aanbod_id, 'tegen_bericht', $bericht );
-	update_post_meta( $aanbod_id, 'status', 'tegenvoorstel' );
 	update_post_meta( $aanbod_id, 'reactie_op', current_time( 'mysql' ) );
 	wp_update_post( array( 'ID' => $aanbod_id ) );
 	deedni_aanbod_log( $aanbod_id, 'Kandidaat reageert met Ja, maar' );
@@ -652,12 +715,16 @@ function deedni_handle_tegen_reactie() {
 		deedni_fout( 'tegen', array( 'form' => 'Je kunt op dit tegenvoorstel niet (meer) reageren.' ) );
 		return;
 	}
-	if ( 'akkoord' === deedni_post( 'keuze' ) ) {
+	$akkoord = 'akkoord' === deedni_post( 'keuze' );
+	if ( ! deedni_aanbod_wissel( $aanbod_id, 'tegenvoorstel', $akkoord ? 'verstuurd' : 'gestopt' ) ) {
+		deedni_fout( 'tegen', array( 'form' => 'Je hebt al op dit tegenvoorstel gereageerd.' ) );
+		return;
+	}
+	if ( $akkoord ) {
 		if ( $a['tegen']['min'] ) {
 			update_post_meta( $aanbod_id, 'salaris_min', $a['tegen']['min'] );
 			update_post_meta( $aanbod_id, 'salaris_max', max( $a['tegen']['min'], $a['tegen']['max'] ) );
 		}
-		update_post_meta( $aanbod_id, 'status', 'verstuurd' );
 		update_post_meta( $aanbod_id, 'akkoord', 1 );
 		update_post_meta( $aanbod_id, 'ronde', $a['ronde'] + 1 );
 		wp_update_post( array( 'ID' => $aanbod_id ) );
@@ -665,7 +732,6 @@ function deedni_handle_tegen_reactie() {
 		deedni_mail_offer_updated( $aanbod_id );
 		deedni_klaar( deedni_page_url( 'dashboard' ) . '#aanbod-' . $aanbod_id, 'akkoord', array( 'status' => 'verstuurd' ) );
 	}
-	update_post_meta( $aanbod_id, 'status', 'gestopt' );
 	wp_update_post( array( 'ID' => $aanbod_id ) );
 	deedni_aanbod_log( $aanbod_id, 'Werkgever laat het aanbod vallen' );
 	deedni_mail_offer_stopped( $aanbod_id );
@@ -681,7 +747,10 @@ function deedni_handle_hired() {
 		deedni_fout( 'aangenomen', array( 'form' => 'Je kunt dit aanbod niet als aangenomen melden.' ) );
 		return;
 	}
-	update_post_meta( $aanbod_id, 'status', 'aangenomen' );
+	if ( ! deedni_aanbod_wissel( $aanbod_id, 'geaccepteerd', 'aangenomen' ) ) {
+		deedni_fout( 'aangenomen', array( 'form' => 'Deze aanname is al gemeld.' ) );
+		return;
+	}
 	wp_update_post( array( 'ID' => $aanbod_id ) );
 	deedni_aanbod_log( $aanbod_id, 'Werkgever meldt een aanname' );
 	do_action( 'deedni_aanbod_aangenomen', $aanbod_id );
