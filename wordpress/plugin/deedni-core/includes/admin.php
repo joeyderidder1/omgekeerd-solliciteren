@@ -62,6 +62,7 @@ function deedni_settings_page() {
 		'dashboard'   => 'Overzicht',
 		'profiel'     => 'Mijn profiel',
 		'zoeken'      => 'Kandidaten zoeken',
+		'vooraanmelden' => 'Vooraanmelding (testfase)',
 	);
 	?>
 	<div class="wrap">

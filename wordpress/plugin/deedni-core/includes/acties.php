@@ -25,6 +25,7 @@ function deedni_handle_forms() {
 		'tegen_reactie'   => 'deedni_handle_tegen_reactie',
 		'aanbod_aangenomen' => 'deedni_handle_hired',
 		'bewaren'         => 'deedni_handle_bewaren',
+		'vooraanmelden'   => 'deedni_handle_vooraanmelden',
 	);
 	if ( isset( $handlers[ $action ] ) ) {
 		call_user_func( $handlers[ $action ] );

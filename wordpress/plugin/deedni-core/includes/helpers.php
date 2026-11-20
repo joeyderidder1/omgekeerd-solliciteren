@@ -15,6 +15,7 @@ function deedni_pagina_lijst() {
 		'dashboard'   => array( 'Overzicht', 'overzicht', 'deedni/overzicht' ),
 		'profiel'     => array( 'Mijn profiel', 'mijn-profiel', 'deedni/mijn-profiel' ),
 		'zoeken'      => array( 'Kandidaten zoeken', 'kandidaten', 'deedni/zoeken' ),
+		'vooraanmelden' => array( 'Doe mee met de test', 'vooraanmelden', 'deedni/vooraanmelding' ),
 	);
 }
 

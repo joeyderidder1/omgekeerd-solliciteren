@@ -393,3 +393,28 @@ html:not(.js) .bigphoto .frame, html:not(.js) .bigphoto img, html:not(.js) .bigp
 .how { --ink: var(--night-ink); --muted: #B9C2EA; --accent: var(--night-accent); --focus: #B5C2FF; }
 .how .link-btn, .how a:not([class]) { color: var(--night-accent); }
 .how .fine { color: #B9C2EA; }
+
+/* Vooraanmelding (testfase) */
+.deedni-vooraanmelding { padding-block: clamp(48px, 7vw, 96px); }
+.deedni-vooraanmelding .va-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+@media (max-width: 860px) { .deedni-vooraanmelding .va-grid { grid-template-columns: 1fr; } }
+.deedni-vooraanmelding .sec-head { margin-bottom: 0; }
+.deedni-vooraanmelding .big-h { font-size: clamp(2.5rem, 1rem + 5vw, 5rem); }
+.deedni-vooraanmelding .va-punten { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.deedni-vooraanmelding .va-punten li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+.deedni-vooraanmelding .va-punten svg { flex: none; color: var(--accent); margin-top: 2px; }
+.deedni-vooraanmelding .va-card { display: flex; flex-direction: column; gap: 18px; border-radius: 20px; box-shadow: 0 18px 48px -24px rgba(15, 26, 61, .35); }
+.deedni-vooraanmelding fieldset { border: 0; margin: 0; padding: 0; }
+.deedni-vooraanmelding .rolkeuze { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.deedni-vooraanmelding .rolkeuze label { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 14px; border: 2px solid var(--line-strong); border-radius: 12px; font-weight: 650; cursor: pointer; }
+.deedni-vooraanmelding .rolkeuze label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.deedni-vooraanmelding .rolkeuze input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; }
+@media (max-width: 480px) { .deedni-vooraanmelding .rolkeuze label { padding: 0 12px; font-size: .9375rem; line-height: 1.25; } }
+@media (max-width: 340px) { .deedni-vooraanmelding .rolkeuze { grid-template-columns: 1fr; } }
+.deedni-vooraanmelding .check { display: flex; gap: 10px; align-items: flex-start; font-size: .9375rem; line-height: 1.45; }
+.deedni-vooraanmelding .check input { width: 22px; height: 22px; margin-top: 1px; accent-color: var(--accent); flex: none; }
+.deedni-vooraanmelding .va-opt { font-weight: 400; color: var(--muted); }
+.deedni-vooraanmelding [hidden] { display: none !important; }
+.deedni-vooraanmelding .va-klaar { align-items: flex-start; }
+.deedni-vooraanmelding .va-klaar h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); letter-spacing: -0.02em; }
+.deedni-vooraanmelding .va-vink { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--ok-soft, #E6F4EA); color: var(--ok, #1E6B34); }
