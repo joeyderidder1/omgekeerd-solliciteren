@@ -438,7 +438,7 @@ function deedni_aanbod_kaart_kandidaat( $o, $a ) {
 	}
 	$h .= '<p><span class="salaris salaris--l">' . esc_html( deedni_range( $o['salaris_min'], $o['salaris_max'] ) ) . '</span> per maand</p>';
 	if ( $o['bericht'] ) {
-		$h .= '<blockquote class="quote">' . nl2br( esc_html( $o['bericht'] ) ) . '</blockquote>';
+		$h .= '<blockquote class="quote">' . nl2br( esc_html( deedni_krul( $o['bericht'] ) ) ) . '</blockquote>';
 	}
 	if ( $b['soort'] || $b['plaats'] || $b['website'] ) {
 		$h .= '<p class="fine">' . esc_html( implode( ' · ', array_filter( array( $b['soort'], $b['plaats'], $b['medewerkers'] ? $b['medewerkers'] . ' medewerkers' : '' ) ) ) ) . ( $b['website'] ? ' · <a href="' . esc_url( $b['website'] ) . '" target="_blank" rel="noopener">website</a>' : '' ) . '</p>';
@@ -682,7 +682,7 @@ function deedni_aanbod_rij_werkgever( $o ) {
 		$nonce = deedni_nonce_field( 'deedni_tegen_' . $o['id'] );
 		$h    .= '<div class="reply" data-ajax-doel><div class="inner"><div class="row"><strong>Reactie van ' . esc_html( $k['code'] ) . '</strong><span class="tag tag--accent">Ja, maar</span></div>';
 		if ( $t['bericht'] ) {
-			$h .= '<blockquote>' . nl2br( esc_html( $t['bericht'] ) ) . '</blockquote>';
+			$h .= '<blockquote>' . nl2br( esc_html( deedni_krul( $t['bericht'] ) ) ) . '</blockquote>';
 		}
 		$h .= '<div class="row">';
 		if ( $t['min'] ) {

@@ -36,13 +36,30 @@ function deedni_render_kop( $a ) {
 
 	$h  = '<div class="deedni-kop">';
 	$h .= '<a class="skip" href="#inhoud">Naar de inhoud</a>';
-	$h .= '<header class="site-header" id="site-header" data-rol="' . esc_attr( $rol ) . '"><div class="wrap header-row">';
+	$zoek = deedni_can_search() ? ' data-zoek-url="' . esc_url( deedni_page_url( 'zoeken' ) ) . '"' : '';
+	$h   .= '<header class="site-header" id="site-header" data-rol="' . esc_attr( $rol ) . '"' . $zoek . '><div class="wrap header-row">';
 	$h .= deedni_site_logo( $a );
 	$h .= '<button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu</button>';
 	$h .= '<nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">';
-	foreach ( $menu as $item ) {
+	foreach ( $menu as $i => $item ) {
 		$teller = $item['teller'] ? '<span class="nav-badge"><span class="visually-hidden">, </span>' . (int) $item['teller'] . '<span class="visually-hidden"> nieuw</span></span>' : '';
-		$h     .= '<a href="' . esc_url( $item['url'] ) . '"' . ( $item['huidig'] ? ' aria-current="page"' : '' ) . '>' . esc_html( $item['tekst'] ) . $teller . '</a>';
+		if ( ! empty( $item['kinderen'] ) ) {
+			// Uitklapmenu: opent met hover (met een "veilige driehoek" naar het menu toe) of met klikken.
+			$sub = 'sub-' . $rol . '-' . $i;
+			$h  .= '<div class="uitklap sub' . ( $item['huidig'] ? ' is-current' : '' ) . '" data-uitklap>';
+			$h  .= '<button type="button" class="sub-knop uitklap-knop" aria-expanded="false" aria-controls="' . esc_attr( $sub ) . '">' . esc_html( $item['tekst'] ) . $teller . str_replace( '<svg ', '<svg class="chev" ', deedni_icon( 'chev', 14 ) ) . '</button>';
+			$h  .= '<ul class="uitklap-menu sub-menu" id="' . esc_attr( $sub ) . '">';
+			$url = trim( (string) $item['url'] );
+			if ( $url && '#' !== $url && false === strpos( $url, '#' ) ) {
+				$h .= '<li><a href="' . esc_url( $url ) . '"' . ( $item['huidig'] && ! array_filter( wp_list_pluck( $item['kinderen'], 'huidig' ) ) ? ' aria-current="page"' : '' ) . '>' . esc_html( $item['tekst'] ) . '</a></li>';
+			}
+			foreach ( $item['kinderen'] as $kind ) {
+				$h .= '<li><a href="' . esc_url( $kind['url'] ) . '"' . ( $kind['huidig'] ? ' aria-current="page"' : '' ) . '>' . esc_html( $kind['tekst'] ) . '</a></li>';
+			}
+			$h .= '</ul></div>';
+			continue;
+		}
+		$h .= '<a href="' . esc_url( $item['url'] ) . '"' . ( $item['huidig'] ? ' aria-current="page"' : '' ) . '>' . esc_html( $item['tekst'] ) . $teller . '</a>';
 	}
 
 	if ( 'bezoeker' === $rol ) {
@@ -62,9 +79,11 @@ function deedni_render_kop( $a ) {
 		}
 		$account    = deedni_menu_items( 'deedni-account-' . $rol );
 		$in_account = (bool) array_filter( wp_list_pluck( $account, 'huidig' ) );
-		$h .= '<div class="acct' . ( $in_account ? ' is-current' : '' ) . '">';
-		$h .= '<button type="button" class="who" id="acct-knop" aria-expanded="false" aria-controls="acct-menu"><span><span class="visually-hidden">Account van </span>' . esc_html( $naam ) . '</span><b aria-hidden="true">' . esc_html( deedni_initialen( $naam ) ) . '</b>' . str_replace( '<svg ', '<svg class="chev" ', deedni_icon( 'chev', 14 ) ) . '</button>';
-		$h .= '<ul class="acct-menu" id="acct-menu"><li class="acct-wie">' . esc_html( $naam ) . ', ingelogd als ' . esc_html( $wat ) . '</li>';
+		$h .= '<div class="acct uitklap' . ( $in_account ? ' is-current' : '' ) . '" data-uitklap>';
+		$h .= '<button type="button" class="who uitklap-knop" id="acct-knop" aria-expanded="false" aria-controls="acct-menu"><span><span class="visually-hidden">Account van </span>' . esc_html( $naam ) . '</span><b aria-hidden="true">' . esc_html( deedni_initialen( $naam ) ) . '</b>' . str_replace( '<svg ', '<svg class="chev" ', deedni_icon( 'chev', 14 ) ) . '</button>';
+		$h .= '<ul class="acct-menu uitklap-menu" id="acct-menu"><li class="acct-wie">' . esc_html( $naam ) . ', ingelogd als ' . esc_html( $wat ) . '</li>';
+		// Snel naar een pagina met Ctrl K / Cmd K. deedni.js toont deze regel alleen met een toetsenbord en muis.
+		$h .= '<li class="snel-li" hidden><button type="button" class="snel-knop" data-snel>Snel naar…<kbd class="toets" data-toets="k"></kbd></button></li>';
 		foreach ( $account as $item ) {
 			$h .= '<li><a href="' . esc_url( $item['url'] ) . '"' . ( $item['huidig'] ? ' aria-current="page"' : '' ) . '>' . esc_html( $item['tekst'] ) . '</a></li>';
 		}

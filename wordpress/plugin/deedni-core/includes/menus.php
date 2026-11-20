@@ -107,27 +107,43 @@ function deedni_menu_item_toevoegen( $menu_id, $tekst, $link, $positie ) {
 
 /**
  * De links in een menu, klaar om te tonen.
- * @return array van array( 'tekst', 'url', 'huidig' (bool), 'teller' (int) )
+ * @return array van array( 'tekst', 'url', 'huidig' (bool), 'teller' (int), 'kinderen' (submenu, zelfde velden) )
  */
 function deedni_menu_items( $locatie ) {
 	$locaties = get_nav_menu_locations();
 	$items    = array();
 	if ( ! empty( $locaties[ $locatie ] ) ) {
-		$menu_items = wp_get_nav_menu_items( $locaties[ $locatie ] );
-		foreach ( (array) $menu_items as $mi ) {
+		$menu_items = (array) wp_get_nav_menu_items( $locaties[ $locatie ] );
+		// Eén laag submenu: sleep in Weergave > Menu's een link onder een andere, dan wordt dat een uitklapmenu.
+		$kinderen = array();
+		foreach ( $menu_items as $mi ) {
 			if ( (int) $mi->menu_item_parent ) {
-				continue; // Submenu's horen niet in dit ontwerp.
+				$kinderen[ (int) $mi->menu_item_parent ][] = $mi;
 			}
-			$items[] = array(
-				'tekst'  => $mi->title,
-				'url'    => $mi->url,
-				'object' => 'post_type' === $mi->type ? (int) $mi->object_id : 0,
+		}
+		foreach ( $menu_items as $mi ) {
+			if ( (int) $mi->menu_item_parent ) {
+				continue;
+			}
+			$item = array(
+				'tekst'    => $mi->title,
+				'url'      => $mi->url,
+				'object'   => 'post_type' === $mi->type ? (int) $mi->object_id : 0,
+				'kinderen' => array(),
 			);
+			foreach ( isset( $kinderen[ (int) $mi->ID ] ) ? $kinderen[ (int) $mi->ID ] : array() as $kind ) {
+				$item['kinderen'][] = array(
+					'tekst'  => $kind->title,
+					'url'    => $kind->url,
+					'object' => 'post_type' === $kind->type ? (int) $kind->object_id : 0,
+				);
+			}
+			$items[] = $item;
 		}
 	} else {
 		$standaard = deedni_standaard_menus();
 		foreach ( isset( $standaard[ $locatie ] ) ? $standaard[ $locatie ] : array() as $item ) {
-			$items[] = array( 'tekst' => $item[0], 'url' => deedni_link( $item[1] ), 'object' => 0 );
+			$items[] = array( 'tekst' => $item[0], 'url' => deedni_link( $item[1] ), 'object' => 0, 'kinderen' => array() );
 		}
 	}
 
@@ -137,13 +153,25 @@ function deedni_menu_items( $locatie ) {
 	$home       = untrailingslashit( home_url( '/' ) );
 	$rol        = deedni_rol();
 
+	$is_huidig = function ( $item ) use ( $huidig_id, $huidig_url, $home ) {
+		$pad = untrailingslashit( strtok( $item['url'], '?#' ) );
+		return false === strpos( $item['url'], '#' ) && ( ( $item['object'] && $item['object'] === $huidig_id ) || ( $pad && $pad === $huidig_url && ( $pad !== $home || is_front_page() ) ) );
+	};
+
 	foreach ( $items as &$item ) {
+		foreach ( $item['kinderen'] as &$kind ) {
+			$kind['huidig'] = $is_huidig( $kind );
+		}
+		unset( $kind );
 		$url            = $item['url'];
 		$pad            = untrailingslashit( strtok( $url, '?#' ) );
 		$heeft_anker    = false !== strpos( $url, '#' );
 		$item['huidig'] = ! $heeft_anker && ( ( $item['object'] && $item['object'] === $huidig_id ) || ( $pad && $pad === $huidig_url && ( $pad !== $home || is_front_page() ) ) );
 		// Kandidaatprofielen horen bij "Kandidaten zoeken".
 		if ( is_singular( 'kandidaat' ) && ! $heeft_anker && $pad === untrailingslashit( strtok( deedni_page_url( 'zoeken' ), '?#' ) ) ) {
+			$item['huidig'] = true;
+		}
+		if ( array_filter( wp_list_pluck( $item['kinderen'], 'huidig' ) ) ) {
 			$item['huidig'] = true;
 		}
 		$item['teller'] = 0;

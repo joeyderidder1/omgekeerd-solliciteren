@@ -143,6 +143,14 @@ Wat je zelf op de server regelt (vraag het je hoster als je er niet zelf bij kun
 4. **`readme.html` en `license.txt`** in de hoofdmap verraden de WordPress-versie. Verwijder ze of laat de hoster ze blokkeren. Ze komen terug bij een WordPress-update.
 5. **Komt er later een CDN of proxy (zoals Cloudflare) voor de site?** Dan ziet de plugin voor iedereen hetzelfde IP-adres. Gebruik dan het filter `deedni_ip` om het echte adres door te geven, anders delen alle bezoekers één teller.
 
+## UI-details en typografie (versie 2.5)
+
+Versie 2.5 (plugin) en 2.2 (thema) voegen veel kleine details toe, zoals skeletons bij het zoeken, *Ongedaan maken* na het weghalen, **Ctrl K** om snel naar een pagina te gaan, pop-ups die je op de telefoon wegveegt, uitklapmenu's met een "veilige driehoek" en nette Nederlandse woordafbreking. Het volledige overzicht per punt staat in `UI-DETAILS.md`. Wat je zelf kunt doen:
+
+- **Uitklapmenu maken:** sleep in **Weergave > Menu's** een link een stukje naar rechts, onder een andere link. Die bovenste link wordt dan een uitklapmenu. Het werkt voor één laag.
+- **Sitetaal op Nederlands** (**Instellingen > Algemeen > Taal van de site**). Dan breekt de browser lange woorden af volgens de Nederlandse regels.
+- **Update het thema ook** (versie 2.2). Daarin zit `viewport-fit=cover`, zodat de site op een iPhone met notch tot de rand doorloopt.
+
 ## Instellingen > deedni
 
 - **Pagina's**: welke pagina het inloggen, het overzicht, het profiel, het zoeken en de vooraanmelding toont.

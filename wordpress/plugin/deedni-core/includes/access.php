@@ -36,7 +36,7 @@ function deedni_guard_pages() {
 			exit;
 		}
 		// Een werkgever die het profiel opent: telt als bekeken (voor "Wie keek mee").
-		if ( ! $own && deedni_is_werkgever() ) {
+		if ( ! $own && deedni_is_werkgever() && ! deedni_is_voorladen() ) {
 			deedni_log_bekeken( $id, get_current_user_id() );
 		}
 	}

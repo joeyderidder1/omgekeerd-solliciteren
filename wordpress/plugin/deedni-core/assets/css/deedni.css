@@ -351,3 +351,186 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
 .rond.is-uit svg { background: currentColor; clip-path: polygon(30% 20%, 30% 80%, 80% 50%); }
 /* Voet met gloed */
 .site-footer { background: radial-gradient(60% 140% at 100% 0%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%), var(--wp--preset--color--nacht, #0B1130); }
+
+/* =====================================================================
+   UI-details (versie 2.5). Alles werkt ook zonder; nieuwere browsers krijgen meer.
+   ===================================================================== */
+
+/* ---------- Tabular numbers: cijfers die even breed zijn, zodat bedragen en percentages niet verspringen ---------- */
+.salaris, .delta, .match-tag, .nav-badge, .stats dd, .pager a, .count, .n, .ring, .tnum,
+.facts dd, .case .big, [data-tab-teller], [data-m="nr"], [data-m="pct"], .welkom-teller, .q-teller,
+.deedni-zoeken .result-head h2, .field input[inputmode="numeric"], .field .euro input, table td, table th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Koppen en tekst ---------- */
+/* Balanced headlines: koppen verdelen hun woorden gelijk over de regels (geen los woord op de laatste regel). */
+h1, h2, h3, h4, .h3, .h4, .t, .q-kop, .lead { text-wrap: balance; }
+/* Lopende tekst: geen weeswoord onderaan een alinea. */
+p, li, dd, blockquote, figcaption { text-wrap: pretty; }
+/* Fluid type: ook kleinere koppen schalen mee met de schermbreedte. */
+h3 { font-size: clamp(1.125rem, 1.05rem + .35vw, 1.25rem); }
+.h3 { font-size: clamp(1.2rem, 1.1rem + .45vw, 1.375rem); }
+.deedni-zoeken .cand h2 { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); }
+/* Auto hyphenation: lange Nederlandse samenstellingen ("marketingautomatiseringsspecialist") breken netjes af
+   in plaats van uit het scherm te lopen. Alleen woorden van 10+ letters, met minstens 4 letters per stuk. */
+p, li, dd, blockquote, .card, .meta, .fine, .lead { hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 10 4 4; overflow-wrap: break-word; }
+h1, h2, h3, .h3, .h4, .t, .q-kop { hyphens: manual; -webkit-hyphens: manual; }
+@media (max-width: 560px) {
+  h1, h2, h3, .h3, .h4, .t { hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 12 5 5; }
+}
+.salaris, .tag, .tool, .btn, .chip, .match-tag, code, a[href^="mailto:"], [data-midden] { hyphens: manual; -webkit-hyphens: manual; }
+/* Underline offset: onderstrepingen iets onder de letters, dun, en met ruimte voor staartjes (g, j, p). */
+:root a:not([class]), .link-btn, .crumb:hover, .strong-link { text-underline-offset: .22em; text-decoration-thickness: max(1px, .07em); text-decoration-skip-ink: auto; }
+:root a:not([class]):hover { text-decoration-thickness: max(2px, .1em); }
+/* Superscript spacing: ¹ en ² duwen de regel niet uit elkaar. */
+sup, sub { font-size: .72em; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -.5em; }
+sub { bottom: -.2em; }
+/* Afkortingen (SEO, KPI) in <abbr>: iets kleiner en ruimer, zodat ze niet schreeuwen. Het lettertype heeft
+   geen echte kleinkapitalen, dus geen nep-kleinkapitalen van de browser. */
+abbr, .afk { font-size: .88em; letter-spacing: .04em; text-decoration: none; }
+abbr[title] { cursor: help; text-decoration: underline dotted; text-underline-offset: .2em; }
+/* Curly quotes: citaten krijgen echte aanhalingstekens, en die hangen buiten de tekstkolom. */
+:root { quotes: "“" "”" "‘" "’"; }
+blockquote, .q-item p { hanging-punctuation: first last; }
+/* Text-box trim: tekst in knoppen en labels staat optisch precies in het midden (de hoogte blijft gelijk). */
+@supports (text-box: trim-both cap alphabetic) {
+  .btn, .chip, .seg button, .seg a, .nav-badge, .site-nav a:not(.btn), .pager a, .dn-toast-actie { text-box: trim-both cap alphabetic; }
+}
+/* Reserved bold width: tekst die vet wordt als hij actief is, houdt dezelfde breedte (de rest verspringt niet). */
+.breed { display: inline-grid; }
+.breed::after { content: attr(data-breed); content: attr(data-breed) / ""; font-weight: 700; height: 0; visibility: hidden; overflow: hidden; user-select: none; pointer-events: none; }
+.deedni-profiel .steps a[aria-current="step"] .t { font-weight: 700; }
+/* Line-clamped titles: lange functietitels op kaarten na twee regels afgekapt; de hele titel staat in de link. */
+.deedni-zoeken .cand h2 a, .wcard .t, .pcard .t, .deedni-overzicht .offer h3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+/* Middle truncation (zie deedni.js): lange bestandsnamen. */
+[data-midden] { display: inline-block; max-width: 100%; vertical-align: bottom; white-space: nowrap; overflow: hidden; }
+
+/* ---------- Toetsen (shortcut hints) ---------- */
+.toets { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6em; height: 1.6em; padding: 0 .4em; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; background: var(--surface); color: var(--muted); font: 600 .75rem/1 var(--font); letter-spacing: .02em; white-space: nowrap; }
+.toets:empty { display: none; }
+@media not ((hover: hover) and (pointer: fine)) {
+  .toets, .snel-li { display: none !important; }
+}
+.zoek-toets { margin-right: 6px; }
+.deedni-zoeken .search:focus-within .zoek-toets { visibility: hidden; }
+
+/* ---------- Uitklapmenu's (account en submenu's): open en dicht met een overgang die je kunt onderbreken ---------- */
+.uitklap { position: relative; }
+.sub-knop { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px 0 14px; border: 0; border-radius: 8px; background: none; color: var(--ink, #0F1A3D); font: inherit; font-weight: 550; cursor: pointer; }
+.sub-knop:hover, .sub.is-open .sub-knop, .sub.is-current .sub-knop { background: var(--bg-alt, #EBEFFA); }
+.sub-knop .chev, .who .chev { transition: transform .2s; }
+.uitklap.is-open .uitklap-knop .chev { transform: rotate(180deg); }
+.sub-menu { position: absolute; left: 0; top: calc(100% + 8px); min-width: 220px; margin: 0; padding: 8px; list-style: none; background: var(--surface, #fff); border: 1px solid var(--line, #D5DBEE); border-radius: 16px; box-shadow: 0 24px 48px -20px rgba(15, 26, 61, .35); z-index: 60; }
+.site-nav .sub-menu a { display: flex; width: 100%; min-height: 44px; padding: 0 12px; }
+.site-nav .sub-menu a[aria-current="page"]::after { left: 12px; right: 12px; }
+@media (min-width: 961px) {
+  .acct-menu, .acct.is-open .acct-menu, .sub-menu { display: block; }
+  .acct-menu, .sub-menu { opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.98); transform-origin: top right; transition: opacity .16s ease, transform .2s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .2s; }
+  .sub-menu { transform-origin: top left; }
+  .uitklap.is-open > .uitklap-menu { opacity: 1; visibility: visible; transform: none; transition: opacity .16s ease, transform .2s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+}
+.snel-knop { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 8px; background: none; color: var(--ink, #0F1A3D); font: inherit; font-weight: 550; text-align: left; cursor: pointer; }
+.snel-knop:hover { background: var(--bg-alt, #EBEFFA); }
+
+/* ---------- Mobiel menu: schuift open en dicht, ook halverwege om te keren ---------- */
+@media (max-width: 960px) {
+  .site-nav { display: flex; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .18s ease, transform .22s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .22s; max-height: calc(100dvh - 72px - env(safe-area-inset-top, 0px)); overflow-y: auto; overscroll-behavior: contain; padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)); }
+  .site-nav.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .18s ease, transform .22s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+  .sub-knop { justify-content: space-between; min-height: 52px; padding: 0 14px; font-size: 1.125rem; width: 100%; }
+  .sub-menu { display: none; position: static; box-shadow: none; border: 0; border-left: 2px solid var(--line, #D5DBEE); border-radius: 0; margin: 0 0 8px 14px; padding: 0 0 0 8px; min-width: 0; background: transparent; }
+  .sub.is-open .sub-menu { display: block; }
+  .site-nav .sub-menu a { min-height: 48px; font-size: 1.0625rem; }
+}
+
+/* ---------- Toast met "Ongedaan maken" ---------- */
+.dn-toast { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 12px)); }
+.dn-toast.is-zichtbaar { pointer-events: auto; }
+.dn-toast-actie { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: -8px -6px -8px auto; padding: 0 12px; border: 0; border-radius: 10px; background: color-mix(in srgb, var(--bg) 14%, transparent); color: var(--bg); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+.dn-toast-actie:hover { background: color-mix(in srgb, var(--bg) 24%, transparent); }
+.dn-toast-actie:focus-visible { outline-color: var(--bg); }
+.dn-toast-actie .toets { background: transparent; color: inherit; border-color: color-mix(in srgb, var(--bg) 40%, transparent); text-decoration: none; }
+
+/* ---------- Snel naar (command menu) ---------- */
+dialog.snel { width: min(560px, calc(100vw - 24px)); margin-top: min(16vh, 140px); margin-bottom: auto; }
+.snel-zoek { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--muted); }
+.snel-zoek input { flex: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; font-size: 1.125rem; color: var(--ink); outline: none; }
+.snel-lijst { max-height: min(50vh, 360px); overflow-y: auto; padding: 8px; }
+.snel-lijst [role="option"] { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+.snel-lijst [aria-selected="true"] { background: var(--accent-soft); color: var(--accent); }
+.snel-lijst .is-zoek { font-weight: 650; }
+.snel-leeg { padding: 12px; color: var(--muted); }
+.snel-voet { display: flex; gap: 16px; padding: 10px 18px 14px; border-top: 1px solid var(--line); }
+.snel-voet span { display: inline-flex; align-items: center; gap: 4px; }
+@media (max-width: 560px) {
+  dialog.snel { margin: auto 0 0; }
+}
+
+/* ---------- Safe area insets: niets onder de notch, de afgeronde hoeken of de thuisbalk ---------- */
+.site-header { top: 0; padding-top: env(safe-area-inset-top, 0px); }
+.site-footer { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 560px) {
+  .modal-foot { padding-bottom: max(22px, calc(env(safe-area-inset-bottom, 0px) + 12px)); }
+  .modal-done { padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px)); }
+}
+
+/* ---------- Hit slop: kleine knoppen krijgen een groter tikvlak dan ze eruitzien ---------- */
+.save, .modal-close, .rond, .dn-toast-actie, .deedni-profiel .result-row .weg, [data-blocks] button { position: relative; }
+.save::after, .modal-close::after, [data-blocks] button::after, .deedni-profiel .result-row .weg::after { content: ""; position: absolute; inset: -6px; border-radius: inherit; }
+[data-blocks] button::after { inset: -12px; }
+@media (pointer: coarse) {
+  .deedni-zoeken .active-filters a { min-height: 44px; }
+  .link-btn, .crumb, .site-footer .rolwissel a { min-height: 48px; }
+  .check-label, .deedni-zoeken .filters label { min-height: 48px; }
+}
+
+/* ---------- Pop-ups: open en dicht met een overgang; op de telefoon een blad dat je wegveegt ---------- */
+@supports (transition-behavior: allow-discrete) {
+  dialog.modal[open] { animation: none; }
+  dialog.modal { opacity: 0; transform: translateY(24px) scale(.98); transition: opacity .22s ease, transform .3s cubic-bezier(.2, .8, .2, 1), overlay .3s allow-discrete, display .3s allow-discrete; }
+  dialog.modal[open] { opacity: 1; transform: none; }
+  @starting-style { dialog.modal[open] { opacity: 0; transform: translateY(24px) scale(.98); } }
+  dialog.modal::backdrop { opacity: 0; transition: opacity .25s ease, overlay .3s allow-discrete, display .3s allow-discrete; }
+  dialog.modal[open]::backdrop { opacity: 1; }
+  @starting-style { dialog.modal[open]::backdrop { opacity: 0; } }
+}
+@media (max-width: 560px) {
+  dialog.modal .modal-head { touch-action: none; padding-top: 28px; }
+  dialog.modal .modal-head::before { content: ""; position: absolute; top: 10px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: var(--line-strong); }
+  @supports (transition-behavior: allow-discrete) {
+    dialog.modal { transform: translateY(100%); }
+    @starting-style { dialog.modal[open] { transform: translateY(100%); opacity: 1; } }
+    dialog.modal[open] { transform: none; }
+  }
+}
+
+/* ---------- Continuous corners: zachte "squircle"-hoeken waar de browser dat kan ---------- */
+@supports (corner-shape: squircle) {
+  .card, .night, .rows, .note, .dn-notice, .dn-fouten, .summary, .offer-state, dialog.modal, .acct-menu, .sub-menu, .wcard, .field input, .field select, .field textarea, .deedni-zoeken .search {
+    corner-shape: squircle;
+  }
+  .card, .rows, .wcard { border-radius: 26px; }
+  .night, dialog.modal { border-radius: 32px; }
+  .note, .dn-notice, .dn-fouten, .summary, .offer-state, .acct-menu, .sub-menu, .field input, .field select, .field textarea { border-radius: 18px; }
+  .deedni-zoeken .search { border-radius: 24px; }
+  @media (max-width: 560px) { dialog.modal { border-radius: 32px 32px 0 0; } }
+}
+
+/* ---------- Foto's: kleurvlak tot ze geladen zijn, daarna zacht in beeld (in plaats van BlurHash) ---------- */
+.bigphoto, .ph, .priv-photo, .q-foto, .scr--beeld { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--bg-alt)), color-mix(in srgb, var(--marker) 30%, var(--bg-alt))); }
+.bigphoto img, .ph img, .priv-photo img, .q-foto img, .scr--beeld img { transition: opacity .5s ease, filter .6s ease; }
+img.is-laden { opacity: 0; filter: blur(12px); }
+
+/* ---------- View transitions tussen pagina's (Chrome, Edge, Safari 18.2+) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .site-header { view-transition-name: deedni-kop; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
+}
+
+/* ---------- Minder beweging: alles direct ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .acct-menu, .sub-menu, .site-nav, dialog.modal, dialog.modal::backdrop, img.is-laden { transition: none !important; }
+  img.is-laden { opacity: 1; filter: none; }
+}
