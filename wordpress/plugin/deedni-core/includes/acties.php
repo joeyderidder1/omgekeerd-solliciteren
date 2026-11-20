@@ -489,7 +489,7 @@ function deedni_handle_send_offer() {
 		deedni_fout( 'aanbod', array( 'form' => 'Je kunt deze kandidaat geen aanbod sturen.' ) );
 		return;
 	}
-	if ( ! $aanbod_id && ! deedni_field( $kandidaat_id, 'profiel_zichtbaar' ) ) {
+	if ( ! $aanbod_id && ( ! deedni_field( $kandidaat_id, 'profiel_zichtbaar' ) || deedni_beheer_verborgen( $kandidaat_id ) ) ) {
 		deedni_fout( 'aanbod', array( 'form' => 'Dit profiel staat niet meer online.' ) );
 		return;
 	}

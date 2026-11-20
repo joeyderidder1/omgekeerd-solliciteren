@@ -79,6 +79,30 @@ function deedni_algemene_velden( $def ) {
 			'help'      => 'Een menu-link naar #' . $def['anker'] . ' springt naar deze sectie. Alleen kleine letters en streepjes.',
 		);
 	}
+	$ruimte = array(
+		''     => 'Standaard',
+		'geen' => 'Geen',
+		's'    => 'Klein',
+		'm'    => 'Middel',
+		'l'    => 'Groot',
+		'xl'   => 'Extra groot',
+	);
+	$velden['ruimte_boven'] = array(
+		'type'      => 'keuze',
+		'label'     => 'Ruimte boven dit blok',
+		'groep'     => 'Opmaak',
+		'opties'    => $ruimte,
+		'standaard' => '',
+		'help'      => 'Extra witruimte tussen dit blok en wat erboven staat (bijvoorbeeld de kop van de site).',
+	);
+	$velden['ruimte_onder'] = array(
+		'type'      => 'keuze',
+		'label'     => 'Ruimte onder dit blok',
+		'groep'     => 'Opmaak',
+		'opties'    => $ruimte,
+		'standaard' => '',
+		'help'      => 'Extra witruimte tussen dit blok en het volgende blok.',
+	);
 	$velden['voorbeeld_rol'] = array(
 		'type'      => 'keuze',
 		'label'     => 'Voorbeeld in de editor bekijken als',
@@ -258,14 +282,26 @@ function deedni_render_blok( $naam, $def, $a, $block ) {
 	if ( '' === trim( (string) $html ) && $in_editor ) {
 		return '<div class="deedni-editor-leeg">' . esc_html( $def['titel'] ) . ': op dit moment is hier niets te tonen' . ( ! empty( $def['leeg'] ) ? ' (' . esc_html( $def['leeg'] ) . ')' : '' ) . '.</div>';
 	}
-	if ( $html && ! $in_editor ) {
+	if ( $html ) {
 		// alignfull: ook in een smalle paginalay-out gebruikt het blok de hele breedte (het heeft zelf een .wrap).
-		$extra = trim( 'alignfull ' . ( ! empty( $a['className'] ) ? $a['className'] : '' ) );
-		$html  = preg_replace( '/class="/', 'class="' . esc_attr( $extra ) . ' ', $html, 1 );
-	} elseif ( $html && ! empty( $a['className'] ) ) {
-		$html = preg_replace( '/class="/', 'class="' . esc_attr( $a['className'] ) . ' ', $html, 1 );
+		$extra = trim( ( $in_editor ? '' : 'alignfull ' ) . deedni_ruimte_klassen( $a ) . ' ' . ( ! empty( $a['className'] ) ? $a['className'] : '' ) );
+		if ( '' !== $extra ) {
+			$html = preg_replace( '/class="/', 'class="' . esc_attr( $extra ) . ' ', $html, 1 );
+		}
 	}
 	return $html;
+}
+
+/** Klassen voor de ruimte boven en onder een blok (veld "Ruimte boven/onder dit blok"). */
+function deedni_ruimte_klassen( $a ) {
+	$klassen = array();
+	foreach ( array( 'boven', 'onder' ) as $kant ) {
+		$waarde = isset( $a[ 'ruimte_' . $kant ] ) ? $a[ 'ruimte_' . $kant ] : '';
+		if ( in_array( $waarde, array( 'geen', 's', 'm', 'l', 'xl' ), true ) ) {
+			$klassen[] = 'ruimte-' . $kant . '-' . $waarde;
+		}
+	}
+	return implode( ' ', $klassen );
 }
 
 /** Klassen voor de achtergrond van een sectie. */

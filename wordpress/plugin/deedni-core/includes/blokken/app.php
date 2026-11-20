@@ -492,7 +492,9 @@ function deedni_render_overzicht_kandidaat( $a ) {
 	$h  = '<div class="wrap page deedni-overzicht deedni-overzicht-k">' . deedni_melding_html();
 	$h .= '<div class="hello"><h1>' . esc_html( str_replace( '{naam}', $naam, $a['k_kop'] ) ) . '</h1>';
 	$h .= '<p class="lead">' . deedni_tekst( str_replace( array( '{aantal}', '1 nieuwe aanbiedingen' ), array( (string) count( $nieuw ), '1 nieuw aanbod' ), $nieuw ? $a['k_tekst'] : $a['k_tekst_0'] ) ) . '</p>';
-	if ( ! $k['zichtbaar'] ) {
+	if ( $k['beheer_verborgen'] ) {
+		$h .= deedni_notice( deedni_beheer_melding_tekst( $k ), 'warn' );
+	} elseif ( ! $k['zichtbaar'] ) {
 		$h .= deedni_notice( 'Je profiel staat nog niet online. <a href="' . esc_url( deedni_page_url( 'profiel' ) . '#controleren' ) . '">Controleer en publiceer je profiel</a>, dan kunnen bedrijven je vinden.', 'info' );
 	}
 	$h .= '</div><div class="split">';
@@ -609,7 +611,7 @@ function deedni_render_overzicht_werkgever( $a ) {
 			if ( $k['salaris_min'] ) {
 				$h .= '<div class="mt-xs"><span class="salaris">vanaf ' . esc_html( deedni_euro( deedni_salaris_afgerond( $k['salaris_min'] ) ) ) . '</span></div>';
 			}
-			$h .= '</div><div class="row"><a class="btn btn--ghost btn--small" href="' . esc_url( $k['url'] ) . '">Bekijk profiel</a>' . ( $k['zichtbaar'] ? deedni_aanbod_knop( $k, 'Stuur aanbod' ) : '<span class="fine">Niet meer online</span>' ) . '</div></li>';
+			$h .= '</div><div class="row"><a class="btn btn--ghost btn--small" href="' . esc_url( $k['url'] ) . '">Bekijk profiel</a>' . ( $k['online'] ? deedni_aanbod_knop( $k, 'Stuur aanbod' ) : '<span class="fine">Niet meer online</span>' ) . '</div></li>';
 		}
 		$h .= '</ul>';
 	} else {

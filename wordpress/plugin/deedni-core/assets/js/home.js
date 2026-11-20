@@ -253,53 +253,47 @@
     });
   });
 
-  /* 11. Kandidaten in een boog: de kaarten schuiven één plek op, vanzelf of met de knoppen */
+  /* 11. Kandidaten in een boog: de kaarten draaien mee met het scrollen.
+     Hoe verder je langs de sectie scrolt, hoe verder de boog draait. Kaarten die aan de ene kant
+     wegvallen, komen aan de andere kant weer binnen. Bij "minder beweging" staat alles stil. */
   $$('[data-boog]').forEach(function (boog) {
     var kaarten = $$('.boog-kaart', boog), n = kaarten.length;
-    if (n < 2) return;
-    var knoppen = $('[data-boog-knoppen]', boog), pauze = $('[data-boog-pauze]', boog);
-    var midden = Math.floor((n - 1) / 2), pos = 0, timer = null;
-    var gepauzeerd = minder || !boog.hasAttribute('data-boog-auto');
+    if (n < 2 || minder || !boog.hasAttribute('data-boog-scroll')) return;
+    var midden = Math.floor((n - 1) / 2);
     var zicht = Math.min(4, Math.floor((n - 1) / 2));
-    var vorige = kaarten.map(function (k, i) { return i - midden; });
-    function zet() {
+    var bereik = Math.min(n, 6); // aantal kaartplekken dat de boog draait terwijl je langs de sectie scrolt
+    var doel = 0, nu = 0, bezig = false;
+    function meet() {
+      var r = boog.getBoundingClientRect(), vh = window.innerHeight || 800;
+      var p = (vh - r.top) / (vh + r.height);
+      p = Math.max(0, Math.min(1, p));
+      doel = (p - 0.5) * bereik;
+    }
+    function zet(pos) {
       kaarten.forEach(function (k, i) {
-        var o = ((i - midden - pos) % n + n) % n;
+        var o = i - midden - pos;
+        o = ((o % n) + n) % n;
         if (o > n / 2) o -= n;
-        var sprong = Math.abs(o - vorige[i]) > 1.5;
-        k.classList.toggle('is-sprong', sprong);
-        k.classList.toggle('is-weg', Math.abs(o) > zicht);
-        k.style.setProperty('--o', o);
-        vorige[i] = o;
+        var zichtbaar = Math.max(0, Math.min(1, zicht + 0.6 - Math.abs(o)));
+        k.style.setProperty('--o', o.toFixed(3));
+        k.style.opacity = zichtbaar.toFixed(3);
+        k.classList.toggle('is-weg', false);
+        k.toggleAttribute('aria-hidden', zichtbaar < 0.5);
       });
     }
-    function stap(d) { pos += d; zet(); }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function start() { stop(); if (!gepauzeerd) timer = setInterval(function () { stap(1); }, 3200); }
-    if (knoppen) {
-      knoppen.hidden = false;
-      $$('[data-boog-stap]', knoppen).forEach(function (b) {
-        b.addEventListener('click', function () { stap(+b.getAttribute('data-boog-stap')); start(); });
-      });
+    function tik() {
+      var verschil = doel - nu;
+      nu = Math.abs(verschil) < 0.002 ? doel : nu + verschil * 0.14;
+      zet(nu);
+      if (nu !== doel) { requestAnimationFrame(tik); } else { bezig = false; }
     }
-    if (pauze) {
-      if (minder) { pauze.hidden = true; }
-      pauze.addEventListener('click', function () {
-        gepauzeerd = !gepauzeerd;
-        pauze.setAttribute('aria-pressed', String(gepauzeerd));
-        pauze.setAttribute('aria-label', gepauzeerd ? 'Laat de kaarten weer draaien' : 'Pauzeer het draaien');
-        pauze.classList.toggle('is-uit', gepauzeerd);
-        start();
-      });
+    function opScroll() {
+      meet();
+      if (!bezig) { bezig = true; requestAnimationFrame(tik); }
     }
-    boog.addEventListener('pointerenter', stop);
-    boog.addEventListener('pointerleave', start);
-    boog.addEventListener('focusin', stop);
-    boog.addEventListener('focusout', start);
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) start(); else stop(); }); }).observe(boog);
-    } else { start(); }
-    zet();
+    window.addEventListener('scroll', opScroll, { passive: true });
+    window.addEventListener('resize', opScroll);
+    meet(); nu = doel; zet(nu);
   });
 
   /* 12. Quotes: één tegelijk, de foto van die quote komt bovenop de stapel */

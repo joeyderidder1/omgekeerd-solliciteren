@@ -1,6 +1,6 @@
 <?php
 /**
- * Twee etalageblokken: een boog met anonieme kandidaatkaarten die langzaam doordraait,
+ * Twee etalageblokken: een boog met anonieme kandidaatkaarten die meedraait als je scrolt,
  * en een sectie met quotes en foto's. Alle teksten, kaarten en foto's pas je aan in de editor.
  */
 
@@ -12,7 +12,7 @@ deedni_blok(
 	'kandidaten-boog',
 	array(
 		'titel'        => 'Kandidaten in een boog',
-		'beschrijving' => 'Anonieme kandidaatkaarten in een boog die langzaam doordraait, met een kop en knop in het midden. Past op de homepage en op een pagina om te ontdekken.',
+		'beschrijving' => 'Anonieme kandidaatkaarten in een boog die meedraait als je scrolt, met een kop en knop in het midden. De kaarten hebben dezelfde stijl als de voorbeeldkaart in de hero.',
 		'icoon'        => 'groups',
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-home',
@@ -20,10 +20,10 @@ deedni_blok(
 		'velden'       => array(
 			'label'   => array( 'type' => 'text', 'label' => 'Label boven de kop', 'standaard' => 'Ontdek wie er klaarstaat' ),
 			'kop'     => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Talent dat op jouw *aanbod wacht.*', 'help' => 'Woorden tussen *sterretjes* worden grijs.' ),
-			'lead'    => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Elke kaart is een echte vakmens met ervaring, tools en een salarisindicatie. Naam en foto blijven verborgen tot de marketeer ja zegt.' ),
+			'lead'    => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Elke kaart is een echte vakmens met ervaring, tools en een salarisindicatie. De naam blijft verborgen tot de marketeer ja zegt.' ),
 			'knop'    => array( 'type' => 'text', 'label' => 'Knop', 'standaard' => 'Bekijk alle profielen' ),
 			'knop_link' => array( 'type' => 'link', 'label' => 'Link van de knop', 'standaard' => 'pagina:zoeken' ),
-			'draaien' => array( 'type' => 'toggle', 'label' => 'Kaarten draaien vanzelf door', 'standaard' => true ),
+			'draaien' => array( 'type' => 'toggle', 'label' => 'Kaarten draaien mee als je scrolt', 'standaard' => true, 'help' => 'Uit: de kaarten staan stil. Bij "minder beweging" in de instellingen van de bezoeker staan ze altijd stil.' ),
 			'kaarten' => array(
 				'type'      => 'lijst',
 				'label'     => 'Kaarten',
@@ -33,30 +33,19 @@ deedni_blok(
 					'ervaring' => array( 'type' => 'text', 'label' => 'Ervaring' ),
 					'regio'    => array( 'type' => 'text', 'label' => 'Regio' ),
 					'salaris'  => array( 'type' => 'text', 'label' => 'Salaris' ),
-					'kleur'    => array(
-						'type'    => 'keuze',
-						'label'   => 'Kleur',
-						'opties'  => array(
-							'blauw'  => 'Blauw',
-							'geel'   => 'Geel',
-							'groen'  => 'Groen',
-							'nacht'  => 'Donker',
-							'paars'  => 'Lichtblauw',
-						),
-						'nieuw'   => 'blauw',
-					),
+					'tools'    => array( 'type' => 'text', 'label' => 'Tools (met komma\'s, maximaal drie)' ),
 				),
 				'standaard' => array(
-					array( 'code' => 'K-2041', 'functie' => 'Performance marketeer', 'ervaring' => '7 jaar', 'regio' => 'Utrecht', 'salaris' => 'vanaf €4.000', 'kleur' => 'blauw' ),
-					array( 'code' => 'K-2057', 'functie' => 'SEO-specialist', 'ervaring' => '5 jaar', 'regio' => 'Rotterdam', 'salaris' => 'vanaf €3.600', 'kleur' => 'geel' ),
-					array( 'code' => 'K-2063', 'functie' => 'Contentmarketeer', 'ervaring' => '4 jaar', 'regio' => 'Gelderland', 'salaris' => 'vanaf €3.300', 'kleur' => 'groen' ),
-					array( 'code' => 'K-2078', 'functie' => 'Marketing-automation', 'ervaring' => '8 jaar', 'regio' => 'Amsterdam', 'salaris' => 'vanaf €5.000', 'kleur' => 'nacht' ),
-					array( 'code' => 'K-2082', 'functie' => 'Data-analist marketing', 'ervaring' => '6 jaar', 'regio' => 'Remote', 'salaris' => 'vanaf €4.400', 'kleur' => 'paars' ),
-					array( 'code' => 'K-2090', 'functie' => 'Social advertising', 'ervaring' => '3 jaar', 'regio' => 'Brabant', 'salaris' => 'vanaf €3.100', 'kleur' => 'blauw' ),
-					array( 'code' => 'K-2104', 'functie' => 'CRO-specialist', 'ervaring' => '6 jaar', 'regio' => 'Den Haag', 'salaris' => 'vanaf €4.200', 'kleur' => 'geel' ),
-					array( 'code' => 'K-2115', 'functie' => 'E-mailmarketeer', 'ervaring' => '4 jaar', 'regio' => 'Groningen', 'salaris' => 'vanaf €3.400', 'kleur' => 'groen' ),
-					array( 'code' => 'K-2121', 'functie' => 'SEA-specialist', 'ervaring' => '9 jaar', 'regio' => 'Utrecht', 'salaris' => 'vanaf €5.200', 'kleur' => 'nacht' ),
-					array( 'code' => 'K-2136', 'functie' => 'Growth marketeer', 'ervaring' => '5 jaar', 'regio' => 'Eindhoven', 'salaris' => 'vanaf €4.100', 'kleur' => 'paars' ),
+					array( 'code' => 'K-2041', 'functie' => 'Performance marketeer', 'ervaring' => '7 jaar', 'regio' => 'Utrecht', 'salaris' => 'vanaf €4.000', 'tools' => 'Google Ads, Meta Ads, GA4' ),
+					array( 'code' => 'K-2057', 'functie' => 'SEO-specialist', 'ervaring' => '5 jaar', 'regio' => 'Rotterdam', 'salaris' => 'vanaf €3.600', 'tools' => 'Semrush, Ahrefs' ),
+					array( 'code' => 'K-2063', 'functie' => 'Contentmarketeer', 'ervaring' => '4 jaar', 'regio' => 'Gelderland', 'salaris' => 'vanaf €3.300', 'tools' => 'WordPress, Semrush' ),
+					array( 'code' => 'K-2078', 'functie' => 'Marketing-automation', 'ervaring' => '8 jaar', 'regio' => 'Amsterdam', 'salaris' => 'vanaf €5.000', 'tools' => 'HubSpot, Salesforce' ),
+					array( 'code' => 'K-2082', 'functie' => 'Data-analist marketing', 'ervaring' => '6 jaar', 'regio' => 'Remote', 'salaris' => 'vanaf €4.400', 'tools' => 'GA4, SQL, Looker Studio' ),
+					array( 'code' => 'K-2090', 'functie' => 'Social advertising', 'ervaring' => '3 jaar', 'regio' => 'Brabant', 'salaris' => 'vanaf €3.100', 'tools' => 'Meta Ads, TikTok Ads' ),
+					array( 'code' => 'K-2104', 'functie' => 'CRO-specialist', 'ervaring' => '6 jaar', 'regio' => 'Den Haag', 'salaris' => 'vanaf €4.200', 'tools' => 'Hotjar, Figma' ),
+					array( 'code' => 'K-2115', 'functie' => 'E-mailmarketeer', 'ervaring' => '4 jaar', 'regio' => 'Groningen', 'salaris' => 'vanaf €3.400', 'tools' => 'Klaviyo, ActiveCampaign' ),
+					array( 'code' => 'K-2121', 'functie' => 'SEA-specialist', 'ervaring' => '9 jaar', 'regio' => 'Utrecht', 'salaris' => 'vanaf €5.200', 'tools' => 'Google Ads, Merchant Center' ),
+					array( 'code' => 'K-2136', 'functie' => 'Growth marketeer', 'ervaring' => '5 jaar', 'regio' => 'Eindhoven', 'salaris' => 'vanaf €4.100', 'tools' => 'GA4, HubSpot' ),
 				),
 			),
 			'voetnoot' => array( 'type' => 'text', 'label' => 'Kleine tekst onderaan', 'standaard' => 'Voorbeeldkaarten met fictieve gegevens.' ),
@@ -64,6 +53,28 @@ deedni_blok(
 		'render'       => 'deedni_render_boog',
 	)
 );
+
+/** Eén kaart in de boog: dezelfde opbouw als de voorbeeldkaart in de hero, zonder beeld. */
+function deedni_boog_kaart( $k, $o ) {
+	$k     = wp_parse_args( $k, array( 'code' => '', 'functie' => '', 'ervaring' => '', 'regio' => '', 'salaris' => '', 'tools' => '' ) );
+	$tools = array_slice( array_filter( array_map( 'trim', explode( ',', (string) $k['tools'] ) ) ), 0, 3 );
+	$h     = '<li class="boog-kaart' . ( abs( $o ) > 4 ? ' is-weg' : '' ) . '" style="--o:' . $o . '">';
+	$h    .= '<div class="between fine"><strong class="ink">' . esc_html( $k['code'] ) . '</strong><span>Anoniem</span></div>';
+	$h    .= '<div class="t">' . esc_html( $k['functie'] ) . '</div>';
+	if ( $k['salaris'] ) {
+		$h .= '<p class="bk-salaris"><span class="salaris">' . esc_html( $k['salaris'] ) . '</span> <span class="fine">p/m</span></p>';
+	}
+	$h .= '<dl class="kv">';
+	if ( $k['ervaring'] ) {
+		$h .= '<dt>Ervaring</dt><dd>' . esc_html( $k['ervaring'] ) . '</dd>';
+	}
+	if ( $k['regio'] ) {
+		$h .= '<dt>Regio</dt><dd>' . esc_html( $k['regio'] ) . '</dd>';
+	}
+	$h .= '<dt>Naam</dt><dd>' . deedni_redact( 's', 'naam verborgen' ) . '</dd></dl>';
+	$h .= deedni_tools_html( $tools );
+	return $h . '</li>';
+}
 
 function deedni_render_boog( $a ) {
 	$kaarten = array_values(
@@ -76,27 +87,13 @@ function deedni_render_boog( $a ) {
 	);
 	$id = deedni_uid( 'h-boog' );
 	$n  = count( $kaarten );
-	$h  = '<section class="sec boog' . deedni_achtergrond_klasse( $a ) . '"' . deedni_anker_attr( $a ) . ' aria-labelledby="' . $id . '" data-boog' . ( $a['draaien'] ? ' data-boog-auto' : '' ) . '>';
+	$h  = '<section class="sec boog' . deedni_achtergrond_klasse( $a ) . '"' . deedni_anker_attr( $a ) . ' aria-labelledby="' . $id . '" data-boog' . ( $a['draaien'] ? ' data-boog-scroll' : '' ) . '>';
 	$h .= '<div class="boog-ring" aria-hidden="true"></div>';
 	if ( $n ) {
 		$h .= '<ul class="boog-baan" aria-label="Voorbeelden van anonieme profielen">';
 		$midden = (int) floor( ( $n - 1 ) / 2 );
 		foreach ( $kaarten as $i => $k ) {
-			$k     = wp_parse_args( $k, array( 'code' => '', 'functie' => '', 'ervaring' => '', 'regio' => '', 'salaris' => '', 'kleur' => 'blauw' ) );
-			$o     = $i - $midden;
-			$kleur = in_array( $k['kleur'], array( 'blauw', 'geel', 'groen', 'nacht', 'paars' ), true ) ? $k['kleur'] : 'blauw';
-			$meta  = implode( ' · ', array_filter( array( $k['ervaring'], $k['regio'] ) ) );
-			$h    .= '<li class="boog-kaart kleur-' . $kleur . ( abs( $o ) > 4 ? ' is-weg' : '' ) . '" style="--o:' . $o . '">';
-			$h    .= '<div class="bk-beeld"><span class="bk-code">' . esc_html( $k['code'] ) . '</span><span class="bk-anon">Anoniem</span>';
-			$h    .= '<svg class="bk-silhouet" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="46" r="22"/><path d="M18 120c4-26 21-40 42-40s38 14 42 40z"/></svg></div>';
-			$h    .= '<div class="bk-tekst"><strong>' . esc_html( $k['functie'] ) . '</strong>';
-			if ( $meta ) {
-				$h .= '<span class="bk-meta">' . esc_html( $meta ) . '</span>';
-			}
-			if ( $k['salaris'] ) {
-				$h .= '<span class="salaris">' . esc_html( $k['salaris'] ) . '</span>';
-			}
-			$h .= '<span class="bk-naam">' . deedni_redact( 's', 'naam verborgen' ) . '</span></div></li>';
+			$h .= deedni_boog_kaart( $k, $i - $midden );
 		}
 		$h .= '</ul>';
 	}
@@ -106,16 +103,7 @@ function deedni_render_boog( $a ) {
 	if ( $a['lead'] ) {
 		$h .= '<p class="lead">' . deedni_tekst( $a['lead'] ) . '</p>';
 	}
-	$h .= '<div class="boog-acties">' . deedni_cta( $a['knop'], deedni_link( $a['knop_link'] ), 'search' );
-	if ( $n > 1 ) {
-		$h .= '<div class="rond-knoppen" data-boog-knoppen hidden>';
-		$h .= '<button type="button" class="rond" data-boog-stap="-1" aria-label="Vorige kaart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg></button>';
-		if ( $a['draaien'] ) {
-			$h .= '<button type="button" class="rond" data-boog-pauze aria-pressed="false" aria-label="Pauzeer het draaien"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>';
-		}
-		$h .= '<button type="button" class="rond" data-boog-stap="1" aria-label="Volgende kaart">' . deedni_icon( 'arrow', 20 ) . '</button></div>';
-	}
-	$h .= '</div>';
+	$h .= '<div class="boog-acties">' . deedni_cta( $a['knop'], deedni_link( $a['knop_link'] ), 'search' ) . '</div>';
 	if ( $a['voetnoot'] ) {
 		$h .= '<p class="fine boog-voet">' . esc_html( $a['voetnoot'] ) . '</p>';
 	}

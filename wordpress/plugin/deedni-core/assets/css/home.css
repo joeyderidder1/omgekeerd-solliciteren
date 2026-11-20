@@ -191,7 +191,7 @@
 .finale .mega .line { justify-content: center; }
 .finale .lead { margin: 28px auto 36px; }
 .finale .cta-row { justify-content: center; }
-.welkom { background: var(--wp--preset--color--nacht, #0B1130); color: var(--wp--preset--color--nacht-tekst, #EEF1FF); margin: 12px clamp(8px, 1.5vw, 24px) 0; border-radius: clamp(28px, 5vw, 56px); padding-block: clamp(36px, 5vw, 64px); --ink: var(--wp--preset--color--nacht-tekst, #EEF1FF); --muted: #B4BEE6; --line: #2A3570; --line-strong: #46549A; --accent: var(--wp--preset--color--nacht-accent, #8EA2FF); --accent-ink: var(--wp--preset--color--nacht, #0B1130); --bg: var(--wp--preset--color--nacht, #0B1130); --bg-alt: var(--wp--preset--color--nacht-2, #161F4A); --focus: #B5C2FF; }
+.welkom { background: var(--wp--preset--color--nacht, #0B1130); color: var(--wp--preset--color--nacht-tekst, #EEF1FF); margin: clamp(12px, 2vw, 24px) clamp(8px, 1.5vw, 24px) clamp(12px, 1.5vw, 20px); border-radius: clamp(28px, 5vw, 56px); padding-block: clamp(36px, 5vw, 64px); --ink: var(--wp--preset--color--nacht-tekst, #EEF1FF); --muted: #B4BEE6; --line: #2A3570; --line-strong: #46549A; --accent: var(--wp--preset--color--nacht-accent, #8EA2FF); --accent-ink: var(--wp--preset--color--nacht, #0B1130); --bg: var(--wp--preset--color--nacht, #0B1130); --bg-alt: var(--wp--preset--color--nacht-2, #161F4A); --focus: #B5C2FF; }
 .welkom-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 520px); gap: clamp(24px, 4vw, 56px); align-items: center; }
 @media (max-width: 900px) {
   .welkom-grid { grid-template-columns: 1fr; }
@@ -267,7 +267,7 @@ html:not(.js) .bigphoto .frame, html:not(.js) .bigphoto img, html:not(.js) .bigp
 .why-kop { font-size: 1rem; }
 
 /* ---------- Sjeu: donkere hero met gloed ---------- */
-.hero { margin: 8px clamp(8px, 1.5vw, 24px) 0; border-radius: clamp(28px, 5vw, 64px); padding-block: clamp(32px, 5vw, 64px) clamp(48px, 6vw, 88px); isolation: isolate;
+.hero { margin: clamp(10px, 1.5vw, 20px) clamp(8px, 1.5vw, 24px) 0; border-radius: clamp(28px, 5vw, 64px); padding-block: clamp(32px, 5vw, 64px) clamp(48px, 6vw, 88px); isolation: isolate;
   background: linear-gradient(160deg, var(--wp--preset--color--nacht-2, #161F4A), var(--wp--preset--color--nacht, #0B1130) 60%);
   color: var(--wp--preset--color--nacht-tekst, #EEF1FF);
   --ink: var(--wp--preset--color--nacht-tekst, #EEF1FF); --muted: #B9C2EA; --line: #2A3570; --line-strong: #46549A; --bg: var(--wp--preset--color--nacht, #0B1130); --bg-alt: var(--wp--preset--color--nacht-2, #161F4A); --accent: var(--wp--preset--color--nacht-accent, #8EA2FF); --accent-ink: var(--wp--preset--color--nacht, #0B1130); --accent-soft: #1F2B66; --focus: #B5C2FF; }
@@ -329,28 +329,24 @@ html:not(.js) .bigphoto .frame, html:not(.js) .bigphoto img, html:not(.js) .bigp
 .finale::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: min(1100px, 120vw); aspect-ratio: 1.6; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--marker) 45%, transparent), color-mix(in srgb, var(--accent) 12%, transparent) 60%, transparent); filter: blur(10px); }
 
 /* ---------- Kandidaten in een boog ---------- */
-.boog { --r: 560px; --kw: 150px; --kh: 206px; --stap: 18deg; --top: 24px; position: relative; overflow: clip; text-align: center; padding-top: 0 !important; isolation: isolate; }
-@media (min-width: 700px) { .boog { --r: 780px; --kw: 182px; --kh: 248px; --stap: 15.5deg; --top: 64px; } }
-@media (min-width: 1100px) { .boog { --r: 1000px; --kw: 206px; --kh: 278px; --stap: 13.8deg; } }
-.boog-baan { position: relative; height: calc(var(--top) + var(--kh) + 24px); margin: 0; padding: 0; }
-.boog-kaart { position: absolute; left: 50%; top: var(--top); width: var(--kw); height: var(--kh); margin-left: calc(var(--kw) / -2); transform-origin: 50% calc(var(--r) + var(--kh) / 2); transform: rotate(calc(var(--o, 0) * var(--stap))); transition: transform .9s cubic-bezier(.45, .05, .2, 1), opacity .6s; text-align: left; border-radius: 22px; background: var(--wp--preset--color--vlak, #fff); color: var(--wp--preset--color--inkt, #0F1A3D); box-shadow: 0 1px 0 rgba(15, 26, 61, .06), 0 22px 40px -22px rgba(15, 26, 61, .45); overflow: hidden; display: flex; flex-direction: column; --redact: var(--wp--preset--color--inkt, #0F1A3D); }
+/* De kaarten hebben dezelfde opbouw en stijl als de voorbeeldkaart in de hero (.offer-demo), zonder beeld. */
+.boog { --r: 620px; --kw: 196px; --kh: 214px; --stap: 19deg; --top: 28px; position: relative; overflow: clip; text-align: center; padding-top: 0 !important; isolation: isolate; }
+@media (min-width: 700px) { .boog { --r: 820px; --kw: 232px; --kh: 262px; --stap: 16.5deg; --top: 64px; } }
+@media (min-width: 1100px) { .boog { --r: 1040px; --kw: 248px; --kh: 268px; --stap: 14.6deg; } }
+.boog-baan { position: relative; height: calc(var(--top) + var(--kh) + 24px); margin: 0; padding: 0; list-style: none; }
+.boog-kaart { position: absolute; left: 50%; top: var(--top); width: var(--kw); height: var(--kh); margin-left: calc(var(--kw) / -2); transform-origin: 50% calc(var(--r) + var(--kh) / 2); transform: rotate(calc(var(--o, 0) * var(--stap))); text-align: left; overflow: hidden; display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: 22px; background: #FFFFFF; border: 1px solid var(--wp--preset--color--lijn, #D5DBEE); color: var(--wp--preset--color--inkt, #0F1A3D); box-shadow: 0 1px 0 rgba(15, 26, 61, .06), 0 22px 40px -22px rgba(15, 26, 61, .45); will-change: transform, opacity;
+  --ink: var(--wp--preset--color--inkt, #0F1A3D); --muted: var(--wp--preset--color--gedempt, #4A5578); --bg-alt: var(--wp--preset--color--achtergrond-2, #EBEFFA); --line: var(--wp--preset--color--lijn, #D5DBEE); --redact: var(--wp--preset--color--inkt, #0F1A3D); }
 .boog-kaart.is-weg { opacity: 0; }
-.boog-kaart.is-sprong { transition: none; }
-.bk-beeld { position: relative; flex: 1 1 auto; min-height: 0; display: grid; place-items: end center; overflow: hidden; --k1: var(--wp--preset--color--accent, #2842E0); --k2: var(--wp--preset--color--nacht-accent, #8EA2FF); --kf: rgba(255, 255, 255, .9); background: radial-gradient(80% 70% at 20% 10%, var(--k2), transparent 70%), radial-gradient(70% 70% at 100% 100%, color-mix(in srgb, var(--k1) 60%, #000), transparent 70%), var(--k1); }
-.kleur-geel .bk-beeld { --k1: var(--wp--preset--color--marker, #FFE14D); --k2: #FFF6BF; --kf: rgba(26, 20, 0, .78); }
-.kleur-groen .bk-beeld { --k1: var(--wp--preset--color--groen, #0B7A4F); --k2: #6FD3A6; }
-.kleur-nacht .bk-beeld { --k1: var(--wp--preset--color--nacht, #0B1130); --k2: var(--wp--preset--color--accent, #2842E0); }
-.kleur-paars .bk-beeld { --k1: var(--wp--preset--color--nacht-accent, #8EA2FF); --k2: #E6EAFF; --kf: rgba(11, 17, 48, .72); }
-.bk-silhouet { width: 72%; height: auto; fill: var(--kf); opacity: .55; margin-bottom: -2px; filter: blur(.4px); }
-.bk-code, .bk-anon { position: absolute; top: 10px; padding: 4px 9px; border-radius: 999px; font-size: .75rem; font-weight: 700; letter-spacing: .02em; background: rgba(255, 255, 255, .92); color: var(--wp--preset--color--inkt, #0F1A3D); }
-.bk-code { left: 10px; }
-.bk-anon { right: 10px; background: rgba(11, 17, 48, .72); color: #fff; }
-.bk-tekst { flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px 14px 14px; font-size: .875rem; line-height: 1.3; }
-.bk-tekst strong { font-size: 1rem; letter-spacing: -0.01em; line-height: 1.2; }
-.bk-meta { color: var(--wp--preset--color--gedempt, #4A5578); }
-.bk-tekst .salaris { font-size: .875rem; margin-top: 2px; }
-.bk-naam { display: none; }
-@media (min-width: 700px) { .bk-naam { display: block; margin-top: 2px; } }
+.boog-kaart .t { font-weight: 700; font-size: 1.125rem; line-height: 1.15; letter-spacing: -0.015em; }
+.boog-kaart .between { flex-wrap: nowrap; }
+.boog-kaart .between span { color: var(--muted); }
+.bk-salaris { margin: 0; }
+.boog-kaart .salaris { font-size: 1rem; }
+.boog-kaart .kv { gap: 4px 12px; font-size: .875rem; margin: 0; }
+.boog-kaart .kv dd { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.boog-kaart .tools { gap: 6px; margin-top: 2px; overflow: hidden; max-height: 64px; }
+.boog-kaart .tool { font-size: .75rem; padding: 2px 9px; }
+@media (max-width: 699px) { .boog-kaart { padding: 14px; gap: 8px; } .boog-kaart .t { font-size: 1rem; } .boog-kaart .tools { display: none; } }
 .boog-ring { position: absolute; z-index: -1; left: 50%; top: calc(var(--top) + var(--kh) + 36px); width: calc(2 * (var(--r) - var(--kh) / 2 - 36px)); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; pointer-events: none;
   background: repeating-conic-gradient(color-mix(in srgb, var(--ink) 24%, transparent) 0 .25deg, transparent .25deg 1.5deg);
   -webkit-mask: radial-gradient(circle, transparent calc(70.71% - 30px), #000 calc(70.71% - 29px), #000 calc(70.71% - 4px), transparent calc(70.71% - 3px));
@@ -364,7 +360,6 @@ html:not(.js) .bigphoto .frame, html:not(.js) .bigphoto img, html:not(.js) .bigp
 .rond-knoppen, .q-nav { display: inline-flex; align-items: center; gap: 8px; }
 .rond-knoppen[hidden], .q-nav[hidden] { display: none; }
 .boog-voet { margin-top: 24px; }
-@media (prefers-reduced-motion: reduce) { .boog-kaart { transition: none; } }
 
 /* ---------- Quotes met foto's ---------- */
 .quotes-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
@@ -394,7 +389,7 @@ html:not(.js) .bigphoto .frame, html:not(.js) .bigphoto img, html:not(.js) .bigp
 /* Leesbaarheid: gedempte tekst op donkere vlakken altijd licht genoeg */
 .quick .result { --muted: #B9C2EA; --ink: var(--wp--preset--color--nacht-tekst, #EEF1FF); }
 .quick .result .fine, .quick .result .num-label { color: #B9C2EA; }
-@media (max-width: 699px) { .bk-anon { display: none; } .boog-ring { opacity: .6; } }
+@media (max-width: 699px) { .boog-ring { opacity: .6; } }
 .how { --ink: var(--night-ink); --muted: #B9C2EA; --accent: var(--night-accent); --focus: #B5C2FF; }
 .how .link-btn, .how a:not([class]) { color: var(--night-accent); }
 .how .fine { color: #B9C2EA; }

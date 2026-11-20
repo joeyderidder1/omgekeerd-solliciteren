@@ -39,6 +39,7 @@ function deedni_zichtbare_ids() {
 		'relation' => 'AND',
 		array( 'key' => 'profiel_zichtbaar', 'value' => '1' ),
 		array( 'key' => 'functietitel', 'value' => '', 'compare' => '!=' ),
+		array( 'key' => 'beheer_verborgen', 'compare' => 'NOT EXISTS' ),
 	);
 	$dagen = (int) get_option( 'deedni_actueel_dagen', 0 );
 	if ( $dagen > 0 ) {

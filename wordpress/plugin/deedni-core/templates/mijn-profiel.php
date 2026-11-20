@@ -154,6 +154,9 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 ?>
 <div class="wrap page deedni-profiel">
 	<?php echo deedni_melding_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	<?php if ( $k['beheer_verborgen'] ) : ?>
+		<?php echo deedni_notice( deedni_beheer_melding_tekst( $k ), 'warn' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	<?php endif; ?>
 	<div class="split">
 		<form class="stack profiel-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( deedni_page_url( 'profiel' ) ); ?>" data-profiel>
 			<input type="hidden" name="deedni_action" value="profiel">
@@ -326,7 +329,7 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 					<?php endif; ?>
 				</div>
 				<p class="offer-state<?php echo $k['zichtbaar'] ? ' is-ok' : ''; ?>" role="status">
-					<?php echo esc_html( $k['zichtbaar'] ? 'Je profiel staat online. Bedrijven kunnen je nu vinden, zonder je naam.' : 'Je profiel staat nog niet online. Alleen jij ziet het.' ); ?>
+					<?php echo esc_html( $k['beheer_verborgen'] ? 'Je profiel is tijdelijk verborgen door deedni. Bedrijven kunnen je nu niet vinden.' : ( $k['zichtbaar'] ? 'Je profiel staat online. Bedrijven kunnen je nu vinden, zonder je naam.' : 'Je profiel staat nog niet online. Alleen jij ziet het.' ) ); ?>
 				</p>
 				<?php echo $knoppen( 'controleren' ); // phpcs:ignore ?>
 			</section>
