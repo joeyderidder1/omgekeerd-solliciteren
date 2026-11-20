@@ -29,8 +29,8 @@ function deedni_guard_pages() {
 		}
 		$own       = (int) get_post_field( 'post_author', $id ) === get_current_user_id();
 		$contacted = deedni_has_contact_access( $id );
-		$visible   = deedni_field( $id, 'profiel_zichtbaar' ) && 'publish' === get_post_status( $id ) && ! in_array( $id, deedni_blocked_kandidaat_ids(), true );
-		$allowed   = $own || deedni_is_beheerder() || $contacted || ( deedni_can_search() && $visible );
+		$visible   = deedni_field( $id, 'profiel_zichtbaar' ) && ! deedni_beheer_verborgen( $id ) && 'publish' === get_post_status( $id ) && ! in_array( $id, deedni_blocked_kandidaat_ids(), true );
+		$allowed   = $own || deedni_is_beheerder() || ( $contacted && ! deedni_beheer_verborgen( $id ) ) || ( deedni_can_search() && $visible );
 		if ( ! $allowed ) {
 			wp_safe_redirect( deedni_page_url( deedni_is_werkgever() ? 'zoeken' : 'dashboard', array( 'deedni_melding' => 'geen_toegang' ) ) );
 			exit;

@@ -52,6 +52,7 @@ Handig om te weten:
 - **Een blok weghalen** kan via de drie puntjes boven het blok. Je kunt het later weer toevoegen via de **+**.
 - **Wie ziet deze sectie?** Per blok kies je of iedereen het ziet, of alleen bezoekers, marketeers of werkgevers.
 - **Achtergrond** kies je per blok (standaard, zacht, accentkleur of donker).
+- **Ruimte boven dit blok** en **Ruimte onder dit blok** (onder *Opmaak*): kies *Geen*, *Klein*, *Middel*, *Groot* of *Extra groot* voor meer of minder witruimte tussen blokken. *Standaard* houdt de ruimte uit het ontwerp.
 - **Voorbeeld in de editor bekijken als**: veel blokken tonen iets anders voor een bezoeker, een marketeer of een werkgever. Met dit veld zie je in de editor hoe het blok eruitziet voor elke rol. Op de site zelf ziet iedereen gewoon zijn eigen versie.
 - Je kunt ook gewone WordPress-blokken (tekst, afbeelding, knoppen) tussen de deedni-blokken zetten.
 - Kandidaatprofielen gebruiken het blok *Kandidaatprofiel*. Dat pas je aan via **Weergave > Editor > Templates**, bij het template voor één kandidaat.
@@ -79,9 +80,23 @@ Ga naar **Weergave > Editor > Stijlen** (het halve-maan-icoon). Onder *Kleuren* 
 
 - Elke sectie met een kleurvlak heeft rechts onder **Opmaak > Achtergrond** de keuzes *Standaard*, *Zacht blok*, *Accentkleur*, *Donker blok met gloed*, *Geel blok* en *Licht blok met gloed*. De gloed (zachte ronde kleurverlopen) volgt automatisch je kleuren uit Stijlen.
 - De hero is nu een donker vlak met gloed. Bovenaan staat een klein label (veld *Label boven de kop*), en de kleine tekst onder de knop verschijnt als losse labels: scheid ze met een punt (·).
-- **Kandidaten in een boog**: anonieme kandidaatkaarten in een boog die langzaam doordraaien, met kop, tekst en knop in het midden. Per kaart vul je code, functie, ervaring, regio, salaris en een kleur in. Bezoekers kunnen het draaien pauzeren. Handig op de homepage en op een pagina om kandidaten te ontdekken.
+- **Kandidaten in een boog**: anonieme kandidaatkaarten in een boog die meedraait als je scrolt, met kop, tekst en knop in het midden. De kaarten hebben dezelfde stijl als de voorbeeldkaart in de hero, zonder afbeelding. Per kaart vul je code, functie, ervaring, regio, salaris en tools in. Met *Kaarten draaien mee als je scrolt* zet je de beweging aan of uit. Handig op de homepage en op een pagina om kandidaten te ontdekken.
 - **Quotes met foto's**: ervaringen met naam, functie en een foto. De foto's liggen als een stapel naast de quote en schuiven mee als je bladert.
 - Heb je de homepage al? Dan voeg je deze blokken toe met de **+** in de editor (categorie *deedni*). Of gebruik *Homepage opnieuw vullen* hieronder; dan staan ze er meteen in, maar gaan eigen teksten terug naar de standaard.
+
+## Een kandidaatprofiel aanpassen of verbergen (versie 2.2)
+
+Staat er gevoelige of onjuiste informatie in een profiel? Bijvoorbeeld een telefoonnummer in *Over mij*, of de naam van de huidige werkgever?
+
+1. Ga naar **Kandidaten** en klik bij het profiel op *Profiel aanpassen*.
+2. Pas de velden aan in het blok **Profiel aanpassen**. Je kunt ook een werkervaring, project of resultaat weghalen, of het cv verwijderen.
+3. Wil je het profiel (tijdelijk) offline halen? Vink rechts bij **Zichtbaarheid** *Verberg dit profiel voor werkgevers* aan. Vul eventueel een reden in: de marketeer ziet die op *Mijn profiel* en het overzicht.
+4. Schrijf onderaan bij **Notitie bij deze wijziging** kort wat je aanpaste en waarom. Vink aan of de marketeer een mail krijgt.
+5. Klik op **Bijwerken**.
+
+Een verborgen profiel staat niet meer in Ontdekken, bij Kandidaten zoeken of in de beste matches. Werkgevers kunnen de profielpagina niet openen en geen nieuw aanbod sturen. Lopende aanbiedingen blijven bestaan. In de lijst **Kandidaten** zie je *Verborgen door beheer*, en met de snelle link *Verbergen voor werkgevers* of *Weer tonen aan werkgevers* zet je het in één klik om.
+
+Elke wijziging komt rechts in het **Logboek**: wanneer, door wie, welke velden en je notitie.
 
 ## Instellingen > deedni
 
@@ -115,6 +130,6 @@ Beide rollen komen niet in wp-admin. Alles gaat via de pagina's op de site.
 
 Alles is getest in een lokale WordPress 6.6 met alle rollen: account maken, profiel invullen, zoeken, bewaren, een aanbod sturen, "Ja, maar", akkoord, ja en aangenomen. Wat nog niet getest is:
 
-- **De blok-editor zelf**, dus het klikken op blokken en het rechterpaneel. De testomgeving kon de editor niet laden. Alle blokken zijn wel los getest en geven geen fouten. Probeer het eerst op een testkopie.
+- **De blok-editor** is in versie 2.2 alleen kort getest: blokken kiezen en het paneel *Opmaak* met de nieuwe ruimte-velden. Probeer grote wijzigingen eerst op een testkopie.
 - **E-mails**. Er was geen mailserver. Test dit na het installeren van de SMTP-plugin.
 - **Overstappen met de echte gegevens** van joey-ridder.nl. Doe dit eerst op een kopie.

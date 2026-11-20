@@ -8,6 +8,7 @@
  *   na een ja  voornaam, achternaam, telefoon, linkedin, huidige_werkgever, cv (bijlage-ID)
  *   taxonomie  specialisme, vaardigheid (tools), provincie
  *   overig     profiel_zichtbaar, blokkeerlijst (één per regel), bevestigd_op
+ *   beheer     beheer_verborgen, beheer_reden, beheer_log (zie beheer.php)
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -54,6 +55,9 @@ function deedni_kandidaat( $id ) {
 		'cv'                => (int) $f( 'cv' ),
 		'blokkeerlijst'     => $f( 'blokkeerlijst' ),
 		'zichtbaar'         => (bool) $f( 'profiel_zichtbaar' ),
+		'beheer_verborgen'  => (bool) $f( 'beheer_verborgen' ),
+		'beheer_reden'      => $f( 'beheer_reden' ),
+		'online'            => $f( 'profiel_zichtbaar' ) && ! $f( 'beheer_verborgen' ),
 		'specialisme'       => deedni_term_names( $id, 'specialisme' ),
 		'specialisme_ids'   => deedni_term_ids( $id, 'specialisme' ),
 		'tools'             => deedni_term_names( $id, 'vaardigheid' ),

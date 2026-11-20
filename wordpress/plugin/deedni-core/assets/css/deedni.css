@@ -255,7 +255,20 @@ dialog.modal[open] { animation: modal-in .32s cubic-bezier(.2, .8, .2, 1); }
 :where(.wp-site-blocks) .alignfull { max-width: none; }
 main.deedni-main > .alignfull + .alignfull, main.deedni-main .entry-content > .alignfull { margin-block-start: 0; }
 .deedni-main .blk.alignfull { margin: clamp(24px, 4vw, 48px) clamp(8px, 1.5vw, 24px); }
-.deedni-main .welkom.alignfull { margin: 12px clamp(8px, 1.5vw, 24px) 0; }
+.deedni-main .welkom.alignfull, main.deedni-main .entry-content > .welkom.alignfull { margin: clamp(12px, 2vw, 24px) clamp(8px, 1.5vw, 24px) clamp(12px, 1.5vw, 20px); }
+/* Het eerste blok op een pagina (welkom of hero) staat niet tegen de kop van de site aan. */
+main.deedni-main .entry-content > .hero.alignfull:first-child, main.deedni-main > .hero.alignfull:first-child { margin-top: clamp(10px, 1.5vw, 20px); }
+/* Ruimte boven en onder een blok, te kiezen per blok in de editor (Opmaak). */
+.ruimte-boven-geen { margin-top: 0 !important; }
+.ruimte-boven-s { margin-top: clamp(12px, 1.5vw, 16px) !important; }
+.ruimte-boven-m { margin-top: clamp(24px, 3.5vw, 40px) !important; }
+.ruimte-boven-l { margin-top: clamp(48px, 6vw, 80px) !important; }
+.ruimte-boven-xl { margin-top: clamp(80px, 10vw, 140px) !important; }
+.ruimte-onder-geen { margin-bottom: 0 !important; }
+.ruimte-onder-s { margin-bottom: clamp(12px, 1.5vw, 16px) !important; }
+.ruimte-onder-m { margin-bottom: clamp(24px, 3.5vw, 40px) !important; }
+.ruimte-onder-l { margin-bottom: clamp(48px, 6vw, 80px) !important; }
+.ruimte-onder-xl { margin-bottom: clamp(80px, 10vw, 140px) !important; }
 .logo-img { display: block; max-height: 40px; width: auto; }
 .site-footer .logo-img { max-height: 32px; }
 
@@ -271,6 +284,8 @@ label.chip:has(input:focus-visible) { outline: 3px solid var(--focus); outline-o
 .dn-notice { padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); color: var(--ink); font-weight: 600; }
 .dn-notice--ok, .dn-notice--success { background: var(--ok-soft); color: var(--ok); }
 .dn-notice--error { background: #FDE8E6; color: var(--danger); }
+.dn-notice--warn { background: #FFF4CC; color: #3D3000; }
+.dn-notice--warn p + p { margin-top: 6px; font-weight: 500; }
 .dn-fouten { padding: 14px 16px; border-radius: 12px; background: #FDE8E6; color: var(--danger); font-weight: 600; }
 .dn-fouten ul { display: flex; flex-direction: column; gap: 4px; }
 .field-error { color: var(--danger); font-weight: 600; font-size: .9375rem; }

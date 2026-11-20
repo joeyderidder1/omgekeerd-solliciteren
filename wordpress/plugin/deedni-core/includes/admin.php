@@ -315,7 +315,11 @@ add_action(
 			echo esc_html( deedni_code( $post_id ) );
 		}
 		if ( 'zichtbaar' === $column ) {
-			echo deedni_field( $post_id, 'profiel_zichtbaar' ) ? 'Ja' : 'Nee';
+			if ( deedni_beheer_verborgen( $post_id ) ) {
+				echo '<strong style="color:#b32d2e">Verborgen door beheer</strong>';
+			} else {
+				echo deedni_field( $post_id, 'profiel_zichtbaar' ) ? 'Ja' : 'Nee';
+			}
 		}
 		if ( 'compleet' === $column ) {
 			$c = deedni_compleet( deedni_kandidaat( $post_id ) );
@@ -331,7 +335,6 @@ add_action(
 add_action(
 	'add_meta_boxes',
 	function () {
-		add_meta_box( 'deedni-kandidaat', 'Profiel (zoals de marketeer het invulde)', 'deedni_metabox_kandidaat', 'kandidaat', 'normal', 'high' );
 		add_meta_box( 'deedni-bedrijf', 'Bedrijfsprofiel', 'deedni_metabox_bedrijf', 'bedrijf', 'normal', 'high' );
 		add_meta_box( 'deedni-aanbod', 'Aanbod', 'deedni_metabox_aanbod', 'aanbod', 'normal', 'high' );
 	}
@@ -347,34 +350,6 @@ function deedni_admin_tabel( $rijen ) {
 		echo '<tr><th style="width:200px">' . esc_html( $label ) . '</th><td>' . ( '' === (string) $waarde ? '<span style="color:#888">–</span>' : nl2br( esc_html( $waarde ) ) ) . '</td></tr>';
 	}
 	echo '</tbody></table>';
-}
-
-function deedni_metabox_kandidaat( $post ) {
-	$k = deedni_kandidaat( $post->ID );
-	echo '<p>Marketeers passen hun profiel zelf aan op de site. Hier zie je wat er is ingevuld. <a href="' . esc_url( get_permalink( $post ) ) . '">Bekijk het profiel op de site</a>.</p>';
-	deedni_admin_tabel(
-		array(
-			'Code'            => $k['code'],
-			'Online'          => $k['zichtbaar'] ? 'Ja' : 'Nee',
-			'Naam'            => deedni_naam( $k ),
-			'E-mail'          => $k['email'],
-			'Telefoon'        => $k['telefoon'],
-			'Functietitel'    => $k['functietitel'],
-			'Specialisme'     => $k['specialisme'],
-			'Ervaring'        => $k['ervaring_jaren'] ? $k['ervaring_jaren'] . ' jaar' : '',
-			'Regio'           => deedni_regio_tekst( $k ),
-			'Werkplek'        => deedni_werkplek_tekst( $k['werkplekken'] ),
-			'Salaris vanaf'   => $k['salaris_min'] ? deedni_euro( $k['salaris_min'] ) : '',
-			'Uren'            => $k['uren'],
-			'Beschikbaar'     => deedni_label( 'beschikbaarheid', $k['beschikbaarheid'] ),
-			'Tools'           => $k['tools'],
-			'Over mij'        => $k['samenvatting'],
-			'Werkervaring'    => array_map( function ( $w ) { return trim( ( $w['functie'] ?? '' ) . ' bij ' . ( $w['werkgever'] ?? '' ) . ' ' . ( $w['periode'] ?? '' ) ); }, $k['werkervaring'] ),
-			'Projecten'       => wp_list_pluck( $k['projecten'], 'titel' ),
-			'Blokkeerlijst'   => $k['blokkeerlijst'],
-			'Laatst bevestigd' => $k['bevestigd_op'] ? wp_date( 'j F Y', $k['bevestigd_op'] ) : '',
-		)
-	);
 }
 
 function deedni_metabox_bedrijf( $post ) {
