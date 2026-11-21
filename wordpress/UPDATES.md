@@ -15,7 +15,7 @@ Je instellingen, pagina's, profielen en menu's blijven gewoon staan.
 
 ## Daarna: updates in wp-admin
 
-Komt er een nieuwe versie, dan zie je die binnen zes uur bij **Dashboard > Updates** en in de lijst bij **Plugins** of **Thema's**. Wil je niet wachten, klik dan op **Opnieuw controleren** bovenaan **Dashboard > Updates**.
+Komt er een nieuwe versie, dan zie je die binnen zes uur bij **Dashboard > Updates** en in de lijst bij **Plugins** of **Thema's**. Wil je niet wachten, klik dan op **Opnieuw controleren** bovenaan **Dashboard > Updates**. Werkt dat bij jou nog niet in één keer (plugin ouder dan 3.0.1), wacht dan een minuut en klik nog een keer.
 
 Wil je dat updates vanzelf worden geïnstalleerd, klik dan bij **Plugins** naast deedni Core op **Automatische updates inschakelen** (en bij het thema hetzelfde). Advies: laat dat uit zolang deedni in de testfase is, zodat je een update eerst bekijkt.
 
