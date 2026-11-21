@@ -71,6 +71,7 @@ if ( ! class_exists( 'Deedni_GitHub_Updater' ) ) {
 				self::$download_hook = true;
 				add_filter( 'upgrader_pre_download', array( __CLASS__, 'download_prive' ), 10, 2 );
 				add_action( 'upgrader_process_complete', array( __CLASS__, 'leeg_cache' ) );
+				add_action( 'load-update-core.php', array( __CLASS__, 'opnieuw_controleren' ), 9 );
 			}
 		}
 
@@ -257,6 +258,25 @@ if ( ! class_exists( 'Deedni_GitHub_Updater' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/file.php';
 			}
 			return download_url( $doel, 300 );
+		}
+
+		/**
+		 * "Opnieuw controleren" onder Dashboard > Updates. WordPress controleert binnen een minuut na de
+		 * vorige controle niet opnieuw, en het openen van die pagina telt al als controle. Zet daarom de
+		 * tijd van de vorige controle terug, zodat de knop altijd echt kijkt.
+		 */
+		public static function opnieuw_controleren() {
+			if ( empty( $_GET['force-check'] ) || ! current_user_can( 'update_plugins' ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				return;
+			}
+			self::leeg_cache();
+			foreach ( array( 'update_plugins', 'update_themes' ) as $naam ) {
+				$huidig = get_site_transient( $naam );
+				if ( is_object( $huidig ) && ! empty( $huidig->last_checked ) ) {
+					$huidig->last_checked = 0;
+					set_site_transient( $naam, $huidig );
+				}
+			}
 		}
 
 		public static function leeg_cache() {
