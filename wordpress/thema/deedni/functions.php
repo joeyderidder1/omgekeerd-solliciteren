@@ -48,3 +48,19 @@ add_action(
 		wp_enqueue_style( 'deedni-thema', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) );
 	}
 );
+
+/**
+ * viewport-fit=cover: op telefoons met een notch of afgeronde hoeken loopt de achtergrond door tot de rand.
+ * De opmaak (deedni Core) houdt tekst en knoppen met env(safe-area-inset-*) buiten die randen.
+ */
+add_action(
+	'wp_head',
+	function () {
+		// has_action geeft de prioriteit terug, en die is hier 0: daarom de vergelijking met false.
+		if ( false !== has_action( 'wp_head', '_block_template_viewport_meta_tag' ) ) {
+			remove_action( 'wp_head', '_block_template_viewport_meta_tag', 0 );
+			echo '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />' . "\n";
+		}
+	},
+	-1
+);

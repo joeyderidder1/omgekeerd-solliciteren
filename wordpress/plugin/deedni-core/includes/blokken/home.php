@@ -140,7 +140,7 @@ function deedni_render_hero( $a ) {
 	$h .= '<p class="fine">' . esc_html( $a['demo_meta'] ) . '</p>';
 	$h .= '<p><span class="salaris">' . esc_html( $a['demo_salaris'] ) . '</span> per maand</p>';
 	if ( $a['demo_quote'] ) {
-		$h .= '<p class="fine">“' . esc_html( $a['demo_quote'] ) . '”</p>';
+		$h .= '<p class="fine">“' . esc_html( deedni_krul( $a['demo_quote'] ) ) . '”</p>';
 	}
 	$h .= '<div class="sees">' . esc_html( $a['demo_bedrijf'] ) . ' ziet nu: <span data-demo-naam>' . deedni_redact( '', 'je naam, verborgen' ) . '</span></div>';
 	$h .= '<div class="acts" data-demo-acts><button type="button" class="btn btn--primary" data-demo="ja">Ja</button><button type="button" class="btn btn--ghost" data-demo="maar">Ja, maar...</button><button type="button" class="btn btn--ghost" data-demo="nee">Nee</button></div>';

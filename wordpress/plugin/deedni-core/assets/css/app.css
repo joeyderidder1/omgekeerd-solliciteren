@@ -271,3 +271,18 @@
 /* Bedrijfsprofiel */
 .deedni-bedrijfsprofiel .page-head { gap: 12px; }
 .deedni-bedrijfsprofiel fieldset legend { font-weight: 600; }
+
+/* ---------- Skeleton loaders bij zoeken ---------- */
+.skelet { pointer-events: none; }
+.skelet .stack-s { gap: 12px; }
+.sk { display: block; height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--bg-alt) 0 40%, color-mix(in srgb, var(--bg-alt) 40%, var(--surface)) 50%, var(--bg-alt) 60% 100%) 0 0 / 300% 100%; animation: sk-glans 1.4s ease-in-out infinite; }
+.sk--s { width: 90px; }
+.sk--m { width: min(320px, 70%); }
+.sk--l { width: min(420px, 90%); height: 24px; border-radius: 8px; }
+.sk--chip { width: 72px; height: 28px; border-radius: 999px; }
+.sk--knop { width: 130px; height: 44px; border-radius: 12px; }
+.sk-rij { display: flex; gap: 8px; }
+.skelet .right { align-items: flex-end; }
+@keyframes sk-glans { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .sk { animation: none; } }
+.deedni-zoeken [aria-busy="true"] .result-head h2 { opacity: .55; }
