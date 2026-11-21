@@ -71,3 +71,10 @@ Sinds 3.1 zien bezoekers zonder account anonieme kaarten van kandidaten. Omdat e
 | Huidige werkgever ziet de kaart | Een ingelogde werkgever op de blokkeerlijst ziet de kaart niet, maar uitgelogd kan iedereen hem zien. Dat staat bij het vinkje uitgelegd. | – |
 
 Let op: achter Cloudflare of een andere proxy delen alle bezoekers één IP-teller. Zet dan het echte IP-adres via het filter `deedni_ip` (zie boven).
+
+## Formulieren & mail (plugin 3.2.0)
+
+- **Alleen beheerders** (`manage_options`) zien en wijzigen formulieren, mailteksten en de e-maillog. Elk formulier en elke knop (opslaan, testmail, opnieuw versturen, log legen) heeft een nonce.
+- **Mailteksten** zijn platte tekst: HTML wordt ge-escaped, alleen `**vet**` en witregels werken. Waarden van variabelen (namen, bedrijfsnamen) worden altijd ge-escaped.
+- **E-maillog**: geheime links (bevestigen, wachtwoord, `key=`, `sleutel=`, `token=` enzovoort) worden nooit leesbaar bewaard. Opnieuw versturen van zo'n mail maakt een nieuwe link. De inhoud van mails wordt getoond in een afgeschermd frame (`sandbox`), zodat er geen scripts kunnen draaien. Regels verdwijnen na de bewaartermijn (standaard 30 dagen) en bij het verwijderen van een account.
+- **Formulieren**: kernvelden (account, matching, controle) zijn niet te verbergen of optioneel te maken. Verplichte velden en eigen velden worden ook op de server gecontroleerd en opgeschoond. Eigen velden in een kandidaatprofiel zijn nooit zichtbaar voor werkgevers.

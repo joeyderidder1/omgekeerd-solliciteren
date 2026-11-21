@@ -404,15 +404,19 @@ function deedni_beheer_opslaan( $post_id, $post ) {
 	}
 
 	if ( ! empty( $b['mail'] ) && $na['email'] ) {
-		$alineas = array(
-			'Hoi' . ( $na['voornaam'] ? ' ' . esc_html( $na['voornaam'] ) : '' ) . ',',
-			'We hebben je profiel ' . esc_html( $na['code'] ) . ' op ' . esc_html( get_bloginfo( 'name' ) ) . ' aangepast' . ( $anders ? ': ' . esc_html( strtolower( implode( ', ', $anders ) ) ) : '' ) . '.',
+		// Tekst aan te passen bij Formulieren & mail > Mailteksten ("Profiel aangepast door deedni").
+		deedni_mail_sjabloon(
+			'profiel_aangepast',
+			$na['email'],
+			array(
+				'naam'          => $na['voornaam'] ? $na['voornaam'] : 'daar',
+				'code'          => $na['code'],
+				'wijzigingen'   => $anders ? strtolower( implode( ', ', $anders ) ) : 'een paar kleine dingen',
+				'zichtbaarheid' => $verborgen ? 'Je profiel is op dit moment niet zichtbaar voor bedrijven.' . ( $reden ? ' ' . $reden : '' ) : '',
+				'link'          => deedni_page_url( 'profiel' ),
+			),
+			array( 'object' => $post_id, 'gebruiker' => (int) get_post_field( 'post_author', $post_id ) )
 		);
-		if ( $verborgen ) {
-			$alineas[] = 'Je profiel is op dit moment niet zichtbaar voor bedrijven.' . ( $reden ? ' ' . nl2br( esc_html( $reden ) ) : '' );
-		}
-		$alineas[] = 'Kijk je profiel even na. Klopt er iets niet, antwoord dan op deze mail.';
-		deedni_mail( $na['email'], 'Je profiel is aangepast', $alineas, 'Bekijk je profiel', deedni_page_url( 'profiel' ) );
 	}
 }
 

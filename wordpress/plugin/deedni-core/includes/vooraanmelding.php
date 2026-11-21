@@ -297,12 +297,15 @@ function deedni_handle_vooraanmelden() {
 	} else {
 		$wpdb->insert( $tabel, array_merge( $velden, array( 'aangemeld' => $nu, 'email' => $data['email'] ) ) ); // phpcs:ignore WordPress.DB
 		if ( get_option( 'deedni_aanmelding_mail', 0 ) ) {
-			deedni_mail(
+			deedni_mail_sjabloon(
+				'beheer_aanmelding',
 				get_option( 'admin_email' ),
-				'Nieuwe aanmelding: ' . $data['naam'],
-				array( esc_html( $data['naam'] ) . ' heeft zich aangemeld als ' . esc_html( strtolower( deedni_doelgroepen()[ $data['doelgroep'] ] ) ) . '.' ),
-				'Alle aanmeldingen',
-				admin_url( 'admin.php?page=deedni-aanmeldingen' )
+				array(
+					'naam'      => $data['naam'],
+					'email'     => $data['email'],
+					'doelgroep' => strtolower( deedni_doelgroepen()[ $data['doelgroep'] ] ),
+					'link'      => admin_url( 'admin.php?page=deedni-aanmeldingen' ),
+				)
 			);
 		}
 	}

@@ -249,16 +249,16 @@ function deedni_stuur_bevestiging( $user_id ) {
 			'gemaakt' => is_array( $oud ) && ! empty( $oud['gemaakt'] ) ? (int) $oud['gemaakt'] : time(),
 		)
 	);
-	return deedni_mail(
+	// Tekst aan te passen bij Formulieren & mail > Mailteksten. De e-maillog bewaart de link nooit leesbaar.
+	return deedni_mail_sjabloon(
+		'bevestigen',
 		$user->user_email,
-		'Bevestig je e-mailadres',
 		array(
-			'Hoi ' . esc_html( $user->display_name ) . ',',
-			'Klik op de knop om je e-mailadres te bevestigen. Daarna kun je inloggen. De link werkt 48 uur.',
-			'Heb jij geen account aangemaakt bij ' . esc_html( get_bloginfo( 'name' ) ) . '? Dan kun je deze mail negeren.',
+			'naam'  => $user->display_name,
+			'email' => $user->user_email,
+			'link'  => deedni_bevestig_url( $user_id, $sleutel ),
 		),
-		'E-mailadres bevestigen',
-		deedni_bevestig_url( $user_id, $sleutel )
+		array( 'gebruiker' => $user_id )
 	);
 }
 
@@ -268,16 +268,15 @@ function deedni_mail_bestaand_account( $email ) {
 		return false;
 	}
 	deedni_grens_tel( 'mail', $email );
-	return deedni_mail(
+	$user = get_user_by( 'email', $email );
+	return deedni_mail_sjabloon(
+		'bestaand_account',
 		$email,
-		'Je hebt al een account',
 		array(
-			'Iemand, waarschijnlijk jij, probeerde een nieuw account te maken met dit e-mailadres. Er bestaat al een account met dit adres.',
-			'Log in met je wachtwoord. Weet je het wachtwoord niet meer, of heb je zelf nooit een account gemaakt? Kies dan via de knop een nieuw wachtwoord. Daarmee is het account van jou.',
-			'Was jij dit niet en wil je niets doen? Dan kun je deze mail negeren.',
+			'email' => $email,
+			'link'  => wp_lostpassword_url(),
 		),
-		'Nieuw wachtwoord kiezen',
-		wp_lostpassword_url()
+		array( 'gebruiker' => $user ? $user->ID : 0 )
 	);
 }
 

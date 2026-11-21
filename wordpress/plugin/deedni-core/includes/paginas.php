@@ -265,18 +265,24 @@ function deedni_handle_contact() {
 	deedni_tel( 'contact', deedni_ip(), deedni_grens( 'contact' )[1] );
 	$naar = get_option( 'deedni_contact_email', '' );
 	$naar = is_email( $naar ) ? $naar : get_option( 'admin_email' );
-	$onderwerp = 'Contactformulier: ' . ( $data['onderwerp'] ? $data['onderwerp'] : 'nieuw bericht' );
-	$alineas   = array(
-		'<strong>' . esc_html( $data['naam'] ) . '</strong> (' . esc_html( $data['email'] ) . ')' . ( $data['rol'] ? ', ' . esc_html( mb_strtolower( $data['rol'] ) ) : '' ) . ', stuurde een bericht via het contactformulier.',
-		nl2br( esc_html( $data['bericht'] ) ),
-		'Antwoord gewoon op deze mail.',
-	);
 	add_filter( 'wp_mail', $reply = function ( $m ) use ( $data ) {
 		$m['headers']   = (array) $m['headers'];
 		$m['headers'][] = 'Reply-To: ' . str_replace( array( "\r", "\n", '<', '>' ), '', $data['naam'] ) . ' <' . $data['email'] . '>';
 		return $m;
 	} );
-	deedni_mail( $naar, $onderwerp, $alineas );
+	// Tekst aan te passen bij Formulieren & mail > Mailteksten ("Bericht via het contactformulier").
+	deedni_mail_sjabloon(
+		'beheer_contact',
+		$naar,
+		array(
+			'naam'         => $data['naam'],
+			'email'        => $data['email'],
+			'rol'          => $data['rol'],
+			'onderwerp'    => $data['onderwerp'] ? $data['onderwerp'] : 'nieuw bericht',
+			'bericht'      => $data['bericht'],
+			'extra_velden' => function_exists( 'deedni_formulier_extra_html' ) && ! empty( $GLOBALS['deedni_formulier_extra']['contact'] ) ? deedni_formulier_extra_html( 'contact', $GLOBALS['deedni_formulier_extra']['contact'] ) : '',
+		)
+	);
 	remove_filter( 'wp_mail', $reply );
 	wp_safe_redirect( add_query_arg( 'verstuurd', 1, $terug ) . '#contact-formulier' );
 	exit;
