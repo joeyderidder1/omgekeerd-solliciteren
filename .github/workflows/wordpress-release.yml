@@ -1,0 +1,86 @@
+# Maakt een GitHub Release met de zips van plugin deedni Core en het deedni-thema.
+# WordPress haalt die zips daarna zelf op (Dashboard > Updates), zie wordpress/UPDATES.md.
+#
+# Draait bij elke wijziging op main in wordpress/plugin of wordpress/thema, of handmatig via Actions.
+# Er komt alleen een nieuwe release als het versienummer van de plugin of het thema hoger is
+# dan in een eerdere release. Zonder hoger versienummer gebeurt er niets.
+name: WordPress release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wordpress/plugin/**'
+      - 'wordpress/thema/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wordpress-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versies lezen
+        id: versie
+        run: |
+          plugin=$(grep -m1 -E '^\s*\*\s*Version:' wordpress/plugin/deedni-core/deedni-core.php | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          constante=$(grep -m1 "define( 'DEEDNI_VERSION'" wordpress/plugin/deedni-core/deedni-core.php | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          thema=$(grep -m1 -E '^Version:' wordpress/thema/deedni/style.css | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          if [ -z "$plugin" ] || [ -z "$thema" ]; then
+            echo "::error::Versienummer niet gevonden in de plugin of het thema."; exit 1
+          fi
+          if [ "$plugin" != "$constante" ]; then
+            echo "::error::Version ($plugin) en DEEDNI_VERSION ($constante) in deedni-core.php verschillen."; exit 1
+          fi
+          echo "plugin=$plugin" >> "$GITHUB_OUTPUT"
+          echo "thema=$thema" >> "$GITHUB_OUTPUT"
+          echo "tag=plugin-$plugin-thema-$thema" >> "$GITHUB_OUTPUT"
+
+      - name: Bestaat deze release al?
+        id: bestaat
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.versie.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "ja=1" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG bestaat al. Verhoog Version in de plugin of het thema om een update uit te brengen." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: PHP controleren
+        if: steps.bestaat.outputs.ja != '1'
+        run: |
+          find wordpress/plugin/deedni-core wordpress/thema/deedni -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Zips bouwen
+        if: steps.bestaat.outputs.ja != '1'
+        env:
+          PLUGIN: ${{ steps.versie.outputs.plugin }}
+          THEMA: ${{ steps.versie.outputs.thema }}
+        run: |
+          mkdir -p dist
+          (cd wordpress/plugin && zip -qr "../../dist/deedni-core-$PLUGIN.zip" deedni-core -x '*.DS_Store' '*/.git*')
+          (cd wordpress/thema && zip -qr "../../dist/deedni-thema-$THEMA.zip" deedni -x '*.DS_Store' '*/.git*')
+          ls -l dist
+
+      - name: Release maken
+        if: steps.bestaat.outputs.ja != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.versie.outputs.tag }}
+          PLUGIN: ${{ steps.versie.outputs.plugin }}
+          THEMA: ${{ steps.versie.outputs.thema }}
+        run: |
+          gh release create "$TAG" dist/*.zip \
+            --target "$GITHUB_SHA" \
+            --title "deedni Core $PLUGIN en thema $THEMA" \
+            --generate-notes \
+            --latest
+          echo "Release $TAG gemaakt. WordPress ziet de update binnen 6 uur, of direct via Dashboard > Updates > Opnieuw controleren." >> "$GITHUB_STEP_SUMMARY"
