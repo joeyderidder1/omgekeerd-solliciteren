@@ -28,6 +28,7 @@ add_action(
 		};
 		register_setting( 'deedni', 'deedni_pages', array( 'type' => 'array', 'sanitize_callback' => function ( $v ) { return array_map( 'absint', (array) $v ); } ) );
 		register_setting( 'deedni', 'deedni_werkgever_goedkeuring', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
+		register_setting( 'deedni', 'deedni_email_bevestigen', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
 		register_setting( 'deedni', 'deedni_wie_keek_mee', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
 		register_setting( 'deedni', 'deedni_reactietermijn', array( 'type' => 'integer', 'default' => 5, 'sanitize_callback' => $int( 1, 60 ) ) );
 		register_setting( 'deedni', 'deedni_actueel_dagen', array( 'type' => 'integer', 'default' => 0, 'sanitize_callback' => $int( 0, 365 ) ) );
@@ -101,6 +102,14 @@ function deedni_settings_page() {
 					<th scope="row">Goedkeuring</th>
 					<td><label><input type="checkbox" name="deedni_werkgever_goedkeuring" value="1" <?php checked( get_option( 'deedni_werkgever_goedkeuring', 1 ) ); ?>> Nieuwe werkgevers pas laten zoeken nadat ik ze heb goedgekeurd</label>
 					<p class="description">Je keurt een werkgever goed bij Gebruikers. Aanbevolen, zodat alleen echte bedrijven profielen zien.</p></td>
+				</tr>
+			</table>
+			<h2>Accounts</h2>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row">E-mailadres bevestigen</th>
+					<td><input type="hidden" name="deedni_email_bevestigen" value="0"><label><input type="checkbox" name="deedni_email_bevestigen" value="1" <?php checked( get_option( 'deedni_email_bevestigen', 1 ) ); ?>> Nieuwe accounts krijgen eerst een mail met een bevestigingslink</label>
+					<p class="description">Aanbevolen. Zo kan niemand een account maken op het adres van een ander, en verraadt het formulier niet welke e-mailadressen al een account hebben. Werkt alleen als de site mail kan versturen (test dat eerst, bijvoorbeeld met WP Mail SMTP).</p></td>
 				</tr>
 			</table>
 			<h2>Marketeers</h2>

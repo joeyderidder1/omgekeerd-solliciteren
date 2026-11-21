@@ -129,6 +129,7 @@ add_action(
 		$type = wp_check_filetype( $file );
 		nocache_headers();
 		header( 'Content-Type: ' . ( $type['type'] ? $type['type'] : 'application/octet-stream' ) );
+		header( 'X-Content-Type-Options: nosniff' );
 		header( 'Content-Disposition: attachment; filename="cv-' . deedni_code( $kandidaat_id ) . '.' . $type['ext'] . '"' );
 		header( 'Content-Length: ' . filesize( $file ) );
 		readfile( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions

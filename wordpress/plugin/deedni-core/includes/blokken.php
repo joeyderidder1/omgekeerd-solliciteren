@@ -156,8 +156,13 @@ function deedni_rol_override( $rol = null ) {
 	return $override;
 }
 
+/**
+ * Wordt dit blok getoond als voorbeeld in de editor? Alleen voor beheerders: de REST API rendert blokken
+ * ook voor bezoekers (bijvoorbeeld /wp-json/wp/v2/pages/123), en in de editor-weergave vallen de
+ * toegangscontroles weg.
+ */
 function deedni_in_editor() {
-	return defined( 'REST_REQUEST' ) && REST_REQUEST;
+	return defined( 'REST_REQUEST' ) && REST_REQUEST && is_user_logged_in() && deedni_is_beheerder();
 }
 
 /** Mag de huidige bezoeker een blok met deze instelling 'tonen' zien? */
