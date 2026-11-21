@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       deedni Core
  * Description:       Het platform achter deedni: rollen (kandidaat en werkgever), inloggen, anonieme profielen, zoeken met matchpercentage, aanbiedingen met "Ja, maar..." en alle deedni-blokken voor de pagina's.
- * Version:           3.0.1
+ * Version:           3.1.0
  * Requires at least: 6.6
  * Requires PHP:      8.0
  * Author:            deedni
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DEEDNI_VERSION', '3.0.1' );
+define( 'DEEDNI_VERSION', '3.1.0' );
 define( 'DEEDNI_FILE', __FILE__ );
 define( 'DEEDNI_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DEEDNI_URL', plugin_dir_url( __FILE__ ) );
@@ -26,6 +26,9 @@ require_once DEEDNI_DIR . 'includes/aanbod.php';
 require_once DEEDNI_DIR . 'includes/match.php';
 require_once DEEDNI_DIR . 'includes/access.php';
 require_once DEEDNI_DIR . 'includes/emails.php';
+require_once DEEDNI_DIR . 'includes/mail-sjablonen.php';
+require_once DEEDNI_DIR . 'includes/maillog.php';
+require_once DEEDNI_DIR . 'includes/formulieren.php';
 require_once DEEDNI_DIR . 'includes/idempotentie.php';
 require_once DEEDNI_DIR . 'includes/ui.php';
 require_once DEEDNI_DIR . 'includes/acties.php';

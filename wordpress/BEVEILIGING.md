@@ -55,3 +55,10 @@ Gecheckt op 20 november 2026: de code van plugin deedni Core (2.3.0) en thema de
 7. **DNS nalopen** op subdomeinen die nergens meer heen wijzen.
 8. **Oude cv's** (van voor 2.4) opnieuw laten uploaden of verwijderen bij Media.
 9. **De koppeling waarmee Claude de site bekijkt** heeft beheerdersrechten. Is dat een applicatiewachtwoord, trek het dan in als het niet meer nodig is (Gebruikers > Profiel > Applicatiewachtwoorden).
+
+## Formulieren & mail (plugin 3.1.0)
+
+- **Alleen beheerders** (`manage_options`) zien en wijzigen formulieren, mailteksten en de e-maillog. Elk formulier en elke knop (opslaan, testmail, opnieuw versturen, log legen) heeft een nonce.
+- **Mailteksten** zijn platte tekst: HTML wordt ge-escaped, alleen `**vet**` en witregels werken. Waarden van variabelen (namen, bedrijfsnamen) worden altijd ge-escaped.
+- **E-maillog**: geheime links (bevestigen, wachtwoord, `key=`, `sleutel=`, `token=` enzovoort) worden nooit leesbaar bewaard. Opnieuw versturen van zo'n mail maakt een nieuwe link. De inhoud van mails wordt getoond in een afgeschermd frame (`sandbox`), zodat er geen scripts kunnen draaien. Regels verdwijnen na de bewaartermijn (standaard 30 dagen) en bij het verwijderen van een account.
+- **Formulieren**: kernvelden (account, matching, controle) zijn niet te verbergen of optioneel te maken. Verplichte velden en eigen velden worden ook op de server gecontroleerd en opgeschoond. Eigen velden in een kandidaatprofiel zijn nooit zichtbaar voor werkgevers.
