@@ -5,6 +5,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Updates uit GitHub Releases, zichtbaar onder Dashboard > Updates (zie wordpress/UPDATES.md).
+require_once __DIR__ . '/inc/updater.php';
+Deedni_GitHub_Updater::thema( get_template(), wp_get_theme( get_template() )->get( 'Version' ) );
+
 add_action(
 	'after_setup_theme',
 	function () {

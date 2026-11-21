@@ -20,6 +20,7 @@ deedni is een platform waar bedrijven zelf hun nieuwe medewerkers kiezen. Kandid
   - `plugin/deedni-core/`: de WordPress-plugin (rollen, inloggen, profielen, zoeken, matchpercentage, aanbiedingen, e-mails en alle bewerkbare blokken).
   - `deedni-core.zip` en `deedni-thema.zip`: dezelfde twee onderdelen, klaar om te uploaden in WordPress.
   - `INSTALLATIE.md`: stap voor stap uitleg om het thema en de plugin te installeren.
+  - `UPDATES.md`: nieuwe versies installeren via wp-admin, zonder zips te uploaden.
 
 ## Live voorbeeld
 
