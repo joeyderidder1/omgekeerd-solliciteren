@@ -71,6 +71,8 @@ function deedni_grens( $naam ) {
 			'wachtwoord'    => array( 5, HOUR_IN_SECONDS ),          // "wachtwoord vergeten" per IP
 			'mail'          => array( 3, HOUR_IN_SECONDS ),          // mails over een account per e-mailadres
 			'aanbod'        => array( 25, DAY_IN_SECONDS ),          // nieuwe aanbiedingen per werkgever
+			'publiek'       => array( 40, 10 * MINUTE_IN_SECONDS ),  // openbaar kandidatenoverzicht bekijken per IP
+			'contact'       => array( 5, HOUR_IN_SECONDS ),          // contactformulier per IP
 		)
 	);
 	return isset( $grenzen[ $naam ] ) ? $grenzen[ $naam ] : array( 10, HOUR_IN_SECONDS );

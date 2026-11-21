@@ -32,6 +32,10 @@ add_action(
 		register_setting( 'deedni', 'deedni_wie_keek_mee', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
 		register_setting( 'deedni', 'deedni_reactietermijn', array( 'type' => 'integer', 'default' => 5, 'sanitize_callback' => $int( 1, 60 ) ) );
 		register_setting( 'deedni', 'deedni_actueel_dagen', array( 'type' => 'integer', 'default' => 0, 'sanitize_callback' => $int( 0, 365 ) ) );
+		register_setting( 'deedni', 'deedni_publiek_aan', array( 'type' => 'integer', 'default' => 1, 'sanitize_callback' => $bool ) );
+		register_setting( 'deedni', 'deedni_publiek_k', array( 'type' => 'integer', 'default' => 3, 'sanitize_callback' => $int( 2, 20 ) ) );
+		register_setting( 'deedni', 'deedni_publiek_paginas', array( 'type' => 'integer', 'default' => 3, 'sanitize_callback' => $int( 1, 10 ) ) );
+		register_setting( 'deedni', 'deedni_contact_email', array( 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_email' ) );
 	}
 );
 
@@ -127,6 +131,32 @@ function deedni_settings_page() {
 					<th scope="row"><label for="deedni-actueel">Alleen actuele profielen</label></th>
 					<td><input id="deedni-actueel" type="number" min="0" max="365" name="deedni_actueel_dagen" value="<?php echo (int) get_option( 'deedni_actueel_dagen', 0 ); ?>" class="small-text"> dagen
 					<p class="description">Profielen die langer dan zoveel dagen niet zijn bevestigd, verdwijnen uit de zoekresultaten. 0 = altijd tonen.</p></td>
+				</tr>
+			</table>
+			<h2>Openbaar overzicht voor bezoekers</h2>
+			<p>Bezoekers zonder account zien op <em>Kandidaten zoeken</em> (en waar je het blok <em>Kandidaten voor bezoekers</em> neerzet) anonieme kaarten: vakgebied, functie, provincie of landsdeel, ervaring in een band, hooguit drie vaardigheden en beschikbaarheid. Geen naam, code, salaris, vrije tekst of detailpagina. Alleen kandidaten die dit zelf aanzetten bij <em>Mijn profiel</em> staan erin.</p>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row">Overzicht tonen</th>
+					<td><input type="hidden" name="deedni_publiek_aan" value="0"><label><input type="checkbox" name="deedni_publiek_aan" value="1" <?php checked( get_option( 'deedni_publiek_aan', 1 ) ); ?>> Bezoekers zien anonieme kaarten van kandidaten die daar toestemming voor gaven</label></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="deedni-publiek-k">Minimale groep</label></th>
+					<td><input id="deedni-publiek-k" type="number" min="2" max="20" name="deedni_publiek_k" value="<?php echo (int) get_option( 'deedni_publiek_k', 3 ); ?>" class="small-text"> kandidaten
+					<p class="description">Een kaart verschijnt alleen als minstens zoveel kandidaten in het overzicht precies dezelfde functie (of vakgebied), regio en ervaringsband hebben. Zeldzame combinaties worden eerst globaler getoond (landsdeel, vakgebied) en anders weggelaten. Hoger is veiliger.</p></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="deedni-publiek-paginas">Maximaal</label></th>
+					<td><input id="deedni-publiek-paginas" type="number" min="1" max="10" name="deedni_publiek_paginas" value="<?php echo (int) get_option( 'deedni_publiek_paginas', 3 ); ?>" class="small-text"> pagina's van 12 kaarten
+					<p class="description">Zo kan niemand het hele bestand doorbladeren. De volgorde wisselt elke dag. Wie te vaak kijkt (40 keer in 10 minuten vanaf hetzelfde adres) krijgt een kwartier geen kaarten.</p></td>
+				</tr>
+			</table>
+			<h2>Contact</h2>
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="deedni-contact-email">Berichten naar</label></th>
+					<td><input id="deedni-contact-email" type="email" name="deedni_contact_email" value="<?php echo esc_attr( get_option( 'deedni_contact_email', '' ) ); ?>" class="regular-text" placeholder="<?php echo esc_attr( get_option( 'admin_email' ) ); ?>">
+					<p class="description">Het contactformulier stuurt berichten naar dit adres. Leeg = het e-mailadres van de beheerder (Instellingen > Algemeen).</p></td>
 				</tr>
 			</table>
 			<?php submit_button(); ?>

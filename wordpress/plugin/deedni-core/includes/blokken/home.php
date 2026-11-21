@@ -794,6 +794,7 @@ deedni_blok(
 					array( 'vraag' => 'Waarom kan ik niet filteren op leeftijd of geslacht?', 'antwoord' => 'We vragen er niet naar. Je kiest op ervaring, vaardigheden en vakmanschap.' ),
 				),
 			),
+			'schema' => array( 'type' => 'toggle', 'label' => 'Vragen ook als FAQ-gegevens voor Google', 'standaard' => false, 'help' => 'Zet dit aan op één pagina per site-onderwerp (bijvoorbeeld een landingspagina), niet op elke pagina met dezelfde vragen.' ),
 		),
 		'render'       => function ( $a ) {
 			$id = deedni_uid( 'h-faq' );
@@ -804,7 +805,19 @@ deedni_blok(
 				$v  = wp_parse_args( $v, array( 'vraag' => '', 'antwoord' => '' ) );
 				$h .= '<details><summary>' . esc_html( $v['vraag'] ) . '</summary>' . deedni_alineas( $v['antwoord'] ) . '</details>';
 			}
-			return $h . '</div></div></section>';
+			$h .= '</div>';
+			if ( ! empty( $a['schema'] ) ) {
+				$vragen = array();
+				foreach ( $a['items'] as $v ) {
+					if ( ! empty( $v['vraag'] ) && ! empty( $v['antwoord'] ) ) {
+						$vragen[] = array( '@type' => 'Question', 'name' => $v['vraag'], 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $v['antwoord'] ) );
+					}
+				}
+				if ( $vragen ) {
+					$h .= '<script type="application/ld+json">' . wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $vragen ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG ) . '</script>';
+				}
+			}
+			return $h . '</div></section>';
 		},
 	)
 );

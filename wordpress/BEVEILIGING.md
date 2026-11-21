@@ -55,3 +55,19 @@ Gecheckt op 20 november 2026: de code van plugin deedni Core (2.3.0) en thema de
 7. **DNS nalopen** op subdomeinen die nergens meer heen wijzen.
 8. **Oude cv's** (van voor 2.4) opnieuw laten uploaden of verwijderen bij Media.
 9. **De koppeling waarmee Claude de site bekijkt** heeft beheerdersrechten. Is dat een applicatiewachtwoord, trek het dan in als het niet meer nodig is (Gebruikers > Profiel > Applicatiewachtwoorden).
+
+## Openbaar kandidatenoverzicht (plugin 3.1)
+
+Sinds 3.1 zien bezoekers zonder account anonieme kaarten van kandidaten. Omdat er eerder twee lekken waren waarbij profielen zonder account te zien waren, is dit zo gebouwd en getest:
+
+| Risico | Maatregel | Getest |
+|---|---|---|
+| Profielen zonder toestemming publiek | Alleen kandidaten met het vinkje *Openbaar overzicht* (standaard uit). Uitzetten haalt de kaart direct weg (de cache wordt geleegd bij elke wijziging aan een profiel). | Ja, aan en uit via het formulier |
+| Herleidbare gegevens | Alleen waarden uit vaste lijsten: vakgebied, functie, provincie of landsdeel, ervaringsband, veelvoorkomende vaardigheden, beschikbaarheid. Geen naam, initialen, code, ID, werkgever, salaris, woonplaats of vrije tekst. | Ja, op namen, codes, telefoon, e-mail, woonplaats, werkgever en samenvatting gezocht in de HTML |
+| Iemand uniek maken met een zeldzame combinatie | Elke kaart die je ziet, komt minstens k keer (standaard 3) precies zo voor. Anders globaler (landsdeel, vakgebied) of weg. Ook terugrekenen door preciezere kaarten af te trekken is afgedekt. | Ja, een unieke boomverzorger in Zeeland en een unieke fotograaf verschijnen niet |
+| Detailpagina of te volgen ID | Geen link, URL, code of ID per kandidaat in de HTML. Een kaart is een knop die een aanmeldvenster opent. Kandidaatpagina's blijven alleen voor ingelogde werkgevers. | Ja |
+| Leeghalen via de REST API (zoals het lek in 2.3) | Het overzicht rendert niet in REST, feeds, embeds of AJAX. `/wp-json/wp/v2/pages/<id>` van *Kandidaten zoeken* toont geen kaarten. Er is geen eigen API. | Ja, alle pagina's via REST, feeds, embed, zoeken en sitemap |
+| Scrapen | 12 per pagina, maximaal 3 pagina's, volgorde wisselt per dag (niet op aanmelddatum). Meer dan 40 keer in 10 minuten vanaf hetzelfde adres: een kwartier geen kaarten. De pagina staat op `noindex`. | Ja, de 41e keer krijgt geen kaarten |
+| Huidige werkgever ziet de kaart | Een ingelogde werkgever op de blokkeerlijst ziet de kaart niet, maar uitgelogd kan iedereen hem zien. Dat staat bij het vinkje uitgelegd. | – |
+
+Let op: achter Cloudflare of een andere proxy delen alle bezoekers één IP-teller. Zet dan het echte IP-adres via het filter `deedni_ip` (zie boven).

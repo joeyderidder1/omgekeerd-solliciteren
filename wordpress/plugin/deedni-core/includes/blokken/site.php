@@ -101,32 +101,131 @@ deedni_blok(
 	'voet',
 	array(
 		'titel'        => 'Voet',
-		'beschrijving' => 'Onderkant van elke pagina: logo, een korte tekst en links (Weergave > Menu\'s > Links onderaan).',
+		'beschrijving' => 'Onderkant van elke pagina: een donker blok met een oproep en knop, het logo met een korte tekst, kolommen met links en een regel met het jaartal.',
 		'icoon'        => 'editor-insertmore',
 		'multiple'     => false,
+		'uitleg'       => 'De kolommen pas je aan onder Weergave > Menu\'s > "Links onderaan (footer)". Een link met links eronder (sleep ze een stap naar rechts) wordt een kolom met een kop. Losse links zonder links eronder komen in de onderste regel, naast het jaartal. Is het menu leeg, dan staan er standaardkolommen.',
 		'velden'       => array(
-			'logo_tekst' => array( 'type' => 'text', 'label' => 'Logo als tekst', 'standaard' => '', 'help' => 'Leeg laten = de naam van de site.' ),
-			'logo'       => array( 'type' => 'image', 'label' => 'Logo als afbeelding (optioneel)', 'standaard' => array() ),
-			'tekst'      => array( 'type' => 'text', 'label' => 'Tekst', 'standaard' => '© {jaar} deedni. Bedrijven kiezen zelf hun nieuwe collega.', 'help' => '{jaar} wordt het huidige jaar.' ),
+			'cta_wie'    => array(
+				'type'      => 'keuze',
+				'label'     => 'Wie ziet het donkere blok?',
+				'opties'    => array(
+					'bezoeker' => 'Alleen bezoekers (niet ingelogd)',
+					'iedereen' => 'Iedereen',
+					'niemand'  => 'Niemand (blok uit)',
+				),
+				'standaard' => 'bezoeker',
+				'groep'     => 'Oproep',
+			),
+			'cta_kop'    => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Laat je vinden door bedrijven die bij je passen.', 'groep' => 'Oproep' ),
+			'cta_tekst'  => array( 'type' => 'text', 'label' => 'Tekst', 'standaard' => 'Gratis voor werkzoekenden. Bedrijven zoeken anoniem en betalen pas bij een aanname.', 'groep' => 'Oproep' ),
+			'cta_knop'   => array( 'type' => 'text', 'label' => 'Knop', 'standaard' => 'Maak gratis je profiel', 'groep' => 'Oproep' ),
+			'cta_link'   => array( 'type' => 'link', 'label' => 'Link van de knop', 'standaard' => 'pagina:registreren', 'groep' => 'Oproep' ),
+			'cta2_tekst' => array( 'type' => 'text', 'label' => 'Tweede link', 'standaard' => 'Ik zoek personeel', 'groep' => 'Oproep' ),
+			'cta2_link'  => array( 'type' => 'link', 'label' => 'Waar de tweede link heen gaat', 'standaard' => 'pagina:zoeken', 'groep' => 'Oproep' ),
+			'logo_tekst' => array( 'type' => 'text', 'label' => 'Logo als tekst', 'standaard' => '', 'help' => 'Leeg laten = de naam van de site.', 'groep' => 'Logo en tekst' ),
+			'logo'       => array( 'type' => 'image', 'label' => 'Logo als afbeelding (optioneel)', 'standaard' => array(), 'groep' => 'Logo en tekst' ),
+			'slogan'     => array( 'type' => 'text', 'label' => 'Korte tekst onder het logo', 'standaard' => 'Bedrijven kiezen zelf hun nieuwe collega.', 'groep' => 'Logo en tekst' ),
+			'tekst'      => array( 'type' => 'text', 'label' => 'Onderste regel', 'standaard' => '© {jaar} deedni.', 'help' => '{jaar} wordt het huidige jaar.', 'groep' => 'Logo en tekst' ),
 		),
 		'render'       => 'deedni_render_voet',
 	)
 );
 
-function deedni_render_voet( $a ) {
-	$h  = '<footer class="site-footer"><div class="wrap footer-row">';
-	$h .= deedni_site_logo( $a );
-	$h .= '<span>' . esc_html( str_replace( '{jaar}', gmdate( 'Y' ), $a['tekst'] ) ) . '</span>';
-	$links = deedni_menu_items( 'deedni-voet' );
-	if ( ! $links && get_privacy_policy_url() ) {
-		$links = array( array( 'tekst' => 'Privacyverklaring', 'url' => get_privacy_policy_url(), 'huidig' => false ) );
-	}
-	if ( $links ) {
-		$h .= '<nav class="rolwissel" aria-label="Links onderaan">';
-		foreach ( $links as $l ) {
-			$h .= '<a href="' . esc_url( $l['url'] ) . '"' . ( $l['huidig'] ? ' aria-current="true"' : '' ) . '>' . esc_html( $l['tekst'] ) . '</a>';
+/** Standaardkolommen als het footermenu geen kolommen heeft. Alleen pagina's die bestaan. */
+function deedni_voet_standaard_kolommen() {
+	$pagina = function ( $key, $tekst ) {
+		$id = deedni_page_id( $key );
+		return $id && 'publish' === get_post_status( $id ) ? array( 'tekst' => $tekst, 'url' => get_permalink( $id ), 'huidig' => is_page( $id ) ) : null;
+	};
+	$slug = function ( $slugs, $tekst ) {
+		foreach ( (array) $slugs as $s ) {
+			$p = get_page_by_path( $s );
+			if ( $p && 'publish' === $p->post_status ) {
+				return array( 'tekst' => $tekst, 'url' => get_permalink( $p ), 'huidig' => is_page( $p->ID ) );
+			}
 		}
-		$h .= '</nav>';
+		return null;
+	};
+	$home     = home_url( '/' );
+	$platform = array(
+		array( 'tekst' => 'Zo werkt het', 'url' => $home . '#zo-werkt-het', 'huidig' => false ),
+		array( 'tekst' => 'Prijzen', 'url' => $home . '#prijzen', 'huidig' => false ),
+		$pagina( 'zoeken', 'Kandidaten zoeken' ),
+	);
+	if ( ! is_user_logged_in() ) {
+		$platform[] = $pagina( 'inloggen', 'Inloggen' );
 	}
-	return $h . '</div></footer>';
+	$privacy = get_privacy_policy_url();
+	return array(
+		array( 'tekst' => 'Platform', 'kinderen' => array_values( array_filter( $platform ) ) ),
+		array( 'tekst' => 'Over deedni', 'kinderen' => array_values( array_filter( array( $pagina( 'over-ons', 'Over ons' ), $pagina( 'blog', 'Blog' ), $pagina( 'nieuws', 'Nieuws' ), $pagina( 'contact', 'Contact' ) ) ) ) ),
+		array( 'tekst' => 'Juridisch', 'kinderen' => array_values( array_filter( array(
+			$privacy ? array( 'tekst' => 'Privacy', 'url' => $privacy, 'huidig' => false ) : null,
+			$slug( array( 'algemene-voorwaarden', 'voorwaarden' ), 'Algemene voorwaarden' ),
+			$slug( array( 'cookies', 'cookiebeleid', 'cookieverklaring' ), 'Cookies' ),
+		) ) ) ),
+	);
+}
+
+function deedni_render_voet( $a ) {
+	$a = wp_parse_args( $a, array( 'cta_wie' => 'bezoeker', 'cta_kop' => '', 'cta_tekst' => '', 'cta_knop' => '', 'cta_link' => '', 'cta2_tekst' => '', 'cta2_link' => '', 'slogan' => '', 'tekst' => '' ) );
+	$h = '<footer class="site-footer site-footer--v2"><div class="wrap footer-stapel">';
+
+	$cta = 'iedereen' === $a['cta_wie'] || ( 'bezoeker' === $a['cta_wie'] && 'bezoeker' === deedni_rol() );
+	if ( $cta && '' !== trim( (string) $a['cta_kop'] ) ) {
+		$h .= '<div class="footer-cta"><span class="footer-gloed" aria-hidden="true"></span><div class="footer-cta-tekst"><p class="footer-cta-kop">' . esc_html( $a['cta_kop'] ) . '</p>';
+		if ( $a['cta_tekst'] ) {
+			$h .= '<p class="footer-cta-lead">' . esc_html( $a['cta_tekst'] ) . '</p>';
+		}
+		$h .= '</div><div class="footer-cta-knoppen">';
+		if ( $a['cta_knop'] ) {
+			$h .= '<a class="footer-pil" href="' . esc_url( deedni_link( $a['cta_link'] ) ) . '">' . esc_html( $a['cta_knop'] ) . '<span class="footer-pil-ico" aria-hidden="true">' . deedni_icon( 'arrow', 18 ) . '</span></a>';
+		}
+		if ( $a['cta2_tekst'] ) {
+			$h .= '<a class="footer-link2" href="' . esc_url( deedni_link( $a['cta2_link'] ) ) . '">' . esc_html( $a['cta2_tekst'] ) . '</a>';
+		}
+		$h .= '</div></div>';
+	}
+
+	// Kolommen: menu-items met kinderen. Losse items gaan naar de onderste regel.
+	$menu     = deedni_menu_items( 'deedni-voet' );
+	$kolommen = array_values( array_filter( $menu, function ( $l ) {
+		return ! empty( $l['kinderen'] );
+	} ) );
+	$los      = array_values( array_filter( $menu, function ( $l ) {
+		return empty( $l['kinderen'] );
+	} ) );
+	if ( ! $kolommen ) {
+		$kolommen = deedni_voet_standaard_kolommen();
+		// Staat de privacyverklaring al in een kolom, dan niet nog eens onderaan.
+		$los = array_values( array_filter( $los, function ( $l ) {
+			return untrailingslashit( $l['url'] ) !== untrailingslashit( (string) get_privacy_policy_url() );
+		} ) );
+	}
+	$h .= '<div class="footer-midden"><div class="footer-merk">' . deedni_site_logo( $a );
+	if ( $a['slogan'] ) {
+		$h .= '<p>' . esc_html( $a['slogan'] ) . '</p>';
+	}
+	$h .= '</div><div class="footer-kolommen">';
+	foreach ( $kolommen as $i => $kol ) {
+		if ( empty( $kol['kinderen'] ) ) {
+			continue;
+		}
+		$kid = 'voet-kol-' . $i;
+		$h  .= '<nav class="footer-kol" aria-labelledby="' . $kid . '"><p class="footer-kol-kop" id="' . $kid . '">' . esc_html( $kol['tekst'] ) . '</p><ul>';
+		foreach ( $kol['kinderen'] as $l ) {
+			$h .= '<li><a href="' . esc_url( $l['url'] ) . '"' . ( ! empty( $l['huidig'] ) ? ' aria-current="page"' : '' ) . '>' . esc_html( $l['tekst'] ) . '</a></li>';
+		}
+		$h .= '</ul></nav>';
+	}
+	$h .= '</div></div><div class="footer-onder"><span>' . esc_html( str_replace( '{jaar}', gmdate( 'Y' ), $a['tekst'] ) ) . '</span>';
+	if ( $los ) {
+		$h .= '<nav aria-label="Links onderaan"><ul>';
+		foreach ( $los as $l ) {
+			$h .= '<li><a href="' . esc_url( $l['url'] ) . '"' . ( $l['huidig'] ? ' aria-current="page"' : '' ) . '>' . esc_html( $l['tekst'] ) . '</a></li>';
+		}
+		$h .= '</ul></nav>';
+	}
+	return $h . '</div></div></footer>';
 }

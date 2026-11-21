@@ -172,6 +172,30 @@ De rest blijft gelijk: vaardigheden 25, salaris 20, regio 15 en werkplek 10.
 
 **Voor ontwikkelaars.** De standaardlijsten pas je aan met de filters `deedni_standaard_vakgebieden` en `deedni_standaard_vaardigheden`. Ze worden alleen gebruikt om ontbrekende termen aan te maken.
 
+## Nieuwe pagina's, footer en openbaar kandidatenoverzicht (versie 3.1)
+
+Na de update (plugin 3.1.0, thema 2.5.0) gebeurt dit vanzelf:
+
+- **Nieuwe pagina's**: *Contact*, *Over ons*, *Blog* en *Nieuws*, gevuld met de blokken uit het ontwerp. Bestaat er al een pagina met dezelfde naam in de URL (bijvoorbeeld `/contact/`), dan blijft die staan en wordt er niets overschreven.
+- **SEO-landingspagina** *Vacatures waarbij het salaris al vaststaat* (`/vacatures/`) als **concept**. Pas de teksten aan op jouw vak of zoekterm en publiceer hem. Wil je er meer, dupliceer de pagina (bijvoorbeeld *Hovenier vacatures*, *Accountant vacatures*). De blokken: *Landingspagina: kop* (kruimelpad, H1, meta-omschrijving voor Google onder *Zoekmachines*), *Punten* (genummerd en stappen), *Lange tekst met inhoudsopgave*, *Veelgestelde vragen* met het vinkje *FAQ-gegevens voor Google* en *Meer lezen*.
+- **Categorie Nieuws**: berichten in die categorie staan op *Nieuws*, alle andere op *Blog*. Je schrijft ze bij **Berichten > Nieuw**. Een uitgelichte afbeelding wordt de foto op de kaart en boven het artikel.
+- **Blogartikel**: het sjabloon *Enkel bericht* van het thema toont nu het ontwerp (terug-link, categorie, leestijd, foto, tekst, oproep en *Meer lezen*). De teksten van de oproep pas je aan via **Weergave > Editor > Sjablonen > Enkel bericht**.
+- **Bezoekersmenu**: *Nieuws*, *Blog*, *Over ons* en *Contact* worden één keer toegevoegd, vóór *Inloggen*. Te veel in de balk? Haal er iets uit bij **Weergave > Menu's**.
+- **Nieuwe footer**: een donker blok met oproep en knop (alleen voor bezoekers), logo, kolommen *Platform*, *Over deedni* en *Juridisch*, en een regel met het jaartal. De kolommen maak je zelf in **Weergave > Menu's > Links onderaan (footer)**: een link met links eronder wordt een kolom met kop. Is dat menu leeg, dan staan er standaardkolommen. *Juridisch* toont alleen pagina's die bestaan (privacyverklaring, `/algemene-voorwaarden/`, `/cookies/`).
+- **Contactformulier**: stuurt een mail naar het adres bij **Instellingen > deedni > Contact** (leeg = het beheerdersadres). Er wordt niets in de database bewaard. Maximaal 5 berichten per uur per adres, met een onzichtbaar veld tegen spam.
+
+### Openbaar kandidatenoverzicht
+
+Bezoekers zonder account zien op *Kandidaten zoeken* een greep uit de kandidaten als anonieme kaarten. Je kunt het overzicht ook op andere pagina's zetten met het blok *Kandidaten voor bezoekers*.
+
+- **Alleen met toestemming**: een kandidaat staat er pas in als die bij *Mijn profiel > Wat zoek je > Openbaar overzicht* het vinkje aanzet. Standaard staat het uit. Daar ziet de kandidaat ook hoe de eigen kaart eruitziet.
+- **Op een kaart**: vakgebied, functie (uit de vaste lijst), provincie of landsdeel, ervaring in een band (tot 2, 2 tot 5, 5 tot 10, meer dan 10 jaar), hooguit drie vaardigheden die veel kandidaten hebben, en beschikbaarheid. Nooit naam, initialen, profielcode, werkgever, salaris of eigen tekst.
+- **Geen detailpagina**: een klik op een kaart opent een venster met *Account maken als werkgever* en *Inloggen*.
+- **Zeldzame combinaties**: een kaart verschijnt alleen als minstens 3 kandidaten precies dezelfde kaart zouden krijgen. Anders tonen we hem globaler (landsdeel in plaats van provincie, vakgebied in plaats van functie) of niet.
+- **Instellingen > deedni > Openbaar overzicht**: aan of uit, de minimale groep (standaard 3) en het aantal pagina's (standaard 3 pagina's van 12).
+
+Zolang er weinig kandidaten zijn, staan er dus maar een paar kaarten (of geen). Dat is de bedoeling.
+
 ## Instellingen > deedni
 
 - **Pagina's**: welke pagina het inloggen, het overzicht, het profiel, het zoeken en de vooraanmelding toont.

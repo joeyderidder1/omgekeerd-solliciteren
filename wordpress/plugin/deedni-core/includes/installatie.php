@@ -27,10 +27,10 @@ function deedni_create_pages() {
 		$id = wp_insert_post(
 			array(
 				'post_type'    => 'page',
-				'post_status'  => 'publish',
+				'post_status'  => isset( $p[3] ) ? $p[3] : 'publish',
 				'post_title'   => $p[0],
 				'post_name'    => $p[1],
-				'post_content' => deedni_blok_inhoud( $p[2] ),
+				'post_content' => 'inhoud' === $p[2] ? deedni_pagina_inhoud( $key ) : deedni_blok_inhoud( $p[2] ),
 			)
 		);
 		if ( $id && ! is_wp_error( $id ) ) {
