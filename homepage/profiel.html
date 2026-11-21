@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap">
 <style>
 /* Idee: de zwarte balk van een geredigeerd document. Hij staat voor "hier ben je nog anoniem"
-   en verdwijnt pas als de marketeer ja zegt. Geel gebruiken we alleen voor salaris. */
+   en verdwijnt pas als de kandidaat ja zegt. Geel gebruiken we alleen voor salaris. */
 :root {
   --bg: #F5F7FC;
   --bg-alt: #EBEFFA;
@@ -380,7 +380,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   <div class="wrap pg-head">
     <p class="crumb"><a href="kandidaat-overzicht.html">Terug naar je overzicht</a></p>
     <h1 id="pg-titel">Maak je profiel</h1>
-    <p class="lead">Bedrijven zien je ervaring, tools en resultaten. Je naam, werkgevers en projectnamen blijven verborgen tot jij ja zegt op een aanbod.</p>
+    <p class="lead">Bedrijven zien je ervaring, vaardigheden en wat je hebt gedaan. Je naam, werkgevers en projectnamen blijven verborgen tot jij ja zegt op een aanbod.</p>
   </div>
 
   <section class="wrap band" id="start" style="padding-block: 24px 48px" aria-labelledby="start-titel">
@@ -413,7 +413,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
           <div class="field"><label for="f-first">Voornaam <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="f-first" autocomplete="given-name" aria-describedby="e-first"><p class="error" id="e-first" hidden></p></div>
           <div class="field"><label for="f-last">Achternaam <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="f-last" autocomplete="family-name" aria-describedby="e-last"><p class="error" id="e-last" hidden></p></div>
         </div>
-        <div class="field"><label for="f-title">Functietitel <span class="vis">Iedereen</span></label><input type="text" id="f-title" aria-describedby="h-title e-title" placeholder="Bijvoorbeeld Senior performance marketeer"><span class="hint" id="h-title">Hoe je jezelf noemt. Dit is de kop van je profiel.</span><p class="error" id="e-title" hidden></p></div>
+        <div class="field"><label for="f-title">Functietitel <span class="vis">Iedereen</span></label><input type="text" id="f-title" aria-describedby="h-title e-title" placeholder="Bijvoorbeeld Hovenier, Webdesigner of Accountant"><span class="hint" id="h-title">Hoe je jezelf noemt. Dit is de kop van je profiel.</span><p class="error" id="e-title" hidden></p></div>
         <div class="row2">
           <div class="field"><label for="f-email">E-mailadres <span class="vis vis--yes">Na jouw ja</span></label><input type="email" id="f-email" autocomplete="email" aria-describedby="e-email" inputmode="email"><p class="error" id="e-email" hidden></p></div>
           <div class="field"><label for="f-phone">Telefoon <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="tel" id="f-phone" autocomplete="tel"></div>
@@ -457,38 +457,39 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
 
       <!-- Stap 3 -->
       <section class="panel" id="p3" data-step="3" hidden aria-labelledby="h1-3">
-        <h2 id="h1-3" tabindex="-1">Projecten en cases</h2>
-        <p class="lead">Dit is wat je opvalt. Beschrijf per project wat je deed en wat het opleverde, in cijfers. Projectnamen en klanten blijven verborgen.</p>
+        <h2 id="h1-3" tabindex="-1">Laat zien wat je hebt gedaan</h2>
+        <p class="lead">Een tuin die je aanlegde, een website die je bouwde, een jaarafsluiting die je deed. Beschrijf kort wat je deed. Heeft het iets meetbaars opgeleverd, dan kun je dat erbij zetten, maar het hoeft niet. Projectnamen en klanten blijven verborgen.</p>
         <div id="proj-list"></div>
         <div class="undo" id="proj-undo" role="status"></div>
         <div><button class="btn btn--ghost" type="button" id="proj-add">Project toevoegen</button></div>
         <form class="editor" id="proj-form" novalidate hidden aria-labelledby="proj-ft">
           <h3 id="proj-ft">Project toevoegen</h3>
           <div class="form-stack">
-            <div class="field"><label for="y-title">Korte titel <span class="vis">Iedereen</span></label><input type="text" id="y-title" aria-describedby="h-ytitle e-ytitle"><span class="hint" id="h-ytitle">Zonder klantnaam, bijvoorbeeld “Webshop-groei met Google Ads”.</span><p class="error" id="e-ytitle" hidden></p></div>
+            <div class="field"><label for="y-title">Korte titel <span class="vis">Iedereen</span></label><input type="text" id="y-title" aria-describedby="h-ytitle e-ytitle"><span class="hint" id="h-ytitle">Zonder klantnaam, bijvoorbeeld “Stadstuin opnieuw aangelegd” of “Jaarafsluiting voor 40 mkb-klanten”.</span><p class="error" id="e-ytitle" hidden></p></div>
             <div class="field"><label for="y-client">Klant of projectnaam <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="text" id="y-client"></div>
             <div class="row2">
               <div class="field"><label for="y-exp">Bij welke werkervaring</label><select id="y-exp"></select></div>
-              <div class="field"><label for="y-role">Jouw rol</label><input type="text" id="y-role" aria-describedby="e-yrole" placeholder="Bijvoorbeeld Campagneleider"><p class="error" id="e-yrole" hidden></p></div>
+              <div class="field"><label for="y-role">Jouw rol</label><input type="text" id="y-role" aria-describedby="e-yrole" placeholder="Bijvoorbeeld Uitvoerder of Ontwerper"><p class="error" id="e-yrole" hidden></p></div>
             </div>
             <div class="row2">
               <div class="field"><label for="y-from">Gestart <span class="opt">(niet verplicht)</span></label><input type="month" id="y-from" placeholder="jjjj-mm"></div>
               <div class="field"><label for="y-to">Afgerond <span class="opt">(niet verplicht)</span></label><input type="month" id="y-to" placeholder="jjjj-mm"></div>
             </div>
-            <div class="field"><label for="y-what">Uitdaging en aanpak <span class="opt">(niet verplicht)</span> <span class="vis">Iedereen</span></label><textarea id="y-what" maxlength="300" aria-describedby="c-ywhat"></textarea><span class="counter" id="c-ywhat">0 van 300 tekens</span></div>
+            <div class="field"><label for="y-what">Wat heb je gedaan? <span class="opt">(niet verplicht)</span> <span class="vis">Iedereen</span></label><textarea id="y-what" maxlength="300" aria-describedby="c-ywhat"></textarea><span class="counter" id="c-ywhat">0 van 300 tekens</span></div>
             <fieldset class="field" style="border:0;padding:0;margin:0">
-              <legend style="padding:0;font-weight:650;margin-bottom:8px">Resultaten <span class="vis">Iedereen</span></legend>
+              <legend style="padding:0;font-weight:650;margin-bottom:8px">Resultaat <span class="opt">(niet verplicht)</span> <span class="vis">Iedereen</span></legend>
+              <p class="hint" style="margin:0 0 8px">Heeft dit project iets meetbaars opgeleverd? Zet het hier. Geen cijfers? Laat dit leeg.</p>
               <div class="res-list" id="res-list"></div>
               <p class="error" id="e-yres" role="alert" hidden></p>
               <div style="margin-top:10px"><button class="btn btn--ghost btn--small" type="button" id="res-add">Resultaat toevoegen</button> <span class="hint" id="res-hint"></span></div>
             </fieldset>
-            <div class="field"><label for="y-tool">Tools</label>
+            <div class="field"><label for="y-tool">Vaardigheden of tools <span class="opt">(niet verplicht)</span></label>
               <div class="tagbox" id="y-tags" aria-live="polite"></div>
               <div class="tag-add"><input type="text" id="y-tool" aria-describedby="h-ytool"><button class="btn btn--ghost btn--small" type="button" id="tool-add">Toevoegen</button></div>
-              <span class="hint" id="h-ytool">Typ een tool en druk op Enter.</span>
+              <span class="hint" id="h-ytool">Typ een vaardigheid of tool en druk op Enter.</span>
               <div class="suggest" id="tool-suggest"></div>
             </div>
-            <div class="field"><label for="y-link">Link naar bewijs <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="url" id="y-link" placeholder="https://" aria-describedby="h-ylink"><span class="hint" id="h-ylink">Bijvoorbeeld een rapport, case of portfolio. Bedrijven zien de link pas na jouw ja.</span></div>
+            <div class="field"><label for="y-link">Link naar het werk <span class="opt">(niet verplicht)</span> <span class="vis vis--yes">Na jouw ja</span></label><input type="url" id="y-link" placeholder="https://" aria-describedby="h-ylink"><span class="hint" id="h-ylink">Bijvoorbeeld foto's, een portfolio of een website. Bedrijven zien de link pas na jouw ja.</span></div>
             <div class="form-actions"><button class="btn btn--primary" type="submit">Project opslaan</button><button class="link-btn" type="button" id="proj-cancel">Annuleren</button></div>
           </div>
         </form>
@@ -534,7 +535,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
           </div>
           <ul class="cl" id="checklist"></ul>
           <fieldset class="field" style="border:0;padding:0;margin:0">
-            <legend style="padding:0;font-weight:650;margin-bottom:6px">Je beste resultaten</legend>
+            <legend style="padding:0;font-weight:650;margin-bottom:6px">Je beste resultaten <span class="opt">(niet verplicht)</span></legend>
             <p class="hint" id="h-picks">Kies er maximaal drie. Bedrijven zien deze bovenaan je profiel.</p>
             <div class="picks" id="picks"></div>
           </fieldset>
@@ -583,9 +584,9 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var MONTHS = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
-  var ROLES = ['SEA', 'SEO', 'Contentmarketing', 'Social media', 'E-mailmarketing', 'Marketing-automation', 'Data en analytics', 'CRO', 'Marketingmanager'];
+  var ROLES = ['Hovenier', 'Webdesigner', 'Front-end developer', 'Accountant', 'Boekhouder', 'Elektricien', 'Verpleegkundige', 'SEA-specialist', 'Marketingmanager'];
   var PROVS = ['Utrecht', 'Noord-Holland', 'Zuid-Holland', 'Gelderland', 'Noord-Brabant', 'Overijssel', 'Flevoland', 'Overig'];
-  var TOOLS = ['Google Ads', 'Meta Ads', 'GA4', 'Semrush', 'HubSpot', 'Looker Studio'];
+  var TOOLS = ['Rijbewijs B', 'Figma', 'WordPress', 'Exact Online', 'VCA', 'Excel'];
   var uid = 0;
   var S = { exp: [], proj: [], picks: [], blocks: [], published: false };
   var step = 1, pvMode = 'bedrijf', editExp = null, editProj = null, formTools = [], formRes = [];
@@ -602,6 +603,11 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   function monthIdx(v) { var m = /^(\d{4})-(\d{2})$/.exec(v); return Number(m[1]) * 12 + Number(m[2]); }
   function monthsOf(x) { if (!validMonth(x.from)) return 0; var end = x.now ? nowMonth() : x.to; if (!validMonth(end)) return 0; return Math.max(0, monthIdx(end) - monthIdx(x.from)); }
   function spanText(m) { var y = Math.floor(m / 12), r = m % 12; var a = []; if (y) a.push(y + ' jaar'); if (r) a.push(r + (r === 1 ? ' maand' : ' maanden')); return a.join(' ') || 'korter dan een maand'; }
+  // Resultaat als tekst. Van en naar mogen leeg zijn: "Klant gaf een 9" is ook een resultaat.
+  function resTekst(r) {
+    var f = String(r.from).trim(), t = String(r.to).trim();
+    return esc(r.what) + (f && t ? ' ' + esc(f) + ' naar ' + esc(t) : (t ? ': ' + esc(t) : ''));
+  }
   function delta(r) {
     var a = parseFloat(String(r.from).replace(',', '.')), b = parseFloat(String(r.to).replace(',', '.'));
     if (!isFinite(a) || !isFinite(b) || a === 0) return null;
@@ -649,7 +655,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     var e = {};
     if (!val('f-first')) e.first = 'Vul je voornaam in.';
     if (!val('f-last')) e.last = 'Vul je achternaam in.';
-    if (!val('f-title')) e.title = 'Vul je functietitel in, bijvoorbeeld Senior performance marketeer.';
+    if (!val('f-title')) e.title = 'Vul je functietitel in, bijvoorbeeld Hovenier of Webdesigner.';
     var em = val('f-email');
     if (!em) e.email = 'Vul je e-mailadres in, bijvoorbeeld naam@voorbeeld.nl.';
     else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) e.email = 'Dit e-mailadres klopt niet. Controleer of er een @ en een extensie in staan.';
@@ -739,7 +745,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     ev.preventDefault();
     var bad = [];
     function chk(input, err, msg) { if (setErr($('' + input), $(err), msg)) bad.push($(input)); }
-    chk('x-role', 'e-xrole', val('x-role') ? '' : 'Vul je functie in, bijvoorbeeld SEA-specialist.');
+    chk('x-role', 'e-xrole', val('x-role') ? '' : 'Vul je functie in, bijvoorbeeld Boekhouder.');
     chk('x-org', 'e-xorg', val('x-org') ? '' : 'Vul de werkgever in. Bedrijven zien de naam niet, tenzij je die toont.');
     chk('x-from', 'e-xfrom', validMonth($('x-from').value) ? '' : 'Vul de startmaand in als jjjj-mm, bijvoorbeeld 2022-03.');
     var now = $('x-now').checked;
@@ -794,12 +800,12 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   }
   function renderProj() {
     var box = $('proj-list');
-    if (!S.proj.length) { box.innerHTML = '<p class="empty">Nog geen projecten. Een project met een cijfer erin valt het meest op, bijvoorbeeld “kosten per lead 40% lager”.</p>'; update(); return; }
+    if (!S.proj.length) { box.innerHTML = '<p class="empty">Nog geen projecten. Een korte beschrijving van iets dat je hebt gemaakt of gedaan valt al op. Een resultaat erbij mag, maar hoeft niet.</p>'; update(); return; }
     box.innerHTML = '<ul class="items">' + S.proj.map(function (p, i) {
       var ex = S.exp.filter(function (x) { return x.id === p.expId; })[0];
       return '<li class="item"><div class="item-body"><h3>' + esc(p.title) + '</h3>' +
         '<p>' + esc(p.role) + ', ' + (ex ? esc(ex.kind) : 'eigen project') + '</p>' +
-        '<p>' + p.res.map(function (r) { var d = delta(r); return esc(r.what) + ' ' + esc(r.from) + ' naar ' + esc(r.to) + (d ? ' <span class="delta">' + d + '</span>' : ''); }).join('<br>') + '</p>' +
+        (p.res.length ? '<p>' + p.res.map(function (r) { var d = delta(r); return resTekst(r) + (d ? ' <span class="delta">' + d + '</span>' : ''); }).join('<br>') + '</p>' : '') +
         (p.tools.length ? '<ul class="tags">' + p.tools.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') + '</div>' +
         '<div class="item-actions">' +
         '<button class="icon-btn" type="button" data-p-up="' + p.id + '" aria-label="Verplaats omhoog: ' + esc(p.title) + '"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
@@ -813,7 +819,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     $('res-list').innerHTML = formRes.map(function (r, i) {
       var d = delta(r);
       return '<div class="res" data-i="' + i + '">' +
-        '<div class="field f-what"><label for="r-what-' + i + '">Wat is verbeterd</label><input type="text" id="r-what-' + i + '" data-k="what" value="' + esc(r.what) + '" placeholder="Bijvoorbeeld kosten per lead"></div>' +
+        '<div class="field f-what"><label for="r-what-' + i + '">Wat is verbeterd</label><input type="text" id="r-what-' + i + '" data-k="what" value="' + esc(r.what) + '" placeholder="Bijvoorbeeld klanttevredenheid"></div>' +
         '<div class="field"><label for="r-from-' + i + '">Van</label><input type="text" inputmode="decimal" id="r-from-' + i + '" data-k="from" value="' + esc(r.from) + '"></div>' +
         '<div class="field"><label for="r-to-' + i + '">Naar</label><input type="text" inputmode="decimal" id="r-to-' + i + '" data-k="to" value="' + esc(r.to) + '"></div>' +
         '<div class="field"><label for="r-in-' + i + '">Binnen</label><input type="text" id="r-in-' + i + '" data-k="within" value="' + esc(r.within) + '" placeholder="5 maanden"></div>' +
@@ -853,7 +859,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
   $('y-what').addEventListener('input', function () { $('c-ywhat').textContent = $('y-what').value.length + ' van 300 tekens'; });
   function openProj(id) {
     editProj = id;
-    var p = S.proj.filter(function (x) { return x.id === id; })[0] || { title: '', client: '', expId: '', role: '', from: '', to: '', what: '', res: [{ what: '', from: '', to: '', within: '' }], tools: [], link: '' };
+    var p = S.proj.filter(function (x) { return x.id === id; })[0] || { title: '', client: '', expId: '', role: '', from: '', to: '', what: '', res: [], tools: [], link: '' };
     fillExpSelect();
     $('proj-ft').textContent = id ? 'Project wijzigen' : 'Project toevoegen';
     $('y-title').value = p.title; $('y-client').value = p.client; $('y-exp').value = p.expId; $('y-role').value = p.role;
@@ -875,8 +881,8 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     if (setErr($('y-role'), $('e-yrole'), val('y-role') ? '' : 'Vul in wat jouw rol was, bijvoorbeeld Campagneleider.')) bad.push($('y-role'));
     var filled = formRes.filter(function (r) { return r.what.trim() || String(r.from).trim() || String(r.to).trim(); });
     var resMsg = '';
-    if (!filled.length) resMsg = 'Voeg minstens één resultaat toe. Een cijfer maakt je profiel sterker.';
-    else if (filled.some(function (r) { return !r.what.trim() || !String(r.from).trim() || !String(r.to).trim(); })) resMsg = 'Vul bij elk resultaat in wat er verbeterde, en de waarde van en naar.';
+    // Resultaten zijn optioneel. Vul je er een in, zeg dan wel wat er verbeterde.
+    if (filled.some(function (r) { return !r.what.trim(); })) resMsg = 'Vul bij elk resultaat in wat er verbeterde, of haal het resultaat weg.';
     if (setErr(null, $('e-yres'), resMsg)) { if (!bad.length) bad.push($('res-list').querySelector('input')); }
     if (bad.length) { bad[0].focus(); return; }
     var data = { title: val('y-title'), client: val('y-client'), expId: $('y-exp').value, role: val('y-role'), from: $('y-from').value, to: $('y-to').value, what: val('y-what'), res: filled.map(function (r) { return { what: r.what.trim(), from: String(r.from).trim(), to: String(r.to).trim(), within: r.within.trim() }; }), tools: formTools.slice(), link: val('y-link') };
@@ -914,7 +920,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     return n;
   }
   function renderReview() {
-    var items = [[1, 'Persoonlijk'], [2, 'Werkervaring'], [3, 'Projecten met resultaat'], [4, 'Wat je zoekt']];
+    var items = [[1, 'Persoonlijk'], [2, 'Werkervaring'], [3, 'Projecten'], [4, 'Wat je zoekt']];
     $('checklist').innerHTML = items.map(function (it) {
       var ok = stepDone(it[0]);
       return '<li class="' + (ok ? 'is-ok' : '') + '"><span class="ico" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><span>' + it[1] + '<span class="visually-hidden">: ' + (ok ? 'af' : 'nog niet af') + '</span></span>' + (ok ? '<button class="link-btn" type="button" data-go="' + it[0] + '">Wijzig</button>' : '<button class="link-btn" type="button" data-go="' + it[0] + '">Aanvullen</button>') + '</li>';
@@ -923,8 +929,8 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
     S.picks = S.picks.filter(function (k) { return res.some(function (x) { return x.key === k; }); });
     $('picks').innerHTML = res.length ? res.map(function (x) {
       var d = delta(x.r), on = S.picks.indexOf(x.key) >= 0, dis = !on && S.picks.length >= 3;
-      return '<label class="check"><input type="checkbox" data-pick="' + x.key + '"' + (on ? ' checked' : '') + (dis ? ' disabled' : '') + '><span>' + esc(x.r.what) + ' ' + esc(x.r.from) + ' naar ' + esc(x.r.to) + (d ? ' <span class="delta">' + d + '</span>' : '') + '<br><span class="hint">' + esc(x.p.title) + '</span></span></label>';
-    }).join('') : '<p class="hint">Je hebt nog geen resultaten. Voeg een project toe bij stap 3.</p>';
+      return '<label class="check"><input type="checkbox" data-pick="' + x.key + '"' + (on ? ' checked' : '') + (dis ? ' disabled' : '') + '><span>' + resTekst(x.r) + (d ? ' <span class="delta">' + d + '</span>' : '') + '<br><span class="hint">' + esc(x.p.title) + '</span></span></label>';
+    }).join('') : '<p class="hint">Geen resultaten ingevuld. Dat is prima: niet elk vak werkt met cijfers.</p>';
     var p = pct(); $('pct').textContent = p; $('pct-bar').style.width = p + '%';
     renderBlocks(); update();
   }
@@ -998,7 +1004,7 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
       (bedrijf ? '<dt>Uren</dt><dd>' + $('w-h1').value + ' tot ' + $('w-h2').value + ' per week</dd>' : '') +
       '<dt>Naam</dt><dd>' + bars(13) + '</dd><dt>Werkgevers</dt><dd>' + bars(16) + '</dd>' + (bedrijf ? '<dt>Contact</dt><dd>' + bars(18) + '</dd>' : '') + '</dl>';
     if (bedrijf && about) h += '<p class="pv-note">' + esc(about.length > 140 ? about.slice(0, 140) + '…' : about) + '</p>';
-    if (res.length) h += res.map(function (x) { var d = delta(x.r); return '<p class="pv-res"><strong>' + (d || esc(x.r.to)) + '</strong>' + esc(x.r.what) + ', ' + esc(x.r.from) + ' naar ' + esc(x.r.to) + '</p>'; }).join('');
+    if (res.length) h += res.map(function (x) { var d = delta(x.r); return '<p class="pv-res">' + (d || String(x.r.to).trim() ? '<strong>' + (d || esc(x.r.to)) + '</strong>' : '') + resTekst(x.r) + '</p>'; }).join('');
     else h += '<p class="pv-note">Zodra je een project met resultaat toevoegt, zien bedrijven dat hier.</p>';
     if (tools.length) h += '<ul class="tags">' + tools.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
     if (bedrijf && S.exp.length) h += '<dl class="pfacts">' + S.exp.slice(0, 3).map(function (x) { return '<dt>' + esc(x.kind) + '</dt><dd>' + esc(x.role) + (x.show && x.org ? ', ' + esc(x.org) : '') + (x.show ? '' : ' ' + bars(8)) + '</dd>'; }).join('') + '</dl>';
@@ -1018,18 +1024,18 @@ h3 { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0
 
   // ---- Start
   function demo() {
-    $('f-first').value = 'Sanne'; $('f-last').value = 'de Vries'; $('f-title').value = 'Senior performance marketeer';
+    $('f-first').value = 'Sanne'; $('f-last').value = 'de Vries'; $('f-title').value = 'Webdesigner';
     $('f-email').value = 'sanne@voorbeeld.nl'; $('f-phone').value = '06 12345678'; $('f-prov').value = 'Utrecht';
     $('f-li').value = 'https://www.linkedin.com/in/voorbeeld';
-    $('f-about').value = 'Ik haal meer uit advertentiebudget voor webshops en B2B-bedrijven. Ik werk het liefst met data, korte lijnen en een vaste testcyclus.';
+    $('f-about').value = 'Ik ontwerp en bouw websites voor ondernemers, van eerste schets tot livegang. Ik werk het liefst met korte lijnen en direct contact met de klant.';
     $('c-about').textContent = $('f-about').value.length + ' van 400 tekens';
     S.exp = [
-      { id: 'e1', role: 'Senior SEA-specialist', org: 'Bureau Zuid', kind: 'Marketingbureau', show: false, from: '2022-03', to: '', now: true },
-      { id: 'e2', role: 'SEA-specialist', org: 'Webshop Noord', kind: 'Webshop', show: false, from: '2019-06', to: '2022-02', now: false },
-      { id: 'e3', role: 'Junior marketeer', org: 'Delta Software', kind: 'B2B-software', show: false, from: '2018-01', to: '2019-05', now: false }
+      { id: 'e1', role: 'Webdesigner', org: 'Bureau Zuid', kind: 'Webbureau', show: false, from: '2022-03', to: '', now: true },
+      { id: 'e2', role: 'Junior webdesigner', org: 'Drukkerij Noord', kind: 'Drukkerij', show: false, from: '2019-06', to: '2022-02', now: false },
+      { id: 'e3', role: 'Stagiair vormgeving', org: 'Delta Reclame', kind: 'Reclamebureau', show: false, from: '2018-01', to: '2019-05', now: false }
     ];
-    S.proj = [{ id: 'p1', title: 'Webshop-groei met Google Ads', client: 'Webshop Noord', expId: 'e2', role: 'Campagneleider', from: '2020-01', to: '2020-06', what: '', res: [{ what: 'Rendement op advertentie-uitgaven', from: '3,1', to: '4,6', within: '5 maanden' }], tools: ['Google Ads', 'GA4', 'Merchant Center'], link: '' }];
-    setChecked('w-roles', ['SEA', 'CRO']); $('w-min').value = '4200'; $('w-h1').value = '32'; $('w-h2').value = '40';
+    S.proj = [{ id: 'p1', title: 'Nieuwe website voor een fietsenmaker', client: 'Fietsen Noord', expId: 'e1', role: 'Ontwerper en bouwer', from: '2023-01', to: '2023-03', what: 'Ontwerp in Figma, gebouwd in WordPress met online afspraken maken.', res: [], tools: ['Figma', 'WordPress'], link: '' }, { id: 'p2', title: 'Webshop voor een bakkerij', client: 'Bakkerij Delta', expId: 'e1', role: 'Ontwerper', from: '2024-02', to: '2024-04', what: '', res: [{ what: 'Online bestellingen per week', from: '0', to: '60', within: '3 maanden' }], tools: ['Shopify'], link: '' }];
+    setChecked('w-roles', ['Webdesigner', 'Front-end developer']); $('w-min').value = '3600'; $('w-h1').value = '32'; $('w-h2').value = '40';
     setChecked('w-place', ['Hybride']); setChecked('w-prov', ['Utrecht', 'Gelderland']); $('w-dist').value = '30';
     uid = 10; renderExp(); renderProj();
   }

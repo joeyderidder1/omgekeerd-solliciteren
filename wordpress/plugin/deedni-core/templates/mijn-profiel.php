@@ -1,6 +1,6 @@
 <?php
 /**
- * Mijn profiel van een marketeer: vijf stappen in één formulier, met rechts een live voorbeeld.
+ * Mijn profiel van een kandidaat: vijf stappen in één formulier, met rechts een live voorbeeld.
  * Zonder JavaScript staan alle stappen onder elkaar. Met JavaScript zie je steeds één stap.
  *
  * Variabelen: $a (velden van het blok).
@@ -17,7 +17,7 @@ if ( deedni_in_editor() && ! deedni_is_kandidaat() ) {
 }
 $k     = $id ? deedni_kandidaat( $id ) : null;
 if ( ! $k ) {
-	echo '<div class="wrap page"><p class="deedni-editor-leeg">Nog geen marketeers. Maak een account als marketeer om dit blok te zien.</p></div>';
+	echo '<div class="wrap page"><p class="deedni-editor-leeg">Nog geen kandidaten. Maak een account als kandidaat om dit blok te zien.</p></div>';
 	return;
 }
 $c     = deedni_compleet( $k );
@@ -60,6 +60,20 @@ $select = function ( $name, $label, $opties, $huidig, $leeg = '' ) {
 	}
 	return $h . '</select></div>';
 };
+/** Keuzelijst met vakgebieden als groep en de functies daaronder. */
+$functie_select = function ( $huidig ) {
+	$h = '<div class="field"><label for="p-specialisme">Vakgebied en functie</label><select id="p-specialisme" name="specialisme" data-vak-keuze aria-describedby="p-specialisme-hint"><option value="">Kies je functie</option>';
+	foreach ( deedni_vakgebieden_boom() as $rij ) {
+		$vak = $rij[0];
+		$h  .= '<optgroup label="' . esc_attr( $vak->name ) . '">';
+		$h  .= '<option value="' . (int) $vak->term_id . '" data-vak="' . (int) $vak->term_id . '"' . selected( (int) $huidig, (int) $vak->term_id, false ) . '>' . esc_html( $vak->name ) . ' (algemeen)</option>';
+		foreach ( $rij[1] as $t ) {
+			$h .= '<option value="' . (int) $t->term_id . '" data-vak="' . (int) $vak->term_id . '"' . selected( (int) $huidig, (int) $t->term_id, false ) . '>' . esc_html( $t->name ) . '</option>';
+		}
+		$h .= '</optgroup>';
+	}
+	return $h . '</select><span class="hint" id="p-specialisme-hint">Staat je functie er niet bij? Kies je vakgebied (algemeen) en schrijf je functie bij Functietitel.</span></div>';
+};
 $termen = function ( $tax ) {
 	$o = array();
 	foreach ( deedni_filter_terms( $tax ) as $t ) {
@@ -101,8 +115,8 @@ $res_rij = function ( $i, $j, $r ) {
 	$n = 'projecten[' . $i . '][resultaten][' . $j . ']';
 	$p = 'pr-' . $i . '-' . $j;
 	$h  = '<li class="result-row" data-res-rij>';
-	$h .= '<div class="field"><label for="' . $p . '-c">Kerncijfer <span class="fine">(optioneel)</span></label><input id="' . $p . '-c" name="' . $n . '[cijfer]" data-res="cijfer" placeholder="−40%, 12, 8,6" value="' . esc_attr( $r['cijfer'] ) . '"></div>';
-	$h .= '<div class="field"><label for="' . $p . '-t">Wat heb je bereikt?</label><input id="' . $p . '-t" name="' . $n . '[tekst]" data-res="tekst" placeholder="Bijvoorbeeld: kosten per lead daalden in 5 maanden" value="' . esc_attr( $r['tekst'] ) . '"></div>';
+	$h .= '<div class="field"><label for="' . $p . '-c">Kerncijfer <span class="fine">(optioneel)</span></label><input id="' . $p . '-c" name="' . $n . '[cijfer]" data-res="cijfer" placeholder="9, −40%, 2 weken" value="' . esc_attr( $r['cijfer'] ) . '"></div>';
+	$h .= '<div class="field"><label for="' . $p . '-t">Wat heb je bereikt?</label><input id="' . $p . '-t" name="' . $n . '[tekst]" data-res="tekst" placeholder="Bijvoorbeeld: klant gaf een 9, of oplevering twee weken eerder" value="' . esc_attr( $r['tekst'] ) . '"></div>';
 	return $h . '<button type="button" class="weg" data-weg-res aria-label="Resultaat verwijderen">×</button></li>';
 };
 
@@ -122,20 +136,24 @@ $project_item = function ( $i, $pr ) use ( $res_rij ) {
 	}
 	$h .= deedni_tools_html( $pr['tools'] ) . '</span><span class="btn btn--ghost btn--small" aria-hidden="true">Wijzig</span></summary>';
 	$h .= '<div class="item-body stack">';
-	$h .= '<div class="field"><label for="' . $p . '-titel">Korte titel <span class="tag who-sees">Iedereen</span></label><input id="' . $p . '-titel" name="' . $n . '[titel]" value="' . esc_attr( $pr['titel'] ) . '" data-sam-bron="titel" aria-describedby="' . $p . '-titel-hint"><span class="hint" id="' . $p . '-titel-hint">Zonder klantnaam, bijvoorbeeld “Webshop-groei met Google Ads”.</span></div>';
+	$h .= '<div class="field"><label for="' . $p . '-titel">Korte titel <span class="tag who-sees">Iedereen</span></label><input id="' . $p . '-titel" name="' . $n . '[titel]" value="' . esc_attr( $pr['titel'] ) . '" data-sam-bron="titel" aria-describedby="' . $p . '-titel-hint"><span class="hint" id="' . $p . '-titel-hint">Zonder klantnaam, bijvoorbeeld “Stadstuin opnieuw aangelegd” of “Jaarafsluiting voor 40 mkb-klanten”.</span></div>';
 	$h .= '<div class="fields"><div class="field"><label for="' . $p . '-klant">Klant of projectnaam <span class="tag tag--ink who-sees">Na jouw ja</span></label><input id="' . $p . '-klant" name="' . $n . '[klant]" value="' . esc_attr( $pr['klant'] ) . '"></div>';
-	$h .= '<div class="field"><label for="' . $p . '-rol">Jouw rol</label><input id="' . $p . '-rol" name="' . $n . '[rol]" value="' . esc_attr( $pr['rol'] ) . '" placeholder="Campagneleider"></div></div>';
-	$h .= '<div class="fields"><div class="field"><label for="' . $p . '-br">Soort klant of branche</label><input id="' . $p . '-br" name="' . $n . '[branche]" value="' . esc_attr( $pr['branche'] ) . '" placeholder="Webshop"></div>';
-	$h .= '<div class="field"><label for="' . $p . '-tools">Tools in dit project</label><input id="' . $p . '-tools" name="' . $n . '[tools]" value="' . esc_attr( $pr['tools'] ) . '" placeholder="Google Ads, GA4"></div></div>';
-	$h .= '<div class="field"><label for="' . $p . '-aanpak">Uitdaging en aanpak</label><textarea id="' . $p . '-aanpak" name="' . $n . '[aanpak]">' . esc_textarea( $pr['aanpak'] ) . '</textarea></div>';
-	$h .= '<fieldset class="stack-s"><legend>Resultaten <span class="tag who-sees">Iedereen</span></legend><p class="fine">Wat leverde het op? Schrijf het in je eigen woorden. Een kerncijfer valt het meest op, maar is niet verplicht.</p>';
+	$h .= '<div class="field"><label for="' . $p . '-rol">Jouw rol</label><input id="' . $p . '-rol" name="' . $n . '[rol]" value="' . esc_attr( $pr['rol'] ) . '" placeholder="Uitvoerder, ontwerper, eindverantwoordelijke"></div></div>';
+	$h .= '<div class="fields"><div class="field"><label for="' . $p . '-br">Soort klant of branche</label><input id="' . $p . '-br" name="' . $n . '[branche]" value="' . esc_attr( $pr['branche'] ) . '" placeholder="Particulier, mkb, gemeente"></div>';
+	$h .= '<div class="field"><label for="' . $p . '-tools">Vaardigheden of tools <span class="fine">(optioneel)</span></label><input id="' . $p . '-tools" name="' . $n . '[tools]" value="' . esc_attr( $pr['tools'] ) . '" placeholder="Bestrating, Figma, Exact Online"></div></div>';
+	$h .= '<div class="field"><label for="' . $p . '-aanpak">Wat heb je gedaan?</label><textarea id="' . $p . '-aanpak" name="' . $n . '[aanpak]">' . esc_textarea( $pr['aanpak'] ) . '</textarea></div>';
+	// Resultaten zijn optioneel: niet elk vak heeft cijfers. Zonder resultaten blijft dit blok dicht.
+	$h .= '<fieldset class="stack-s"><legend>Resultaat <span class="fine">(optioneel)</span> <span class="tag who-sees">Iedereen</span></legend><p class="fine">Heeft dit project iets meetbaars opgeleverd, zoals een tevreden klant, een besparing of meer omzet? Zet het hier. Geen cijfers? Laat dit leeg, de beschrijving is genoeg.</p>';
 	$h .= '<ul class="stack-s res-lijst" data-res-lijst data-i="' . (int) $i . '">';
-	$rows = $pr['resultaten'] ? $pr['resultaten'] : array( array() );
-	foreach ( array_values( $rows ) as $j => $r ) {
+	foreach ( array_values( (array) $pr['resultaten'] ) as $j => $r ) {
 		$h .= $res_rij( $i, $j, $r );
 	}
-	$h .= '</ul><div><button type="button" class="btn btn--ghost btn--small" data-res-plus>Resultaat toevoegen</button></div></fieldset>';
-	$h .= '<div class="field"><label for="' . $p . '-link">Link naar bewijs <span class="tag tag--ink who-sees">Na jouw ja</span></label><input id="' . $p . '-link" type="url" name="' . $n . '[link]" value="' . esc_attr( $pr['link'] ) . '" placeholder="https://"></div>';
+	$h .= '</ul>';
+	if ( ! $pr['resultaten'] ) {
+		$h .= '<noscript><ul class="stack-s res-lijst">' . $res_rij( $i, 0, array() ) . '</ul></noscript>';
+	}
+	$h .= '<div><button type="button" class="btn btn--ghost btn--small" data-res-plus>Resultaat toevoegen</button></div></fieldset>';
+	$h .= '<div class="field"><label for="' . $p . '-link">Link naar het werk <span class="tag tag--ink who-sees">Na jouw ja</span></label><input id="' . $p . '-link" type="url" name="' . $n . '[link]" value="' . esc_attr( $pr['link'] ) . '" placeholder="https://"></div>';
 	$h .= '<div><button type="button" class="link-btn" data-weg>Dit project verwijderen</button><span class="fine no-js-only"> Verwijderen zonder JavaScript: maak de titel leeg en sla op.</span></div>';
 	return $h . '</div></details></li>';
 };
@@ -187,9 +205,9 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 						<?php echo $veld( 'voornaam', 'Voornaam', $k['voornaam'], 'ja', array( 'auto' => 'given-name' ) ); // phpcs:ignore ?>
 						<?php echo $veld( 'achternaam', 'Achternaam', $k['achternaam'], 'ja', array( 'auto' => 'family-name' ) ); // phpcs:ignore ?>
 					</div>
-					<?php echo $veld( 'functietitel', 'Functietitel', $k['functietitel'], 'iedereen', array( 'live' => 'titel', 'hint' => 'Bijvoorbeeld Senior SEA-specialist.' ) ); // phpcs:ignore ?>
+					<?php echo $veld( 'functietitel', 'Functietitel', $k['functietitel'], 'iedereen', array( 'live' => 'titel', 'hint' => 'Bijvoorbeeld Hovenier, Webdesigner of Senior accountant.' ) ); // phpcs:ignore ?>
 					<div class="fields">
-						<?php echo $select( 'specialisme', 'Specialisme', $termen( 'specialisme' ), $k['specialisme_ids'] ? $k['specialisme_ids'][0] : '', 'Kies je specialisme' ); // phpcs:ignore ?>
+						<?php echo $functie_select( $k['specialisme_ids'] ? $k['specialisme_ids'][0] : 0 ); // phpcs:ignore ?>
 						<?php echo $veld( 'ervaring_jaren', 'Jaren ervaring', $k['ervaring_jaren'] ? $k['ervaring_jaren'] : '', 'iedereen', array( 'type' => 'number', 'live' => 'ervaring' ) ); // phpcs:ignore ?>
 					</div>
 					<div class="fields">
@@ -238,14 +256,17 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 				<template data-sjabloon="resultaat"><?php echo $res_rij( '__i__', '__j__', array() ); // phpcs:ignore ?></template>
 				<div><button type="button" class="btn btn--ghost" data-plus="projecten">Project toevoegen</button></div>
 
-				<fieldset class="card stack-s">
-					<legend class="h3">Tools waarmee je werkt <span class="tag who-sees">Ingelogde bedrijven</span></legend>
+				<fieldset class="card stack-s" data-vaardigheden>
+					<legend class="h3">Vaardigheden, tools en certificaten <span class="tag who-sees">Ingelogde bedrijven</span></legend>
+					<p class="fine" data-vak-uitleg hidden>We tonen eerst wat bij jouw vakgebied past.</p>
 					<div class="chips mt-s">
 						<?php foreach ( deedni_filter_terms( 'vaardigheid' ) as $t ) : ?>
-							<label class="chip"><input type="checkbox" name="tools[]" value="<?php echo (int) $t->term_id; ?>" data-tool="<?php echo esc_attr( $t->name ); ?>"<?php checked( in_array( (int) $t->term_id, $k['tool_ids'], true ) ); ?>><?php echo esc_html( $t->name ); ?></label>
+							<?php $bij = deedni_vaardigheid_vakgebieden( $t->term_id ); ?>
+							<label class="chip" data-vakken="<?php echo esc_attr( $bij ? implode( ',', $bij ) : 'alle' ); ?>"><input type="checkbox" name="tools[]" value="<?php echo (int) $t->term_id; ?>" data-tool="<?php echo esc_attr( $t->name ); ?>"<?php checked( in_array( (int) $t->term_id, $k['tool_ids'], true ) ); ?>><?php echo esc_html( $t->name ); ?></label>
 						<?php endforeach; ?>
 					</div>
-					<div class="field mt-s"><label for="p-tools-nieuw">Staat je tool er niet bij?</label><input id="p-tools-nieuw" name="tools_nieuw" placeholder="Bijvoorbeeld: Piwik PRO, Klaviyo" aria-describedby="p-tools-nieuw-hint"><span class="hint" id="p-tools-nieuw-hint">Meerdere tools scheiden met een komma.</span></div>
+					<div><button type="button" class="link-btn" data-vak-alles hidden>Toon alle vaardigheden</button></div>
+					<div class="field mt-s"><label for="p-tools-nieuw">Staat het er niet bij?</label><input id="p-tools-nieuw" name="tools_nieuw" placeholder="Bijvoorbeeld: Rijbewijs C, AutoCAD, Snoeien" aria-describedby="p-tools-nieuw-hint"><span class="hint" id="p-tools-nieuw-hint">Meerdere scheiden met een komma.</span></div>
 				</fieldset>
 				<?php echo $knoppen( 'projecten' ); // phpcs:ignore ?>
 			</section>
@@ -365,7 +386,7 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 					</div>
 					<div data-pv-tools><?php echo deedni_tools_html( $k['tools'] ); // phpcs:ignore ?></div>
 				</div>
-				<p class="locked" data-alleen="bezoeker" hidden>Cases en tools ziet alleen een ingelogde werkgever. Bezoekers zien deze korte versie.</p>
+				<p class="locked" data-alleen="bezoeker" hidden>Projecten en vaardigheden ziet alleen een ingelogde werkgever. Bezoekers zien deze korte versie.</p>
 			</div>
 			<p class="fine">Dit blok verandert mee terwijl je typt.</p>
 		</aside>

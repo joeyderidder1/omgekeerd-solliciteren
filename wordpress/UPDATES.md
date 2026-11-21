@@ -50,6 +50,6 @@ Waarom zo: `wp-config.php` staat niet in de database, niet in de code op GitHub 
 ## Veiligheid
 
 - WordPress accepteert alleen zips uit de releases van precies deze repository. Een andere downloadlink wordt genegeerd.
-- Alleen beheerders kunnen updates installeren. Marketeers en werkgevers komen niet in wp-admin.
+- Alleen beheerders kunnen updates installeren. Kandidaten en werkgevers komen niet in wp-admin.
 - Is GitHub even onbereikbaar, dan gebeurt er niets: je ziet dan gewoon geen update, en wp-admin wordt er niet traag van.
 - Updates via GitHub tijdelijk uitzetten kan in `wp-config.php` met `define( 'DEEDNI_UPDATES_UIT', true );`

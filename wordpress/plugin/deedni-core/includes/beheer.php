@@ -8,7 +8,7 @@
  *
  * Velden (post meta):
  *   beheer_verborgen  1 als de beheerder het profiel verborg
- *   beheer_reden      uitleg voor de marketeer (zichtbaar op Mijn profiel)
+ *   beheer_reden      uitleg voor de kandidaat (zichtbaar op Mijn profiel)
  *   beheer_log        lijst met wijzigingen: t, door, velden, notitie
  */
 
@@ -19,7 +19,7 @@ function deedni_beheer_verborgen( $kandidaat_id ) {
 	return (bool) get_post_meta( (int) $kandidaat_id, 'beheer_verborgen', true );
 }
 
-/** Melding voor de marketeer op Mijn profiel en het overzicht. */
+/** Melding voor de kandidaat op Mijn profiel en het overzicht. */
 function deedni_beheer_melding_tekst( $k ) {
 	$tekst = '<p>Je profiel is tijdelijk verborgen door ' . esc_html( get_bloginfo( 'name' ) ) . '. Bedrijven kunnen je nu niet vinden en je geen nieuw aanbod sturen.</p>';
 	if ( ! empty( $k['beheer_reden'] ) ) {
@@ -61,7 +61,7 @@ add_action(
 function deedni_beheer_labels() {
 	return array(
 		'functietitel'      => 'Functietitel',
-		'specialisme'       => 'Specialisme',
+		'specialisme'       => 'Vakgebied of functie',
 		'ervaring_jaren'    => 'Jaren ervaring',
 		'samenvatting'      => 'Over mij',
 		'provincie'         => 'Provincie',
@@ -72,7 +72,7 @@ function deedni_beheer_labels() {
 		'beschikbaarheid'   => 'Beschikbaar',
 		'zoekstatus'        => 'Zoekstatus',
 		'opleiding'         => 'Opleiding en certificaten',
-		'tools'             => 'Tools',
+		'tools'             => 'Vaardigheden en tools',
 		'werkervaring'      => 'Werkervaring',
 		'projecten'         => 'Projecten',
 		'voornaam'          => 'Voornaam',
@@ -82,9 +82,9 @@ function deedni_beheer_labels() {
 		'huidige_werkgever' => 'Huidige werkgever',
 		'cv'                => 'Cv',
 		'blokkeerlijst'     => 'Blokkeerlijst',
-		'zichtbaar'         => 'Online (keuze van de marketeer)',
+		'zichtbaar'         => 'Online (keuze van de kandidaat)',
 		'beheer_verborgen'  => 'Verborgen door beheer',
-		'beheer_reden'      => 'Reden voor de marketeer',
+		'beheer_reden'      => 'Reden voor de kandidaat',
 	);
 }
 
@@ -109,6 +109,17 @@ function deedni_beheer_select( $naam, $label, $opties, $huidig ) {
 }
 
 function deedni_beheer_termen( $taxonomy ) {
+	if ( 'specialisme' === $taxonomy ) {
+		// Vakgebied, met de functies eronder: "Groen en buitenruimte" en "Groen en buitenruimte › Hovenier".
+		$o = array();
+		foreach ( deedni_vakgebieden_boom() as $rij ) {
+			$o[ $rij[0]->term_id ] = $rij[0]->name;
+			foreach ( $rij[1] as $t ) {
+				$o[ $t->term_id ] = $rij[0]->name . ' › ' . $t->name;
+			}
+		}
+		return $o;
+	}
 	$terms = get_terms( array( 'taxonomy' => $taxonomy, 'hide_empty' => false ) );
 	return is_wp_error( $terms ) ? array() : wp_list_pluck( $terms, 'name', 'term_id' );
 }
@@ -118,7 +129,7 @@ function deedni_metabox_beheer( $post ) {
 	wp_nonce_field( 'deedni_beheer_profiel', 'deedni_beheer_nonce' );
 	$l = deedni_beheer_labels();
 
-	echo '<p>Marketeers vullen hun profiel zelf in op de site. Staat er gevoelige of onjuiste informatie in, pas het dan hier aan. ';
+	echo '<p>Kandidaten vullen hun profiel zelf in op de site. Staat er gevoelige of onjuiste informatie in, pas het dan hier aan. ';
 	echo 'Laat onderaan een korte notitie achter: die komt in het logboek. <a href="' . esc_url( get_permalink( $post ) ) . '" target="_blank" rel="noopener">Bekijk het profiel op de site</a>.</p>';
 
 	echo '<div class="deedni-b-raster">';
@@ -144,7 +155,7 @@ function deedni_metabox_beheer( $post ) {
 	echo '</fieldset>';
 
 	echo '<fieldset class="deedni-b-groep"><legend>Pas zichtbaar na een ja</legend>';
-	echo '<p class="description">Persoonlijke gegevens. Werkgevers zien deze alleen nadat de marketeer ja zei op hun aanbod.</p>';
+	echo '<p class="description">Persoonlijke gegevens. Werkgevers zien deze alleen nadat de kandidaat ja zei op hun aanbod.</p>';
 	echo deedni_beheer_veld( 'deedni_b[voornaam]', $l['voornaam'], $k['voornaam'] ); // phpcs:ignore
 	echo deedni_beheer_veld( 'deedni_b[achternaam]', $l['achternaam'], $k['achternaam'] ); // phpcs:ignore
 	echo deedni_beheer_veld( 'deedni_b[telefoon]', $l['telefoon'], $k['telefoon'] ); // phpcs:ignore
@@ -213,7 +224,7 @@ function deedni_metabox_beheer( $post ) {
 	// Notitie.
 	echo '<fieldset class="deedni-b-groep deedni-b-notitie"><legend>Notitie bij deze wijziging</legend>';
 	echo deedni_beheer_veld( 'deedni_b[notitie]', 'Wat pas je aan en waarom? Alleen beheerders zien dit, in het logboek.', '', 'textarea', ' rows="2" placeholder="Bijvoorbeeld: telefoonnummer uit Over mij gehaald"' ); // phpcs:ignore
-	echo '<label class="deedni-b-check"><input type="checkbox" name="deedni_b[mail]" value="1"> Stuur de marketeer een mail dat het profiel is aangepast</label>';
+	echo '<label class="deedni-b-check"><input type="checkbox" name="deedni_b[mail]" value="1"> Stuur de kandidaat een mail dat het profiel is aangepast</label>';
 	echo '</fieldset>';
 	echo '<p>Klik daarna rechtsboven op <strong>Bijwerken</strong>.</p>';
 }
@@ -226,11 +237,11 @@ function deedni_metabox_beheer_zichtbaar( $post ) {
 	} elseif ( $k['zichtbaar'] ) {
 		echo '<p class="deedni-b-status is-online"><strong>Online.</strong> Werkgevers kunnen dit profiel vinden in Ontdekken en bij Kandidaten zoeken.</p>';
 	} else {
-		echo '<p class="deedni-b-status"><strong>Offline.</strong> De marketeer heeft het profiel nog niet gepubliceerd of zelf offline gehaald.</p>';
+		echo '<p class="deedni-b-status"><strong>Offline.</strong> De kandidaat heeft het profiel nog niet gepubliceerd of zelf offline gehaald.</p>';
 	}
 	echo '<p><label class="deedni-b-check"><input type="checkbox" name="deedni_b[beheer_verborgen]" value="1"' . checked( $verborgen, true, false ) . '> Verberg dit profiel voor werkgevers</label></p>';
-	echo '<p class="description">Het profiel verdwijnt uit Ontdekken, zoeken en de profielpagina, en er kunnen geen nieuwe aanbiedingen meer komen. Lopende aanbiedingen blijven bestaan. De marketeer ziet een melding op Mijn profiel.</p>';
-	echo deedni_beheer_veld( 'deedni_b[beheer_reden]', 'Reden voor de marketeer (optioneel)', (string) get_post_meta( $post->ID, 'beheer_reden', true ), 'textarea', ' rows="3" placeholder="Bijvoorbeeld: je profiel bevat de naam van je huidige werkgever. Pas dat aan, dan zetten we het weer online."' ); // phpcs:ignore
+	echo '<p class="description">Het profiel verdwijnt uit Ontdekken, zoeken en de profielpagina, en er kunnen geen nieuwe aanbiedingen meer komen. Lopende aanbiedingen blijven bestaan. De kandidaat ziet een melding op Mijn profiel.</p>';
+	echo deedni_beheer_veld( 'deedni_b[beheer_reden]', 'Reden voor de kandidaat (optioneel)', (string) get_post_meta( $post->ID, 'beheer_reden', true ), 'textarea', ' rows="3" placeholder="Bijvoorbeeld: je profiel bevat de naam van je huidige werkgever. Pas dat aan, dan zetten we het weer online."' ); // phpcs:ignore
 }
 
 function deedni_metabox_beheer_log( $post ) {
@@ -461,7 +472,7 @@ add_action(
 		$screen = get_current_screen();
 		if ( $screen && 'edit-kandidaat' === $screen->id && isset( $_GET['deedni_verborgen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$aan = '1' === $_GET['deedni_verborgen']; // phpcs:ignore WordPress.Security.NonceVerification
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $aan ? 'Profiel verborgen voor werkgevers. Dit staat in het logboek.' : 'Profiel is weer zichtbaar voor werkgevers (als de marketeer het zelf online heeft staan).' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $aan ? 'Profiel verborgen voor werkgevers. Dit staat in het logboek.' : 'Profiel is weer zichtbaar voor werkgevers (als de kandidaat het zelf online heeft staan).' ) . '</p></div>';
 		}
 	}
 );

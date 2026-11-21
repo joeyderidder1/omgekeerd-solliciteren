@@ -58,7 +58,7 @@
 .bigphoto .over span:last-child { --dx: 6; color: var(--marker); }
 .bigphoto .cap { position: absolute; z-index: 2; left: 50%; bottom: 32px; transform: translateX(-50%); color: #fff; font-weight: 600; text-align: center; max-width: 32em; padding: 0 16px; opacity: calc(1 - var(--k, 1) * 1.4); }
 
-/* ---------- Lopende band met specialismen ---------- */
+/* ---------- Lopende band met beroepen ---------- */
 .band-run { padding-block: clamp(40px, 6vw, 72px); overflow: hidden; border-block: 2px solid var(--ink); position: relative; }
 .run { display: flex; width: max-content; animation: run 38s linear infinite; }
 .run ul { display: flex; flex: none; }
@@ -209,7 +209,7 @@
 
 
 
-/* Persoonlijk welkom voor ingelogde marketeers en werkgevers */
+/* Persoonlijk welkom voor ingelogde kandidaten en werkgevers */
 .welkom { background: #0B1130; color: #EEF1FF; margin: 12px clamp(8px, 1.5vw, 24px) 0; border-radius: clamp(28px, 5vw, 56px); padding-block: clamp(36px, 5vw, 64px); --ink: #EEF1FF; --muted: #B4BEE6; --line: #2A3570; --line-strong: #46549A; --accent: #8EA2FF; --accent-ink: #0B1130; --bg: #0B1130; --bg-alt: #161F4A; --focus: #B5C2FF; }
 .welkom-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 520px); gap: clamp(24px, 4vw, 56px); align-items: center; }
 @media (max-width: 900px) { .welkom-grid { grid-template-columns: 1fr; } }
@@ -273,7 +273,7 @@
 <script src="assets/menu.js"></script>
 
 <main id="inhoud">
-  <!-- Alleen voor een ingelogde marketeer -->
+  <!-- Alleen voor een ingelogde kandidaat -->
   <section class="welkom" data-voor-rol="kandidaat" hidden aria-labelledby="h-welkom-k">
     <div class="wrap welkom-grid">
       <div>
@@ -286,8 +286,8 @@
       </div>
       <article class="wcard" aria-label="Nieuwste aanbod">
         <div class="between fine"><strong style="color:#0F1A3D">Studio Noord</strong><span>2 dagen geleden</span></div>
-        <div class="t">Performance marketeer</div>
-        <p><span class="salaris" style="font-size:1.25rem">€4.200–4.800</span> per maand</p>
+        <div class="t">Webdesigner</div>
+        <p><span class="salaris" style="font-size:1.25rem">€3.600–4.200</span> per maand</p>
         <p class="fine">Reageer binnen 5 dagen. Je naam blijft verborgen tot jij ja zegt.</p>
         <div class="wacts"><a class="btn btn--primary" href="kandidaat-overzicht.html">Bekijk aanbod</a><a class="btn btn--ghost" href="kandidaat-overzicht.html#aanbiedingen">Alle aanbiedingen (2)</a></div>
       </article>
@@ -298,15 +298,15 @@
   <section class="welkom" data-voor-rol="werkgever" hidden aria-labelledby="h-welkom-w">
     <div class="wrap welkom-grid">
       <div>
-        <h1 id="h-welkom-w"><em>12 marketeers</em> passen bij Studio Noord.</h1>
-        <p class="lead" style="color:#B4BEE6;margin-top:16px">Op basis van je bedrijfsprofiel: performance en SEA, Google Ads, Utrecht, €4.000 tot €5.000. Liever zelf zoeken? <a href="kandidaten-zoeken.html" style="color:#fff">Naar alle filters</a>.</p>
+        <h1 id="h-welkom-w"><em>12 kandidaten</em> passen bij Groenwerk Utrecht.</h1>
+        <p class="lead" style="color:#B4BEE6;margin-top:16px">Op basis van je bedrijfsprofiel: hovenier, bestrating, Utrecht, €2.800 tot €3.400. Liever zelf zoeken? <a href="kandidaten-zoeken.html" style="color:#fff">Naar alle filters</a>.</p>
       </div>
       <div>
         <div class="between" style="margin-bottom:10px"><span class="fine" style="color:#B4BEE6">Beste matches</span><span class="fine" style="color:#B4BEE6" aria-live="polite"><span id="m-nr">1</span> / 12</span></div>
         <article class="wcard is-in" id="mcard" aria-live="polite">
           <div class="between"><strong id="m-code">K-1010</strong><span class="match"><span class="ring" id="m-ring" style="--p:92"><span id="m-pct">92%</span></span>match</span></div>
-          <div class="t" id="m-titel">Senior SEA-specialist</div>
-          <p class="fine" id="m-meta">vanaf €4.000 · 32 uur · per 1 februari · Utrecht</p>
+          <div class="t" id="m-titel">Allround hovenier</div>
+          <p class="fine" id="m-meta">vanaf €2.900 · 38 uur · per 1 februari · Utrecht</p>
           <div class="kpis" id="m-kpis"></div>
           <div><strong style="font-size:.9375rem">Waarom deze match</strong><ul class="why" id="m-why" style="margin-top:6px"></ul></div>
           <div class="wacts">
@@ -332,7 +332,7 @@
 
       <div class="hero-sub">
         <div class="hero-copy">
-          <p class="lead">Maak een anoniem profiel met je ervaring, tools en resultaten. Bedrijven sturen je een aanbod met salaris. Pas als jij ja zegt, zien ze wie je bent.</p>
+          <p class="lead">Hovenier, accountant of webdesigner: maak een anoniem profiel met je ervaring en wat je kunt. Bedrijven sturen je een aanbod met salaris. Pas als jij ja zegt, zien ze wie je bent.</p>
           <div class="seg" role="group" aria-label="Wat zoek je?">
             <button type="button" aria-pressed="true" data-wie="werk">Ik zoek werk</button>
             <button type="button" aria-pressed="false" data-wie="personeel">Ik zoek personeel</button>
@@ -351,10 +351,10 @@
           <span class="sticker" aria-hidden="true">Voorbeeld</span>
           <div class="offer-demo" data-voor="werk" aria-label="Voorbeeld van een aanbod">
             <div class="between fine"><strong style="color:var(--ink)">Nieuw aanbod van Studio Noord</strong><span>net binnen</span></div>
-            <div class="t">Senior performance marketeer</div>
-            <p class="fine">Online marketingbureau in Utrecht · hybride · 32 tot 40 uur</p>
+            <div class="t">Webdesigner</div>
+            <p class="fine">Webbureau in Utrecht · hybride · 32 tot 40 uur</p>
             <p><span class="salaris">€4.200–4.800</span> per maand</p>
-            <p class="fine">“Je cases in e-commerce sluiten precies aan op onze klanten.”</p>
+            <p class="fine">“De websites die je bouwde passen precies bij onze klanten.”</p>
             <div class="sees">Studio Noord ziet nu: <span data-demo-naam><span class="redact" role="img" aria-label="je naam, verborgen"></span></span></div>
             <div class="acts" data-demo-acts>
               <button type="button" class="btn btn--primary" data-demo="ja">Ja</button>
@@ -365,11 +365,11 @@
           </div>
           <div class="offer-demo" data-voor="personeel" hidden aria-label="Voorbeeld van een anoniem profiel">
             <div class="between fine"><strong style="color:var(--ink)">K-2041</strong><span>Voorbeeld</span></div>
-            <div class="t">Senior performance marketeer</div>
-            <p><span class="salaris">vanaf €4.000</span> per maand</p>
+            <div class="t">Allround hovenier</div>
+            <p><span class="salaris">vanaf €2.900</span> per maand</p>
             <dl class="kv"><dt>Ervaring</dt><dd>7 jaar</dd><dt>Regio</dt><dd>Utrecht</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
-            <div class="sees"><strong>3,1 → 5,4</strong> rendement op advertentie-uitgaven in zes maanden</div>
-            <div class="tools"><span class="tool">Google Ads</span><span class="tool">Meta Ads</span><span class="tool">GA4</span></div>
+            <div class="sees"><strong>40+ tuinen</strong> aangelegd en onderhouden, van stadstuin tot bedrijfsterrein</div>
+            <div class="tools"><span class="tool">Bestrating</span><span class="tool">Snoeien</span><span class="tool">Rijbewijs BE</span></div>
           </div>
         </div>
       </div>
@@ -379,17 +379,17 @@
   <!-- Beeldvullende foto -->
   <section class="bigphoto" aria-label="Jij kiest, zij bieden" data-bigphoto>
     <div class="stick">
-      <div class="frame"><img src="images/marketing-analyse.jpg" alt="Iemand wijst met een pen naar marketingcijfers op een tablet" width="1600" height="1067" loading="lazy"></div>
+      <div class="frame"><img src="images/marketing-analyse.jpg" alt="Iemand wijst met een pen naar cijfers op een tablet" width="1600" height="1067" loading="lazy"></div>
       <p class="over" aria-hidden="true"><span>Jij kiest.</span><span>Zij bieden.</span></p>
       <p class="cap">Geen sollicitatiebrieven meer. Je laat zien wat je kunt, en bedrijven doen een aanbod met salaris.</p>
     </div>
   </section>
 
   <!-- Lopende band -->
-  <section class="band-run" aria-label="Specialismen" id="band">
+  <section class="band-run" aria-label="Beroepen" id="band">
     <div class="run">
-      <ul><li>SEA en performance</li><li>SEO en content</li><li>Data en analytics</li><li>Marketing-automation</li><li>CRO en UX</li><li>Social advertising</li><li>E-mailmarketing</li></ul>
-      <ul aria-hidden="true"><li>SEA en performance</li><li>SEO en content</li><li>Data en analytics</li><li>Marketing-automation</li><li>CRO en UX</li><li>Social advertising</li><li>E-mailmarketing</li></ul>
+      <ul><li>Hovenier</li><li>Webdesigner</li><li>Accountant</li><li>Elektricien</li><li>Verpleegkundige</li><li>Marketeer</li><li>Chauffeur</li><li>Kok</li><li>Leerkracht</li></ul>
+      <ul aria-hidden="true"><li>Hovenier</li><li>Webdesigner</li><li>Accountant</li><li>Elektricien</li><li>Verpleegkundige</li><li>Marketeer</li><li>Chauffeur</li><li>Kok</li><li>Leerkracht</li></ul>
     </div>
     <button type="button" class="pause" aria-pressed="false" id="band-pauze">Pauzeer</button>
   </section>
@@ -399,32 +399,30 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-zien" class="big-h">Dit zien bedrijven <span class="soft">van jou.</span></h2>
-        <p class="lead">Ervaring, tools en resultaten. De zwarte balken blijven dicht tot jij ja zegt.</p>
+        <p class="lead">Ervaring, vaardigheden en wat je hebt gedaan. De zwarte balken blijven dicht tot jij ja zegt.</p>
       </div>
       <div class="profiles">
         <article class="pcard reveal" aria-label="Voorbeeldprofiel K-1010">
           <div class="between fine"><strong style="color:var(--ink)">K-1010</strong><span>Voorbeeld</span></div>
-          <div class="t">SEA-specialist</div>
-          <p><span class="salaris">vanaf €4.000</span> <span class="fine">per maand</span></p>
-          <dl class="kv"><dt>Ervaring</dt><dd>6 jaar</dd><dt>Regio</dt><dd>Utrecht</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
-          <div class="res"><strong>3,1 → 5,4</strong>Rendement op advertentie-uitgaven in zes maanden</div>
-          <div class="tools"><span class="tool">Google Ads</span><span class="tool">Meta Ads</span><span class="tool">GA4</span></div>
+          <div class="t">Allround hovenier</div>
+          <p><span class="salaris">vanaf €2.900</span> <span class="fine">per maand</span></p>
+          <dl class="kv"><dt>Ervaring</dt><dd>7 jaar</dd><dt>Regio</dt><dd>Utrecht</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
+          <div class="tools"><span class="tool">Bestrating</span><span class="tool">Snoeien</span><span class="tool">Rijbewijs BE</span></div>
         </article>
         <article class="pcard reveal" aria-label="Voorbeeldprofiel K-1024">
           <div class="between fine"><strong style="color:var(--ink)">K-1024</strong><span>Voorbeeld</span></div>
-          <div class="t">Contentmarketeer</div>
-          <p><span class="salaris">vanaf €3.300</span> <span class="fine">per maand</span></p>
+          <div class="t">Webdesigner</div>
+          <p><span class="salaris">vanaf €3.400</span> <span class="fine">per maand</span></p>
           <dl class="kv"><dt>Ervaring</dt><dd>4 jaar</dd><dt>Regio</dt><dd>Gelderland</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
-          <div class="res"><strong>+60%</strong>Organisch verkeer in een jaar</div>
-          <div class="tools"><span class="tool">WordPress</span><span class="tool">Semrush</span><span class="tool">GA4</span></div>
+          <div class="res"><strong>30+</strong>Websites gebouwd voor lokale ondernemers</div>
+          <div class="tools"><span class="tool">Figma</span><span class="tool">WordPress</span><span class="tool">HTML en CSS</span></div>
         </article>
         <article class="pcard reveal" aria-label="Voorbeeldprofiel K-1031">
           <div class="between fine"><strong style="color:var(--ink)">K-1031</strong><span>Voorbeeld</span></div>
-          <div class="t">Marketing-automation</div>
-          <p><span class="salaris">vanaf €5.000</span> <span class="fine">per maand</span></p>
-          <dl class="kv"><dt>Ervaring</dt><dd>8 jaar</dd><dt>Regio</dt><dd>Noord-Holland</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
-          <div class="res"><strong>−40%</strong>Kosten per lead na drie maanden</div>
-          <div class="tools"><span class="tool">HubSpot</span><span class="tool">ActiveCampaign</span><span class="tool">Zapier</span></div>
+          <div class="t">Accountant</div>
+          <p><span class="salaris">vanaf €4.600</span> <span class="fine">per maand</span></p>
+          <dl class="kv"><dt>Ervaring</dt><dd>9 jaar</dd><dt>Regio</dt><dd>Noord-Holland</dd><dt>Naam</dt><dd><span class="redact" role="img" aria-label="verborgen"></span></dd><dt>Werkgevers</dt><dd><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd></dl>
+          <div class="tools"><span class="tool">Exact Online</span><span class="tool">Jaarrekeningen</span><span class="tool">RA of AA</span></div>
         </article>
       </div>
       <p class="fine" style="margin-top:40px">Naam, werkgevers, projectnamen en links staan er niet in. Het salaris is afgerond. Voorbeelden met fictieve gegevens.</p>
@@ -449,16 +447,16 @@
         <div class="phone" role="img" aria-label="Telefoon die de huidige stap laat zien" id="phone">
           <span class="notch" aria-hidden="true"></span>
           <!-- Marketeer -->
-          <div class="scr" data-scr="k0"><div class="ttl">Jouw profiel</div><div class="box"><div class="kvs"><span>Specialisme</span><b>SEA en performance</b><span>Tools</span><b>Google Ads, GA4</b><span>Salaris</span><b>€4.500–5.200</b><span>Naam en foto</span><b>Niet nodig</b></div></div><span class="pbtn">Profiel opslaan</span></div>
-          <div class="scr" data-scr="k1" hidden><div class="ttl">Bedrijven zoeken</div><div class="fine">SEA · Google Ads · Utrecht</div><div class="box">Senior SEO-specialist<span class="fine">5 jaar, Amsterdam</span></div><div class="box me"><b>Senior SEA-marketeer</b><span class="fine">7 jaar, Utrecht en omgeving</span><span class="redact" aria-hidden="true"></span></div><div class="box">Performance marketeer<span class="fine">4 jaar, Rotterdam</span></div><div class="fine">De tweede kaart is jouw profiel. Zonder naam, zonder foto.</div></div>
-          <div class="scr" data-scr="k2" hidden><div class="ttl">Nieuw aanbod</div><div class="box"><b>Studio Noord</b><span>Senior performance marketeer</span><span class="fine">Utrecht, hybride, 32 tot 40 uur</span><span><span class="salaris">€4.200–4.800</span></span><span class="fine">“Je cases passen precies bij onze klanten.”</span></div><span class="pbtn">Bekijk het aanbod</span></div>
-          <div class="scr" data-scr="k3" hidden><div class="ttl">Jouw antwoord</div><div class="box"><b>Senior performance marketeer</b><span class="salaris" style="align-self:flex-start">€4.200–4.800</span><span class="fine">Studio Noord ziet nu: <span class="redact redact--s" aria-hidden="true"></span></span></div><span class="pbtn">Ja, deel mijn naam</span><span class="pbtn g">Ja, maar...</span><span class="pbtn g">Nee, bedankt</span></div>
-          <div class="scr" data-scr="k4" hidden><div class="ttl">Studio Noord</div><span class="chat">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</span><span class="chat me">Donderdag past goed.</span><span class="chat">Top, we bellen je om 10 uur.</span></div>
+          <div class="scr" data-scr="k0"><div class="ttl">Jouw profiel</div><div class="box"><div class="kvs"><span>Functie</span><b>Allround hovenier</b><span>Vaardigheden</span><b>Bestrating, Snoeien</b><span>Salaris</span><b>€2.900–3.400</b><span>Naam en foto</span><b>Niet nodig</b></div></div><span class="pbtn">Profiel opslaan</span></div>
+          <div class="scr" data-scr="k1" hidden><div class="ttl">Bedrijven zoeken</div><div class="fine">Hovenier · Bestrating · Utrecht</div><div class="box">Tuinontwerper<span class="fine">5 jaar, Amsterdam</span></div><div class="box me"><b>Allround hovenier</b><span class="fine">7 jaar, Utrecht en omgeving</span><span class="redact" aria-hidden="true"></span></div><div class="box">Boomverzorger<span class="fine">4 jaar, Rotterdam</span></div><div class="fine">De tweede kaart is jouw profiel. Zonder naam, zonder foto.</div></div>
+          <div class="scr" data-scr="k2" hidden><div class="ttl">Nieuw aanbod</div><div class="box"><b>Groenwerk Utrecht</b><span>Allround hovenier</span><span class="fine">Utrecht, op locatie, 38 uur</span><span><span class="salaris">€2.900–3.400</span></span><span class="fine">“Je projecten passen precies bij ons werk.”</span></div><span class="pbtn">Bekijk het aanbod</span></div>
+          <div class="scr" data-scr="k3" hidden><div class="ttl">Jouw antwoord</div><div class="box"><b>Allround hovenier</b><span class="salaris" style="align-self:flex-start">€2.900–3.400</span><span class="fine">Groenwerk Utrecht ziet nu: <span class="redact redact--s" aria-hidden="true"></span></span></div><span class="pbtn">Ja, deel mijn naam</span><span class="pbtn g">Ja, maar...</span><span class="pbtn g">Nee, bedankt</span></div>
+          <div class="scr" data-scr="k4" hidden><div class="ttl">Groenwerk Utrecht</div><span class="chat">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</span><span class="chat me">Donderdag past goed.</span><span class="chat">Top, we bellen je om 10 uur.</span></div>
           <!-- Werkgever -->
-          <div class="scr" data-scr="w0" hidden><div class="ttl">Marketeers zoeken</div><div class="fine">SEA · Google Ads · Utrecht</div><div class="box"><b>K-2041</b><span class="fine">Senior SEA-marketeer, 7 jaar</span><span class="salaris" style="align-self:flex-start">€4.500–5.200</span></div><div class="box"><b>K-1187</b><span class="fine">SEA-specialist, 5 jaar</span></div><div class="box"><b>K-3320</b><span class="fine">Performance marketeer, 6 jaar</span></div></div>
-          <div class="scr" data-scr="w1" hidden><div class="ttl">K-2041</div><div class="box"><div class="kvs"><span>Ervaring</span><b>7 jaar</b><span>Tools</span><b>Google Ads, GA4</b><span>Naam</span><span class="redact redact--s" aria-hidden="true"></span></div></div><div class="box"><b>3,1 → 4,6</b><span class="fine">Rendement op advertentie-uitgaven in vijf maanden</span></div><span class="pbtn">Stuur een aanbod</span></div>
-          <div class="scr" data-scr="w2" hidden><div class="ttl">Aanbod sturen</div><div class="box"><span class="fine">Functie</span><b>Senior performance marketeer</b><span class="fine">Salaris per maand</span><b>€4.500 tot €5.000</b><span class="fine">Bericht</span><span>Je cases passen goed bij onze klanten.</span></div><span class="pbtn">Verstuur aanbod</span></div>
-          <div class="scr" data-scr="w3" hidden><div class="ttl">Aanbod aan K-2041</div><div class="box"><b>Senior performance marketeer</b><span class="salaris" style="align-self:flex-start">€4.500–5.000</span></div><div class="box"><span>✓ Verstuurd</span><span>✓ Gelezen</span><b style="color:#0B7A4F">✓ K-2041 zegt ja</b></div></div>
+          <div class="scr" data-scr="w0" hidden><div class="ttl">Kandidaten zoeken</div><div class="fine">Hovenier · Bestrating · Utrecht</div><div class="box"><b>K-2041</b><span class="fine">Allround hovenier, 7 jaar</span><span class="salaris" style="align-self:flex-start">€2.900–3.400</span></div><div class="box"><b>K-1187</b><span class="fine">Hovenier, 5 jaar</span></div><div class="box"><b>K-3320</b><span class="fine">Medewerker groenvoorziening, 6 jaar</span></div></div>
+          <div class="scr" data-scr="w1" hidden><div class="ttl">K-2041</div><div class="box"><div class="kvs"><span>Ervaring</span><b>7 jaar</b><span>Vaardigheden</span><b>Bestrating, Rijbewijs BE</b><span>Naam</span><span class="redact redact--s" aria-hidden="true"></span></div></div><div class="box"><b>Stadstuin opnieuw aangelegd</b><span class="fine">Ontwerp, bestrating en beplanting</span></div><span class="pbtn">Stuur een aanbod</span></div>
+          <div class="scr" data-scr="w2" hidden><div class="ttl">Aanbod sturen</div><div class="box"><span class="fine">Functie</span><b>Allround hovenier</b><span class="fine">Salaris per maand</span><b>€2.900 tot €3.400</b><span class="fine">Bericht</span><span>Je projecten passen goed bij ons werk.</span></div><span class="pbtn">Verstuur aanbod</span></div>
+          <div class="scr" data-scr="w3" hidden><div class="ttl">Aanbod aan K-2041</div><div class="box"><b>Allround hovenier</b><span class="salaris" style="align-self:flex-start">€2.900–3.400</span></div><div class="box"><span>✓ Verstuurd</span><span>✓ Gelezen</span><b class="ok-txt">✓ K-2041 zegt ja</b></div></div>
           <div class="scr" data-scr="w4" hidden><div class="ttl">Sanne de Vries</div><div class="box"><div class="kvs"><span>Contact</span><b>sanne@voorbeeld.nl</b><span>Cv</span><b>cv-sanne.pdf</b></div></div><span class="pbtn">Plan een gesprek</span></div>
         </div>
       </div>
@@ -475,7 +473,7 @@
       </div>
       <ol class="tl" id="tl">
         <li><span class="day">Dag 1</span><div><strong>Je maakt een anoniem profiel</strong>Ongeveer tien minuten. Zonder naam of foto.</div></li>
-        <li><span class="day">Dag 3</span><div><strong>Bedrijven zoeken</strong>Ze zien alleen je ervaring, tools en cases.</div></li>
+        <li><span class="day">Dag 3</span><div><strong>Bedrijven zoeken</strong>Ze zien alleen je ervaring, vaardigheden en projecten.</div></li>
         <li><span class="day">Dag 5</span><div><strong>Er komt een aanbod</strong>Met functie, salaris en een persoonlijk bericht.</div></li>
         <li><span class="day">Dag 6</span><div><strong>Jij reageert</strong>Ja, ja maar met een voorwaarde, of nee.</div></li>
         <li><span class="day">Dag 9</span><div><strong>Jullie maken kennis</strong>Na jouw ja delen we je naam, cv en contact.</div></li>
@@ -489,12 +487,12 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-quick" class="big-h">Snel kandidaten <span class="soft">zoeken.</span></h2>
-        <p class="lead">Voor werkgevers. Kies een vak, ervaring en regio en zie meteen hoeveel anonieme profielen passen.</p>
+        <p class="lead">Voor werkgevers. Kies een vakgebied, ervaring en regio en zie meteen hoeveel anonieme profielen passen.</p>
       </div>
       <div class="quick">
         <div class="card stack light-island" style="border-radius:28px">
-          <fieldset class="stack-s"><legend>Specialisme</legend><div class="chips" data-een data-q="spec">
-            <button type="button" class="chip" aria-pressed="true" data-v="64">Performance en SEA</button><button type="button" class="chip" aria-pressed="false" data-v="41">SEO en content</button><button type="button" class="chip" aria-pressed="false" data-v="22">Marketing-automation</button><button type="button" class="chip" aria-pressed="false" data-v="19">Data en analytics</button>
+          <fieldset class="stack-s"><legend>Vakgebied</legend><div class="chips" data-een data-q="spec">
+            <button type="button" class="chip" aria-pressed="true" data-v="64">Bouw en techniek</button><button type="button" class="chip" aria-pressed="false" data-v="41">ICT en webdesign</button><button type="button" class="chip" aria-pressed="false" data-v="22">Financiën en administratie</button><button type="button" class="chip" aria-pressed="false" data-v="19">Groen en buitenruimte</button>
           </div></fieldset>
           <fieldset class="stack-s"><legend>Ervaring</legend><div class="chips" data-een data-q="exp">
             <button type="button" class="chip" aria-pressed="true" data-v="1">Alle niveaus</button><button type="button" class="chip" aria-pressed="false" data-v=".7">Vanaf 3 jaar</button><button type="button" class="chip" aria-pressed="false" data-v=".45">Vanaf 5 jaar</button>
@@ -505,7 +503,7 @@
         </div>
         <div class="result">
           <p aria-live="polite"><span class="num" id="q-num">64</span><br><strong style="font-size:1.25rem">anonieme profielen passen bij je filter</strong></p>
-          <p>Je ziet ervaring, cases en salarisindicatie. Namen blijven verborgen.</p>
+          <p>Je ziet ervaring, projecten en salarisindicatie. Namen blijven verborgen.</p>
           <a class="cta-pill" href="kandidaten-zoeken.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span><span class="cta-txt">Bekijk de profielen</span></a>
           <p class="fine" style="color:inherit;opacity:.85">Voorbeeldaantallen. Werkgevers loggen in om profielen te openen.</p>
         </div>
@@ -534,16 +532,16 @@
         <p class="lead">Je kiest zelf wie jou ziet, en een aanbod komt nooit zonder salaris.</p>
       </div>
       <div class="diff">
-        <div class="card reveal"><h3>Voor marketeers</h3><ul>
+        <div class="card reveal"><h3>Voor werkzoekenden</h3><ul>
           <li><strong>Je werkgever kijkt niet mee</strong><span>Blokkeer bedrijven die je profiel nooit mogen zien.</span></li>
           <li><strong>Altijd met salaris</strong><span>Een aanbod zonder salarisrange kan niet worden verstuurd.</span></li>
-          <li><strong>Laat zien wat je kunt</strong><span>Cases en resultaten zeggen meer dan een motivatiebrief.</span></li>
+          <li><strong>Laat zien wat je kunt</strong><span>Je werk en ervaring zeggen meer dan een motivatiebrief.</span></li>
           <li><strong>Alleen actuele profielen</strong><span>Niet bevestigd? Dan verdwijnt je profiel vanzelf uit de zoekresultaten.</span></li>
         </ul></div>
         <div class="card reveal"><h3>Voor werkgevers</h3><ul>
           <li><strong>Kies zelf je nieuwe collega</strong><span>Betaal per contact, of alleen als je iemand aanneemt.</span></li>
-          <li><strong>Zoek op wat telt</strong><span>Je kiest op ervaring, tools en resultaten. Niet op leeftijd of geslacht.</span></li>
-          <li><strong>Bereik mensen met een baan</strong><span>Ook marketeers die niet actief solliciteren staan open voor een goed aanbod.</span></li>
+          <li><strong>Zoek op wat telt</strong><span>Je kiest op ervaring, vaardigheden en vakmanschap. Niet op leeftijd of geslacht.</span></li>
+          <li><strong>Bereik mensen met een baan</strong><span>Ook vakmensen die niet actief solliciteren staan open voor een goed aanbod.</span></li>
         </ul></div>
       </div>
     </div>
@@ -562,12 +560,12 @@
         </div>
         <p role="status" data-priv-uitleg style="font-size:1rem">Zo ziet een bedrijf het profiel. De balken blijven dicht tot de werknemer ja zegt.</p>
         <dl class="redcard">
-          <dt>Functie</dt><dd>Senior SEA-marketeer</dd>
-          <dt>Ervaring</dt><dd>7 jaar, e-commerce en B2B</dd>
-          <dt>Salarisindicatie</dt><dd><span class="salaris">€4.500–5.200</span></dd>
+          <dt>Functie</dt><dd>Allround hovenier</dd>
+          <dt>Ervaring</dt><dd>7 jaar, particulieren en bedrijven</dd>
+          <dt>Salarisindicatie</dt><dd><span class="salaris">€2.900–3.400</span></dd>
           <dt>Naam</dt><dd data-geheim="Sanne de Vries"><span class="redact" role="img" aria-label="verborgen"></span></dd>
           <dt>Contact</dt><dd data-geheim="sanne@voorbeeld.nl"><span class="redact redact--l" role="img" aria-label="verborgen"></span></dd>
-          <dt>Huidige werkgever</dt><dd data-geheim="Studio Noord Digital"><span class="redact" role="img" aria-label="verborgen"></span></dd>
+          <dt>Huidige werkgever</dt><dd data-geheim="Groenwerk Utrecht"><span class="redact" role="img" aria-label="verborgen"></span></dd>
         </dl>
       </div>
     </div>
@@ -578,11 +576,11 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <h2 id="h-prijs" class="big-h">Betaal pas <span class="soft">bij resultaat.</span></h2>
-        <p class="lead">Zoeken en aanbiedingen sturen kost niets. Je betaalt bij een aanname, of per marketeer die ja zegt. Voor marketeers is deedni altijd gratis.</p>
+        <p class="lead">Zoeken en aanbiedingen sturen kost niets. Je betaalt bij een aanname, of per kandidaat die ja zegt. Voor werkzoekenden is deedni altijd gratis.</p>
       </div>
       <ul class="prices reveal">
         <li><div><div class="name">Per aanname</div><span class="fine">Je neemt iemand aan</span></div><div class="amt">10%</div><div>van het jaarsalaris. Geen kosten vooraf, geen bijkomende kosten.</div></li>
-        <li><div><div class="name">Per contact</div><span class="fine">De marketeer zegt ja</span></div><div class="amt">€[bedrag]</div><div>per marketeer die ja zegt. Je betaalt niets bij nee, zonder aannamecontract.</div></li>
+        <li><div><div class="name">Per contact</div><span class="fine">De kandidaat zegt ja</span></div><div class="amt">€[bedrag]</div><div>per kandidaat die ja zegt. Je betaalt niets bij nee, zonder aannamecontract.</div></li>
         <li class="ref"><div><div class="name">Bureau</div><span class="fine">Ter vergelijking</span></div><div class="amt">20–25%</div><div>van het jaarsalaris, betaling meestal bij start, weinig inzicht in de kandidaat.</div></li>
       </ul>
     </div>
@@ -593,12 +591,12 @@
     <div class="wrap">
       <div class="sec-head reveal"><h2 id="h-faq" class="big-h">Veelgestelde <span class="soft">vragen.</span></h2></div>
       <div class="faq">
-        <details><summary>Wanneer opent deedni?</summary><p>We openen eerst voor online marketing. Een datum hebben we nog niet. Als je een account maakt, krijg je één e-mail zodra het zover is.</p></details>
+        <details><summary>Wanneer opent deedni?</summary><p>We starten met een testfase voor alle vakgebieden. Een datum hebben we nog niet. Als je een account maakt, krijg je één e-mail zodra het zover is.</p></details>
         <details><summary>Kan mijn huidige werkgever mijn profiel zien?</summary><p>Niet als je het bedrijf op je blokkeerlijst zet. Dan komt je profiel nooit in hun zoekresultaten.</p></details>
         <details><summary>Wanneer ziet een bedrijf mijn naam?</summary><p>Pas als jij een aanbod van dat bedrijf accepteert. Andere bedrijven blijven alleen je anonieme profiel zien.</p></details>
-        <details><summary>Wat kost het voor mij als marketeer?</summary><p>Niets. Profiel, cv, portfolio en aanbiedingen zijn gratis.</p></details>
+        <details><summary>Wat kost het voor mij als werkzoekende?</summary><p>Niets. Profiel, cv, projecten en aanbiedingen zijn gratis.</p></details>
         <details><summary>Wat als een kandidaat nee zegt?</summary><p>Dan krijgt het bedrijf een nette afwijzing en blijft de kandidaat anoniem. Met Per contact betaal je dan niets.</p></details>
-        <details><summary>Waarom kan ik niet filteren op leeftijd of geslacht?</summary><p>We vragen er niet naar. Je kiest op ervaring, tools en resultaten.</p></details>
+        <details><summary>Waarom kan ik niet filteren op leeftijd of geslacht?</summary><p>We vragen er niet naar. Je kiest op ervaring, vaardigheden en vakmanschap.</p></details>
       </div>
     </div>
   </section>
@@ -611,7 +609,7 @@
         <span class="line" aria-hidden="true" data-drift="1"><span class="w">Laat</span><span class="ph"><img src="images/werken-laptop.jpg" alt="" width="1000" height="667" loading="lazy"></span><span class="w">je</span></span>
         <span class="line" aria-hidden="true" data-drift="-1"><span class="w">vinden.</span></span>
       </h2>
-      <p class="lead">Gratis voor marketeers. Bedrijven betalen alleen bij een aanname.</p>
+      <p class="lead">Gratis voor werkzoekenden. Bedrijven betalen alleen bij een aanname.</p>
       <div class="cta-row" data-voor-rol="kandidaat" hidden>
         <a class="cta-pill cta-pill--accent" href="mijn-profiel.html"><span class="cta-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></svg></span><span class="cta-txt">Maak je profiel compleet</span></a>
       </div>
@@ -742,8 +740,8 @@
 
   /* 7. Zo werkt het: stappen met automatische voortgang */
   var S = {
-    k: [['Je maakt een profiel', 'Specialisme, tools, ervaring en wat je zoekt. Naam en foto zijn niet nodig.'], ['Bedrijven zoeken', 'Ze filteren op vak, tools en regio en zien alleen je anonieme profiel.'], ['Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.'], ['Jij zegt ja, nee of ja, maar', 'Ja, maar met een voorwaarde, zoals een hoger salaris? Dan past het bedrijf het aanbod aan. Bij nee blijft je naam verborgen.'], ['Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.']],
-    w: [['Je zoekt een marketeer', 'Filter op vak, tools, regio en beschikbaarheid.'], ['Je opent een profiel', 'Je ziet ervaring, cases en salarisindicatie. De naam blijft verborgen.'], ['Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.'], ['De marketeer beslist', 'Ja, nee, of ja met een voorwaarde. Bij nee betaal je niets en blijft de marketeer anoniem.'], ['Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.']]
+    k: [['Je maakt een profiel', 'Je vak, vaardigheden, ervaring en wat je zoekt. Naam en foto zijn niet nodig.'], ['Bedrijven zoeken', 'Ze filteren op vak, vaardigheden en regio en zien alleen je anonieme profiel.'], ['Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.'], ['Jij zegt ja, nee of ja, maar', 'Ja, maar met een voorwaarde, zoals een hoger salaris? Dan past het bedrijf het aanbod aan. Bij nee blijft je naam verborgen.'], ['Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.']],
+    w: [['Je zoekt een nieuwe collega', 'Filter op vak, vaardigheden, regio en beschikbaarheid.'], ['Je opent een profiel', 'Je ziet ervaring, projecten en salarisindicatie. De naam blijft verborgen.'], ['Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.'], ['De kandidaat beslist', 'Ja, nee, of ja met een voorwaarde. Bij nee betaal je niets en blijft de kandidaat anoniem.'], ['Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.']]
   };
   var how = document.getElementById('zo-werkt-het'), lijst = document.getElementById('how-steps'), phone = document.getElementById('phone');
   var wie = 'k', stap = 0, timer = null, gepauzeerd = !!minder, dur = 5200, inBeeld = false;
@@ -827,9 +825,9 @@
   }
   if (rol === 'werkgever') {
     var M = [
-      { code: 'K-1010', p: 92, t: 'Senior SEA-specialist', meta: 'vanaf €4.000 · 32 uur · per 1 februari · Utrecht', k: [['5,4', 'ROAS'], ['−40%', 'CPL'], ['6 jr', 'ervaring']], w: ['Google Ads en GA4, net als jullie', 'Binnen je salarisbudget', 'Hybride in Utrecht'] },
-      { code: 'K-2041', p: 88, t: 'Senior performance marketeer', meta: 'vanaf €4.000 · 32 tot 40 uur · per direct · Utrecht + 30 km', k: [['3,1 → 5,4', 'ROAS'], ['3', 'cases'], ['7 jr', 'ervaring']], w: ['Google Ads, Meta Ads en GA4', 'Binnen je salarisbudget', 'Wil een klein team leiden'] },
-      { code: 'K-1910', p: 81, t: 'SEA-specialist e-commerce', meta: 'vanaf €3.900 · 36 uur · binnen 1 maand · Remote', k: [['+120%', 'Shopping-omzet'], ['4', 'cases'], ['6 jr', 'ervaring']], w: ['Google Ads en Shopping', 'Onder je salarisbudget', 'Alleen remote, jullie zijn hybride'] }
+      { code: 'K-1010', p: 92, t: 'Allround hovenier', meta: 'vanaf €2.900 · 38 uur · per 1 februari · Utrecht', k: [['4', 'projecten'], ['7 jr', 'ervaring']], w: ['Hovenier, wat je zoekt', 'Bestrating en Rijbewijs BE, net als jullie', 'Binnen je salarisbudget'] },
+      { code: 'K-2041', p: 88, t: 'Hovenier', meta: 'vanaf €2.800 · 32 tot 40 uur · per direct · Utrecht + 30 km', k: [['40+', 'tuinen'], ['3', 'projecten'], ['5 jr', 'ervaring']], w: ['Hovenier, wat je zoekt', 'Binnen je salarisbudget', 'Wil een klein team leiden'] },
+      { code: 'K-1910', p: 71, t: 'Medewerker groenvoorziening', meta: 'vanaf €2.700 · 36 uur · binnen 1 maand · Amersfoort', k: [['2', 'projecten'], ['6 jr', 'ervaring']], w: ['Andere functie in hetzelfde vakgebied', 'Onder je salarisbudget', 'Andere regio'] }
     ];
     var mi = 0, bewaard = 0, card = document.getElementById('mcard');
     function toonMatch() {

@@ -2,7 +2,7 @@
 
 Je krijgt twee zip-bestanden:
 
-- **deedni-core.zip** is de plugin. Die regelt alles wat "doet": rollen, inloggen en account maken, profielen, zoeken, het matchpercentage, aanbiedingen, "Ja, maar", resultaten en e-mails. Ook alle blokken waarmee je de pagina's opbouwt zitten hierin.
+- **deedni-core.zip** is de plugin. Die regelt alles wat "doet": rollen, inloggen en account maken, profielen, zoeken, het matchpercentage, aanbiedingen, "Ja, maar", projecten en e-mails. Ook alle blokken waarmee je de pagina's opbouwt zitten hierin.
 - **deedni-thema.zip** is het thema. Het zorgt voor de vormgeving: kleuren, lettertype, de kop met menu en de voet.
 
 Je hebt **geen betaalde plugins** nodig. ACF is ook niet meer nodig.
@@ -50,10 +50,10 @@ Handig om te weten:
 
 - **Volgorde veranderen** doe je met de pijltjes boven een blok, of door te slepen.
 - **Een blok weghalen** kan via de drie puntjes boven het blok. Je kunt het later weer toevoegen via de **+**.
-- **Wie ziet deze sectie?** Per blok kies je of iedereen het ziet, of alleen bezoekers, marketeers of werkgevers.
+- **Wie ziet deze sectie?** Per blok kies je of iedereen het ziet, of alleen bezoekers, kandidaten of werkgevers.
 - **Achtergrond** kies je per blok (standaard, zacht, accentkleur of donker).
 - **Ruimte boven dit blok** en **Ruimte onder dit blok** (onder *Opmaak*): kies *Geen*, *Klein*, *Middel*, *Groot* of *Extra groot* voor meer of minder witruimte tussen blokken. *Standaard* houdt de ruimte uit het ontwerp.
-- **Voorbeeld in de editor bekijken als**: veel blokken tonen iets anders voor een bezoeker, een marketeer of een werkgever. Met dit veld zie je in de editor hoe het blok eruitziet voor elke rol. Op de site zelf ziet iedereen gewoon zijn eigen versie.
+- **Voorbeeld in de editor bekijken als**: veel blokken tonen iets anders voor een bezoeker, een kandidaat of een werkgever. Met dit veld zie je in de editor hoe het blok eruitziet voor elke rol. Op de site zelf ziet iedereen gewoon zijn eigen versie.
 - Je kunt ook gewone WordPress-blokken (tekst, afbeelding, knoppen) tussen de deedni-blokken zetten.
 - Kandidaatprofielen gebruiken het blok *Kandidaatprofiel*. Dat pas je aan via **Weergave > Editor > Templates**, bij het template voor één kandidaat.
 
@@ -64,9 +64,9 @@ Ga naar **Weergave > Menu's**. Er is een menu per rol:
 | Menu | Wie ziet het |
 |---|---|
 | Menu bezoeker | Iedereen die niet is ingelogd |
-| Menu marketeer | Ingelogde marketeers |
+| Menu kandidaat | Ingelogde kandidaten |
 | Menu werkgever | Ingelogde werkgevers |
-| Accountmenu marketeer | Het menuutje onder de initialen van een marketeer |
+| Accountmenu kandidaat | Het menuutje onder de initialen van een kandidaat |
 | Accountmenu werkgever | Het menuutje onder de initialen van een werkgever |
 | Links onderaan | De voet van elke pagina |
 
@@ -90,8 +90,8 @@ Staat er gevoelige of onjuiste informatie in een profiel? Bijvoorbeeld een telef
 
 1. Ga naar **Kandidaten** en klik bij het profiel op *Profiel aanpassen*.
 2. Pas de velden aan in het blok **Profiel aanpassen**. Je kunt ook een werkervaring, project of resultaat weghalen, of het cv verwijderen.
-3. Wil je het profiel (tijdelijk) offline halen? Vink rechts bij **Zichtbaarheid** *Verberg dit profiel voor werkgevers* aan. Vul eventueel een reden in: de marketeer ziet die op *Mijn profiel* en het overzicht.
-4. Schrijf onderaan bij **Notitie bij deze wijziging** kort wat je aanpaste en waarom. Vink aan of de marketeer een mail krijgt.
+3. Wil je het profiel (tijdelijk) offline halen? Vink rechts bij **Zichtbaarheid** *Verberg dit profiel voor werkgevers* aan. Vul eventueel een reden in: de kandidaat ziet die op *Mijn profiel* en het overzicht.
+4. Schrijf onderaan bij **Notitie bij deze wijziging** kort wat je aanpaste en waarom. Vink aan of de kandidaat een mail krijgt.
 5. Klik op **Bijwerken**.
 
 Een verborgen profiel staat niet meer in Ontdekken, bij Kandidaten zoeken of in de beste matches. Werkgevers kunnen de profielpagina niet openen en geen nieuw aanbod sturen. Lopende aanbiedingen blijven bestaan. In de lijst **Kandidaten** zie je *Verborgen door beheer*, en met de snelle link *Verbergen voor werkgevers* of *Weer tonen aan werkgevers* zet je het in één klik om.
@@ -110,9 +110,9 @@ Mensen vullen in: wat ze zoeken (werk of personeel), naam, e-mailadres en option
 
 In wp-admin staat links **Aanmeldingen**. Daar zie je:
 
-- de aantallen: totaal, marketeers, werkgevers, de laatste 7 dagen en hoeveel je er al hebt uitgenodigd;
+- de aantallen: totaal, werkzoekenden, werkgevers, de laatste 7 dagen en hoeveel je er al hebt uitgenodigd;
 - per persoon *Uitgenodigd: Ja/Nee*. Klik erop om het om te zetten. Met de vinkjes en *Actie voor aangevinkte rijen* doe je dat voor meerdere tegelijk;
-- *Download als CSV*: opent meteen goed in Excel. Kies je eerst *Marketeers* of *Werkgevers*, dan download je alleen die groep;
+- *Download als CSV*: opent meteen goed in Excel. Kies je eerst *Werkzoekenden* of *Werkgevers*, dan download je alleen die groep;
 - *Stuur mij een mail bij elke nieuwe aanmelding* (werkt pas met een SMTP-plugin);
 - *Na de test: alles verwijderen*. Typ VERWIJDER om te bevestigen.
 
@@ -138,7 +138,7 @@ Wat je zelf op de server regelt (vraag het je hoster als je er niet zelf bij kun
    location ^~ /wp-content/uploads/deedni-cv/ { deny all; }
    ```
    Test het daarna: een cv-bestand openen via het directe adres moet *403 Forbidden* geven. Downloaden via de site blijft werken.
-2. **Cv's van voor versie 2.4** staan nog in de gewone uploadmap. Vraag marketeers hun cv opnieuw te uploaden, of verwijder de oude testbestanden bij **Media**.
+2. **Cv's van voor versie 2.4** staan nog in de gewone uploadmap. Vraag kandidaten hun cv opnieuw te uploaden, of verwijder de oude testbestanden bij **Media**.
 3. **Je beheerdersaccount heet `admin`.** Maak een nieuwe beheerder met een andere gebruikersnaam en een sterk wachtwoord, log daarmee in en verwijder `admin` (geef de inhoud aan de nieuwe beheerder). Zet er tweestapsverificatie op met de gratis plugin **Two Factor**.
 4. **`readme.html` en `license.txt`** in de hoofdmap verraden de WordPress-versie. Verwijder ze of laat de hoster ze blokkeren. Ze komen terug bij een WordPress-update.
 5. **Komt er later een CDN of proxy (zoals Cloudflare) voor de site?** Dan ziet de plugin voor iedereen hetzelfde IP-adres. Gebruik dan het filter `deedni_ip` om het echte adres door te geven, anders delen alle bezoekers één teller.
@@ -151,34 +151,55 @@ Versie 2.5 (plugin) en 2.2 (thema) voegen veel kleine details toe, zoals skeleto
 - **Sitetaal op Nederlands** (**Instellingen > Algemeen > Taal van de site**). Dan breekt de browser lange woorden af volgens de Nederlandse regels.
 - **Update het thema ook** (versie 2.2). Daarin zit `viewport-fit=cover`, zodat de site op een iPhone met notch tot de rand doorloopt.
 
+## Voor elk vak: vakgebieden, functies en vaardigheden (versie 3.0)
+
+deedni is niet meer alleen voor marketeers. Versie 3.0 (plugin) en 2.4 (thema) maken alle teksten, voorbeeldprofielen en filters algemeen, zodat een hovenier, accountant of webdesigner er net zo goed terecht kan.
+
+**Vakgebieden en functies.** In wp-admin heet de lijst nu **Kandidaten > Vakgebieden en functies**. Bovenaan staan vakgebieden (zoals *Groen en buitenruimte* of *Financiën en administratie*). Functies hang je eronder door bij *Hoofdterm* het vakgebied te kiezen. Je kunt zelf vakgebieden en functies toevoegen, hernoemen of verwijderen. De plugin zet bij het bijwerken 13 vakgebieden met functies klaar. Bestaande termen blijven staan; de oude marketingfuncties worden onder *Marketing en communicatie* gehangen.
+
+**Vaardigheden en tools.** Onder **Kandidaten > Vaardigheden en tools** kies je per vaardigheid voor welke vakgebieden die bedoeld is (vinkjes onderaan het formulier). Laat je alles leeg, dan geldt de vaardigheid voor iedereen. Een kandidaat ziet eerst de vaardigheden die bij het gekozen vakgebied horen en kan met *Toon alle vaardigheden* de rest openen. Bij zoeken werkt het filter op dezelfde manier.
+
+**Resultaten zijn optioneel.** Bij een project hoeft een kandidaat geen resultaat (cijfer of percentage) in te vullen. Het blok heet nu *Resultaat (optioneel)* en start leeg. Een project zonder resultaat ziet er op het profiel gewoon netjes uit.
+
+**Matchpercentage.** Het deel voor functie (30 punten) werkt nu met vakgebieden:
+- Zelfde functie, of de werkgever zoekt "alle functies" in het vakgebied van de kandidaat: 30 punten.
+- Andere functie in hetzelfde vakgebied: 15 punten.
+- Ander vakgebied: 0 punten.
+
+De rest blijft gelijk: vaardigheden 25, salaris 20, regio 15 en werkplek 10.
+
+**Zoeken.** Werkgevers filteren op *Vakgebied*, *Functie*, *Vaardigheden en tools* en *Regio*. In de link staat het vakgebied als `vak[]`, naast het bestaande `spec[]` voor de functie.
+
+**Voor ontwikkelaars.** De standaardlijsten pas je aan met de filters `deedni_standaard_vakgebieden` en `deedni_standaard_vaardigheden`. Ze worden alleen gebruikt om ontbrekende termen aan te maken.
+
 ## Instellingen > deedni
 
 - **Pagina's**: welke pagina het inloggen, het overzicht, het profiel, het zoeken en de vooraanmelding toont.
 - **Werkgevers eerst goedkeuren**: staat aan. Een nieuwe werkgever kan pas zoeken als jij het account goedkeurt. Dat doe je bij **Gebruikers**, met de link *Goedkeuren*.
-- **Reactietermijn**: hoeveel dagen een marketeer heeft om op een aanbod te reageren.
-- **Wie keek mee**: laat marketeers zien hoe vaak hun profiel is bekeken. Dit is optioneel.
+- **Reactietermijn**: hoeveel dagen een kandidaat heeft om op een aanbod te reageren.
+- **Wie keek mee**: laat kandidaten zien hoe vaak hun profiel is bekeken. Dit is optioneel.
 - **E-mailadres bevestigen**: staat aan. Nieuwe accounts krijgen eerst een bevestigingslink. Zet het alleen uit als de site (nog) geen mail kan versturen.
 - **Standaard opnieuw klaarzetten**: knoppen om ontbrekende pagina's of menu's opnieuw aan te maken. Bestaande pagina's worden niet overschreven. De knop *Homepage opnieuw vullen* zet de homepage wel terug naar de standaardteksten.
 
 ## Hoe het werkt
 
 **Rollen**
-- *Marketeer* (kandidaat): heeft één anoniem profiel en krijgt aanbiedingen.
+- *Kandidaat* (werkzoekende): heeft één anoniem profiel en krijgt aanbiedingen.
 - *Werkgever*: heeft een bedrijfsprofiel, zoekt kandidaten en stuurt aanbiedingen.
 
 Beide rollen komen niet in wp-admin. Alles gaat via de pagina's op de site.
 
 **De flow**
-1. Een marketeer maakt een account en vult het profiel in vijf stappen in. Daarna zet de marketeer het profiel online.
+1. Een kandidaat maakt een account en vult het profiel in vijf stappen in. Daarna zet de kandidaat het profiel online.
 2. Een werkgever maakt een account en vult het bedrijfsprofiel in, ook "Wie je zoekt". Jij keurt het account goed.
 3. De werkgever ziet matches met een matchpercentage, of zoekt zelf met filters. De werkgever bewaart kandidaten en stuurt een aanbod met salaris.
-4. De marketeer kiest *Ja*, *Ja, maar* (met een tegenvoorstel) of *Nee*. Bij *Ja, maar* kan de werkgever akkoord gaan, een nieuw voorstel doen of stoppen.
+4. De kandidaat kiest *Ja*, *Ja, maar* (met een tegenvoorstel) of *Nee*. Bij *Ja, maar* kan de werkgever akkoord gaan, een nieuw voorstel doen of stoppen.
 5. Na een ja ziet de werkgever naam en contactgegevens. Daarna kan de werkgever melden dat de kandidaat is aangenomen. Jij krijgt dan een mail.
 
 **Privacy**
-- Werkgevers zien een code (zoals K-1010) en geen naam, tot de marketeer ja zegt.
+- Werkgevers zien een code (zoals K-1010) en geen naam, tot de kandidaat ja zegt.
 - Kandidaatprofielen staan niet in de zoekfunctie van WordPress, de REST API, feeds of de sitemap.
-- Een marketeer kan bedrijven blokkeren. Die vinden het profiel dan niet.
+- Een kandidaat kan bedrijven blokkeren. Die vinden het profiel dan niet.
 
 ## Wat niet getest is
 

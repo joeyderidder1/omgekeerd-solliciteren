@@ -1,13 +1,20 @@
 <?php
 /**
- * Gebruikersrollen. Marketeers (kandidaten) en werkgevers krijgen alleen 'read': alles wat ze doen
+ * Gebruikersrollen. Kandidaten (kandidaten) en werkgevers krijgen alleen 'read': alles wat ze doen
  * loopt via de pagina's op de site, zodat ze nooit in wp-admin hoeven te komen.
  */
 
 defined( 'ABSPATH' ) || exit;
 
 function deedni_add_roles() {
-	add_role( 'deedni_kandidaat', 'Marketeer (kandidaat)', array( 'read' => true, 'upload_files' => false ) );
+	add_role( 'deedni_kandidaat', 'Kandidaat (werkzoekende)', array( 'read' => true, 'upload_files' => false ) );
+	// Bestaande sites: de oude naam "Marketeer (kandidaat)" bijwerken.
+	$roles = wp_roles();
+	if ( isset( $roles->roles['deedni_kandidaat'] ) && 'Kandidaat (werkzoekende)' !== $roles->roles['deedni_kandidaat']['name'] ) {
+		$roles->roles['deedni_kandidaat']['name'] = 'Kandidaat (werkzoekende)';
+		$roles->role_names['deedni_kandidaat']    = 'Kandidaat (werkzoekende)';
+		update_option( $roles->role_key, $roles->roles );
+	}
 	add_role( 'deedni_werkgever', 'Werkgever', array( 'read' => true, 'upload_files' => false ) );
 }
 

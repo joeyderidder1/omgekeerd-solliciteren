@@ -9,9 +9,9 @@ defined( 'ABSPATH' ) || exit;
 function deedni_menu_locaties() {
 	return array(
 		'deedni-bezoeker'          => 'Menu bezoeker (niet ingelogd)',
-		'deedni-kandidaat'         => 'Menu marketeer',
+		'deedni-kandidaat'         => 'Menu kandidaat',
 		'deedni-werkgever'         => 'Menu werkgever',
-		'deedni-account-kandidaat' => 'Accountmenu marketeer (onder de initialen)',
+		'deedni-account-kandidaat' => 'Accountmenu kandidaat (onder de initialen)',
 		'deedni-account-werkgever' => 'Accountmenu werkgever (onder de initialen)',
 		'deedni-voet'              => 'Links onderaan (footer)',
 	);

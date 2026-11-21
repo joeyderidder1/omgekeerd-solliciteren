@@ -15,10 +15,10 @@ deedni_blok(
 	'kop',
 	array(
 		'titel'        => 'Kop met menu',
-		'beschrijving' => 'Logo en het menu. Elke rol (bezoeker, marketeer, werkgever) krijgt een eigen menu. De links zelf pas je aan onder Weergave > Menu\'s.',
+		'beschrijving' => 'Logo en het menu. Elke rol (bezoeker, kandidaat, werkgever) krijgt een eigen menu. De links zelf pas je aan onder Weergave > Menu\'s.',
 		'icoon'        => 'menu',
 		'multiple'     => false,
-		'uitleg'       => 'De links in het menu pas je aan onder Weergave > Menu\'s. Daar staat een menu voor bezoekers, marketeers en werkgevers, plus de accountmenu\'s onder de initialen.',
+		'uitleg'       => 'De links in het menu pas je aan onder Weergave > Menu\'s. Daar staat een menu voor bezoekers, kandidaten en werkgevers, plus de accountmenu\'s onder de initialen.',
 		'velden'       => array(
 			'logo_tekst'   => array( 'type' => 'text', 'label' => 'Logo als tekst', 'standaard' => '', 'help' => 'Leeg laten = de naam van de site (Instellingen > Algemeen).', 'groep' => 'Logo' ),
 			'logo'         => array( 'type' => 'image', 'label' => 'Logo als afbeelding (optioneel)', 'standaard' => array(), 'help' => 'Kies je een afbeelding, dan staat die er in plaats van de tekst.', 'groep' => 'Logo' ),
@@ -75,7 +75,7 @@ function deedni_render_kop( $a ) {
 		} else {
 			$k    = deedni_profile_id( $user->ID, 'kandidaat' );
 			$naam = $k && deedni_field( $k, 'voornaam' ) ? deedni_field( $k, 'voornaam' ) : ( $user->first_name ? $user->first_name : $user->display_name );
-			$wat  = 'marketeer';
+			$wat  = 'kandidaat';
 		}
 		$account    = deedni_menu_items( 'deedni-account-' . $rol );
 		$in_account = (bool) array_filter( wp_list_pluck( $account, 'huidig' ) );

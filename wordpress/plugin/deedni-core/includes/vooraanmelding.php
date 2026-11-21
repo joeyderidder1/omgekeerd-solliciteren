@@ -1,6 +1,6 @@
 <?php
 /**
- * Vooraanmelding: een tijdelijk aanmeldformulier zonder account (marketeer of werkgever, naam, e-mail,
+ * Vooraanmelding: een tijdelijk aanmeldformulier zonder account (werkzoekende of werkgever, naam, e-mail,
  * optioneel bedrijf en functie) en een overzicht in wp-admin onder "Aanmeldingen" met aantallen,
  * "uitgenodigd ja/nee", verwijderen en export naar CSV.
  *
@@ -58,7 +58,7 @@ add_action(
 
 function deedni_doelgroepen() {
 	return array(
-		'kandidaat' => 'Marketeer',
+		'kandidaat' => 'Werkzoekende',
 		'werkgever' => 'Werkgever',
 	);
 }
@@ -106,7 +106,7 @@ deedni_blok(
 	'vooraanmelding',
 	array(
 		'titel'        => 'Vooraanmelding (zonder account)',
-		'beschrijving' => 'Een kort aanmeldformulier voor de testfase: marketeer of werkgever, naam, e-mail en optioneel bedrijf of functie. Je ziet de aanmeldingen in wp-admin onder Aanmeldingen.',
+		'beschrijving' => 'Een kort aanmeldformulier voor de testfase: werkzoekende of werkgever, naam, e-mail en optioneel bedrijf of functie. Je ziet de aanmeldingen in wp-admin onder Aanmeldingen.',
 		'icoon'        => 'clipboard',
 		'stijl'        => 'deedni-home',
 		'achtergrond'  => 'zacht',
@@ -132,7 +132,7 @@ deedni_blok(
 				'type'      => 'keuze',
 				'label'     => 'Welke keuze staat al aan?',
 				'groep'     => 'Formulier',
-				'opties'    => array( 'kandidaat' => 'Keuze 1 (marketeer)', 'werkgever' => 'Keuze 2 (werkgever)' ),
+				'opties'    => array( 'kandidaat' => 'Keuze 1 (werkzoekende)', 'werkgever' => 'Keuze 2 (werkgever)' ),
 				'standaard' => 'kandidaat',
 				'help'      => 'Een link met ?voor=werkgever of ?voor=kandidaat zet de keuze ook goed.',
 			),
@@ -208,7 +208,7 @@ function deedni_render_vooraanmelding( $a ) {
 		$h .= '<div class="field" data-va-voor="werkgever"><label for="va-bedrijf">Bedrijf <span class="va-opt">(optioneel)</span></label><input id="va-bedrijf" name="bedrijf" autocomplete="organization" maxlength="190" value="' . esc_attr( $data['bedrijf'] ) . '"></div>';
 	}
 	if ( $a['functie_tonen'] ) {
-		$h .= '<div class="field"><label for="va-functie"><span data-va-label="kandidaat"' . ( $wg ? ' hidden' : '' ) . '>Je vak</span><span data-va-label="werkgever"' . ( $wg ? '' : ' hidden' ) . '>Je functie</span> <span class="va-opt">(optioneel)</span></label><input id="va-functie" name="functie" maxlength="190" value="' . esc_attr( $data['functie'] ) . '" aria-describedby="va-functie-hint"><span class="hint" id="va-functie-hint"><span data-va-label="kandidaat"' . ( $wg ? ' hidden' : '' ) . '>Bijvoorbeeld SEA-specialist of contentmarketeer.</span><span data-va-label="werkgever"' . ( $wg ? '' : ' hidden' ) . '>Bijvoorbeeld HR-manager of eigenaar.</span></span></div>';
+		$h .= '<div class="field"><label for="va-functie"><span data-va-label="kandidaat"' . ( $wg ? ' hidden' : '' ) . '>Je vak</span><span data-va-label="werkgever"' . ( $wg ? '' : ' hidden' ) . '>Je functie</span> <span class="va-opt">(optioneel)</span></label><input id="va-functie" name="functie" maxlength="190" value="' . esc_attr( $data['functie'] ) . '" aria-describedby="va-functie-hint"><span class="hint" id="va-functie-hint"><span data-va-label="kandidaat"' . ( $wg ? ' hidden' : '' ) . '>Bijvoorbeeld hovenier, accountant of webdesigner.</span><span data-va-label="werkgever"' . ( $wg ? '' : ' hidden' ) . '>Bijvoorbeeld HR-manager of eigenaar.</span></span></div>';
 	}
 	$h .= '<label class="check"><input type="checkbox" name="akkoord" value="1" required' . checked( ! empty( $data['akkoord'] ), true, false ) . $invalid( 'akkoord' ) . '><span>' . deedni_privacy_link( $a['toestemming'] ) . '</span></label>' . $fout( 'akkoord' );
 	$h .= '<p class="hp" aria-hidden="true"><label>Website <input type="text" name="website_url" tabindex="-1" autocomplete="off"></label></p>';
@@ -488,7 +488,7 @@ function deedni_aanmeldingen_pagina() {
 
 		<div class="deedni-va-tegels">
 			<div class="deedni-va-tegel"><b><?php echo (int) $t['totaal']; ?></b><span>aanmeldingen</span></div>
-			<div class="deedni-va-tegel"><b><?php echo (int) $t['kandidaat']; ?></b><span>marketeers</span></div>
+			<div class="deedni-va-tegel"><b><?php echo (int) $t['kandidaat']; ?></b><span>werkzoekenden</span></div>
 			<div class="deedni-va-tegel"><b><?php echo (int) $t['werkgever']; ?></b><span>werkgevers</span></div>
 			<div class="deedni-va-tegel"><b><?php echo (int) $t['week']; ?></b><span>in de laatste 7 dagen</span></div>
 			<div class="deedni-va-tegel"><b><?php echo (int) $t['uitgenodigd']; ?> / <?php echo (int) $t['totaal']; ?></b><span>uitgenodigd</span></div>
@@ -496,7 +496,7 @@ function deedni_aanmeldingen_pagina() {
 
 		<ul class="subsubsub">
 			<?php
-			$tabs = array( '' => array( 'Alle', $t['totaal'] ), 'kandidaat' => array( 'Marketeers', $t['kandidaat'] ), 'werkgever' => array( 'Werkgevers', $t['werkgever'] ) );
+			$tabs = array( '' => array( 'Alle', $t['totaal'] ), 'kandidaat' => array( 'Werkzoekenden', $t['kandidaat'] ), 'werkgever' => array( 'Werkgevers', $t['werkgever'] ) );
 			$i    = 0;
 			foreach ( $tabs as $k => $tab ) :
 				?>

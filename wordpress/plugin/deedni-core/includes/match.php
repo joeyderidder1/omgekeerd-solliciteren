@@ -3,7 +3,9 @@
  * Matchpercentage: hoe goed past een kandidaat bij "Wie je zoekt" in het bedrijfsprofiel?
  *
  * Punten (samen 100):
- *   specialisme 30, tools 25, salaris binnen budget 20, regio 15, werkplek 10.
+ *   functie 30, vaardigheden en tools 25, salaris binnen budget 20, regio 15, werkplek 10.
+ * Functie: dezelfde functie 30 punten. Een andere functie in hetzelfde vakgebied 15 punten.
+ * Zoekt het bedrijf een heel vakgebied (bijvoorbeeld "Groen en buitenruimte"), dan telt elke functie daarin voor 30.
  * Onderdelen die het bedrijf niet heeft ingevuld tellen niet mee; het percentage is dan over de rest.
  * Filter 'deedni_match' om de berekening aan te passen.
  */
@@ -18,14 +20,27 @@ function deedni_match( $k, $b ) {
 	$max     = 0;
 	$redenen = array();
 
-	// Specialisme.
+	// Functie en vakgebied.
 	if ( $b['zoek_specialisme'] ) {
-		$max += 30;
-		if ( array_intersect( $b['zoek_specialisme'], $k['specialisme_ids'] ) ) {
+		$max      += 30;
+		$gezocht   = array_map( 'intval', $b['zoek_specialisme'] );
+		$eigen     = array_map( 'intval', $k['specialisme_ids'] );
+		// Een gezocht vakgebied (bovenste term) dekt alle functies eronder.
+		$raak = array();
+		foreach ( $eigen as $t ) {
+			if ( in_array( $t, $gezocht, true ) || in_array( deedni_vakgebied_van( $t ), $gezocht, true ) ) {
+				$raak[] = $t;
+			}
+		}
+		$zelfde_vak = array_intersect( deedni_vakgebieden_van( $eigen ), deedni_vakgebieden_van( $gezocht ) );
+		if ( $raak ) {
 			$score    += 30;
-			$redenen[] = array( implode( ', ', array_intersect( $k['specialisme'], deedni_term_lijst( $b['zoek_specialisme'], 'specialisme' ) ) ) . ', het specialisme dat je zoekt', true );
+			$redenen[] = array( implode( ', ', deedni_term_lijst( $raak, 'specialisme' ) ) . ', wat je zoekt', true );
+		} elseif ( $zelfde_vak ) {
+			$score    += 15;
+			$redenen[] = array( implode( ', ', $k['specialisme'] ) . ', in hetzelfde vakgebied (' . implode( ', ', deedni_term_lijst( $zelfde_vak, 'specialisme' ) ) . ')', true );
 		} elseif ( $k['specialisme'] ) {
-			$redenen[] = array( 'Ander specialisme: ' . implode( ', ', $k['specialisme'] ), false );
+			$redenen[] = array( 'Ander vakgebied: ' . implode( ', ', $k['specialisme'] ), false );
 		}
 	}
 
@@ -38,7 +53,7 @@ function deedni_match( $k, $b ) {
 			$names     = deedni_term_lijst( $common, 'vaardigheid' );
 			$redenen[] = array( deedni_opsomming( $names ) . ', net als jullie', true );
 		} else {
-			$redenen[] = array( 'Werkt (nog) niet met jullie tools', false );
+			$redenen[] = array( 'Heeft (nog) geen van de gevraagde vaardigheden', false );
 		}
 	}
 
@@ -93,7 +108,7 @@ function deedni_match( $k, $b ) {
 	return apply_filters( 'deedni_match', array( 'procent' => $procent, 'redenen' => $redenen, 'ingevuld' => $max > 0 ), $k, $b );
 }
 
-/** "Google Ads, Meta Ads en GA4" */
+/** "Rijbewijs BE, VCA en Snoeien" */
 function deedni_opsomming( $items ) {
 	$items = array_values( array_filter( (array) $items ) );
 	if ( count( $items ) < 2 ) {

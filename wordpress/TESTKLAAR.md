@@ -6,20 +6,21 @@ Gecheckt op 20 november 2026, met plugin 2.3.0 en het thema deedni. Ook de live 
 
 ## Blokkeert (eerst regelen)
 
-1. **E-mail werkt nog niet.** Zonder e-mail hoort een marketeer niet dat er een aanbod is, krijgt een werkgever geen mail na goedkeuring en werkt *Wachtwoord vergeten* niet. De e-mails zijn nooit echt verstuurd getest.
+1. **E-mail werkt nog niet.** Zonder e-mail hoort een kandidaat niet dat er een aanbod is, krijgt een werkgever geen mail na goedkeuring en werkt *Wachtwoord vergeten* niet. De e-mails zijn nooit echt verstuurd getest.
    *Oplossing:* installeer de gratis plugin **WP Mail SMTP** en koppel die aan een mailadres van je eigen domein (bijvoorbeeld via je hoster). Stuur met de plugin een testmail. Doorloop daarna één keer zelf: account maken, aanbod sturen, wachtwoord vergeten. Kijk of de mails aankomen en niet in de spam staan.
 2. **Er is geen privacyverklaring.** Het vakje bij *Account maken* en bij de vooraanmelding verwijst ernaar, maar de pagina bestaat niet (op joey-ridder.nl geeft `/privacybeleid/` een 404). Je verwerkt cv's, salarisgegevens en namen, dus dit is verplicht onder de AVG.
    *Oplossing:* maak een pagina *Privacyverklaring* (WordPress helpt bij **Instellingen > Privacy**; de plugin zet daar al een stukje tekst over de vooraanmelding klaar). Kies hem daar als privacypagina en zet hem in het menu *Links onderaan*. Zet er ook kort testvoorwaarden bij: dit is een test, er kan iets misgaan, er worden geen kosten gerekend en gegevens worden na de test verwijderd.
 3. **Zonder kandidaten valt er voor werkgevers niets te zoeken.** Een werkgever die inlogt op een lege site ziet geen matches, en dan test je niets.
-   *Oplossing:* nodig eerst de marketeers uit (via de vooraanmelding), en pas de werkgevers als er zo'n 10 tot 15 profielen online staan. Of maak zelf een paar duidelijk herkenbare testprofielen, met *Test* in de functie.
+   *Oplossing:* nodig eerst de werkzoekenden uit (via de vooraanmelding), en pas de werkgevers als er zo'n 10 tot 15 profielen online staan. Of maak zelf een paar duidelijk herkenbare testprofielen, met *Test* in de functie.
 4. **Opruimen op de live site.** De WordPress-pagina *Voorbeeld-pagina* staat nog online en de site heeft geen titel (de tab in de browser is leeg). Verwijder de voorbeeldpagina en vul een sitetitel in bij **Instellingen > Algemeen**.
 
 ## Kan wachten (wel handig)
 
 - **Feedback verzamelen.** Er zit geen feedbackknop in de site. Voor een kleine groep werkt een gratis formulier (Google Forms of Microsoft Forms) met 5 vragen, of een kort gesprek van 15 minuten, het best. Zet de link in de uitnodigingsmail en in het menu *Links onderaan*.
-- **Testaccounts.** Maak voor jezelf een marketeer- en een werkgeveraccount (met een ander e-mailadres dan je beheerdersaccount). Dan kun je zien wat testers zien en ze helpen als ze vastlopen.
+- **Testaccounts.** Maak voor jezelf een kandidaat- en een werkgeveraccount (met een ander e-mailadres dan je beheerdersaccount). Dan kun je zien wat testers zien en ze helpen als ze vastlopen.
 - **Uitnodigen en toegang.** Met de vooraanmelding zie je wie mee wil doen (zie hieronder). Je mailt hen daarna zelf de link naar *Account maken*, of voor werkgevers `/aanmelden/?rol=werkgever`. Werkgevers keur je nog steeds zelf goed bij **Gebruikers**, dus een onbekend bedrijf kan niet zomaar zoeken. Uitnodigingscodes zijn voor een kleine test niet nodig.
 - **Nepdata en echte data.** De homepage toont nu voorbeeldcijfers en voorbeeldprofielen. Die staan als *Voorbeeld* gemarkeerd, dus dat is eerlijk. Zet het blok *Snel zoeken* op *echte aantallen* zodra er genoeg profielen zijn.
+- **Test met verschillende beroepen.** Sinds versie 3.0 is deedni voor elk vak. Nodig niet alleen marketeers uit, maar ook bijvoorbeeld een hovenier, een accountant en een webdesigner. Kijk of zij hun vakgebied, functie en vaardigheden kunnen vinden, en of de lijsten in **Kandidaten > Vakgebieden en functies** en **Vaardigheden en tools** compleet genoeg zijn.
 - **Beveiliging.** Bijgewerkt in versie 2.4 (zie `BEVEILIGING.md`): inlogpogingen worden afgeremd, nieuwe accounts bevestigen hun e-mailadres en een lek via de REST API is gedicht. Regel zelf nog: de nginx-regel voor de cv-map, een beheerder met een andere naam dan `admin` plus tweestapsverificatie, en automatische back-ups (bijvoorbeeld de gratis versie van **UpdraftPlus**). Let op: met e-mailbevestiging aan kan niemand een account maken zolang de mail niet werkt. Dat maakt punt 1 hierboven nog belangrijker.
 - **Account verwijderen.** Testers kunnen hun account niet zelf verwijderen. Vraagt iemand erom, verwijder dan de gebruiker bij **Gebruikers**. Kies dan *Alle inhoud verwijderen*, dan gaan het profiel en het cv ook weg.
 - **Mobiel.** De pagina's zijn eerder getest op telefoonbreedte. Het nieuwe formulier is getest op 390 pixels breed. Vraag testers wel welk toestel ze gebruikten.

@@ -42,19 +42,45 @@ $tel = $res['telling'];
 $url = get_permalink() ? get_permalink() : deedni_page_url( 'zoeken' );
 
 $opties = array(
-	'spec'  => array( 'titel' => 'Specialisme', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
-	'tool'  => array( 'titel' => 'Tools', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
+	'vak'   => array( 'titel' => 'Vakgebied', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
+	'spec'  => array( 'titel' => 'Functie', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
+	'tool'  => array( 'titel' => 'Vaardigheden en tools', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
 	'erv'   => array( 'titel' => 'Ervaring', 'type' => 'radio', 'open' => true, 'items' => array( '5' => 'Vanaf 5 jaar', '2' => '2 tot 5 jaar', '0' => 'Alle niveaus' ) ),
 	'regio' => array( 'titel' => 'Regio', 'type' => 'checkbox', 'open' => true, 'items' => array() ),
 	'plek'  => array( 'titel' => 'Werkplek', 'type' => 'checkbox', 'open' => false, 'items' => deedni_choices( 'werkvorm' ) ),
 	'besch' => array( 'titel' => 'Beschikbaar binnen', 'type' => 'radio', 'open' => false, 'items' => array( '1' => '1 maand', '3' => '3 maanden', '0' => 'Maakt niet uit' ) ),
 );
-foreach ( array( 'spec' => 'specialisme', 'tool' => 'vaardigheid', 'regio' => 'provincie' ) as $key => $tax ) {
-	foreach ( deedni_filter_terms( $tax ) as $t ) {
-		// Alleen termen tonen die profielen hebben, of die al gekozen zijn.
-		if ( ! empty( $tel[ $key ][ $t->slug ] ) || in_array( $t->slug, $f[ $key ], true ) ) {
-			$opties[ $key ]['items'][ $t->slug ] = $t->name;
+// Gekozen vakgebieden: dan tonen we alleen de functies en vaardigheden die daarbij horen.
+$vak_ids = array();
+foreach ( deedni_vakgebieden_boom() as $rij ) {
+	$vak = $rij[0];
+	if ( ! empty( $tel['vak'][ $vak->slug ] ) || in_array( $vak->slug, $f['vak'], true ) ) {
+		$opties['vak']['items'][ $vak->slug ] = $vak->name;
+	}
+	if ( in_array( $vak->slug, $f['vak'], true ) ) {
+		$vak_ids[] = (int) $vak->term_id;
+	}
+	foreach ( $rij[1] as $t ) {
+		if ( $f['vak'] && ! in_array( $vak->slug, $f['vak'], true ) && ! in_array( $t->slug, $f['spec'], true ) ) {
+			continue;
 		}
+		if ( ! empty( $tel['spec'][ $t->slug ] ) || in_array( $t->slug, $f['spec'], true ) ) {
+			$opties['spec']['items'][ $t->slug ] = $t->name;
+		}
+	}
+}
+foreach ( deedni_filter_terms( 'vaardigheid' ) as $t ) {
+	$bij = deedni_vaardigheid_vakgebieden( $t->term_id );
+	if ( $vak_ids && $bij && ! array_intersect( $bij, $vak_ids ) && ! in_array( $t->slug, $f['tool'], true ) ) {
+		continue;
+	}
+	if ( ! empty( $tel['tool'][ $t->slug ] ) || in_array( $t->slug, $f['tool'], true ) ) {
+		$opties['tool']['items'][ $t->slug ] = $t->name;
+	}
+}
+foreach ( deedni_filter_terms( 'provincie' ) as $t ) {
+	if ( ! empty( $tel['regio'][ $t->slug ] ) || in_array( $t->slug, $f['regio'], true ) ) {
+		$opties['regio']['items'][ $t->slug ] = $t->name;
 	}
 }
 $opties['regio']['items']['remote'] = 'Remote in heel NL';
@@ -91,7 +117,7 @@ foreach ( $opties as $key => $o ) {
 }
 $link = function ( $filters ) use ( $url ) {
 	$q = array();
-	foreach ( array( 'q', 'spec', 'tool', 'regio', 'plek' ) as $k ) {
+	foreach ( array( 'q', 'vak', 'spec', 'tool', 'regio', 'plek' ) as $k ) {
 		if ( ! empty( $filters[ $k ] ) ) {
 			$q[ $k ] = $filters[ $k ];
 		}
@@ -111,7 +137,7 @@ $link = function ( $filters ) use ( $url ) {
 };
 ?>
 	<form class="search" id="dn-zoek" role="search" method="get" action="<?php echo esc_url( $url ); ?>" data-zoek-form>
-			<label><?php echo deedni_icon( 'search', 22 ); // phpcs:ignore ?><span class="visually-hidden">Zoek op functie, tool of branche</span><input name="q" type="search" value="<?php echo esc_attr( $f['q'] ); ?>" placeholder="Zoek op functie, tool of branche"></label>
+			<label><?php echo deedni_icon( 'search', 22 ); // phpcs:ignore ?><span class="visually-hidden">Zoek op functie, vaardigheid of branche</span><input name="q" type="search" value="<?php echo esc_attr( $f['q'] ); ?>" placeholder="Zoek op functie, vaardigheid of branche"></label>
 			<button type="submit" class="btn btn--primary btn--small">Zoeken</button>
 	</form>
 
@@ -172,7 +198,7 @@ $link = function ( $filters ) use ( $url ) {
 						</nav>
 					<?php endif; ?>
 				<?php else : ?>
-					<div class="card empty"><h3><?php echo $res['alle'] ? 'Geen profielen met deze filters' : 'Nog geen profielen online'; ?></h3><p class="fine"><?php echo $res['alle'] ? 'Haal een filter weg of zoek op een andere tool.' : 'Zodra marketeers hun profiel publiceren, zie je ze hier.'; ?></p></div>
+					<div class="card empty"><h3><?php echo $res['alle'] ? 'Geen profielen met deze filters' : 'Nog geen profielen online'; ?></h3><p class="fine"><?php echo $res['alle'] ? 'Haal een filter weg of zoek op een andere vaardigheid.' : 'Zodra kandidaten hun profiel publiceren, zie je ze hier.'; ?></p></div>
 				<?php endif; ?>
 			</section>
 		</div>

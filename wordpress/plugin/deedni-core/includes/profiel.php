@@ -1,12 +1,13 @@
 <?php
 /**
- * Het profiel van een marketeer en het bedrijfsprofiel: uitlezen, opslaan, compleetheid en blokkeerlijst.
+ * Het profiel van een kandidaat en het bedrijfsprofiel: uitlezen, opslaan, compleetheid en blokkeerlijst.
  *
  * Velden van een kandidaat (post meta):
  *   openbaar   functietitel, ervaring_jaren, samenvatting (over mij), regio, uren, salaris_min,
  *              beschikbaarheid, zoekstatus, werkplekken (lijst), opleiding, werkervaring (lijst), projecten (lijst)
  *   na een ja  voornaam, achternaam, telefoon, linkedin, huidige_werkgever, cv (bijlage-ID)
- *   taxonomie  specialisme, vaardigheid (tools), provincie
+ *   taxonomie  specialisme (vakgebied of functie), vaardigheid (vaardigheden en tools), provincie
+ *   projecten  per project: titel, klant, rol, branche, tools, aanpak, link en resultaten (optioneel, mag leeg)
  *   overig     profiel_zichtbaar, blokkeerlijst (één per regel), bevestigd_op
  *   beheer     beheer_verborgen, beheer_reden, beheer_log (zie beheer.php)
  */
@@ -89,6 +90,11 @@ function deedni_werkplek_tekst( $keys ) {
 	return mb_strtoupper( mb_substr( $text, 0, 1 ) ) . mb_strtolower( mb_substr( $text, 1 ) );
 }
 
+/** Het vakgebied als tekst: "Groen en buitenruimte". */
+function deedni_vak_tekst( $k ) {
+	return implode( ', ', deedni_term_lijst( deedni_vakgebieden_van( $k['specialisme_ids'] ), 'specialisme' ) );
+}
+
 /** Regio zoals bedrijven hem zien: eigen tekst of provincie. */
 function deedni_regio_tekst( $k ) {
 	if ( $k['regio'] ) {
@@ -104,12 +110,12 @@ function deedni_regio_tekst( $k ) {
 function deedni_compleet( $k ) {
 	$checks = array(
 		array( (bool) $k['functietitel'], 'Vul je functietitel in', 'persoonlijk' ),
-		array( (bool) $k['specialisme'], 'Kies je specialisme', 'persoonlijk' ),
+		array( (bool) $k['specialisme'], 'Kies je vakgebied en functie', 'persoonlijk' ),
 		array( strlen( $k['samenvatting'] ) > 30, 'Schrijf twee of drie zinnen over jezelf', 'persoonlijk' ),
 		array( (bool) $k['voornaam'], 'Vul je naam in (pas zichtbaar na jouw ja)', 'persoonlijk' ),
 		array( (bool) $k['werkervaring'], 'Voeg je werkervaring toe', 'werkervaring' ),
-		array( (bool) $k['projecten'], 'Voeg een project met resultaat toe', 'projecten' ),
-		array( (bool) $k['tools'], 'Kies de tools waarmee je werkt', 'projecten' ),
+		array( (bool) $k['projecten'], 'Laat een voorbeeld van je werk zien', 'projecten' ),
+		array( (bool) $k['tools'], 'Kies je vaardigheden, tools of certificaten', 'projecten' ),
 		array( (bool) $k['salaris_min'], 'Vul je salariswens in', 'wat-zoek-je' ),
 		array( (bool) ( $k['provincie'] || $k['regio'] ), 'Kies je regio', 'wat-zoek-je' ),
 		array( (bool) $k['werkplekken'], 'Kies waar je wilt werken', 'wat-zoek-je' ),

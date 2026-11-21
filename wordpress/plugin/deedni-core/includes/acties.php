@@ -76,7 +76,7 @@ function deedni_nonce_field( $action ) {
 function deedni_melding_tekst( $key ) {
 	$teksten = array(
 		'welkom'           => array( 'Welkom! Je account is klaar. Vul je profiel aan, dan kunnen bedrijven je vinden.', 'success' ),
-		'welkom_werkgever' => array( 'Welkom! Vul je bedrijfsprofiel aan. Dan berekenen we welke marketeers het best bij jullie passen.', 'success' ),
+		'welkom_werkgever' => array( 'Welkom! Vul je bedrijfsprofiel aan. Dan berekenen we welke kandidaten het best bij jullie passen.', 'success' ),
 		'opgeslagen'       => array( 'Opgeslagen.', 'success' ),
 		'gepubliceerd'     => array( 'Je profiel staat online. Bedrijven kunnen je nu vinden, zonder je naam.', 'success' ),
 		'verborgen'        => array( 'Je profiel is offline. Bedrijven vinden je niet meer tot je het weer publiceert.', 'info' ),
@@ -302,7 +302,7 @@ function deedni_upload( $field, $types, $max_mb, $parent, $prive = false ) {
 	return (int) $id;
 }
 
-/* ---------- Profiel van een marketeer ---------- */
+/* ---------- Profiel van een kandidaat ---------- */
 
 function deedni_handle_profiel() {
 	if ( ! deedni_nonce_ok( 'deedni_profiel' ) || ! deedni_is_kandidaat() ) {
@@ -373,7 +373,7 @@ function deedni_handle_profiel() {
 		deedni_set_field( $id, 'werkervaring', $rows );
 	}
 
-	// Stap 3: projecten met resultaten.
+	// Stap 3: projecten, met optionele resultaten.
 	if ( isset( $_POST['projecten_aanwezig'] ) ) {
 		$rows = array();
 		foreach ( deedni_post( 'projecten', 'array' ) as $row ) {
@@ -445,7 +445,7 @@ function deedni_handle_profiel() {
 	if ( isset( $_POST['publiceren'] ) ) {
 		$aan = '1' === deedni_post( 'publiceren' );
 		if ( $aan && ! deedni_profile_complete( $id ) ) {
-			deedni_fout( 'profiel', array( 'form' => 'Vul eerst je functietitel, specialisme en regio in. Dan kunnen bedrijven je vinden.' ) );
+			deedni_fout( 'profiel', array( 'form' => 'Vul eerst je functietitel, vakgebied en regio in. Dan kunnen bedrijven je vinden.' ) );
 			return;
 		}
 		update_post_meta( $id, 'profiel_zichtbaar', $aan ? 1 : 0 );
@@ -635,9 +635,9 @@ function deedni_handle_send_offer() {
 	deedni_klaar( deedni_terug_url( deedni_page_url( 'dashboard' ) ), 'aanbod_verstuurd', array( 'aanbod_id' => $aanbod_id ) );
 }
 
-/* ---------- Reageren op een aanbod (marketeer) ---------- */
+/* ---------- Reageren op een aanbod (kandidaat) ---------- */
 
-/** Mag de ingelogde marketeer op dit aanbod reageren? */
+/** Mag de ingelogde kandidaat op dit aanbod reageren? */
 function deedni_eigen_open_aanbod( $aanbod_id ) {
 	$a = deedni_aanbod( $aanbod_id );
 	return 'aanbod' === get_post_type( $aanbod_id ) && $a['kandidaat_id'] && $a['kandidaat_id'] === deedni_profile_id( 0, 'kandidaat' ) && 'verstuurd' === $a['status'];

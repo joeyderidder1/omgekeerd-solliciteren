@@ -9,7 +9,7 @@ Gecheckt op 20 november 2026: de code van plugin deedni Core (2.3.0) en thema de
 | Lek | Wat er mis was | Live? | Fix in 2.4 |
 |---|---|---|---|
 | **Zoekresultaten via de REST API** | `/wp-json/wp/v2/pages/<id>` van de pagina *Kandidaten zoeken* toonde aan iedereen, ook zonder account, alle online profielen (code, functie, ervaring, regio, tools, salarisindicatie). Ook de blokkeerlijst werd zo omzeild: een huidige werkgever kon het profiel toch zien. De plugin dacht dat zo'n verzoek "de editor" was en sloeg de toegangscontrole over. Zou iemand het blok *Kandidaatprofiel* op een gewone pagina zetten, dan lekten ook naam, telefoon en e-mail. | Ja, de live site draait 2.2.0 met deze code | De editor-weergave geldt alleen nog voor ingelogde beheerders. Getest: oude code lekte, nieuwe niet. |
-| **Kandidatenlijst via de feed** | `/feed/?post_type=kandidaat` en `/?post_type=kandidaat` gaven een lijst met alle profielcodes, met de **voornaam** van de marketeer als auteur. Op joey-ridder.nl stond zo "K-1065, Joey". | Ja | Kandidaten, bedrijven en aanbiedingen bestaan alleen nog als losse pagina, met toegangscontrole. Lijsten, feeds en archieven geven een 404. |
+| **Kandidatenlijst via de feed** | `/feed/?post_type=kandidaat` en `/?post_type=kandidaat` gaven een lijst met alle profielcodes, met de **voornaam** van de kandidaat als auteur. Op joey-ridder.nl stond zo "K-1065, Joey". | Ja | Kandidaten, bedrijven en aanbiedingen bestaan alleen nog als losse pagina, met toegangscontrole. Lijsten, feeds en archieven geven een 404. |
 
 ## De 20 punten uit de lijst
 
@@ -38,11 +38,11 @@ Gecheckt op 20 november 2026: de code van plugin deedni Core (2.3.0) en thema de
 
 ## Ook nagekeken (in orde)
 
-- **Formulieren**: elk formulier heeft een nonce. Rollen worden bij elke actie gecontroleerd: een marketeer kan alleen op eigen aanbiedingen reageren, een werkgever alleen eigen aanbiedingen aanpassen. Eén kleinigheid gerepareerd: "Bewaar voor later" accepteerde elk ID, nu alleen kandidaten.
+- **Formulieren**: elk formulier heeft een nonce. Rollen worden bij elke actie gecontroleerd: een kandidaat kan alleen op eigen aanbiedingen reageren, een werkgever alleen eigen aanbiedingen aanpassen. Eén kleinigheid gerepareerd: "Bewaar voor later" accepteerde elk ID, nu alleen kandidaten.
 - **Invoer en uitvoer**: alles wordt opgeschoond bij opslaan en ge-escaped bij tonen. De CSV-export van aanmeldingen beschermt tegen formules in Excel.
 - **Uploads**: alleen pdf, doc en docx (cv) en jpg, png en webp (logo), met controle van het echte bestandstype en een maximale grootte.
 - **Afgeschermde gegevens**: naam, contact, werkgevers, klanten en links staan alleen in de HTML voor wie ze mag zien. Niet verstopt met CSS, echt weggelaten.
-- **wp-admin**: marketeers en werkgevers komen er niet in.
+- **wp-admin**: kandidaten en werkgevers komen er niet in.
 
 ## Wat je zelf moet doen
 

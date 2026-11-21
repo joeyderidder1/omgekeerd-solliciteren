@@ -115,7 +115,7 @@ function deedni_offers( $args ) {
 	return array_map( 'deedni_aanbod', get_posts( $q ) );
 }
 
-/** Aantal nieuwe aanbiedingen (wacht op jouw antwoord) voor de ingelogde marketeer. */
+/** Aantal nieuwe aanbiedingen (wacht op jouw antwoord) voor de ingelogde kandidaat. */
 function deedni_aantal_nieuw( $user_id = 0 ) {
 	$k = deedni_profile_id( $user_id ? $user_id : get_current_user_id(), 'kandidaat' );
 	return $k ? count( deedni_offers( array( 'kandidaat' => $k, 'status' => 'verstuurd' ) ) ) : 0;

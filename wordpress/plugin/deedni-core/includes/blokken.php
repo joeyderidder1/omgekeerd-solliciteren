@@ -64,7 +64,7 @@ function deedni_algemene_velden( $def ) {
 			'iedereen'  => 'Iedereen',
 			'bezoeker'  => 'Alleen bezoekers (niet ingelogd)',
 			'ingelogd'  => 'Alleen ingelogde gebruikers',
-			'kandidaat' => 'Alleen marketeers',
+			'kandidaat' => 'Alleen kandidaten',
 			'werkgever' => 'Alleen werkgevers',
 		),
 		'standaard' => isset( $def['tonen'] ) ? $def['tonen'] : 'iedereen',
@@ -110,7 +110,7 @@ function deedni_algemene_velden( $def ) {
 		'opties'    => array(
 			''          => 'Mijzelf',
 			'bezoeker'  => 'Bezoeker',
-			'kandidaat' => 'Marketeer',
+			'kandidaat' => 'Werkzoekende',
 			'werkgever' => 'Werkgever',
 		),
 		'standaard' => '',
