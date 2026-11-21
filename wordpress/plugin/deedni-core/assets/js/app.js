@@ -4,6 +4,9 @@
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function json(el, a) { try { return JSON.parse(el.getAttribute(a) || 'null'); } catch (e) { return null; } }
+  /** Melding onderin met "Ongedaan maken" (undo toast). */
+  function herstelbaar(tekst, fn) { if (window.deedni && deedni.melding) deedni.melding(tekst, { herstel: fn }); }
+  function overgang(fn) { if (window.deedni && deedni.overgang) deedni.overgang(fn); else fn(); }
 
   /* ---------- Tabs (aanbiedingen: nieuw en beantwoord) ---------- */
   function tabs(root) {
@@ -91,18 +94,42 @@
       if (ab) { ab.setAttribute('data-vul', JSON.stringify(m.vul)); ab.setAttribute('data-tekst-vul', JSON.stringify(m.tekst)); }
       kaart.classList.remove('is-in'); void kaart.offsetWidth; kaart.classList.add('is-in');
     }
-    box.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-m-actie]'); if (!b || !M.length) return;
-      var m = M[i % M.length], actie = b.getAttribute('data-m-actie');
+    function stuur(id, keuze) {
       var fd = new FormData();
       fd.append('deedni_action', 'bewaren'); fd.append('_deedni_nonce', nonce);
-      fd.append('kandidaat_id', m.id); fd.append('keuze', actie);
-      fetch(location.href, { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Deedni-Ajax': '1' } })
+      fd.append('kandidaat_id', id); fd.append('keuze', keuze);
+      fd.append('_deedni_sleutel', (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2));
+      return fetch(location.href, { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Deedni-Ajax': '1' } })
         .then(function (r) { return r.json(); })
-        .then(function (res) {
-          zet('melding', (res && res.ok ? (actie === 'aan' ? m.code + ' is bewaard. ' : m.code + ' staat onder Niet nu. ') : 'Dat lukte niet. ') + 'Je vindt ze terug op je overzicht.');
-          if (res && res.ok) { M.splice(i % M.length, 1); if (!M.length) { kaart.innerHTML = '<div class="t">Je hebt alle matches bekeken</div><p class="fine">Zoek zelf verder of kom later terug.</p>'; return; } i = i % M.length; toon(); }
+        .then(function (res) { if (!res || !res.ok) throw new Error('mislukt'); return res; });
+    }
+    function leeg() { kaart.innerHTML = '<div class="t">Je hebt alle matches bekeken</div><p class="fine">Zoek zelf verder of kom later terug.</p>'; }
+    var origineel = kaart.innerHTML;
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-m-actie]'); if (!b || !M.length) return;
+      var plek = i % M.length, m = M[plek], actie = b.getAttribute('data-m-actie');
+      // Meteen door naar de volgende kaart (optimistic update); de server volgt op de achtergrond.
+      M.splice(plek, 1);
+      function terugzetten() {
+        M.splice(Math.min(plek, M.length), 0, m);
+        if (!$('[data-m="code"]', box)) kaart.innerHTML = origineel;
+        i = plek; toon();
+      }
+      if (!M.length) leeg(); else { i = plek % M.length; toon(); }
+      var tekst = actie === 'aan' ? m.code + ' is bewaard.' : m.code + ' staat onder Niet nu.';
+      zet('melding', tekst + ' Je vindt ze terug op je overzicht.');
+      stuur(m.id, actie).then(function () {
+        if (window.deedni) deedni.melding(tekst, {
+          herstel: function () {
+            terugzetten();
+            stuur(m.id, 'herstel').then(function () { zet('melding', 'Ongedaan gemaakt. ' + m.code + ' staat weer tussen je matches.'); })
+              .catch(function () { zet('melding', 'Ongedaan maken lukte niet. Je vindt ' + m.code + ' op je overzicht.'); });
+          }
         });
+      }).catch(function () {
+        terugzetten();
+        zet('melding', 'Dat lukte niet. Controleer je verbinding en probeer het opnieuw.');
+      });
     });
     toon();
   });
@@ -161,10 +188,16 @@
       }
       var weg = e.target.closest('[data-weg]');
       if (weg) {
-        var item = weg.closest('[data-item]'), lijst = item.parentNode;
+        var item = weg.closest('[data-item]'), lijst = item.parentNode, na = item.nextSibling;
+        var samen = $('[data-sam="titel"], [data-sam="functie"]', item);
+        var naam = samen ? samen.textContent.trim() : '';
         item.remove(); gewijzigd = true;
         var volgende = $('[data-item] summary', lijst) || $('[data-plus]', form); if (volgende) volgende.focus();
         liveRes();
+        herstelbaar((naam ? '“' + naam.slice(0, 40) + '” is' : 'Het item is') + ' weggehaald. Pas na opslaan is het echt weg.', function () {
+          lijst.insertBefore(item, na && na.parentNode === lijst ? na : null); liveRes();
+          var f = $('summary', item) || $('input', item); if (f) f.focus();
+        });
         return;
       }
       var rp = e.target.closest('[data-res-plus]');
@@ -176,9 +209,10 @@
       }
       var wr = e.target.closest('[data-weg-res]');
       if (wr) {
-        var r = wr.closest('[data-res-rij]'), l = r.parentNode;
+        var r = wr.closest('[data-res-rij]'), l = r.parentNode, rna = r.nextSibling;
         r.remove(); gewijzigd = true; liveRes();
         var f = $('input', l) || $('[data-res-plus]', l.closest('fieldset')); if (f) f.focus();
+        herstelbaar('Resultaat weggehaald.', function () { l.insertBefore(r, rna && rna.parentNode === l ? rna : null); liveRes(); $('input', r).focus(); });
       }
     });
     // Samenvatting van een item loopt mee met de titel
@@ -240,7 +274,10 @@
         lijst().forEach(function (naam, idx) {
           var s = document.createElement('span'); s.textContent = naam + ' ';
           var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Haal ' + naam + ' van de lijst'); b.textContent = '×';
-          b.addEventListener('click', function () { var l = lijst(); l.splice(idx, 1); ta.value = l.join('\n'); gewijzigd = true; teken(); inp2.focus(); });
+          b.addEventListener('click', function () {
+            var l = lijst(); l.splice(idx, 1); ta.value = l.join('\n'); gewijzigd = true; teken(); inp2.focus();
+            herstelbaar(naam + ' staat niet meer op je blokkeerlijst.', function () { var l2 = lijst(); if (l2.indexOf(naam) < 0) l2.splice(idx, 0, naam); ta.value = l2.join('\n'); teken(); inp2.focus(); });
+          });
           s.appendChild(b); blocks.appendChild(s);
         });
         if (!lijst().length) { var leeg = document.createElement('span'); leeg.className = 'fine'; leeg.style.background = 'none'; leeg.style.color = 'var(--muted)'; leeg.textContent = 'Nog niemand op je lijst.'; blocks.appendChild(leeg); }
@@ -266,7 +303,31 @@
       ft.setAttribute('aria-expanded', String(open)); box.classList.toggle('is-open', open);
       ft.textContent = open ? 'Verberg filters' : 'Toon filters';
     });
-    var t = null, nr = 0;
+    var t = null, nr = 0, cache = {};
+    /* Skeleton: duurt laden even, dan staan er grijze kaarten in de vorm van de resultaten. */
+    function skelet() {
+      var res = $('[data-zoek-resultaten]', root); if (!res) return;
+      var lijst = $('.cands', res), n = Math.max(2, Math.min(4, lijst ? lijst.children.length : 3));
+      var h = '<div class="cands skelet-lijst" aria-hidden="true">';
+      for (var k = 0; k < n; k++) h += '<div class="card cand skelet"><div class="stack-s"><span class="sk sk--s"></span><span class="sk sk--l"></span><span class="sk sk--m"></span><span class="sk-rij"><span class="sk sk--chip"></span><span class="sk sk--chip"></span><span class="sk sk--chip"></span></span></div><div class="right"><span class="sk sk--s"></span><span class="sk sk--knop"></span></div></div>';
+      h += '</div>';
+      var kop = $('.result-head', res);
+      Array.prototype.slice.call(res.children).forEach(function (c) { if (c !== kop && !c.classList.contains('active-filters')) res.removeChild(c); });
+      res.insertAdjacentHTML('beforeend', h);
+      res.setAttribute('aria-busy', 'true');
+    }
+    /* Resultaten in de pagina zetten, met een zachte overgang waar de browser dat kan. */
+    function plaats(html, adres) {
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var nieuw = $('[data-zoek-resultaten]', doc), oud = $('[data-zoek-resultaten]', root);
+      overgang(function () {
+        if (nieuw && oud) oud.replaceWith(nieuw);
+        var nf = $('#filters-box', doc);
+        if (nf) $$('#filters-box .opts .n', root).forEach(function (n, i) { var v = $$('.opts .n', nf)[i]; if (v) n.textContent = v.textContent; });
+      });
+      history.replaceState(null, '', adres);
+      document.dispatchEvent(new CustomEvent('deedni:ververst', { detail: { el: nieuw || root } }));
+    }
     function url() {
       var p = new URLSearchParams(new FormData(form));
       ['erv', 'besch'].forEach(function (k) { if (p.get(k) === '0') p['delete'](k); });
@@ -274,20 +335,40 @@
       var s = p.toString();
       return form.action.split('?')[0] + (s ? '?' + s : '');
     }
+    /* Stale-while-revalidate: een zoekopdracht die je al eerder deed (filter aan en weer uit, terug naar
+       pagina 1) staat er meteen. Op de achtergrond halen we de verse versie op en zetten die neer als er
+       iets veranderd is. */
     function laad(adres) {
-      var mijn = ++nr;
-      root.classList.add('is-laden');
+      var mijn = ++nr, bewaard = cache[adres], sk = null;
+      if (bewaard) plaats(bewaard, adres);
+      else {
+        root.classList.add('is-laden');
+        sk = setTimeout(function () { if (mijn === nr) skelet(); }, 180);
+      }
       fetch(adres, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (html) {
-        if (mijn !== nr) return;
-        var doc = new DOMParser().parseFromString(html, 'text/html');
-        var nieuw = $('[data-zoek-resultaten]', doc), oud = $('[data-zoek-resultaten]', root);
-        if (nieuw && oud) oud.replaceWith(nieuw);
-        var nf = $('#filters-box', doc);
-        if (nf) $$('#filters-box .opts .n', root).forEach(function (n, i) { var v = $$('.opts .n', nf)[i]; if (v) n.textContent = v.textContent; });
-        history.replaceState(null, '', adres);
-        document.dispatchEvent(new CustomEvent('deedni:ververst', { detail: { el: nieuw || root } }));
-      }).catch(function () { location.href = adres; }).finally(function () { if (mijn === nr) root.classList.remove('is-laden'); });
+        cache[adres] = html;
+        if (mijn !== nr || html === bewaard) return;
+        plaats(html, adres);
+      }).catch(function () { if (!bewaard) location.href = adres; }).finally(function () {
+        clearTimeout(sk);
+        if (mijn === nr) { root.classList.remove('is-laden'); var r = $('[data-zoek-resultaten]', root); if (r) r.removeAttribute('aria-busy'); }
+      });
     }
+    // De eerste pagina zelf ook bewaren, zodat terug naar "geen filters" meteen staat.
+    cache[location.href] = document.documentElement.outerHTML;
+    // "/" springt naar het zoekveld (zoals op veel sites). Het tekentje staat in het veld als hint.
+    var q = form.querySelector('input[name="q"]');
+    if (q && window.deedni && deedni.fijn && deedni.fijn.matches) {
+      var hint = document.createElement('kbd'); hint.className = 'toets zoek-toets'; hint.textContent = '/'; hint.setAttribute('aria-hidden', 'true');
+      q.parentNode.appendChild(hint);
+      q.setAttribute('aria-keyshortcuts', '/');
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== '/' || !q || e.ctrlKey || e.metaKey || e.altKey) return;
+      var el = e.target;
+      if ((el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) || document.querySelector('dialog[open]')) return;
+      e.preventDefault(); q.focus(); q.select();
+    });
     root.addEventListener('change', function (e) { if (e.target.form === form) laad(url()); });
     form.addEventListener('input', function (e) { if (e.target.name === 'q') { clearTimeout(t); t = setTimeout(function () { laad(url()); }, 300); } });
     form.addEventListener('submit', function (e) { e.preventDefault(); laad(url()); });

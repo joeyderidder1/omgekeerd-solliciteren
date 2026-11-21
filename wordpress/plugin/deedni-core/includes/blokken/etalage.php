@@ -177,7 +177,7 @@ function deedni_render_quotes( $a ) {
 		$q    = wp_parse_args( $q, array( 'tekst' => '', 'naam' => '', 'rol' => '' ) );
 		$init = function_exists( 'mb_substr' ) ? mb_strtoupper( mb_substr( trim( $q['naam'] ), 0, 1 ) ) : strtoupper( substr( trim( $q['naam'] ), 0, 1 ) );
 		$h   .= '<figure class="q-item' . ( 0 === $i ? ' is-aan' : '' ) . '" data-q-item="' . $i . '">';
-		$h   .= '<blockquote><p>' . esc_html( $q['tekst'] ) . '</p></blockquote>';
+		$h   .= '<blockquote><p>' . esc_html( deedni_krul( $q['tekst'] ) ) . '</p></blockquote>';
 		$h   .= '<figcaption><span class="q-av" aria-hidden="true">' . esc_html( $init ) . '</span><span><strong>' . esc_html( $q['naam'] ) . '</strong>' . esc_html( $q['rol'] ) . '</span></figcaption></figure>';
 	}
 	$h .= '</div>';

@@ -27,7 +27,7 @@ function deedni_handle_forms() {
 		'bewaren'         => 'deedni_handle_bewaren',
 		'vooraanmelden'   => 'deedni_handle_vooraanmelden',
 	);
-	if ( isset( $handlers[ $action ] ) ) {
+	if ( isset( $handlers[ $action ] ) && deedni_sleutel_start( $action ) ) {
 		call_user_func( $handlers[ $action ] );
 	}
 }
@@ -91,6 +91,7 @@ function deedni_melding_tekst( $key ) {
 		'bewaard'          => array( 'Bewaard. Je vindt deze kandidaat terug op je overzicht.', 'success' ),
 		'niet_bewaard'     => array( 'Niet meer bewaard.', 'info' ),
 		'niet_nu'          => array( 'Staat onder Niet nu. Je vindt deze kandidaat terug op je overzicht.', 'info' ),
+		'hersteld'         => array( 'Ongedaan gemaakt.', 'info' ),
 		'geen_toegang'     => array( 'Je hebt geen toegang tot dat profiel.', 'error' ),
 		'login_mislukt'    => array( 'Dat e-mailadres of wachtwoord klopt niet.', 'error' ),
 		'check_mail'       => array( 'Bijna klaar. Kijk in je mail: we hebben een link gestuurd naar het adres dat je invulde. Geen mail gezien? Kijk ook bij je spam.', 'success' ),
@@ -112,6 +113,7 @@ function deedni_melding_html() {
 
 /** Klaar: met JavaScript een JSON-antwoord, anders terug naar de pagina met een melding. */
 function deedni_klaar( $url, $melding, $extra = array() ) {
+	deedni_sleutel_klaar( $url, $melding, $extra );
 	$m = deedni_melding_tekst( $melding );
 	if ( deedni_is_ajax() ) {
 		wp_send_json( array_merge( array( 'ok' => true, 'melding' => $m ? $m[0] : '', 'code' => $melding ), $extra ) );
@@ -767,6 +769,12 @@ function deedni_handle_bewaren() {
 		return;
 	}
 	$keuze = deedni_post( 'keuze' );
+	if ( 'herstel' === $keuze ) {
+		// Ongedaan maken van "Niet nu" of "Bewaren": terug naar niet bekeken.
+		update_user_meta( get_current_user_id(), 'deedni_niet_nu', array_values( array_diff( deedni_niet_nu(), array( $kandidaat_id ) ) ) );
+		deedni_zet_bewaard( $kandidaat_id, false );
+		deedni_klaar( deedni_terug_url( home_url( '/' ) ), 'hersteld', array( 'bewaard' => false ) );
+	}
 	if ( 'niet_nu' === $keuze ) {
 		$lijst = deedni_niet_nu();
 		if ( ! in_array( $kandidaat_id, $lijst, true ) ) {

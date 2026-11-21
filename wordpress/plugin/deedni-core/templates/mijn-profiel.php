@@ -173,7 +173,7 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 					++$n;
 					$klaar = 'controleren' === $key ? $k['zichtbaar'] : empty( $stap_open[ $key ] ) && ( 'wat-zoek-je' !== $key || empty( $stap_open['blokkeerlijst'] ) );
 					?>
-					<a href="#<?php echo esc_attr( $key ); ?>" data-stap="<?php echo esc_attr( $key ); ?>"<?php echo $klaar ? ' class="is-done"' : ''; ?>><span class="n"><?php echo (int) $n; ?></span><span class="t"><?php echo esc_html( $label ); ?></span></a>
+					<a href="#<?php echo esc_attr( $key ); ?>" data-stap="<?php echo esc_attr( $key ); ?>"<?php echo $klaar ? ' class="is-done"' : ''; ?>><span class="n"><?php echo (int) $n; ?></span><span class="t breed" data-breed="<?php echo esc_attr( $label ); ?>"><?php echo esc_html( $label ); ?></span></a>
 				<?php endforeach; ?>
 			</nav>
 
@@ -287,7 +287,7 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 				<div class="card stack">
 					<h3>Cv <span class="tag tag--ink who-sees">Na jouw ja</span></h3>
 					<?php if ( $k['cv'] ) : ?>
-						<p class="fine">Je hebt een cv geüpload: <a href="<?php echo esc_url( deedni_cv_url( $k['id'] ) ); ?>"><?php echo esc_html( basename( (string) get_attached_file( $k['cv'] ) ) ); ?></a></p>
+						<p class="fine">Je hebt een cv geüpload: <?php $cv_naam = basename( (string) get_attached_file( $k['cv'] ) ); ?><a href="<?php echo esc_url( deedni_cv_url( $k['id'] ) ); ?>" class="midden" data-midden title="<?php echo esc_attr( $cv_naam ); ?>"><?php echo esc_html( $cv_naam ); ?></a></p>
 						<label class="check-label"><input type="checkbox" name="cv_verwijderen" value="1"> Cv verwijderen</label>
 					<?php endif; ?>
 					<div class="field"><label for="p-cv"><?php echo $k['cv'] ? 'Ander cv uploaden' : 'Cv uploaden (optioneel)'; ?></label><input id="p-cv" type="file" name="cv" accept=".pdf,.doc,.docx" aria-describedby="p-cv-hint"><span class="hint" id="p-cv-hint">Pdf of Word, maximaal 5 MB. Alleen bedrijven bij wie jij ja zei kunnen het downloaden.</span></div>
