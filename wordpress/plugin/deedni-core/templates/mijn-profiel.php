@@ -305,6 +305,28 @@ $geblokkeerd = array_values( array_filter( array_map( 'trim', preg_split( '/\r\n
 					<div class="field" data-blok-tekst><label for="p-blokkeerlijst">Eén bedrijf per regel</label><textarea id="p-blokkeerlijst" name="blokkeerlijst" rows="4"><?php echo esc_textarea( implode( "\n", $geblokkeerd ) ); ?></textarea></div>
 				</div>
 
+				<?php if ( deedni_publiek_aan() ) : wp_enqueue_style( 'deedni-paginas' ); ?>
+				<div class="card stack" id="openbaar-overzicht">
+					<h3>Openbaar overzicht <span class="tag who-sees">Optioneel</span></h3>
+					<p class="fine">Bezoekers zonder account zien op deedni een kort overzicht van kandidaten. Daar sta je alleen in als je dat hier aanzet. Je kaart toont je vakgebied en functie, je provincie of landsdeel, je ervaring in een ruime band (bijvoorbeeld 5 tot 10 jaar), hooguit drie veelvoorkomende vaardigheden en je beschikbaarheid. Nooit je naam, profielcode, werkgevers, salaris of eigen teksten, en er is geen pagina die alleen over jou gaat.</p>
+					<p class="fine"><strong>Let op:</strong> ook bedrijven op je blokkeerlijst kunnen deze kaart zien als ze niet zijn ingelogd. Is je combinatie van functie, regio en ervaring zeldzaam, dan tonen we hem globaler, of helemaal niet.</p>
+					<input type="hidden" name="publiek_overzicht_veld" value="1">
+					<label class="check-label"><input type="checkbox" name="publiek_overzicht" value="1"<?php checked( (bool) get_post_meta( $k['id'], 'publiek_overzicht', true ) ); ?>> Toon een anonieme kaart van mij in het openbare overzicht</label>
+					<?php
+					if ( get_post_meta( $k['id'], 'publiek_overzicht', true ) ) :
+						$mijn_kaart = $k['zichtbaar'] ? deedni_publiek_kaart_van( $k['id'] ) : null;
+						if ( $mijn_kaart ) :
+							?>
+							<div class="stack-s"><span class="fine">Zo sta je er nu in:</span><div class="pub-voorbeeld"><?php echo deedni_publiek_kaart_html( $mijn_kaart, false ); // phpcs:ignore ?></div></div>
+						<?php else : ?>
+							<p class="fine" role="status"><?php echo esc_html( $k['zichtbaar'] ? 'Je staat er nu niet in: je combinatie van functie, regio en ervaring is (nog) te zeldzaam om anoniem te tonen. Zodra er meer vergelijkbare profielen zijn, verschijnt je kaart vanzelf.' : 'Je staat er pas in als je profiel online staat.' ); ?></p>
+							<?php
+						endif;
+					endif;
+					?>
+				</div>
+				<?php endif; ?>
+
 				<div class="card stack">
 					<h3>Cv <span class="tag tag--ink who-sees">Na jouw ja</span></h3>
 					<?php if ( $k['cv'] ) : ?>

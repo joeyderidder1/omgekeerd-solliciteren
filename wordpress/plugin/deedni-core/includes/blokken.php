@@ -192,6 +192,7 @@ function deedni_registreer_blokken() {
 	wp_register_style( 'deedni', DEEDNI_URL . 'assets/css/deedni.css', array(), $v );
 	wp_register_style( 'deedni-home', DEEDNI_URL . 'assets/css/home.css', array( 'deedni' ), $v );
 	wp_register_style( 'deedni-app', DEEDNI_URL . 'assets/css/app.css', array( 'deedni' ), $v );
+	wp_register_style( 'deedni-paginas', DEEDNI_URL . 'assets/css/paginas.css', array( 'deedni' ), $v );
 	wp_register_script( 'deedni', DEEDNI_URL . 'assets/js/deedni.js', array(), $v, array( 'in_footer' => true ) );
 	wp_register_script( 'deedni-home', DEEDNI_URL . 'assets/js/home.js', array( 'deedni' ), $v, array( 'in_footer' => true ) );
 	wp_register_script( 'deedni-app', DEEDNI_URL . 'assets/js/app.js', array( 'deedni' ), $v, array( 'in_footer' => true ) );
@@ -417,6 +418,7 @@ add_action(
 			wp_enqueue_style( 'deedni' );
 			wp_enqueue_style( 'deedni-home' );
 			wp_enqueue_style( 'deedni-app' );
+			wp_enqueue_style( 'deedni-paginas' );
 			wp_enqueue_style( 'deedni-editor', DEEDNI_URL . 'assets/css/editor.css', array( 'deedni' ), DEEDNI_VERSION );
 		}
 	}
