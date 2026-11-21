@@ -38,6 +38,10 @@ require_once DEEDNI_DIR . 'includes/installatie.php';
 require_once DEEDNI_DIR . 'includes/shortcodes.php';
 require_once DEEDNI_DIR . 'includes/admin.php';
 require_once DEEDNI_DIR . 'includes/beheer.php';
+require_once DEEDNI_DIR . 'includes/updater.php';
+
+// Updates uit GitHub Releases, zichtbaar onder Dashboard > Updates (zie wordpress/UPDATES.md).
+Deedni_GitHub_Updater::plugin( DEEDNI_FILE, DEEDNI_VERSION );
 
 register_activation_hook( __FILE__, 'deedni_activate' );
 register_deactivation_hook( __FILE__, 'deedni_deactivate' );

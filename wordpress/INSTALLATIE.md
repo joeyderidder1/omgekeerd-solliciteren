@@ -153,7 +153,7 @@ Versie 2.5 (plugin) en 2.2 (thema) voegen veel kleine details toe, zoals skeleto
 
 ## Voor elk vak: vakgebieden, functies en vaardigheden (versie 3.0)
 
-deedni is niet meer alleen voor marketeers. Versie 3.0 (plugin) en 2.3 (thema) maken alle teksten, voorbeeldprofielen en filters algemeen, zodat een hovenier, accountant of webdesigner er net zo goed terecht kan.
+deedni is niet meer alleen voor marketeers. Versie 3.0 (plugin) en 2.4 (thema) maken alle teksten, voorbeeldprofielen en filters algemeen, zodat een hovenier, accountant of webdesigner er net zo goed terecht kan.
 
 **Vakgebieden en functies.** In wp-admin heet de lijst nu **Kandidaten > Vakgebieden en functies**. Bovenaan staan vakgebieden (zoals *Groen en buitenruimte* of *Financiën en administratie*). Functies hang je eronder door bij *Hoofdterm* het vakgebied te kiezen. Je kunt zelf vakgebieden en functies toevoegen, hernoemen of verwijderen. De plugin zet bij het bijwerken 13 vakgebieden met functies klaar. Bestaande termen blijven staan; de oude marketingfuncties worden onder *Marketing en communicatie* gehangen.
 
