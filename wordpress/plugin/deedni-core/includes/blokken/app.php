@@ -144,17 +144,17 @@ deedni_blok(
 	'welkom',
 	array(
 		'titel'        => 'Welkom voor ingelogde gebruikers',
-		'beschrijving' => 'Bovenaan de homepage: marketeers zien hun nieuwste aanbod, werkgevers de beste matches als kaarten. Bezoekers zien dit blok niet.',
+		'beschrijving' => 'Bovenaan de homepage: kandidaten zien hun nieuwste aanbod, werkgevers de beste matches als kaarten. Bezoekers zien dit blok niet.',
 		'icoon'        => 'admin-users',
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-app',
 		'leeg'         => 'bezoekers zien dit blok niet; kies rechts een rol voor het voorbeeld',
 		'velden'       => array(
-			'k_kop'       => array( 'type' => 'text', 'label' => 'Kop (met nieuwe aanbiedingen)', 'groep' => 'Marketeer', 'standaard' => 'Hoi {naam}, je hebt *{aantal} nieuwe aanbiedingen*.', 'help' => '{naam} en {aantal} worden ingevuld. Tussen *sterretjes* = accentkleur.' ),
-			'k_kop_1'     => array( 'type' => 'text', 'label' => 'Kop (met één nieuw aanbod)', 'groep' => 'Marketeer', 'standaard' => 'Hoi {naam}, je hebt *1 nieuw aanbod*.' ),
-			'k_kop_leeg'  => array( 'type' => 'text', 'label' => 'Kop (zonder nieuwe aanbiedingen)', 'groep' => 'Marketeer', 'standaard' => 'Hoi {naam}, *welkom terug*.' ),
-			'k_leeg'      => array( 'type' => 'textarea', 'label' => 'Kaart als er geen nieuw aanbod is', 'groep' => 'Marketeer', 'standaard' => 'Nog geen nieuw aanbod. Een compleet profiel met resultaten wordt vaker gevonden.' ),
-			'w_kop'       => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Werkgever', 'standaard' => '*{aantal} marketeers* passen bij {bedrijf}.' ),
+			'k_kop'       => array( 'type' => 'text', 'label' => 'Kop (met nieuwe aanbiedingen)', 'groep' => 'Kandidaat', 'standaard' => 'Hoi {naam}, je hebt *{aantal} nieuwe aanbiedingen*.', 'help' => '{naam} en {aantal} worden ingevuld. Tussen *sterretjes* = accentkleur.' ),
+			'k_kop_1'     => array( 'type' => 'text', 'label' => 'Kop (met één nieuw aanbod)', 'groep' => 'Kandidaat', 'standaard' => 'Hoi {naam}, je hebt *1 nieuw aanbod*.' ),
+			'k_kop_leeg'  => array( 'type' => 'text', 'label' => 'Kop (zonder nieuwe aanbiedingen)', 'groep' => 'Kandidaat', 'standaard' => 'Hoi {naam}, *welkom terug*.' ),
+			'k_leeg'      => array( 'type' => 'textarea', 'label' => 'Kaart als er geen nieuw aanbod is', 'groep' => 'Kandidaat', 'standaard' => 'Nog geen nieuw aanbod. Een compleet profiel met je ervaring en projecten wordt vaker gevonden.' ),
+			'w_kop'       => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Werkgever', 'standaard' => '*{aantal} kandidaten* passen bij {bedrijf}.' ),
 			'w_tekst'     => array( 'type' => 'textarea', 'label' => 'Tekst', 'groep' => 'Werkgever', 'standaard' => 'Op basis van je bedrijfsprofiel: {voorkeuren}. Liever zelf zoeken?' ),
 			'w_wacht'     => array( 'type' => 'textarea', 'label' => 'Tekst als het account nog niet is goedgekeurd', 'groep' => 'Werkgever', 'standaard' => 'We controleren je account, meestal binnen één werkdag. Vul intussen je bedrijfsprofiel aan, dan staan je matches meteen klaar.' ),
 		),
@@ -215,7 +215,7 @@ function deedni_match_kaart_data( $k ) {
 		}
 	}
 	if ( $k['projecten'] ) {
-		$kpis[] = array( (string) count( $k['projecten'] ), 1 === count( $k['projecten'] ) ? 'case' : 'cases' );
+		$kpis[] = array( (string) count( $k['projecten'] ), 1 === count( $k['projecten'] ) ? 'project' : 'projecten' );
 	}
 	if ( $k['ervaring_jaren'] ) {
 		$kpis[] = array( $k['ervaring_jaren'] . ' jr', 'ervaring' );
@@ -279,7 +279,7 @@ function deedni_render_welkom_werkgever( $a ) {
 	$voorkeuren  = deedni_bedrijf_voorkeuren_tekst( $b );
 	$kop         = str_replace( array( '{aantal}', '{bedrijf}' ), array( (string) $best['totaal'], $naam ), $a['w_kop'] );
 	if ( 1 === (int) $best['totaal'] ) {
-		$kop = str_replace( array( '1 marketeers', ' passen ' ), array( '1 marketeer', ' past ' ), $kop );
+		$kop = str_replace( array( '1 kandidaten', ' passen ' ), array( '1 kandidaat', ' past ' ), $kop );
 	}
 	$tekst       = $voorkeuren ? str_replace( '{voorkeuren}', $voorkeuren, $a['w_tekst'] ) : 'Vul bij je bedrijfsprofiel in wie je zoekt, dan berekenen we het matchpercentage. Liever zelf zoeken?';
 	$h          .= '<div><h1 id="h-welkom">' . str_replace( 'class="soft"', 'class="em"', deedni_tekst( $kop ) ) . '</h1>';
@@ -315,17 +315,17 @@ deedni_blok(
 	'inloggen',
 	array(
 		'titel'        => 'Inloggen en account maken',
-		'beschrijving' => 'Links inloggen, rechts een account maken, als marketeer of werkgever.',
+		'beschrijving' => 'Links inloggen, rechts een account maken, als kandidaat of werkgever.',
 		'icoon'        => 'lock',
 		'stijl'        => 'deedni-app',
 		'script'       => 'deedni-app',
 		'velden'       => array(
 			'kop_login'    => array( 'type' => 'text', 'label' => 'Kop inloggen', 'standaard' => 'Inloggen' ),
 			'kop_account'  => array( 'type' => 'text', 'label' => 'Kop account maken', 'standaard' => 'Account maken' ),
-			'hint_k'       => array( 'type' => 'text', 'label' => 'Uitleg bij marketeer', 'standaard' => 'Bedrijven zien je naam pas als jij ja zegt.' ),
+			'hint_k'       => array( 'type' => 'text', 'label' => 'Uitleg bij kandidaat', 'standaard' => 'Bedrijven zien je naam pas als jij ja zegt.' ),
 			'hint_w'       => array( 'type' => 'text', 'label' => 'Uitleg bij werkgever', 'standaard' => 'Gebruik je zakelijke e-mailadres. We controleren elk bedrijf.' ),
-			'onder'        => array( 'type' => 'text', 'label' => 'Tekst onder het formulier', 'standaard' => 'Gratis voor marketeers. Bedrijven betalen alleen bij een aanname.' ),
-			'label_k'      => array( 'type' => 'text', 'label' => 'Naam rol 1', 'standaard' => 'Marketeer' ),
+			'onder'        => array( 'type' => 'text', 'label' => 'Tekst onder het formulier', 'standaard' => 'Gratis voor werkzoekenden. Bedrijven betalen alleen bij een aanname.' ),
+			'label_k'      => array( 'type' => 'text', 'label' => 'Naam rol 1', 'standaard' => 'Werkzoekende' ),
 			'label_w'      => array( 'type' => 'text', 'label' => 'Naam rol 2', 'standaard' => 'Werkgever' ),
 		),
 		'render'       => 'deedni_render_inloggen',
@@ -389,23 +389,23 @@ function deedni_render_inloggen( $a ) {
 }
 
 /* =========================================================================
- * Overzicht (marketeer: aanbiedingen, werkgever: verstuurd, bewaard, bedrijfsprofiel)
+ * Overzicht (kandidaat: aanbiedingen, werkgever: verstuurd, bewaard, bedrijfsprofiel)
  * ========================================================================= */
 
 deedni_blok(
 	'overzicht',
 	array(
 		'titel'        => 'Overzicht (aanbiedingen)',
-		'beschrijving' => 'Marketeers zien hun aanbiedingen met Ja, Ja maar en Nee. Werkgevers zien hun verstuurde aanbiedingen, tegenvoorstellen, bewaarde kandidaten en bedrijfsprofiel.',
+		'beschrijving' => 'Kandidaten zien hun aanbiedingen met Ja, Ja maar en Nee. Werkgevers zien hun verstuurde aanbiedingen, tegenvoorstellen, bewaarde kandidaten en bedrijfsprofiel.',
 		'icoon'        => 'list-view',
 		'stijl'        => 'deedni-app',
 		'script'       => 'deedni-app',
 		'velden'       => array(
-			'k_kop'       => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Marketeer', 'standaard' => 'Hoi {naam}' ),
-			'k_tekst'     => array( 'type' => 'text', 'label' => 'Tekst', 'groep' => 'Marketeer', 'standaard' => 'Je hebt **{aantal} nieuwe aanbiedingen**. Bedrijven zien je naam pas als jij ja zegt.' ),
-			'k_tekst_0'   => array( 'type' => 'text', 'label' => 'Tekst zonder nieuwe aanbiedingen', 'groep' => 'Marketeer', 'standaard' => 'Je hebt geen nieuwe aanbiedingen. Bedrijven zien je naam pas als jij ja zegt.' ),
-			'k_uitleg'    => array( 'type' => 'textarea', 'label' => 'Uitleg onder elk aanbod', 'groep' => 'Marketeer', 'standaard' => 'Met “Ja, maar...” reageer je met een voorwaarde, bijvoorbeeld een hoger salaris. Je naam blijft verborgen tot je ja zegt.' ),
-			'wie_keek'    => array( 'type' => 'toggle', 'label' => 'Toon "Wie keek mee"', 'groep' => 'Marketeer', 'standaard' => true, 'help' => 'Laat zien wat voor bedrijven het profiel bekeken, zonder hun naam.' ),
+			'k_kop'       => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Kandidaat', 'standaard' => 'Hoi {naam}' ),
+			'k_tekst'     => array( 'type' => 'text', 'label' => 'Tekst', 'groep' => 'Kandidaat', 'standaard' => 'Je hebt **{aantal} nieuwe aanbiedingen**. Bedrijven zien je naam pas als jij ja zegt.' ),
+			'k_tekst_0'   => array( 'type' => 'text', 'label' => 'Tekst zonder nieuwe aanbiedingen', 'groep' => 'Kandidaat', 'standaard' => 'Je hebt geen nieuwe aanbiedingen. Bedrijven zien je naam pas als jij ja zegt.' ),
+			'k_uitleg'    => array( 'type' => 'textarea', 'label' => 'Uitleg onder elk aanbod', 'groep' => 'Kandidaat', 'standaard' => 'Met “Ja, maar...” reageer je met een voorwaarde, bijvoorbeeld een hoger salaris. Je naam blijft verborgen tot je ja zegt.' ),
+			'wie_keek'    => array( 'type' => 'toggle', 'label' => 'Toon "Wie keek mee"', 'groep' => 'Kandidaat', 'standaard' => true, 'help' => 'Laat zien wat voor bedrijven het profiel bekeken, zonder hun naam.' ),
 			'w_kop'       => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Werkgever', 'standaard' => 'Hoi {bedrijf}' ),
 			'w_tekst'     => array( 'type' => 'text', 'label' => 'Tekst', 'groep' => 'Werkgever', 'standaard' => 'Zoek anonieme profielen en stuur een aanbod met salaris. Je betaalt pas bij een aanname.' ),
 			'w_knop'      => array( 'type' => 'text', 'label' => 'Knop', 'groep' => 'Werkgever', 'standaard' => 'Kandidaten zoeken' ),
@@ -634,8 +634,8 @@ function deedni_render_overzicht_werkgever( $a ) {
 	$h .= '<dl class="kv"><dt>Plaats</dt><dd>' . esc_html( $b['plaats'] ? $b['plaats'] : '–' ) . '</dd><dt>Website</dt><dd>' . esc_html( $b['website'] ? preg_replace( '#^https?://(www\.)?#', '', untrailingslashit( $b['website'] ) ) : '–' ) . '</dd><dt>Medewerkers</dt><dd>' . esc_html( $b['medewerkers'] ? $b['medewerkers'] : '–' ) . '</dd><dt>Account</dt><dd>' . ( $b['goedgekeurd'] || deedni_can_search() ? '<span class="tag tag--ok">Goedgekeurd</span>' : '<span class="tag">Wacht op goedkeuring</span>' ) . '</dd></dl>';
 	$h .= '<div><a class="btn btn--ghost btn--small" href="' . esc_url( deedni_page_url( 'profiel' ) ) . '">Wijzig bedrijfsgegevens</a></div></div>';
 	$h .= '<div class="card stack"><h3>Wie je zoekt</h3><p class="fine">Hierop berekenen we je matches.</p><dl class="kv">';
-	$h .= '<dt>Specialisme</dt><dd>' . esc_html( implode( ', ', deedni_term_lijst( $b['zoek_specialisme'], 'specialisme' ) ) ?: '–' ) . '</dd>';
-	$h .= '<dt>Tools</dt><dd>' . esc_html( implode( ', ', deedni_term_lijst( $b['zoek_tools'], 'vaardigheid' ) ) ?: '–' ) . '</dd>';
+	$h .= '<dt>Vakgebied of functie</dt><dd>' . esc_html( implode( ', ', deedni_term_lijst( $b['zoek_specialisme'], 'specialisme' ) ) ?: '–' ) . '</dd>';
+	$h .= '<dt>Vaardigheden</dt><dd>' . esc_html( implode( ', ', deedni_term_lijst( $b['zoek_tools'], 'vaardigheid' ) ) ?: '–' ) . '</dd>';
 	$h .= '<dt>Salarisbudget</dt><dd>' . ( $b['zoek_salaris_max'] ? '<span class="salaris">' . esc_html( deedni_range( $b['zoek_salaris_min'], $b['zoek_salaris_max'] ) ) . '</span>' : '–' ) . '</dd>';
 	$h .= '<dt>Regio</dt><dd>' . esc_html( implode( ', ', array_filter( array( implode( ', ', deedni_term_lijst( $b['zoek_provincie'], 'provincie' ) ), strtolower( deedni_werkplek_tekst( $b['zoek_werkplek'] ) ) ) ) ) ?: '–' ) . '</dd>';
 	$h .= '<dt>Uren</dt><dd>' . esc_html( $b['zoek_uren'] ? $b['zoek_uren'] : '–' ) . '</dd></dl>';
@@ -700,28 +700,28 @@ function deedni_aanbod_rij_werkgever( $o ) {
 }
 
 /* =========================================================================
- * Mijn profiel (marketeer: vijf stappen, werkgever: bedrijfsprofiel)
+ * Mijn profiel (kandidaat: vijf stappen, werkgever: bedrijfsprofiel)
  * ========================================================================= */
 
 deedni_blok(
 	'mijn-profiel',
 	array(
 		'titel'        => 'Mijn profiel',
-		'beschrijving' => 'Marketeers maken hun profiel in vijf stappen met een live voorbeeld. Werkgevers vullen hier hun bedrijfsprofiel en "Wie je zoekt" in.',
+		'beschrijving' => 'Kandidaten maken hun profiel in vijf stappen met een live voorbeeld. Werkgevers vullen hier hun bedrijfsprofiel en "Wie je zoekt" in.',
 		'icoon'        => 'id',
 		'stijl'        => 'deedni-app',
 		'script'       => 'deedni-app',
 		'velden'       => array(
-			'stap1_kop'  => array( 'type' => 'text', 'label' => 'Stap 1: kop', 'groep' => 'Marketeer', 'standaard' => 'Wie ben je?' ),
-			'stap1_lead' => array( 'type' => 'textarea', 'label' => 'Stap 1: tekst', 'groep' => 'Marketeer', 'standaard' => 'Bij elk veld staat wie het ziet. Na jouw ja blijft verborgen tot jij ja zegt op een aanbod.' ),
-			'stap2_kop'  => array( 'type' => 'text', 'label' => 'Stap 2: kop', 'groep' => 'Marketeer', 'standaard' => 'Waar heb je gewerkt?' ),
-			'stap2_lead' => array( 'type' => 'textarea', 'label' => 'Stap 2: tekst', 'groep' => 'Marketeer', 'standaard' => 'De nieuwste bovenaan. Namen van werkgevers blijven verborgen tot jij ja zegt.' ),
-			'stap3_kop'  => array( 'type' => 'text', 'label' => 'Stap 3: kop', 'groep' => 'Marketeer', 'standaard' => 'Projecten en cases' ),
-			'stap3_lead' => array( 'type' => 'textarea', 'label' => 'Stap 3: tekst', 'groep' => 'Marketeer', 'standaard' => 'Dit is wat je opvalt. Beschrijf per project wat je deed en wat het opleverde, in cijfers. Projectnamen en klanten blijven verborgen.' ),
-			'stap4_kop'  => array( 'type' => 'text', 'label' => 'Stap 4: kop', 'groep' => 'Marketeer', 'standaard' => 'Wat zoek je?' ),
-			'stap4_lead' => array( 'type' => 'textarea', 'label' => 'Stap 4: tekst', 'groep' => 'Marketeer', 'standaard' => 'Hierop worden je matches berekend. Bedrijven zien een afgerond salaris, nooit je exacte wens.' ),
-			'stap5_kop'  => array( 'type' => 'text', 'label' => 'Stap 5: kop', 'groep' => 'Marketeer', 'standaard' => 'Controleren en publiceren' ),
-			'stap5_lead' => array( 'type' => 'textarea', 'label' => 'Stap 5: tekst', 'groep' => 'Marketeer', 'standaard' => 'Rechts zie je precies wat bedrijven zien. Klopt alles? Dan zet je je profiel online.' ),
+			'stap1_kop'  => array( 'type' => 'text', 'label' => 'Stap 1: kop', 'groep' => 'Kandidaat', 'standaard' => 'Wie ben je?' ),
+			'stap1_lead' => array( 'type' => 'textarea', 'label' => 'Stap 1: tekst', 'groep' => 'Kandidaat', 'standaard' => 'Bij elk veld staat wie het ziet. Na jouw ja blijft verborgen tot jij ja zegt op een aanbod.' ),
+			'stap2_kop'  => array( 'type' => 'text', 'label' => 'Stap 2: kop', 'groep' => 'Kandidaat', 'standaard' => 'Waar heb je gewerkt?' ),
+			'stap2_lead' => array( 'type' => 'textarea', 'label' => 'Stap 2: tekst', 'groep' => 'Kandidaat', 'standaard' => 'De nieuwste bovenaan. Namen van werkgevers blijven verborgen tot jij ja zegt.' ),
+			'stap3_kop'  => array( 'type' => 'text', 'label' => 'Stap 3: kop', 'groep' => 'Kandidaat', 'standaard' => 'Laat zien wat je hebt gedaan' ),
+			'stap3_lead' => array( 'type' => 'textarea', 'label' => 'Stap 3: tekst', 'groep' => 'Kandidaat', 'standaard' => 'Een tuin die je aanlegde, een website die je bouwde, een jaarafsluiting die je deed. Beschrijf kort wat je deed. Heeft het iets meetbaars opgeleverd, dan kun je dat erbij zetten, maar het hoeft niet. Projectnamen en klanten blijven verborgen.' ),
+			'stap4_kop'  => array( 'type' => 'text', 'label' => 'Stap 4: kop', 'groep' => 'Kandidaat', 'standaard' => 'Wat zoek je?' ),
+			'stap4_lead' => array( 'type' => 'textarea', 'label' => 'Stap 4: tekst', 'groep' => 'Kandidaat', 'standaard' => 'Hierop worden je matches berekend. Bedrijven zien een afgerond salaris, nooit je exacte wens.' ),
+			'stap5_kop'  => array( 'type' => 'text', 'label' => 'Stap 5: kop', 'groep' => 'Kandidaat', 'standaard' => 'Controleren en publiceren' ),
+			'stap5_lead' => array( 'type' => 'textarea', 'label' => 'Stap 5: tekst', 'groep' => 'Kandidaat', 'standaard' => 'Rechts zie je precies wat bedrijven zien. Klopt alles? Dan zet je je profiel online.' ),
 			'w_kop'      => array( 'type' => 'text', 'label' => 'Kop', 'groep' => 'Werkgever', 'standaard' => 'Bedrijfsprofiel' ),
 			'w_lead'     => array( 'type' => 'textarea', 'label' => 'Tekst', 'groep' => 'Werkgever', 'standaard' => 'Kandidaten zien je bedrijfsgegevens bij elk aanbod. Met "Wie je zoekt" berekenen we het matchpercentage.' ),
 		),
@@ -751,7 +751,7 @@ deedni_blok(
 		'script'       => 'deedni-app',
 		'velden'       => array(
 			'kop'       => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Kandidaten zoeken' ),
-			'lead'      => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Anonieme profielen van online marketeers. Je ziet ervaring, tools, cases en salarisindicatie. De naam komt pas als de kandidaat ja zegt op jouw aanbod.' ),
+			'lead'      => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Anonieme profielen van vakmensen uit elke branche. Je ziet ervaring, vaardigheden, projecten en salarisindicatie. De naam komt pas als de kandidaat ja zegt op jouw aanbod.' ),
 			'gesloten'  => array( 'type' => 'textarea', 'label' => 'Tekst voor wie (nog) niet mag zoeken', 'standaard' => 'Zoeken in profielen kan alleen met een goedgekeurd werkgeversaccount. Maak gratis een account, dan controleren we je bedrijf.' ),
 		),
 		'render'       => function ( $a ) {
@@ -766,10 +766,10 @@ function deedni_kandidaat_kaart( $k ) {
 	$h  = '<article class="card cand" aria-labelledby="' . $t . '"><div class="stack-s cand-main">';
 	$h .= '<div class="row"><strong>' . esc_html( $k['code'] ) . '</strong>' . deedni_match_tag( $k['match'] ) . '<span class="tag ' . ( 'actief' === $k['zoekstatus'] ? 'tag--ok' : 'tag--accent' ) . '">' . esc_html( deedni_label( 'zoekstatus', $k['zoekstatus'] ) ) . '</span></div>';
 	$h .= '<h2 id="' . $t . '"><a href="' . esc_url( $k['url'] ) . '">' . esc_html( $k['functietitel'] ) . '</a></h2>';
-	$meta = array_filter( array( $k['ervaring_jaren'] ? $k['ervaring_jaren'] . ' jaar ervaring' : '', deedni_regio_tekst( $k ), deedni_werkplek_tekst( $k['werkplekken'] ), deedni_label( 'beschikbaarheid', $k['beschikbaarheid'] ) ) );
+	$meta = array_filter( array( deedni_vak_tekst( $k ), $k['ervaring_jaren'] ? $k['ervaring_jaren'] . ' jaar ervaring' : '', deedni_regio_tekst( $k ), deedni_werkplek_tekst( $k['werkplekken'] ), deedni_label( 'beschikbaarheid', $k['beschikbaarheid'] ) ) );
 	$h .= '<div class="meta"><span>' . implode( '</span><span>', array_map( 'esc_html', $meta ) ) . '</span></div>';
 	$h .= deedni_tools_html( array_slice( $k['tools'], 0, 6 ) );
-	$h .= '<div class="hidden-row">' . ( $k['projecten'] ? '<span>' . count( $k['projecten'] ) . ' ' . ( 1 === count( $k['projecten'] ) ? 'case' : 'cases' ) . ' in portfolio</span>' : '' ) . '<span>Naam ' . deedni_redact( 's' ) . '</span><span>Werkgevers ' . deedni_redact() . '</span></div>';
+	$h .= '<div class="hidden-row">' . ( $k['projecten'] ? '<span>' . count( $k['projecten'] ) . ' ' . ( 1 === count( $k['projecten'] ) ? 'project' : 'projecten' ) . ' in portfolio</span>' : '' ) . '<span>Naam ' . deedni_redact( 's' ) . '</span><span>Werkgevers ' . deedni_redact() . '</span></div>';
 	$h .= '</div><div class="right"><div>' . ( $k['salaris_min'] ? '<div class="fine">Salarisindicatie</div><span class="salaris salaris--l">vanaf ' . esc_html( deedni_euro( deedni_salaris_afgerond( $k['salaris_min'] ) ) ) . '</span>' : '' ) . '</div>';
 	$h .= '<div class="acts">' . deedni_bewaar_knop( $k['id'] ) . '<a class="btn btn--ghost btn--small" href="' . esc_url( $k['url'] ) . '">Bekijk profiel</a>' . deedni_aanbod_knop( $k ) . '</div></div>';
 	return $h . '</article>';

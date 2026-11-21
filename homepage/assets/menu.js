@@ -7,7 +7,7 @@
     ...
     <div data-voet data-rol="kandidaat"></div>
 
-  Rollen: bezoeker, kandidaat (de marketeer), werkgever.
+  Rollen: bezoeker, kandidaat (de werkzoekende), werkgever.
   data-rol="auto" leest de rol uit het adres: index.html?rol=kandidaat of ?rol=werkgever.
   Zonder rol in het adres is het de bezoeker. Zo is er één homepage voor iedereen.
 
@@ -36,7 +36,7 @@
         { id: 'overzicht', tekst: 'Aanbiedingen', href: 'kandidaat-overzicht.html', teller: 2 },
         { id: 'vragen', tekst: 'Vragen', href: 'index.html?rol=kandidaat#vragen' }
       ],
-      wie: { naam: 'Sanne', letters: 'S', rol: 'marketeer' },
+      wie: { naam: 'Sanne', letters: 'S', rol: 'kandidaat' },
       account: [
         { id: 'profiel', tekst: 'Mijn profiel', href: 'mijn-profiel.html' },
         { id: 'blokkeerlijst', tekst: 'Blokkeerlijst', href: 'mijn-profiel.html#blokkeerlijst' }
@@ -50,7 +50,7 @@
         { id: 'zoeken', tekst: 'Kandidaten zoeken', href: 'kandidaten-zoeken.html' },
         { id: 'vragen', tekst: 'Vragen', href: 'index.html?rol=werkgever#vragen' }
       ],
-      wie: { naam: 'Studio Noord', letters: 'SN', rol: 'werkgever' },
+      wie: { naam: 'Groenwerk Utrecht', letters: 'GU', rol: 'werkgever' },
       account: [
         { id: 'bedrijf', tekst: 'Bedrijfsprofiel', href: 'werkgever-overzicht.html#bedrijfsprofiel' }
       ]
@@ -109,7 +109,7 @@
     h += '<a class="logo" href="' + m.thuis + '">deedni<i aria-hidden="true"></i></a>';
     h += '<span>&copy; 2026 deedni. Ontwerp met fictieve gegevens.</span>';
     h += '<nav class="rolwissel" aria-label="Bekijk het ontwerp als"><span>Bekijk als:</span>';
-    [['bezoeker', 'Bezoeker', 'index.html'], ['kandidaat', 'Marketeer', 'index.html?rol=kandidaat'], ['werkgever', 'Werkgever', 'index.html?rol=werkgever']].forEach(function (r) {
+    [['bezoeker', 'Bezoeker', 'index.html'], ['kandidaat', 'Kandidaat', 'index.html?rol=kandidaat'], ['werkgever', 'Werkgever', 'index.html?rol=werkgever']].forEach(function (r) {
       h += '<a href="' + r[2] + '"' + (r[0] === rol ? ' aria-current="true"' : '') + '>' + r[1] + '</a>';
     });
     h += '<a href="overzicht.html">Alle pagina\'s</a></nav>';

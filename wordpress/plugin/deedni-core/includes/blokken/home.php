@@ -51,11 +51,11 @@ deedni_blok(
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-home',
 		'velden'       => array(
-			'label'             => array( 'type' => 'text', 'label' => 'Label boven de kop (leeg = geen)', 'groep' => 'Kop', 'standaard' => 'Omgekeerd solliciteren voor online marketeers' ),
+			'label'             => array( 'type' => 'text', 'label' => 'Label boven de kop (leeg = geen)', 'groep' => 'Kop', 'standaard' => 'Omgekeerd solliciteren, voor elk vak' ),
 			'kop'               => array( 'type' => 'textarea', 'label' => 'Grote kop', 'groep' => 'Kop', 'standaard' => "Bedrijven\nkomen [foto1] naar\njou. [foto2]", 'help' => 'Elke regel is een regel in beeld. Zet [foto1] of [foto2] tussen de woorden voor een foto.' ),
 			'foto1'             => array( 'type' => 'image', 'label' => 'Foto 1', 'groep' => 'Kop', 'standaard' => deedni_img( 'telefoon-laptop.jpg' ) ),
 			'foto2'             => array( 'type' => 'image', 'label' => 'Foto 2', 'groep' => 'Kop', 'standaard' => deedni_img( 'werken-laptop.jpg' ) ),
-			'lead'              => array( 'type' => 'textarea', 'label' => 'Tekst onder de kop', 'groep' => 'Kop', 'standaard' => 'Maak een anoniem profiel met je ervaring, tools en resultaten. Bedrijven sturen je een aanbod met salaris. Pas als jij ja zegt, zien ze wie je bent.' ),
+			'lead'              => array( 'type' => 'textarea', 'label' => 'Tekst onder de kop', 'groep' => 'Kop', 'standaard' => 'Hovenier, accountant of webdesigner: maak een anoniem profiel met je ervaring en wat je kunt. Bedrijven sturen je een aanbod met salaris. Pas als jij ja zegt, zien ze wie je bent.' ),
 			'keuze_werk'        => array( 'type' => 'text', 'label' => 'Keuzeknop 1', 'groep' => 'Keuze werk of personeel', 'standaard' => 'Ik zoek werk' ),
 			'keuze_personeel'   => array( 'type' => 'text', 'label' => 'Keuzeknop 2', 'groep' => 'Keuze werk of personeel', 'standaard' => 'Ik zoek personeel' ),
 			'werk_cta'          => array( 'type' => 'text', 'label' => 'Knop (ik zoek werk)', 'groep' => 'Knoppen: ik zoek werk', 'standaard' => 'Maak gratis je profiel' ),
@@ -68,26 +68,26 @@ deedni_blok(
 			'pers_link2'        => array( 'type' => 'text', 'label' => 'Tweede link', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => 'Bekijk de prijzen' ),
 			'pers_link2_url'    => array( 'type' => 'link', 'label' => 'Waar gaat de tweede link heen?', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => '#prijzen' ),
 			'pers_notitie'      => array( 'type' => 'text', 'label' => 'Kleine tekst eronder', 'groep' => 'Knoppen: ik zoek personeel', 'standaard' => 'Zoeken is gratis · je betaalt pas bij een aanname' ),
-			'k_cta'             => array( 'type' => 'text', 'label' => 'Knop voor een ingelogde marketeer', 'groep' => 'Ingelogd', 'standaard' => 'Bekijk je aanbiedingen' ),
+			'k_cta'             => array( 'type' => 'text', 'label' => 'Knop voor een ingelogde kandidaat', 'groep' => 'Ingelogd', 'standaard' => 'Bekijk je aanbiedingen' ),
 			'k_notitie'         => array( 'type' => 'text', 'label' => 'Tekst eronder', 'groep' => 'Ingelogd', 'standaard' => 'Je hebt {aantal} nieuwe aanbiedingen', 'help' => '{aantal} wordt het echte aantal.' ),
 			'sticker'           => array( 'type' => 'text', 'label' => 'Sticker op de kaart', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Voorbeeld' ),
 			'demo_bedrijf'      => array( 'type' => 'text', 'label' => 'Bedrijf', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Studio Noord' ),
-			'demo_functie'      => array( 'type' => 'text', 'label' => 'Functie', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Senior performance marketeer' ),
-			'demo_meta'         => array( 'type' => 'text', 'label' => 'Details', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Online marketingbureau in Utrecht · hybride · 32 tot 40 uur' ),
-			'demo_salaris'      => array( 'type' => 'text', 'label' => 'Salaris', 'groep' => 'Voorbeeldkaart', 'standaard' => '€4.200–4.800' ),
-			'demo_quote'        => array( 'type' => 'text', 'label' => 'Bericht', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Je cases in e-commerce sluiten precies aan op onze klanten.' ),
+			'demo_functie'      => array( 'type' => 'text', 'label' => 'Functie', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Webdesigner' ),
+			'demo_meta'         => array( 'type' => 'text', 'label' => 'Details', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Webbureau in Utrecht · hybride · 32 tot 40 uur' ),
+			'demo_salaris'      => array( 'type' => 'text', 'label' => 'Salaris', 'groep' => 'Voorbeeldkaart', 'standaard' => '€3.600–4.200' ),
+			'demo_quote'        => array( 'type' => 'text', 'label' => 'Bericht', 'groep' => 'Voorbeeldkaart', 'standaard' => 'De websites die je bouwde passen precies bij onze klanten.' ),
 			'demo_naam'         => array( 'type' => 'text', 'label' => 'Naam die verschijnt bij Ja', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Sanne de Vries' ),
 			'demo_ja'           => array( 'type' => 'text', 'label' => 'Uitkomst bij Ja', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Je naam is gedeeld. Studio Noord neemt contact met je op.' ),
 			'demo_maar'         => array( 'type' => 'text', 'label' => 'Uitkomst bij Ja, maar', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Je vraagt om meer salaris. Studio Noord past het aanbod aan, je blijft anoniem.' ),
 			'demo_nee'          => array( 'type' => 'text', 'label' => 'Uitkomst bij Nee', 'groep' => 'Voorbeeldkaart', 'standaard' => 'Afgewezen. Studio Noord ziet nooit wie je bent.' ),
 			'p_code'            => array( 'type' => 'text', 'label' => 'Code', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'K-2041' ),
-			'p_functie'         => array( 'type' => 'text', 'label' => 'Functie', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'Senior performance marketeer' ),
-			'p_salaris'         => array( 'type' => 'text', 'label' => 'Salaris', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'vanaf €4.000' ),
+			'p_functie'         => array( 'type' => 'text', 'label' => 'Functie', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'Allround hovenier' ),
+			'p_salaris'         => array( 'type' => 'text', 'label' => 'Salaris', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'vanaf €2.900' ),
 			'p_ervaring'        => array( 'type' => 'text', 'label' => 'Ervaring', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => '7 jaar' ),
 			'p_regio'           => array( 'type' => 'text', 'label' => 'Regio', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'Utrecht' ),
-			'p_resultaat'       => array( 'type' => 'text', 'label' => 'Resultaat (cijfer)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => '3,1 → 5,4' ),
-			'p_resultaat_tekst' => array( 'type' => 'text', 'label' => 'Resultaat (tekst)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'rendement op advertentie-uitgaven in zes maanden' ),
-			'p_tools'           => array( 'type' => 'text', 'label' => 'Tools (met komma\'s)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'Google Ads, Meta Ads, GA4' ),
+			'p_resultaat'       => array( 'type' => 'text', 'label' => 'Uitgelicht (kort, optioneel)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => '40+ tuinen' ),
+			'p_resultaat_tekst' => array( 'type' => 'text', 'label' => 'Uitgelicht (tekst, optioneel)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'aangelegd en onderhouden, van stadstuin tot bedrijfsterrein' ),
+			'p_tools'           => array( 'type' => 'text', 'label' => 'Vaardigheden (met komma\'s)', 'groep' => 'Voorbeeldprofiel (ik zoek personeel)', 'standaard' => 'Bestrating, Snoeien, Rijbewijs BE' ),
 			'sticky'            => array( 'type' => 'text', 'label' => 'Vaste knop onderin op mobiel (leeg = geen)', 'groep' => 'Mobiel', 'standaard' => 'Maak gratis je profiel' ),
 		),
 		'render'       => 'deedni_render_hero',
@@ -151,7 +151,9 @@ function deedni_render_hero( $a ) {
 	$h .= '<div class="t">' . esc_html( $a['p_functie'] ) . '</div>';
 	$h .= '<p><span class="salaris">' . esc_html( $a['p_salaris'] ) . '</span> per maand</p>';
 	$h .= '<dl class="kv"><dt>Ervaring</dt><dd>' . esc_html( $a['p_ervaring'] ) . '</dd><dt>Regio</dt><dd>' . esc_html( $a['p_regio'] ) . '</dd><dt>Naam</dt><dd>' . deedni_redact() . '</dd><dt>Werkgevers</dt><dd>' . deedni_redact( 'l' ) . '</dd></dl>';
-	$h .= '<div class="sees"><strong>' . esc_html( $a['p_resultaat'] ) . '</strong> ' . esc_html( $a['p_resultaat_tekst'] ) . '</div>';
+	if ( $a['p_resultaat'] || $a['p_resultaat_tekst'] ) {
+		$h .= '<div class="sees"><strong>' . esc_html( $a['p_resultaat'] ) . '</strong> ' . esc_html( $a['p_resultaat_tekst'] ) . '</div>';
+	}
 	$h .= deedni_tools_html( $a['p_tools'] );
 	$h .= '</div></div></div></div></section>';
 
@@ -172,10 +174,10 @@ deedni_blok(
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-home',
 		'velden'       => array(
-			'foto'   => array( 'type' => 'image', 'label' => 'Foto', 'standaard' => deedni_img( 'marketing-analyse.jpg', 'Iemand wijst met een pen naar marketingcijfers op een tablet' ), 'help' => 'Vul bij de afbeelding een alternatieve tekst in (wat staat erop).' ),
+			'foto'   => array( 'type' => 'image', 'label' => 'Foto', 'standaard' => deedni_img( 'marketing-analyse.jpg', 'Iemand wijst met een pen naar cijfers op een tablet' ), 'help' => 'Vul bij de afbeelding een alternatieve tekst in (wat staat erop).' ),
 			'regel1' => array( 'type' => 'text', 'label' => 'Regel 1', 'standaard' => 'Jij kiest.' ),
 			'regel2' => array( 'type' => 'text', 'label' => 'Regel 2 (in de markeerkleur)', 'standaard' => 'Zij bieden.' ),
-			'onder'  => array( 'type' => 'textarea', 'label' => 'Tekst onderin', 'standaard' => 'Geen sollicitatiebrieven meer. Je laat zien wat je kunt, en bedrijven doen een aanbod met salaris.' ),
+			'onder'  => array( 'type' => 'textarea', 'label' => 'Tekst onderin', 'standaard' => 'Geen sollicitatiebrieven meer. Je laat zien wat je kunt, in welk vak dan ook, en bedrijven doen een aanbod met salaris.' ),
 		),
 		'render'       => function ( $a ) {
 			$h  = '<section class="bigphoto" aria-label="' . esc_attr( trim( $a['regel1'] . ' ' . $a['regel2'] ) ) . '" data-bigphoto><div class="stick">';
@@ -208,10 +210,10 @@ deedni_blok(
 					function ( $t ) {
 						return array( 'tekst' => $t );
 					},
-					array( 'SEA en performance', 'SEO en content', 'Data en analytics', 'Marketing-automation', 'CRO en UX', 'Social advertising', 'E-mailmarketing' )
+					array( 'Hovenier', 'Webdesigner', 'Accountant', 'Elektricien', 'Verpleegkundige', 'Marketeer', 'Chauffeur', 'Kok', 'Leerkracht' )
 				),
 			),
-			'label' => array( 'type' => 'text', 'label' => 'Naam voor schermlezers', 'standaard' => 'Specialismen' ),
+			'label' => array( 'type' => 'text', 'label' => 'Naam voor schermlezers', 'standaard' => 'Beroepen' ),
 		),
 		'render'       => function ( $a ) {
 			$li = '';
@@ -240,7 +242,7 @@ deedni_blok(
 		'achtergrond'  => 'zacht',
 		'velden'       => array(
 			'kop'    => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Dit zien bedrijven *van jou.*', 'help' => 'Woorden tussen *sterretjes* worden grijs.' ),
-			'lead'   => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Ervaring, tools en resultaten. De zwarte balken blijven dicht tot jij ja zegt.' ),
+			'lead'   => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Ervaring, vaardigheden en wat je hebt gedaan. De zwarte balken blijven dicht tot jij ja zegt.' ),
 			'kaarten' => array(
 				'type'      => 'lijst',
 				'label'     => 'Kaarten',
@@ -250,14 +252,14 @@ deedni_blok(
 					'salaris'  => array( 'type' => 'text', 'label' => 'Salaris' ),
 					'ervaring' => array( 'type' => 'text', 'label' => 'Ervaring' ),
 					'regio'    => array( 'type' => 'text', 'label' => 'Regio' ),
-					'cijfer'   => array( 'type' => 'text', 'label' => 'Resultaat (cijfer)' ),
-					'resultaat' => array( 'type' => 'text', 'label' => 'Resultaat (tekst)' ),
-					'tools'    => array( 'type' => 'text', 'label' => 'Tools (met komma\'s)' ),
+					'cijfer'   => array( 'type' => 'text', 'label' => 'Uitgelicht (kort, optioneel)' ),
+					'resultaat' => array( 'type' => 'text', 'label' => 'Uitgelicht (tekst, optioneel)' ),
+					'tools'    => array( 'type' => 'text', 'label' => 'Vaardigheden (met komma\'s)' ),
 				),
 				'standaard' => array(
-					array( 'code' => 'K-1010', 'functie' => 'SEA-specialist', 'salaris' => 'vanaf €4.000', 'ervaring' => '6 jaar', 'regio' => 'Utrecht', 'cijfer' => '3,1 → 5,4', 'resultaat' => 'Rendement op advertentie-uitgaven in zes maanden', 'tools' => 'Google Ads, Meta Ads, GA4' ),
-					array( 'code' => 'K-1024', 'functie' => 'Contentmarketeer', 'salaris' => 'vanaf €3.300', 'ervaring' => '4 jaar', 'regio' => 'Gelderland', 'cijfer' => '+60%', 'resultaat' => 'Organisch verkeer in een jaar', 'tools' => 'WordPress, Semrush, GA4' ),
-					array( 'code' => 'K-1031', 'functie' => 'Marketing-automation', 'salaris' => 'vanaf €5.000', 'ervaring' => '8 jaar', 'regio' => 'Noord-Holland', 'cijfer' => '−40%', 'resultaat' => 'Kosten per lead na drie maanden', 'tools' => 'HubSpot, ActiveCampaign, Zapier' ),
+					array( 'code' => 'K-1010', 'functie' => 'Allround hovenier', 'salaris' => 'vanaf €2.900', 'ervaring' => '7 jaar', 'regio' => 'Utrecht', 'cijfer' => '', 'resultaat' => '', 'tools' => 'Bestrating, Snoeien, Rijbewijs BE' ),
+					array( 'code' => 'K-1024', 'functie' => 'Webdesigner', 'salaris' => 'vanaf €3.400', 'ervaring' => '4 jaar', 'regio' => 'Gelderland', 'cijfer' => '30+', 'resultaat' => 'Websites gebouwd voor lokale ondernemers', 'tools' => 'Figma, WordPress, HTML en CSS' ),
+					array( 'code' => 'K-1031', 'functie' => 'Accountant', 'salaris' => 'vanaf €4.600', 'ervaring' => '9 jaar', 'regio' => 'Noord-Holland', 'cijfer' => '', 'resultaat' => '', 'tools' => 'Exact Online, Jaarrekeningen, RA of AA' ),
 				),
 			),
 			'voetnoot' => array( 'type' => 'text', 'label' => 'Kleine tekst onderaan', 'standaard' => 'Naam, werkgevers, projectnamen en links staan er niet in. Het salaris is afgerond. Voorbeelden met fictieve gegevens.' ),
@@ -292,8 +294,8 @@ deedni_blok(
 
 function deedni_standaard_stappen( $wie ) {
 	$s = array(
-		'k' => array( array( 'Je maakt een profiel', 'Specialisme, tools, ervaring en wat je zoekt. Naam en foto zijn niet nodig.' ), array( 'Bedrijven zoeken', 'Ze filteren op vak, tools en regio en zien alleen je anonieme profiel.' ), array( 'Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.' ), array( 'Jij zegt ja, nee of ja, maar', 'Ja, maar met een voorwaarde, zoals een hoger salaris? Dan past het bedrijf het aanbod aan. Bij nee blijft je naam verborgen.' ), array( 'Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.' ) ),
-		'w' => array( array( 'Je zoekt een marketeer', 'Filter op vak, tools, regio en beschikbaarheid.' ), array( 'Je opent een profiel', 'Je ziet ervaring, cases en salarisindicatie. De naam blijft verborgen.' ), array( 'Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.' ), array( 'De marketeer beslist', 'Ja, nee, of ja met een voorwaarde. Bij nee betaal je niets en blijft de marketeer anoniem.' ), array( 'Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.' ) ),
+		'k' => array( array( 'Je maakt een profiel', 'Je vak, vaardigheden, ervaring en wat je zoekt. Naam en foto zijn niet nodig.' ), array( 'Bedrijven zoeken', 'Ze filteren op vak, vaardigheden en regio en zien alleen je anonieme profiel.' ), array( 'Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.' ), array( 'Jij zegt ja, nee of ja, maar', 'Ja, maar met een voorwaarde, zoals een hoger salaris? Dan past het bedrijf het aanbod aan. Bij nee blijft je naam verborgen.' ), array( 'Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.' ) ),
+		'w' => array( array( 'Je zoekt een nieuwe collega', 'Filter op vak, vaardigheden, regio en beschikbaarheid.' ), array( 'Je opent een profiel', 'Je ziet ervaring, projecten en salarisindicatie. De naam blijft verborgen.' ), array( 'Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.' ), array( 'De kandidaat beslist', 'Ja, nee, of ja met een voorwaarde. Bij nee betaal je niets en blijft de kandidaat anoniem.' ), array( 'Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.' ) ),
 	);
 	return array_map(
 		function ( $x ) {
@@ -307,15 +309,15 @@ function deedni_standaard_stappen( $wie ) {
 function deedni_telefoon_scherm( $key ) {
 	$r = deedni_redact( 's' );
 	$s = array(
-		'k0' => '<div class="ttl">Jouw profiel</div><div class="box"><div class="kvs"><span>Specialisme</span><b>SEA en performance</b><span>Tools</span><b>Google Ads, GA4</b><span>Salaris</span><b>€4.500–5.200</b><span>Naam en foto</span><b>Niet nodig</b></div></div><span class="pbtn">Profiel opslaan</span>',
-		'k1' => '<div class="ttl">Bedrijven zoeken</div><div class="fine">SEA · Google Ads · Utrecht</div><div class="box">Senior SEO-specialist<span class="fine">5 jaar, Amsterdam</span></div><div class="box me"><b>Senior SEA-marketeer</b><span class="fine">7 jaar, Utrecht en omgeving</span><span class="redact" aria-hidden="true"></span></div><div class="box">Performance marketeer<span class="fine">4 jaar, Rotterdam</span></div><div class="fine">De tweede kaart is jouw profiel. Zonder naam, zonder foto.</div>',
-		'k2' => '<div class="ttl">Nieuw aanbod</div><div class="box"><b>Studio Noord</b><span>Senior performance marketeer</span><span class="fine">Utrecht, hybride, 32 tot 40 uur</span><span><span class="salaris">€4.200–4.800</span></span><span class="fine">“Je cases passen precies bij onze klanten.”</span></div><span class="pbtn">Bekijk het aanbod</span>',
-		'k3' => '<div class="ttl">Jouw antwoord</div><div class="box"><b>Senior performance marketeer</b><span class="salaris" style="align-self:flex-start">€4.200–4.800</span><span class="fine">Studio Noord ziet nu: ' . $r . '</span></div><span class="pbtn">Ja, deel mijn naam</span><span class="pbtn g">Ja, maar...</span><span class="pbtn g">Nee, bedankt</span>',
-		'k4' => '<div class="ttl">Studio Noord</div><span class="chat">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</span><span class="chat me">Donderdag past goed.</span><span class="chat">Top, we bellen je om 10 uur.</span>',
-		'w0' => '<div class="ttl">Marketeers zoeken</div><div class="fine">SEA · Google Ads · Utrecht</div><div class="box"><b>K-2041</b><span class="fine">Senior SEA-marketeer, 7 jaar</span><span class="salaris" style="align-self:flex-start">€4.500–5.200</span></div><div class="box"><b>K-1187</b><span class="fine">SEA-specialist, 5 jaar</span></div><div class="box"><b>K-3320</b><span class="fine">Performance marketeer, 6 jaar</span></div>',
-		'w1' => '<div class="ttl">K-2041</div><div class="box"><div class="kvs"><span>Ervaring</span><b>7 jaar</b><span>Tools</span><b>Google Ads, GA4</b><span>Naam</span>' . $r . '</div></div><div class="box"><b>3,1 → 4,6</b><span class="fine">Rendement op advertentie-uitgaven in vijf maanden</span></div><span class="pbtn">Stuur een aanbod</span>',
-		'w2' => '<div class="ttl">Aanbod sturen</div><div class="box"><span class="fine">Functie</span><b>Senior performance marketeer</b><span class="fine">Salaris per maand</span><b>€4.500 tot €5.000</b><span class="fine">Bericht</span><span>Je cases passen goed bij onze klanten.</span></div><span class="pbtn">Verstuur aanbod</span>',
-		'w3' => '<div class="ttl">Aanbod aan K-2041</div><div class="box"><b>Senior performance marketeer</b><span class="salaris" style="align-self:flex-start">€4.500–5.000</span></div><div class="box"><span>✓ Verstuurd</span><span>✓ Gelezen</span><b class="ok-txt">✓ K-2041 zegt ja</b></div>',
+		'k0' => '<div class="ttl">Jouw profiel</div><div class="box"><div class="kvs"><span>Functie</span><b>Allround hovenier</b><span>Vaardigheden</span><b>Bestrating, Snoeien</b><span>Salaris</span><b>€2.900–3.400</b><span>Naam en foto</span><b>Niet nodig</b></div></div><span class="pbtn">Profiel opslaan</span>',
+		'k1' => '<div class="ttl">Bedrijven zoeken</div><div class="fine">Hovenier · Bestrating · Utrecht</div><div class="box">Tuinontwerper<span class="fine">5 jaar, Amsterdam</span></div><div class="box me"><b>Allround hovenier</b><span class="fine">7 jaar, Utrecht en omgeving</span><span class="redact" aria-hidden="true"></span></div><div class="box">Boomverzorger<span class="fine">4 jaar, Rotterdam</span></div><div class="fine">De tweede kaart is jouw profiel. Zonder naam, zonder foto.</div>',
+		'k2' => '<div class="ttl">Nieuw aanbod</div><div class="box"><b>Groenwerk Utrecht</b><span>Allround hovenier</span><span class="fine">Utrecht, op locatie, 38 uur</span><span><span class="salaris">€2.900–3.400</span></span><span class="fine">“Je projecten passen precies bij ons werk.”</span></div><span class="pbtn">Bekijk het aanbod</span>',
+		'k3' => '<div class="ttl">Jouw antwoord</div><div class="box"><b>Allround hovenier</b><span class="salaris" style="align-self:flex-start">€2.900–3.400</span><span class="fine">Groenwerk Utrecht ziet nu: ' . $r . '</span></div><span class="pbtn">Ja, deel mijn naam</span><span class="pbtn g">Ja, maar...</span><span class="pbtn g">Nee, bedankt</span>',
+		'k4' => '<div class="ttl">Groenwerk Utrecht</div><span class="chat">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</span><span class="chat me">Donderdag past goed.</span><span class="chat">Top, we bellen je om 10 uur.</span>',
+		'w0' => '<div class="ttl">Kandidaten zoeken</div><div class="fine">Hovenier · Bestrating · Utrecht</div><div class="box"><b>K-2041</b><span class="fine">Allround hovenier, 7 jaar</span><span class="salaris" style="align-self:flex-start">€2.900–3.400</span></div><div class="box"><b>K-1187</b><span class="fine">Hovenier, 5 jaar</span></div><div class="box"><b>K-3320</b><span class="fine">Medewerker groenvoorziening, 6 jaar</span></div>',
+		'w1' => '<div class="ttl">K-2041</div><div class="box"><div class="kvs"><span>Ervaring</span><b>7 jaar</b><span>Vaardigheden</span><b>Bestrating, Rijbewijs BE</b><span>Naam</span>' . $r . '</div></div><div class="box"><b>Stadstuin opnieuw aangelegd</b><span class="fine">Ontwerp, bestrating en beplanting</span></div><span class="pbtn">Stuur een aanbod</span>',
+		'w2' => '<div class="ttl">Aanbod sturen</div><div class="box"><span class="fine">Functie</span><b>Allround hovenier</b><span class="fine">Salaris per maand</span><b>€2.900 tot €3.400</b><span class="fine">Bericht</span><span>Je projecten passen goed bij ons werk.</span></div><span class="pbtn">Verstuur aanbod</span>',
+		'w3' => '<div class="ttl">Aanbod aan K-2041</div><div class="box"><b>Allround hovenier</b><span class="salaris" style="align-self:flex-start">€2.900–3.400</span></div><div class="box"><span>✓ Verstuurd</span><span>✓ Gelezen</span><b class="ok-txt">✓ K-2041 zegt ja</b></div>',
 		'w4' => '<div class="ttl">Sanne de Vries</div><div class="box"><div class="kvs"><span>Contact</span><b>sanne@voorbeeld.nl</b><span>Cv</span><b>cv-sanne.pdf</b></div></div><span class="pbtn">Plan een gesprek</span>',
 	);
 	return isset( $s[ $key ] ) ? $s[ $key ] : '<div class="ttl">deedni</div>';
@@ -340,7 +342,7 @@ deedni_blok(
 			'kop'          => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Zo werkt het, *stap voor stap.*' ),
 			'label_k'      => array( 'type' => 'text', 'label' => 'Knop 1', 'standaard' => 'Ik zoek werk' ),
 			'label_w'      => array( 'type' => 'text', 'label' => 'Knop 2', 'standaard' => 'Ik zoek personeel' ),
-			'stappen_k'    => array( 'type' => 'lijst', 'label' => 'Stappen voor marketeers', 'velden' => $deedni_stap_velden, 'standaard' => deedni_standaard_stappen( 'k' ), 'groep' => 'Stappen voor marketeers' ),
+			'stappen_k'    => array( 'type' => 'lijst', 'label' => 'Stappen voor kandidaten', 'velden' => $deedni_stap_velden, 'standaard' => deedni_standaard_stappen( 'k' ), 'groep' => 'Stappen voor kandidaten' ),
 			'stappen_w'    => array( 'type' => 'lijst', 'label' => 'Stappen voor werkgevers', 'velden' => $deedni_stap_velden, 'standaard' => deedni_standaard_stappen( 'w' ), 'groep' => 'Stappen voor werkgevers' ),
 			'seconden'     => array( 'type' => 'number', 'label' => 'Seconden per stap', 'standaard' => 5 ),
 			'voetnoot'     => array( 'type' => 'text', 'label' => 'Kleine tekst onderaan', 'standaard' => 'Voorbeeld met fictieve gegevens.' ),
@@ -411,7 +413,7 @@ deedni_blok(
 				),
 				'standaard' => array(
 					array( 'dag' => 'Dag 1', 'titel' => 'Je maakt een anoniem profiel', 'tekst' => 'Ongeveer tien minuten. Zonder naam of foto.' ),
-					array( 'dag' => 'Dag 3', 'titel' => 'Bedrijven zoeken', 'tekst' => 'Ze zien alleen je ervaring, tools en cases.' ),
+					array( 'dag' => 'Dag 3', 'titel' => 'Bedrijven zoeken', 'tekst' => 'Ze zien alleen je ervaring, vaardigheden en projecten.' ),
 					array( 'dag' => 'Dag 5', 'titel' => 'Er komt een aanbod', 'tekst' => 'Met functie, salaris en een persoonlijk bericht.' ),
 					array( 'dag' => 'Dag 6', 'titel' => 'Jij reageert', 'tekst' => 'Ja, ja maar met een voorwaarde, of nee.' ),
 					array( 'dag' => 'Dag 9', 'titel' => 'Jullie maken kennis', 'tekst' => 'Na jouw ja delen we je naam, cv en contact.' ),
@@ -450,7 +452,7 @@ deedni_blok(
 		'achtergrond'  => 'accent',
 		'velden'       => array(
 			'kop'       => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Snel kandidaten *zoeken.*' ),
-			'lead'      => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Voor werkgevers. Kies een vak, ervaring en regio en zie meteen hoeveel anonieme profielen passen.' ),
+			'lead'      => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Voor werkgevers. Kies een vakgebied, ervaring en regio en zie meteen hoeveel anonieme profielen passen.' ),
 			'aantallen' => array(
 				'type'      => 'keuze',
 				'label'     => 'Welke aantallen tonen?',
@@ -462,16 +464,16 @@ deedni_blok(
 				'help'      => 'Echte aantallen gebruiken de specialismen en provincies van de profielen die online staan.',
 			),
 			'resultaat' => array( 'type' => 'text', 'label' => 'Tekst bij het getal', 'standaard' => 'anonieme profielen passen bij je filter' ),
-			'uitleg'    => array( 'type' => 'text', 'label' => 'Tekst eronder', 'standaard' => 'Je ziet ervaring, cases en salarisindicatie. Namen blijven verborgen.' ),
+			'uitleg'    => array( 'type' => 'text', 'label' => 'Tekst eronder', 'standaard' => 'Je ziet ervaring, projecten en salarisindicatie. Namen blijven verborgen.' ),
 			'knop'      => array( 'type' => 'text', 'label' => 'Knop', 'standaard' => 'Bekijk de profielen' ),
 			'knop_link' => array( 'type' => 'link', 'label' => 'Link van de knop', 'standaard' => 'pagina:zoeken' ),
 			'voetnoot'  => array( 'type' => 'text', 'label' => 'Kleine tekst onderaan', 'standaard' => 'Voorbeeldaantallen. Werkgevers loggen in om profielen te openen.' ),
 			'v_spec'    => array(
 				'type'      => 'lijst',
-				'label'     => 'Voorbeeld: specialismen',
+				'label'     => 'Voorbeeld: vakgebieden',
 				'groep'     => 'Voorbeeldaantallen',
-				'velden'    => array( 'label' => array( 'type' => 'text', 'label' => 'Specialisme' ), 'aantal' => array( 'type' => 'number', 'label' => 'Aantal profielen' ) ),
-				'standaard' => array( array( 'label' => 'Performance en SEA', 'aantal' => 64 ), array( 'label' => 'SEO en content', 'aantal' => 41 ), array( 'label' => 'Marketing-automation', 'aantal' => 22 ), array( 'label' => 'Data en analytics', 'aantal' => 19 ) ),
+				'velden'    => array( 'label' => array( 'type' => 'text', 'label' => 'Vakgebied' ), 'aantal' => array( 'type' => 'number', 'label' => 'Aantal profielen' ) ),
+				'standaard' => array( array( 'label' => 'Bouw en techniek', 'aantal' => 64 ), array( 'label' => 'ICT en webdesign', 'aantal' => 48 ), array( 'label' => 'Financiën en administratie', 'aantal' => 35 ), array( 'label' => 'Groen en buitenruimte', 'aantal' => 22 ) ),
 			),
 		),
 		'render'       => 'deedni_render_snel_zoeken',
@@ -489,7 +491,7 @@ function deedni_render_snel_zoeken( $a ) {
 	if ( $echt ) {
 		foreach ( deedni_zichtbare_ids() as $kid ) {
 			$k      = deedni_kandidaat( $kid );
-			$data[] = array( deedni_term_slugs( $kid, 'specialisme' ), $k['ervaring_jaren'], deedni_term_slugs( $kid, 'provincie' ), in_array( 'remote', $k['werkplekken'], true ) ? 1 : 0 );
+			$data[] = array( deedni_vakgebied_slugs( $k['specialisme_ids'] ), $k['ervaring_jaren'], deedni_term_slugs( $kid, 'provincie' ), in_array( 'remote', $k['werkplekken'], true ) ? 1 : 0 );
 		}
 		$telling = array();
 		foreach ( $data as $d ) {
@@ -505,8 +507,8 @@ function deedni_render_snel_zoeken( $a ) {
 			}
 		}
 		if ( ! $spec ) {
-			foreach ( array_slice( deedni_filter_terms( 'specialisme' ), 0, 4 ) as $t ) {
-				$spec[] = array( 'label' => $t->name, 'v' => $t->slug );
+			foreach ( array_slice( deedni_vakgebieden_boom(), 0, 4 ) as $rij ) {
+				$spec[] = array( 'label' => $rij[0]->name, 'v' => $rij[0]->slug );
 			}
 		}
 		$regio = array( array( 'label' => 'Heel Nederland', 'v' => '' ), array( 'label' => 'Utrecht', 'v' => 'utrecht' ), array( 'label' => 'Noord-Holland', 'v' => 'noord-holland' ), array( 'label' => 'Remote', 'v' => 'remote' ) );
@@ -536,7 +538,7 @@ function deedni_render_snel_zoeken( $a ) {
 	$h .= deedni_sec_head( $id, $a['kop'], $a['lead'] );
 	$h .= '<div class="quick" data-quick="' . ( $echt ? 'echt' : 'voorbeeld' ) . '"' . ( $echt ? ' data-quick-data="' . esc_attr( wp_json_encode( $data ) ) . '" data-quick-link="' . esc_url( $link ) . '"' : '' ) . '>';
 	$h .= '<div class="card stack light-island">';
-	$h .= '<fieldset class="stack-s"><legend>Specialisme</legend>' . $chips( $spec, 'spec' ) . '</fieldset>';
+	$h .= '<fieldset class="stack-s"><legend>Vakgebied</legend>' . $chips( $spec, 'spec' ) . '</fieldset>';
 	$h .= '<fieldset class="stack-s"><legend>Ervaring</legend>' . $chips( $erv_items, 'exp' ) . '</fieldset>';
 	$h .= '<fieldset class="stack-s"><legend>Regio</legend>' . $chips( $regio, 'reg' ) . '</fieldset>';
 	$h .= '</div><div class="result">';
@@ -574,7 +576,6 @@ deedni_blok(
 				'standaard' => array(
 					array( 'waarde' => '375.000', 'label' => 'openstaande vacatures', 'tekst' => 'In Nederland, eind derde kwartaal 2026.' ),
 					array( 'waarde' => '92', 'label' => 'vacatures per 100 werklozen', 'tekst' => 'Er zijn bijna evenveel vacatures als werklozen.' ),
-					array( 'waarde' => '16.500', 'label' => 'vacatures in informatie en communicatie', 'tekst' => 'ICT, media en telecom. Marketing wordt apart niet geteld.' ),
 					array( 'waarde' => '4,0%', 'label' => 'werkloosheid', 'tekst' => 'In het derde kwartaal van 2026.' ),
 				),
 			),
@@ -605,13 +606,13 @@ deedni_blok(
 	'verschil',
 	array(
 		'titel'        => 'Homepage: anders dan een vacaturesite',
-		'beschrijving' => 'Twee kaarten met voordelen: voor marketeers (licht) en voor werkgevers (donker).',
+		'beschrijving' => 'Twee kaarten met voordelen: voor kandidaten (licht) en voor werkgevers (donker).',
 		'icoon'        => 'columns',
 		'stijl'        => 'deedni-home',
 		'velden'       => array(
 			'kop'    => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Anders dan een *vacaturesite.*' ),
 			'lead'   => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Je kiest zelf wie jou ziet, en een aanbod komt nooit zonder salaris.' ),
-			'titel1' => array( 'type' => 'text', 'label' => 'Titel kaart 1', 'standaard' => 'Voor marketeers', 'groep' => 'Kaart 1' ),
+			'titel1' => array( 'type' => 'text', 'label' => 'Titel kaart 1', 'standaard' => 'Voor werkzoekenden', 'groep' => 'Kaart 1' ),
 			'punten1' => array(
 				'type'      => 'lijst',
 				'label'     => 'Punten kaart 1',
@@ -620,7 +621,7 @@ deedni_blok(
 				'standaard' => array(
 					array( 'titel' => 'Je werkgever kijkt niet mee', 'tekst' => 'Blokkeer bedrijven die je profiel nooit mogen zien.' ),
 					array( 'titel' => 'Altijd met salaris', 'tekst' => 'Een aanbod zonder salarisrange kan niet worden verstuurd.' ),
-					array( 'titel' => 'Laat zien wat je kunt', 'tekst' => 'Cases en resultaten zeggen meer dan een motivatiebrief.' ),
+					array( 'titel' => 'Laat zien wat je kunt', 'tekst' => 'Je werk en ervaring zeggen meer dan een motivatiebrief.' ),
 					array( 'titel' => 'Alleen actuele profielen', 'tekst' => 'Niet bevestigd? Dan verdwijnt je profiel vanzelf uit de zoekresultaten.' ),
 				),
 			),
@@ -632,8 +633,8 @@ deedni_blok(
 				'velden'    => $deedni_punt,
 				'standaard' => array(
 					array( 'titel' => 'Kies zelf je nieuwe collega', 'tekst' => 'Betaal per contact, of alleen als je iemand aanneemt.' ),
-					array( 'titel' => 'Zoek op wat telt', 'tekst' => 'Je kiest op ervaring, tools en resultaten. Niet op leeftijd of geslacht.' ),
-					array( 'titel' => 'Bereik mensen met een baan', 'tekst' => 'Ook marketeers die niet actief solliciteren staan open voor een goed aanbod.' ),
+					array( 'titel' => 'Zoek op wat telt', 'tekst' => 'Je kiest op ervaring, vaardigheden en vakmanschap. Niet op leeftijd of geslacht.' ),
+					array( 'titel' => 'Bereik mensen met een baan', 'tekst' => 'Ook vakmensen die niet actief solliciteren staan open voor een goed aanbod.' ),
 				),
 			),
 		),
@@ -686,12 +687,12 @@ deedni_blok(
 					'salaris' => array( 'type' => 'toggle', 'label' => 'Tonen als salaris (gele markering)' ),
 				),
 				'standaard' => array(
-					array( 'label' => 'Functie', 'waarde' => 'Senior SEA-marketeer', 'geheim' => false, 'salaris' => false ),
-					array( 'label' => 'Ervaring', 'waarde' => '7 jaar, e-commerce en B2B', 'geheim' => false, 'salaris' => false ),
-					array( 'label' => 'Salarisindicatie', 'waarde' => '€4.500–5.200', 'geheim' => false, 'salaris' => true ),
+					array( 'label' => 'Functie', 'waarde' => 'Allround hovenier', 'geheim' => false, 'salaris' => false ),
+					array( 'label' => 'Ervaring', 'waarde' => '7 jaar, particulieren en bedrijven', 'geheim' => false, 'salaris' => false ),
+					array( 'label' => 'Salarisindicatie', 'waarde' => '€2.900–3.400', 'geheim' => false, 'salaris' => true ),
 					array( 'label' => 'Naam', 'waarde' => 'Sanne de Vries', 'geheim' => true, 'salaris' => false ),
 					array( 'label' => 'Contact', 'waarde' => 'sanne@voorbeeld.nl', 'geheim' => true, 'salaris' => false ),
-					array( 'label' => 'Huidige werkgever', 'waarde' => 'Studio Noord Digital', 'geheim' => true, 'salaris' => false ),
+					array( 'label' => 'Huidige werkgever', 'waarde' => 'Groenwerk Utrecht', 'geheim' => true, 'salaris' => false ),
 				),
 			),
 		),
@@ -732,7 +733,7 @@ deedni_blok(
 		'anker'        => 'prijzen',
 		'velden'       => array(
 			'kop'   => array( 'type' => 'text', 'label' => 'Kop', 'standaard' => 'Betaal pas *bij resultaat.*' ),
-			'lead'  => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Zoeken en aanbiedingen sturen kost niets. Je betaalt bij een aanname, of per marketeer die ja zegt. Voor marketeers is deedni altijd gratis.' ),
+			'lead'  => array( 'type' => 'textarea', 'label' => 'Tekst', 'standaard' => 'Zoeken en aanbiedingen sturen kost niets. Je betaalt bij een aanname, of per kandidaat die ja zegt. Voor werkzoekenden is deedni altijd gratis.' ),
 			'items' => array(
 				'type'      => 'lijst',
 				'label'     => 'Prijzen',
@@ -745,7 +746,7 @@ deedni_blok(
 				),
 				'standaard' => array(
 					array( 'naam' => 'Per aanname', 'sub' => 'Je neemt iemand aan', 'bedrag' => '10%', 'tekst' => 'van het jaarsalaris. Geen kosten vooraf, geen bijkomende kosten.', 'ref' => false ),
-					array( 'naam' => 'Per contact', 'sub' => 'De marketeer zegt ja', 'bedrag' => '€195', 'tekst' => 'per marketeer die ja zegt. Je betaalt niets bij nee, zonder aannamecontract.', 'ref' => false ),
+					array( 'naam' => 'Per contact', 'sub' => 'De kandidaat zegt ja', 'bedrag' => '€195', 'tekst' => 'per kandidaat die ja zegt. Je betaalt niets bij nee, zonder aannamecontract.', 'ref' => false ),
 					array( 'naam' => 'Bureau', 'sub' => 'Ter vergelijking', 'bedrag' => '20–25%', 'tekst' => 'van het jaarsalaris, betaling meestal bij start, weinig inzicht in de kandidaat.', 'ref' => true ),
 				),
 			),
@@ -785,12 +786,12 @@ deedni_blok(
 					'antwoord' => array( 'type' => 'textarea', 'label' => 'Antwoord' ),
 				),
 				'standaard' => array(
-					array( 'vraag' => 'Wanneer opent deedni?', 'antwoord' => 'We openen eerst voor online marketing. Een datum hebben we nog niet. Als je een account maakt, krijg je één e-mail zodra het zover is.' ),
+					array( 'vraag' => 'Wanneer opent deedni?', 'antwoord' => 'We starten met een testfase voor alle vakgebieden. Een datum hebben we nog niet. Als je een account maakt, krijg je één e-mail zodra het zover is.' ),
 					array( 'vraag' => 'Kan mijn huidige werkgever mijn profiel zien?', 'antwoord' => 'Niet als je het bedrijf op je blokkeerlijst zet. Dan komt je profiel nooit in hun zoekresultaten.' ),
 					array( 'vraag' => 'Wanneer ziet een bedrijf mijn naam?', 'antwoord' => 'Pas als jij een aanbod van dat bedrijf accepteert. Andere bedrijven blijven alleen je anonieme profiel zien.' ),
-					array( 'vraag' => 'Wat kost het voor mij als marketeer?', 'antwoord' => 'Niets. Profiel, cv, portfolio en aanbiedingen zijn gratis.' ),
+					array( 'vraag' => 'Wat kost het voor mij als werkzoekende?', 'antwoord' => 'Niets. Profiel, cv, projecten en aanbiedingen zijn gratis.' ),
 					array( 'vraag' => 'Wat als een kandidaat nee zegt?', 'antwoord' => 'Dan krijgt het bedrijf een nette afwijzing en blijft de kandidaat anoniem. Met Per contact betaal je dan niets.' ),
-					array( 'vraag' => 'Waarom kan ik niet filteren op leeftijd of geslacht?', 'antwoord' => 'We vragen er niet naar. Je kiest op ervaring, tools en resultaten.' ),
+					array( 'vraag' => 'Waarom kan ik niet filteren op leeftijd of geslacht?', 'antwoord' => 'We vragen er niet naar. Je kiest op ervaring, vaardigheden en vakmanschap.' ),
 				),
 			),
 		),
@@ -814,19 +815,19 @@ deedni_blok(
 	'slot',
 	array(
 		'titel'        => 'Homepage: slot met grote kop',
-		'beschrijving' => 'Afsluitende grote kop met knoppen. Ingelogde marketeers en werkgevers krijgen hun eigen knop.',
+		'beschrijving' => 'Afsluitende grote kop met knoppen. Ingelogde kandidaten en werkgevers krijgen hun eigen knop.',
 		'icoon'        => 'megaphone',
 		'stijl'        => 'deedni-home',
 		'script'       => 'deedni-home',
 		'velden'       => array(
 			'kop'          => array( 'type' => 'textarea', 'label' => 'Grote kop', 'standaard' => "Laat [foto] je\nvinden.", 'help' => 'Elke regel is een regel in beeld. [foto] zet de foto tussen de woorden.' ),
 			'foto'         => array( 'type' => 'image', 'label' => 'Foto', 'standaard' => deedni_img( 'werken-laptop.jpg' ) ),
-			'lead'         => array( 'type' => 'text', 'label' => 'Tekst', 'standaard' => 'Gratis voor marketeers. Bedrijven betalen alleen bij een aanname.' ),
+			'lead'         => array( 'type' => 'text', 'label' => 'Tekst', 'standaard' => 'Gratis voor werkzoekenden. Bedrijven betalen alleen bij een aanname.' ),
 			'knop1'        => array( 'type' => 'text', 'label' => 'Knop 1 (bezoeker)', 'standaard' => 'Account maken', 'groep' => 'Knoppen' ),
 			'knop1_link'   => array( 'type' => 'link', 'label' => 'Link knop 1', 'standaard' => 'pagina:registreren', 'groep' => 'Knoppen' ),
 			'knop2'        => array( 'type' => 'text', 'label' => 'Knop 2 (bezoeker)', 'standaard' => 'Inloggen', 'groep' => 'Knoppen' ),
 			'knop2_link'   => array( 'type' => 'link', 'label' => 'Link knop 2', 'standaard' => 'pagina:inloggen', 'groep' => 'Knoppen' ),
-			'knop_k'       => array( 'type' => 'text', 'label' => 'Knop voor marketeers', 'standaard' => 'Maak je profiel compleet', 'groep' => 'Knoppen' ),
+			'knop_k'       => array( 'type' => 'text', 'label' => 'Knop voor kandidaten', 'standaard' => 'Maak je profiel compleet', 'groep' => 'Knoppen' ),
 			'knop_w'       => array( 'type' => 'text', 'label' => 'Knop voor werkgevers', 'standaard' => 'Zoek kandidaten', 'groep' => 'Knoppen' ),
 		),
 		'render'       => function ( $a ) {

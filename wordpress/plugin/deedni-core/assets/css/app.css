@@ -286,3 +286,11 @@
 @keyframes sk-glans { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .sk { animation: none; } }
 .deedni-zoeken [aria-busy="true"] .result-head h2 { opacity: .55; }
+
+/* Wie je zoekt: vakgebieden als in- en uitklapbare groepen. */
+.vak-groep { border-bottom: 1px solid var(--line); }
+.vak-groep > summary { display: flex; justify-content: space-between; align-items: center; min-height: 48px; font-weight: 700; cursor: pointer; list-style: none; }
+.vak-groep > summary::-webkit-details-marker { display: none; }
+.vak-groep > summary::after { content: "+"; font-size: 1.4rem; font-weight: 500; color: var(--muted); }
+.vak-groep[open] > summary::after { content: "−"; }
+.vak-groep > .chips { padding-bottom: 14px; }

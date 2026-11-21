@@ -66,9 +66,9 @@
 <main id="inhoud" class="wrap page">
   <div class="stack">
     <h1>Kandidaten zoeken</h1>
-    <p class="lead">Anonieme profielen van online marketeers. Je ziet ervaring, tools, cases en salarisindicatie. De naam komt pas als de kandidaat ja zegt op jouw aanbod.</p>
+    <p class="lead">Anonieme profielen van vakmensen uit elke branche. Je ziet ervaring, vaardigheden, projecten en salarisindicatie. De naam komt pas als de kandidaat ja zegt op jouw aanbod.</p>
     <form class="search" role="search" onsubmit="event.preventDefault()">
-      <label><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="visually-hidden">Zoek op functie, tool of branche</span><input id="q" type="search" placeholder="Zoek op functie, tool of branche"></label>
+      <label><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="visually-hidden">Zoek op functie, vaardigheid of branche</span><input id="q" type="search" placeholder="Zoek op functie, vaardigheid of branche"></label>
       <div class="active-filters" id="actief" aria-label="Actieve filters"></div>
     </form>
   </div>
@@ -78,17 +78,18 @@
       <div class="between"><h2 id="h-filters" style="font-size:1.375rem">Filters</h2><button type="button" class="link-btn" id="wis">Wis alles</button></div>
       <button type="button" class="btn btn--ghost filter-toggle" aria-expanded="false" aria-controls="filters-box" id="ftoggle">Toon filters</button>
       <form class="filters filters-box" id="filters-box">
-        <details open><summary>Specialisme</summary><div class="opts">
-          <label><input type="checkbox" name="spec" value="performance" checked>Performance marketing<span class="n">64</span></label>
-          <label><input type="checkbox" name="spec" value="seo">SEO en content<span class="n">41</span></label>
-          <label><input type="checkbox" name="spec" value="automation">Marketing-automation<span class="n">22</span></label>
-          <label><input type="checkbox" name="spec" value="data">Data en analyse<span class="n">19</span></label>
+        <details open><summary>Vakgebied</summary><div class="opts">
+          <label><input type="checkbox" name="spec" value="groen" checked>Groen en buitenruimte<span class="n">22</span></label>
+          <label><input type="checkbox" name="spec" value="bouw">Bouw en techniek<span class="n">64</span></label>
+          <label><input type="checkbox" name="spec" value="ict">ICT en webdesign<span class="n">48</span></label>
+          <label><input type="checkbox" name="spec" value="financien">Financiën en administratie<span class="n">35</span></label>
+          <label><input type="checkbox" name="spec" value="marketing">Marketing en communicatie<span class="n">41</span></label>
         </div></details>
-        <details open><summary>Tools</summary><div class="opts">
-          <label><input type="checkbox" name="tool" value="Google Ads" checked>Google Ads<span class="n">58</span></label>
-          <label><input type="checkbox" name="tool" value="Meta Ads">Meta Ads<span class="n">47</span></label>
-          <label><input type="checkbox" name="tool" value="GA4">GA4<span class="n">71</span></label>
-          <label><input type="checkbox" name="tool" value="HubSpot">HubSpot<span class="n">26</span></label>
+        <details open><summary>Vaardigheden en tools</summary><div class="opts">
+          <label><input type="checkbox" name="tool" value="Bestrating" checked>Bestrating<span class="n">18</span></label>
+          <label><input type="checkbox" name="tool" value="Snoeien">Snoeien<span class="n">20</span></label>
+          <label><input type="checkbox" name="tool" value="Rijbewijs BE">Rijbewijs BE<span class="n">31</span></label>
+          <label><input type="checkbox" name="tool" value="VCA">VCA<span class="n">57</span></label>
         </div></details>
         <details open><summary>Ervaring</summary><div class="opts">
           <label><input type="radio" name="erv" value="5" checked>Vanaf 5 jaar<span class="n">52</span></label>
@@ -102,7 +103,7 @@
         </div></details>
         <details><summary>Werkplek</summary><div class="opts">
           <label><input type="checkbox" name="plek" value="Hybride">Hybride<span class="n">80</span></label>
-          <label><input type="checkbox" name="plek" value="Kantoor">Op kantoor<span class="n">23</span></label>
+          <label><input type="checkbox" name="plek" value="Op locatie">Op locatie<span class="n">63</span></label>
           <label><input type="checkbox" name="plek" value="Remote">Remote<span class="n">25</span></label>
         </div></details>
         <details><summary>Beschikbaar binnen</summary><div class="opts">
@@ -131,17 +132,17 @@
     <div class="modal-head">
       <div class="stack-s">
         <h2 id="as-kop">Aanbod sturen aan <span data-voor-naam>K-2041</span></h2>
-        <p class="fine">Senior performance marketeer · 7 jaar · Utrecht en omgeving</p>
+        <p class="fine">Allround hovenier · 7 jaar · Utrecht en omgeving</p>
       </div>
       <button type="button" class="modal-close" data-close aria-label="Sluiten">×</button>
     </div>
     <div class="modal-body">
-      <div class="field"><label for="as-functie">Functie</label><input id="as-functie" value="Senior performance marketeer" required></div>
+      <div class="field"><label for="as-functie">Functie</label><input id="as-functie" value="Allround hovenier" required></div>
       <fieldset>
         <legend>Salaris per maand <span class="tag tag--ink who-sees">Verplicht</span></legend>
         <div class="fields" style="margin-top:8px">
-          <div class="field"><label for="as-van">Van</label><div class="euro"><input id="as-van" inputmode="numeric" value="4.200" required></div></div>
-          <div class="field"><label for="as-tot">Tot</label><div class="euro"><input id="as-tot" inputmode="numeric" value="4.800" required></div></div>
+          <div class="field"><label for="as-van">Van</label><div class="euro"><input id="as-van" inputmode="numeric" value="2.900" required></div></div>
+          <div class="field"><label for="as-tot">Tot</label><div class="euro"><input id="as-tot" inputmode="numeric" value="3.400" required></div></div>
         </div>
         <p class="fine" style="margin-top:6px">Bruto, bij 40 uur. Zonder salaris gaat een aanbod niet de deur uit.</p>
       </fieldset>
@@ -159,7 +160,7 @@
       </fieldset>
       <div class="field">
         <label for="as-bericht">Persoonlijk bericht</label>
-        <textarea id="as-bericht" required aria-describedby="as-tip">Je cases in e-commerce sluiten precies aan op onze klanten. Je krijgt bij ons eigen accounts en ruimte om een team op te bouwen.</textarea>
+        <textarea id="as-bericht" required aria-describedby="as-tip">Je projecten passen precies bij ons werk. Je krijgt bij ons een eigen ploeg en een bus met nieuwe machines.</textarea>
         <span class="hint" id="as-tip">Schrijf waarom dit profiel past. Dat wordt vaker beantwoord dan een standaardtekst.</span>
       </div>
       <p class="note">De kandidaat ziet je bedrijfsnaam, het salaris en je bericht. Jij ziet de naam pas als de kandidaat ja zegt.</p>
@@ -185,18 +186,18 @@
 <script>
 (function () {
   var K = [
-    { code: 'K-2041', m: 88, t: 'Senior performance marketeer', st: 'Actief op zoek', spec: 'performance', jaar: 7, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht + 30 km', plek: ['Hybride', 'Remote'], tools: ['Google Ads', 'Meta Ads', 'GA4', 'Merchant Center'], cases: 3, sal: '€4.000–4.800', besch: 1 },
-    { code: 'K-1873', m: 84, t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 5, regio: ['Utrecht'], plaats: 'Amersfoort + 40 km', plek: ['Hybride'], tools: ['Google Ads', 'GA4', 'Tag Manager'], cases: 2, sal: '€3.600–4.200', besch: 3 },
-    { code: 'K-1910', m: 81, t: 'SEA-specialist e-commerce', st: 'Actief op zoek', spec: 'performance', jaar: 6, regio: ['Utrecht', 'Remote'], plaats: 'Utrecht', plek: ['Remote'], tools: ['Google Ads', 'Shopping', 'Looker Studio'], cases: 4, sal: '€3.900–4.500', besch: 1 },
-    { code: 'K-2007', m: 76, t: 'Paid social lead', st: 'Open voor aanbod', spec: 'performance', jaar: 8, regio: ['Utrecht'], plaats: 'Utrecht + 50 km', plek: ['Hybride'], tools: ['Meta Ads', 'TikTok Ads', 'GA4', 'Google Ads'], cases: 3, sal: '€4.400–5.200', besch: 3 },
-    { code: 'K-3320', m: 72, t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'performance', jaar: 6, regio: ['Remote'], plaats: 'Rotterdam', plek: ['Remote', 'Hybride'], tools: ['Google Ads', 'Meta Ads', 'GA4'], cases: 2, sal: '€4.200–4.800', besch: 3 },
-    { code: 'K-1024', m: 41, t: 'Contentmarketeer', st: 'Open voor aanbod', spec: 'seo', jaar: 4, regio: ['Remote'], plaats: 'Gelderland', plek: ['Hybride'], tools: ['WordPress', 'Semrush', 'GA4'], cases: 3, sal: '€3.300–3.800', besch: 1 },
-    { code: 'K-1031', m: 38, t: 'Marketing-automationspecialist', st: 'Actief op zoek', spec: 'automation', jaar: 8, regio: ['Noord-Holland'], plaats: 'Haarlem + 25 km', plek: ['Hybride', 'Kantoor'], tools: ['HubSpot', 'ActiveCampaign', 'Zapier'], cases: 4, sal: '€5.000–5.600', besch: 3 },
-    { code: 'K-1187', m: 69, t: 'SEA-specialist', st: 'Actief op zoek', spec: 'performance', jaar: 3, regio: ['Utrecht'], plaats: 'Nieuwegein', plek: ['Kantoor', 'Hybride'], tools: ['Google Ads', 'GA4'], cases: 2, sal: '€3.200–3.700', besch: 1 },
-    { code: 'K-0877', m: 45, t: 'Data-analist marketing', st: 'Open voor aanbod', spec: 'data', jaar: 5, regio: ['Noord-Holland', 'Remote'], plaats: 'Amsterdam', plek: ['Remote'], tools: ['GA4', 'BigQuery', 'Looker Studio'], cases: 3, sal: '€4.300–4.900', besch: 3 }
+    { code: 'K-2041', m: 88, t: 'Allround hovenier', st: 'Actief op zoek', spec: 'groen', jaar: 7, regio: ['Utrecht'], plaats: 'Utrecht + 30 km', plek: ['Op locatie'], tools: ['Bestrating', 'Snoeien', 'Rijbewijs BE', 'VCA'], cases: 3, sal: '€2.900–3.400', besch: 1 },
+    { code: 'K-1873', m: 84, t: 'Hovenier', st: 'Open voor aanbod', spec: 'groen', jaar: 5, regio: ['Utrecht'], plaats: 'Amersfoort + 40 km', plek: ['Op locatie'], tools: ['Bestrating', 'Minigraver'], cases: 2, sal: '€2.800–3.200', besch: 3 },
+    { code: 'K-1910', m: 81, t: 'Tuinontwerper', st: 'Actief op zoek', spec: 'groen', jaar: 6, regio: ['Utrecht'], plaats: 'Utrecht', plek: ['Hybride'], tools: ['Beplantingsplannen', 'AutoCAD', 'Bestrating'], cases: 4, sal: '€3.300–3.800', besch: 1 },
+    { code: 'K-2007', m: 76, t: 'Boomverzorger', st: 'Open voor aanbod', spec: 'groen', jaar: 8, regio: ['Utrecht'], plaats: 'Utrecht + 50 km', plek: ['Op locatie'], tools: ['European Tree Worker', 'VCA', 'Snoeien'], cases: 0, sal: '€3.100–3.500', besch: 3 },
+    { code: 'K-3320', m: 72, t: 'Medewerker groenvoorziening', st: 'Open voor aanbod', spec: 'groen', jaar: 6, regio: ['Zuid-Holland'], plaats: 'Rotterdam', plek: ['Op locatie'], tools: ['Snoeien', 'Rijbewijs BE', 'Bestrating'], cases: 1, sal: '€2.600–3.000', besch: 3 },
+    { code: 'K-1024', m: 41, t: 'Webdesigner', st: 'Open voor aanbod', spec: 'ict', jaar: 4, regio: ['Remote'], plaats: 'Gelderland', plek: ['Hybride', 'Remote'], tools: ['Figma', 'WordPress', 'HTML en CSS'], cases: 3, sal: '€3.400–3.900', besch: 1 },
+    { code: 'K-1031', m: 38, t: 'Accountant', st: 'Actief op zoek', spec: 'financien', jaar: 9, regio: ['Noord-Holland'], plaats: 'Haarlem + 25 km', plek: ['Hybride', 'Op locatie'], tools: ['Exact Online', 'Jaarrekeningen', 'RA of AA'], cases: 0, sal: '€4.600–5.200', besch: 3 },
+    { code: 'K-1187', m: 69, t: 'Hovenier', st: 'Actief op zoek', spec: 'groen', jaar: 3, regio: ['Utrecht'], plaats: 'Nieuwegein', plek: ['Op locatie'], tools: ['Bestrating', 'Rijbewijs B'], cases: 2, sal: '€2.600–3.000', besch: 1 },
+    { code: 'K-0877', m: 45, t: 'Performance marketeer', st: 'Open voor aanbod', spec: 'marketing', jaar: 5, regio: ['Noord-Holland', 'Remote'], plaats: 'Amsterdam', plek: ['Remote'], tools: ['Google Ads', 'GA4'], cases: 3, sal: '€4.300–4.900', besch: 3 }
   ];
   var lijst = document.getElementById('lijst'), form = document.getElementById('filters-box');
-  var namen = { performance: 'Performance marketing', seo: 'SEO en content', automation: 'Marketing-automation', data: 'Data en analyse', '5': 'Vanaf 5 jaar', '2': '2 tot 5 jaar', '1': 'Binnen 1 maand', '3': 'Binnen 3 maanden', Remote: 'Remote' };
+  var namen = { groen: 'Groen en buitenruimte', bouw: 'Bouw en techniek', ict: 'ICT en webdesign', financien: 'Financiën en administratie', marketing: 'Marketing en communicatie', '5': 'Vanaf 5 jaar', '2': '2 tot 5 jaar', '1': 'Binnen 1 maand', '3': 'Binnen 3 maanden', Remote: 'Remote' };
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function kaart(k) {
     return '<article class="card cand reveal is-in" aria-labelledby="t-' + k.code + '">' +
@@ -205,7 +206,7 @@
         '<h2 id="t-' + k.code + '"><a href="kandidaat.html">' + esc(k.t) + '</a></h2>' +
         '<div class="meta"><span>' + k.jaar + ' jaar ervaring</span><span>' + esc(k.plaats) + '</span><span>' + k.plek.join(' of ') + '</span></div>' +
         '<div class="tools">' + k.tools.map(function (t) { return '<span class="tool">' + esc(t) + '</span>'; }).join('') + '</div>' +
-        '<div class="hidden-row"><span>' + k.cases + ' cases in portfolio</span><span>Naam <span class="redact redact--s" role="img" aria-label="verborgen"></span></span><span>Werkgevers <span class="redact" role="img" aria-label="verborgen"></span></span></div>' +
+        '<div class="hidden-row">' + (k.cases ? '<span>' + k.cases + (k.cases === 1 ? ' project' : ' projecten') + ' in portfolio</span>' : '') + '<span>Naam <span class="redact redact--s" role="img" aria-label="verborgen"></span></span><span>Werkgevers <span class="redact" role="img" aria-label="verborgen"></span></span></div>' +
       '</div>' +
       '<div class="right"><div><div class="fine">Salarisindicatie</div><span class="salaris">' + k.sal + '</span></div>' +
         '<div class="acts"><button type="button" class="save" aria-pressed="false" aria-label="Bewaar ' + k.code + '"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>' +

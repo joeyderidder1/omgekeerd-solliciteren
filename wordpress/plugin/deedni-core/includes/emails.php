@@ -28,7 +28,7 @@ function deedni_mail_welcome( $user_id ) {
 	$user = get_userdata( $user_id );
 	if ( deedni_is_werkgever( $user ) ) {
 		$text = deedni_werkgever_goedgekeurd( $user )
-			? 'Je account is klaar. Vul je bedrijfsprofiel aan, dan berekenen we welke marketeers het best bij jullie passen.'
+			? 'Je account is klaar. Vul je bedrijfsprofiel aan, dan berekenen we welke kandidaten het best bij jullie passen.'
 			: 'We controleren je account, meestal binnen één werkdag. Je krijgt een mail zodra je kunt zoeken. Vul intussen je bedrijfsprofiel aan.';
 	} else {
 		$text = 'Maak je profiel compleet. Zodra het online staat, kunnen bedrijven je een aanbod sturen. Ze zien je naam pas als jij ja zegt.';
@@ -142,7 +142,7 @@ function deedni_mail_offer_response( $aanbod_id ) {
 			deedni_mail(
 				$werkgever->user_email,
 				$code . ' heeft je aanbod afgewezen',
-				array( $code . ' heeft je aanbod voor ' . $functie . ' vriendelijk afgewezen en blijft anoniem. Er staan nog meer marketeers voor je klaar.' ),
+				array( $code . ' heeft je aanbod voor ' . $functie . ' vriendelijk afgewezen en blijft anoniem. Er staan nog meer kandidaten voor je klaar.' ),
 				'Verder zoeken',
 				deedni_page_url( 'zoeken' )
 			);

@@ -112,7 +112,7 @@ function deedni_settings_page() {
 					<p class="description">Aanbevolen. Zo kan niemand een account maken op het adres van een ander, en verraadt het formulier niet welke e-mailadressen al een account hebben. Werkt alleen als de site mail kan versturen (test dat eerst, bijvoorbeeld met WP Mail SMTP).</p></td>
 				</tr>
 			</table>
-			<h2>Marketeers</h2>
+			<h2>Kandidaten</h2>
 			<table class="form-table" role="presentation">
 				<tr>
 					<th scope="row"><label for="deedni-termijn">Reageren binnen</label></th>
@@ -121,7 +121,7 @@ function deedni_settings_page() {
 				</tr>
 				<tr>
 					<th scope="row">Wie keek mee</th>
-					<td><label><input type="checkbox" name="deedni_wie_keek_mee" value="1" <?php checked( get_option( 'deedni_wie_keek_mee', 1 ) ); ?>> Marketeers zien welke soort bedrijven hun profiel bekeken (zonder bedrijfsnaam)</label></td>
+					<td><label><input type="checkbox" name="deedni_wie_keek_mee" value="1" <?php checked( get_option( 'deedni_wie_keek_mee', 1 ) ); ?>> Kandidaten zien welke soort bedrijven hun profiel bekeken (zonder bedrijfsnaam)</label></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="deedni-actueel">Alleen actuele profielen</label></th>
@@ -214,7 +214,7 @@ add_filter(
 		}
 		if ( deedni_is_kandidaat( $user_id ) ) {
 			$id = deedni_profile_id( $user_id, 'kandidaat' );
-			return $id ? '<a href="' . esc_url( get_edit_post_link( $id ) ) . '">Marketeer ' . esc_html( deedni_code( $id ) ) . '</a>' : 'Marketeer';
+			return $id ? '<a href="' . esc_url( get_edit_post_link( $id ) ) . '">Kandidaat ' . esc_html( deedni_code( $id ) ) . '</a>' : 'Kandidaat';
 		}
 		if ( deedni_is_werkgever( $user_id ) ) {
 			if ( get_user_meta( $user_id, 'deedni_goedgekeurd', true ) || ! get_option( 'deedni_werkgever_goedkeuring', 1 ) ) {
@@ -409,3 +409,59 @@ function deedni_metabox_aanbod( $post ) {
 		echo '</ul>';
 	}
 }
+
+/* ---------- Vaardigheden koppelen aan vakgebieden ---------- */
+
+/** Vinkjes met vakgebieden in het formulier van een vaardigheid. */
+function deedni_vaardigheid_vakken_html( $gekozen ) {
+	$h = '';
+	foreach ( deedni_vakgebieden_boom() as $rij ) {
+		$h .= '<label style="display:block;margin:2px 0"><input type="checkbox" name="deedni_vakgebieden[]" value="' . (int) $rij[0]->term_id . '"' . checked( in_array( (int) $rij[0]->term_id, $gekozen, true ), true, false ) . '> ' . esc_html( $rij[0]->name ) . '</label>';
+	}
+	return $h . '<p class="description">Kandidaten in deze vakgebieden zien deze vaardigheid als eerste. Niets aangevinkt: voor iedereen.</p>';
+}
+
+add_action(
+	'vaardigheid_add_form_fields',
+	function () {
+		echo '<div class="form-field"><label>Vakgebieden</label>' . deedni_vaardigheid_vakken_html( array() ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+);
+add_action(
+	'vaardigheid_edit_form_fields',
+	function ( $term ) {
+		echo '<tr class="form-field"><th scope="row">Vakgebieden</th><td>' . deedni_vaardigheid_vakken_html( deedni_vaardigheid_vakgebieden( $term->term_id ) ) . '</td></tr>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+);
+foreach ( array( 'created_vaardigheid', 'edited_vaardigheid' ) as $deedni_hook ) {
+	add_action(
+		$deedni_hook,
+		function ( $term_id ) {
+			// De nonce van het termformulier van WordPress is hier al gecontroleerd.
+			if ( ! current_user_can( 'manage_categories' ) || ! isset( $_POST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				return;
+			}
+			$ids = isset( $_POST['deedni_vakgebieden'] ) ? array_filter( array_map( 'absint', (array) $_POST['deedni_vakgebieden'] ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification
+			update_term_meta( $term_id, 'deedni_vakgebieden', $ids ? implode( ',', $ids ) : 'alle' );
+		}
+	);
+}
+add_filter(
+	'manage_edit-vaardigheid_columns',
+	function ( $cols ) {
+		$cols['deedni_vak'] = 'Vakgebieden';
+		return $cols;
+	}
+);
+add_filter(
+	'manage_vaardigheid_custom_column',
+	function ( $out, $col, $term_id ) {
+		if ( 'deedni_vak' !== $col ) {
+			return $out;
+		}
+		$ids = deedni_vaardigheid_vakgebieden( $term_id );
+		return $ids ? esc_html( implode( ', ', deedni_term_lijst( $ids, 'specialisme' ) ) ) : 'Alle';
+	},
+	10,
+	3
+);

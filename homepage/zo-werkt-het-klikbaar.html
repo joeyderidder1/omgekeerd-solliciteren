@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Klik zelf door de vijf stappen van deedni, als marketeer of als bedrijf.">
+<meta name="description" content="Klik zelf door de vijf stappen van deedni, als werkzoekende of als bedrijf.">
 <title>deedni, zo werkt het (klikbaar)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
 <style>
 /* Klikbare versie van "Zo werkt het". Kleuren, knoppen en telefoon komen uit index.html. */
 /* Idee: de zwarte balk van een geredigeerd document. Hij staat voor "hier ben je nog anoniem"
-   en verdwijnt pas als de marketeer ja zegt. Geel gebruiken we alleen voor salaris. */
+   en verdwijnt pas als de kandidaat ja zegt. Geel gebruiken we alleen voor salaris. */
 :root {
   --bg: #F5F7FC;
   --bg-alt: #EBEFFA;
@@ -311,7 +311,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
           <h1 id="titel">Zo werkt het, klik zelf</h1>
           <p class="lead">Dezelfde vijf stappen, maar nu doe je het zelf. Tik in de telefoon op de knoppen en kijk wat er gebeurt.</p>
           <div class="audience" role="group" aria-label="Probeer het">
-            <button type="button" data-role="kandidaat" aria-pressed="true">Als marketeer</button>
+            <button type="button" data-role="kandidaat" aria-pressed="true">Als werkzoekende</button>
             <button type="button" data-role="werkgever" aria-pressed="false">Als bedrijf</button>
           </div>
           <br><a class="alt-link" href="index.html#zo-werkt-het">Liever kijken? Naar de stap-voor-stap versie</a>
@@ -354,33 +354,42 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
 
   var STEPS = {
     kandidaat: [
-      ['Je maakt een profiel', 'Specialisme, tools, ervaring en wat je zoekt. Je naam en foto laat je weg.'],
-      ['Bedrijven zoeken', 'Ze filteren op vak, tools en regio en zien alleen je anonieme profiel.'],
+      ['Je maakt een profiel', 'Je vak, vaardigheden, ervaring en wat je zoekt. Je naam en foto laat je weg.'],
+      ['Bedrijven zoeken', 'Ze filteren op vak, vaardigheden en regio en zien alleen je anonieme profiel.'],
       ['Er komt een aanbod binnen', 'Met functie, salaris en een persoonlijk bericht.'],
       ['Jij zegt ja of nee', 'Bij nee ziet het bedrijf je naam nooit en krijgt het een nette afwijzing.'],
       ['Jullie maken kennis', 'Na jouw ja krijgt het bedrijf je naam, cv en contactgegevens.']
     ],
     werkgever: [
-      ['Je zoekt een marketeer', 'Filter op vak, tools, regio en beschikbaarheid.'],
-      ['Je opent een profiel', 'Je ziet ervaring, cases en salarisindicatie. De naam blijft verborgen.'],
+      ['Je zoekt een nieuwe collega', 'Filter op vak, vaardigheden, regio en beschikbaarheid.'],
+      ['Je opent een profiel', 'Je ziet ervaring, projecten en salarisindicatie. De naam blijft verborgen.'],
       ['Je stuurt een aanbod', 'Met functie, salaris en een bericht. Zonder salaris gaat het niet de deur uit.'],
-      ['De marketeer beslist', 'Zegt die nee, dan betaal je niets en blijft de marketeer anoniem.'],
+      ['De kandidaat beslist', 'Zegt die nee, dan betaal je niets en blijft de kandidaat anoniem.'],
       ['Jullie maken kennis', 'Na een ja zie je naam, cv en contactgegevens.']
     ]
   };
 
-  var SPECS = { sea: 'SEA en performance', seo: 'SEO en content', social: 'Social media' };
-  var TITLES = { sea: 'Senior SEA-marketeer', seo: 'Senior SEO-specialist', social: 'Social media marketeer' };
-  var TOOLS = ['Google Ads', 'GA4', 'Meta Ads', 'HubSpot'];
-  var SALARIES = ['€3.800–4.400', '€4.500–5.200', '€5.300–6.000'];
+  // Drie voorbeeldvakken: deedni is voor elk beroep. Per vak eigen vaardigheden, salarissen en bedrijf.
+  var SPECS = { groen: 'Hovenier', web: 'Webdesigner', fin: 'Accountant' };
+  var TITLES = { groen: 'Allround hovenier', web: 'Webdesigner', fin: 'Accountant' };
+  var TOOLSET = { groen: ['Bestrating', 'Snoeien', 'Rijbewijs BE', 'VCA'], web: ['Figma', 'WordPress', 'HTML en CSS', 'Adobe Photoshop'], fin: ['Exact Online', 'Jaarrekeningen', 'AFAS', 'Btw-aangiftes'] };
+  var SALSET = { groen: ['€2.600–3.000', '€2.900–3.400', '€3.400–3.900'], web: ['€3.000–3.500', '€3.600–4.200', '€4.300–5.000'], fin: ['€3.800–4.400', '€4.600–5.200', '€5.300–6.200'] };
+  var CO = { groen: 'Groenwerk Utrecht', web: 'Studio Noord', fin: 'Telgen Accountants' };
+  var ANDEREN = { groen: ['Tuinontwerper', 'Boomverzorger'], web: ['Front-end developer', 'Grafisch ontwerper'], fin: ['Boekhouder', 'Controller'] };
+  var QUOTE = { groen: 'Je projecten passen precies bij ons werk.', web: 'De websites die je bouwde passen precies bij onze klanten.', fin: 'Je ervaring met mkb-klanten is precies wat we zoeken.' };
+  var PLEK = { groen: 'Utrecht, op locatie, 38 uur', web: 'Utrecht, hybride, 32 tot 40 uur', fin: 'Utrecht, hybride, 36 uur' };
+  function vak() { return state.k.spec || 'groen'; }
+  function co() { return CO[vak()]; }
+  function sal() { return SALSET[vak()][state.k.sal]; }
 
-  var FILTERS = ['SEA', 'Google Ads', 'Utrecht', 'Direct beschikbaar'];
+  var FILTERS = ['Hovenier', 'Bestrating', 'Utrecht', 'Direct beschikbaar'];
+  // Een project met een resultaat mag, maar hoeft niet: niet elk vak werkt met cijfers.
   var PEOPLE = [
-    { id: 'K-2041', name: 'Sanne de Vries', title: 'Senior SEA-marketeer', years: 7, city: 'Utrecht', tags: ['SEA', 'Google Ads', 'Utrecht', 'Direct beschikbaar'], tools: ['Google Ads', 'Meta Ads', 'GA4'], sal: '€4.500–5.200', exp: '7 jaar, e-commerce en B2B', kase: 'Rendement op advertentie-uitgaven van 3,1 naar 4,6 in vijf maanden', mail: 'sanne@voorbeeld.nl' },
-    { id: 'K-1187', name: 'Daan Bakker', title: 'SEA-specialist', years: 5, city: 'Utrecht', tags: ['SEA', 'Google Ads', 'Utrecht'], tools: ['Google Ads', 'GA4'], sal: '€3.900–4.400', exp: '5 jaar, reizen en retail', kase: 'Kosten per lead met 38 procent omlaag voor een reisorganisatie', mail: 'daan@voorbeeld.nl' },
-    { id: 'K-3320', name: 'Noor Jansen', title: 'Performance marketeer', years: 6, city: 'Rotterdam', tags: ['SEA', 'Google Ads', 'Direct beschikbaar'], tools: ['Google Ads', 'Meta Ads', 'Looker Studio'], sal: '€4.200–4.800', exp: '6 jaar, abonnementen en SaaS', kase: 'Aantal proefabonnementen verdubbeld met dezelfde mediabudgetten', mail: 'noor@voorbeeld.nl' },
-    { id: 'K-0912', name: 'Lotte Visser', title: 'SEO-specialist', years: 4, city: 'Utrecht', tags: ['Utrecht'], tools: ['Search Console', 'GA4', 'Screaming Frog'], sal: '€3.600–4.100', exp: '4 jaar, uitgevers en webshops', kase: 'Organisch verkeer 70 procent hoger in een jaar', mail: 'lotte@voorbeeld.nl' },
-    { id: 'K-4410', name: 'Milan de Boer', title: 'Social media marketeer', years: 3, city: 'Amsterdam', tags: ['Direct beschikbaar'], tools: ['Meta Ads', 'TikTok Ads'], sal: '€3.300–3.800', exp: '3 jaar, mode en lifestyle', kase: 'Campagne met 2,4 miljoen weergaven voor een kledingmerk', mail: 'milan@voorbeeld.nl' }
+    { id: 'K-2041', name: 'Sanne de Vries', title: 'Allround hovenier', years: 7, city: 'Utrecht', tags: ['Hovenier', 'Bestrating', 'Utrecht', 'Direct beschikbaar'], tools: ['Bestrating', 'Snoeien', 'Rijbewijs BE'], sal: '€2.900–3.400', exp: '7 jaar, particulieren en bedrijven', kase: 'Stadstuin opnieuw aangelegd: ontwerp, bestrating en beplanting in drie weken', mail: 'sanne@voorbeeld.nl' },
+    { id: 'K-1187', name: 'Daan Bakker', title: 'Hovenier', years: 5, city: 'Utrecht', tags: ['Hovenier', 'Bestrating', 'Utrecht'], tools: ['Bestrating', 'Minigraver'], sal: '€2.700–3.100', exp: '5 jaar, bedrijventerreinen', kase: 'Onderhoud van een bedrijfsterrein, gemiddeld een 9,1 van de klant', mail: 'daan@voorbeeld.nl' },
+    { id: 'K-3320', name: 'Noor Jansen', title: 'Medewerker groenvoorziening', years: 6, city: 'Rotterdam', tags: ['Bestrating', 'Direct beschikbaar'], tools: ['Snoeien', 'Rijbewijs BE', 'VCA'], sal: '€2.600–3.000', exp: '6 jaar, gemeenten', kase: 'Schoolplein vergroend samen met de leerlingen', mail: 'noor@voorbeeld.nl' },
+    { id: 'K-0912', name: 'Lotte Visser', title: 'Tuinontwerper', years: 4, city: 'Utrecht', tags: ['Utrecht'], tools: ['Beplantingsplannen', 'AutoCAD'], sal: '€3.200–3.700', exp: '4 jaar, particuliere tuinen', kase: 'Ontwerp voor twintig nieuwbouwtuinen in één wijk', mail: 'lotte@voorbeeld.nl' },
+    { id: 'K-4410', name: 'Milan de Boer', title: 'Boomverzorger', years: 3, city: 'Amsterdam', tags: ['Hovenier', 'Direct beschikbaar'], tools: ['European Tree Worker', 'VCA'], sal: '€2.900–3.300', exp: '3 jaar, openbaar groen', kase: 'Snoeiplan voor 300 straatbomen', mail: 'milan@voorbeeld.nl' }
   ];
 
   var state;
@@ -388,7 +397,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
     return {
       role: role, step: 0, reached: 0, done: false,
       k: { spec: null, tools: [], sal: 1, opened: false, answer: null, reply: null },
-      w: { filters: ['SEA', 'Google Ads'], pick: null, functie: 'Senior performance marketeer', van: '', tot: '', bericht: 'Je cases passen goed bij onze klanten.', error: '', sent: false, read: false, answer: null, slot: null }
+      w: { filters: ['Hovenier', 'Bestrating'], pick: null, functie: 'Allround hovenier', van: '', tot: '', bericht: 'Je projecten passen goed bij ons werk.', error: '', sent: false, read: false, answer: null, slot: null }
     };
   }
   state = fresh('kandidaat');
@@ -428,71 +437,71 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
     }).join('');
   }
 
-  /* ---------- Schermen: marketeer ---------- */
+  /* ---------- Schermen: kandidaat ---------- */
   function kScene(step) {
     var k = state.k;
     if (step === 0) {
       var ok = k.spec && k.tools.length;
-      setHint('Kies een specialisme en minstens één tool. Tik daarna op Profiel opslaan.');
+      setHint('Kies je vak en minstens één vaardigheid. Tik daarna op Profiel opslaan.');
       return '<p class="m-h m-in" tabindex="-1">Jouw profiel</p>' +
-        '<div class="m-group m-in" style="--d:100"><span class="m-k">Specialisme</span><div class="m-chiprow">' +
+        '<div class="m-group m-in" style="--d:100"><span class="m-k">Je vak</span><div class="m-chiprow">' +
         Object.keys(SPECS).map(function (key) { return '<button type="button" class="m-chip" data-k-spec="' + key + '" aria-pressed="' + (k.spec === key) + '">' + SPECS[key] + '</button>'; }).join('') +
         '</div></div>' +
-        '<div class="m-group m-in" style="--d:250"><span class="m-k">Tools</span><div class="m-chiprow">' +
-        TOOLS.map(function (t) { return '<button type="button" class="m-chip" data-k-tool="' + t + '" aria-pressed="' + (k.tools.indexOf(t) > -1) + '">' + t + '</button>'; }).join('') +
+        '<div class="m-group m-in" style="--d:250"><span class="m-k">Vaardigheden</span><div class="m-chiprow">' +
+        (k.spec ? '' : '<span class="m-muted">Kies eerst je vak.</span>') + (k.spec ? TOOLSET[k.spec] : []).map(function (t) { return '<button type="button" class="m-chip" data-k-tool="' + t + '" aria-pressed="' + (k.tools.indexOf(t) > -1) + '">' + t + '</button>'; }).join('') +
         '</div></div>' +
         '<div class="m-group m-in" style="--d:400"><span class="m-k">Salarisindicatie per maand</span><div class="m-chiprow">' +
-        SALARIES.map(function (s, i) { return '<button type="button" class="m-chip" data-k-sal="' + i + '" aria-pressed="' + (k.sal === i) + '">' + s + '</button>'; }).join('') +
+        SALSET[vak()].map(function (s, i) { return '<button type="button" class="m-chip" data-k-sal="' + i + '" aria-pressed="' + (k.sal === i) + '">' + s + '</button>'; }).join('') +
         '</div></div>' +
         '<div class="m-card m-in" style="--d:550"><span class="m-k">Naam en foto</span><span class="m-muted">Niet nodig</span></div>' +
         '<button type="button" class="m-btn m-in m-spacer" style="--d:700" data-act="k-save"' + (ok ? '' : ' disabled') + '>Profiel opslaan</button>';
     }
     if (step === 1) {
-      setHint('Zo zien bedrijven jou tussen andere marketeers. De gemarkeerde kaart ben jij: zonder naam en zonder foto. Tik op Wacht op een aanbod.');
-      var tool = k.tools[0] || 'Google Ads';
+      setHint('Zo zien bedrijven jou tussen andere vakmensen. De gemarkeerde kaart ben jij: zonder naam en zonder foto. Tik op Wacht op een aanbod.');
+      var tool = k.tools[0] || TOOLSET[vak()][0];
       return '<p class="m-h m-in" tabindex="-1">Bedrijven zoeken</p>' +
-        '<div class="m-search m-in" style="--d:150"><span>' + esc(SPECS[k.spec].split(' ')[0]) + '</span><span>' + esc(tool) + '</span><span>Utrecht</span></div>' +
-        '<div class="m-card m-dim m-in" style="--d:400"><strong>Senior content marketeer</strong><span class="m-muted">5 jaar, Amsterdam</span></div>' +
+        '<div class="m-search m-in" style="--d:150"><span>' + esc(SPECS[k.spec]) + '</span><span>' + esc(tool) + '</span><span>Utrecht</span></div>' +
+        '<div class="m-card m-dim m-in" style="--d:400"><strong>' + esc(ANDEREN[vak()][0]) + '</strong><span class="m-muted">5 jaar, Amsterdam</span></div>' +
         '<div class="m-card m-hit m-in" style="--d:900"><strong>' + esc(TITLES[k.spec]) + '</strong><span class="m-muted">7 jaar, Utrecht en omgeving</span><span class="m-chips">' +
-        k.tools.map(function (t) { return '<i>' + esc(t) + '</i>'; }).join('') + '</span><span class="salary m-salary">' + SALARIES[k.sal] + '</span><span><span class="m-secret" aria-label="Naam verborgen"></span></span></div>' +
-        '<div class="m-card m-dim m-in" style="--d:650"><strong>Performance marketeer</strong><span class="m-muted">4 jaar, Rotterdam</span></div>' +
+        k.tools.map(function (t) { return '<i>' + esc(t) + '</i>'; }).join('') + '</span><span class="salary m-salary">' + sal() + '</span><span><span class="m-secret" aria-label="Naam verborgen"></span></span></div>' +
+        '<div class="m-card m-dim m-in" style="--d:650"><strong>' + esc(ANDEREN[vak()][1]) + '</strong><span class="m-muted">4 jaar, Rotterdam</span></div>' +
         '<button type="button" class="m-btn m-in m-spacer" style="--d:1300" data-act="k-wait">Wacht op een aanbod</button>';
     }
     if (step === 2) {
       if (!k.opened) {
         setHint('Er komt een melding binnen. Tik erop om het aanbod te openen.');
         return '<p class="m-muted m-in" tabindex="-1">Een paar dagen later…</p>' +
-          '<button type="button" class="m-notif m-slide" data-act="k-open"><strong>Studio Noord</strong><span>stuurde je een aanbod. Tik om te openen.</span></button>';
+          '<button type="button" class="m-notif m-slide" data-act="k-open"><strong>' + esc(co()) + '</strong><span>stuurde je een aanbod. Tik om te openen.</span></button>';
       }
       setHint('Je ziet meteen de functie, het salaris en waarom ze jou zoeken. Tik op Beslis over dit aanbod.');
-      return '<p class="m-h m-in" tabindex="-1">Aanbod van Studio Noord</p>' +
-        '<div class="m-card m-in" style="--d:150"><strong>Senior performance marketeer</strong><span class="m-muted">Utrecht, hybride, 32 tot 40 uur</span><span class="salary m-salary">€4.200–4.800</span><span class="m-muted">per maand</span></div>' +
-        '<p class="m-quote m-in" style="--d:500">"Je cases in e-commerce passen precies bij onze klanten."</p>' +
+      return '<p class="m-h m-in" tabindex="-1">Aanbod van ' + esc(co()) + '</p>' +
+        '<div class="m-card m-in" style="--d:150"><strong>' + esc(TITLES[vak()]) + '</strong><span class="m-muted">' + PLEK[vak()] + '</span><span class="salary m-salary">' + sal() + '</span><span class="m-muted">per maand</span></div>' +
+        '<p class="m-quote m-in" style="--d:500">"' + QUOTE[vak()] + '"</p>' +
         '<button type="button" class="m-btn m-in m-spacer" style="--d:800" data-act="k-decide">Beslis over dit aanbod</button>';
     }
     if (step === 3) {
       var top = '<p class="m-h m-in" tabindex="-1">Ja of nee?</p>' +
-        '<div class="m-card m-in" style="--d:100"><strong>Senior performance marketeer</strong><span class="m-muted">Studio Noord, Utrecht</span><span class="salary m-salary">€4.200–4.800</span></div>' +
-        '<div class="m-card m-in" style="--d:250"><span class="m-k">Studio Noord ziet nu</span><span><span class="m-secret' + (k.answer === 'ja' ? ' is-open' : '') + '" id="k-secret"><span>Sanne de Vries</span></span></span></div>';
+        '<div class="m-card m-in" style="--d:100"><strong>' + esc(TITLES[vak()]) + '</strong><span class="m-muted">' + esc(co()) + ', Utrecht</span><span class="salary m-salary">' + sal() + '</span></div>' +
+        '<div class="m-card m-in" style="--d:250"><span class="m-k">' + esc(co()) + ' ziet nu</span><span><span class="m-secret' + (k.answer === 'ja' ? ' is-open' : '') + '" id="k-secret"><span>Sanne de Vries</span></span></span></div>';
       if (k.answer === 'nee') {
-        setHint('Je zei nee. Studio Noord krijgt een nette afwijzing en ziet je naam nooit. Wil je zien wat er bij ja gebeurt?', [{ id: 'k-retry', label: 'Probeer ja', primary: true }]);
-        return top + '<div class="m-result m-in" style="--d:100">Studio Noord krijgt een nette afwijzing. Je naam blijft verborgen.</div>';
+        setHint('Je zei nee. ' + co() + ' krijgt een nette afwijzing en ziet je naam nooit. Wil je zien wat er bij ja gebeurt?', [{ id: 'k-retry', label: 'Probeer ja', primary: true }]);
+        return top + '<div class="m-result m-in" style="--d:100">' + esc(co()) + ' krijgt een nette afwijzing. Je naam blijft verborgen.</div>';
       }
       if (k.answer === 'ja') {
-        setHint('De zwarte balk verdwijnt: nu pas ziet Studio Noord je naam.');
-        return top + '<div class="m-result m-result--ok">Je naam is gedeeld met Studio Noord.</div>';
+        setHint('De zwarte balk verdwijnt: nu pas ziet ' + co() + ' je naam.');
+        return top + '<div class="m-result m-result--ok">Je naam is gedeeld met ' + esc(co()) + '.</div>';
       }
       setHint('Jij beslist. Tik op Ja om je naam te delen, of op Nee om het aanbod netjes af te wijzen.');
       return top + '<div class="m-actions"><button type="button" class="m-btn" data-act="k-yes">Ja, deel mijn naam</button><button type="button" class="m-btn m-btn--ghost" data-act="k-no">Nee, bedankt</button></div>';
     }
     // step 4
-    var chat = '<p class="m-h m-in" tabindex="-1">Studio Noord</p>' +
+    var chat = '<p class="m-h m-in" tabindex="-1">' + esc(co()) + '</p>' +
       '<div class="m-bubble m-bubble--them m-in" style="--d:200">Hoi Sanne, fijn dat je reageert. Kunnen we donderdag bellen?</div>';
     if (!k.reply) {
-      setHint('Studio Noord stuurt je een bericht. Kies een antwoord.');
+      setHint(co() + ' stuurt je een bericht. Kies een antwoord.');
       return chat + '<div class="m-actions"><button type="button" class="m-btn" data-k-reply="do">Donderdag past goed.</button><button type="button" class="m-btn m-btn--ghost" data-k-reply="vr">Liever vrijdag.</button></div>';
     }
-    setHint('Je antwoord is verstuurd. Even wachten op Studio Noord…');
+    setHint('Je antwoord is verstuurd. Even wachten op ' + co() + '…');
     var mine = k.reply === 'do' ? 'Donderdag past goed.' : 'Liever vrijdag.';
     var theirs = k.reply === 'do' ? 'Top, we bellen je donderdag om 10 uur.' : 'Vrijdag kan ook. We bellen je om 10 uur.';
     return chat + '<div class="m-bubble m-bubble--me">' + mine + '</div>' + (state.done ? '<div class="m-bubble m-bubble--them m-in">' + theirs + '</div>' : '');
@@ -516,13 +525,13 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
     }
     var p = person();
     if (step === 1) {
-      setHint('Je ziet ervaring, tools, een case en de salarisindicatie. De naam blijft verborgen. Tik op Stuur een aanbod.');
+      setHint('Je ziet ervaring, vaardigheden, een project en de salarisindicatie. De naam blijft verborgen. Tik op Stuur een aanbod.');
       return '<button type="button" class="m-back" data-act="w-back">‹ Terug naar zoeken</button>' +
         '<p class="m-h m-in" tabindex="-1">' + p.id + '</p>' +
         '<div class="m-card m-in" style="--d:100"><span class="m-k">Functie</span><strong>' + p.title + '</strong></div>' +
         '<div class="m-card m-in" style="--d:200"><span class="m-k">Ervaring</span><strong>' + p.exp + '</strong></div>' +
-        '<div class="m-card m-in" style="--d:300"><span class="m-k">Tools</span><span class="m-chips">' + p.tools.map(function (t) { return '<i>' + t + '</i>'; }).join('') + '</span></div>' +
-        '<div class="m-card m-in" style="--d:400"><span class="m-k">Case</span><span>' + p.kase + '</span></div>' +
+        '<div class="m-card m-in" style="--d:300"><span class="m-k">Vaardigheden</span><span class="m-chips">' + p.tools.map(function (t) { return '<i>' + t + '</i>'; }).join('') + '</span></div>' +
+        '<div class="m-card m-in" style="--d:400"><span class="m-k">Project</span><span>' + p.kase + '</span></div>' +
         '<div class="m-card m-in" style="--d:500"><span class="m-k">Salarisindicatie per maand</span><span class="salary m-salary">' + p.sal + '</span></div>' +
         '<div class="m-card m-in" style="--d:600"><span class="m-k">Naam</span><span><span class="m-secret" aria-label="Naam verborgen"></span></span></div>' +
         '<button type="button" class="m-btn m-in m-spacer" style="--d:700" data-act="w-offer">Stuur een aanbod</button>';
@@ -532,7 +541,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
       return '<p class="m-h m-in" tabindex="-1">Aanbod aan ' + p.id + '</p>' +
         '<form class="m-group m-in" id="w-form" novalidate style="--d:100">' +
         '<label class="m-label">Functie<input class="m-input" id="w-functie" value="' + esc(w.functie) + '" autocomplete="off"></label>' +
-        '<div class="m-row"><label class="m-label">Salaris van<input class="m-input" id="w-van" type="number" inputmode="numeric" min="0" step="50" placeholder="bijv. 4500" value="' + esc(w.van) + '"' + (w.error ? ' aria-invalid="true"' : '') + ' aria-describedby="w-err"></label>' +
+        '<div class="m-row"><label class="m-label">Salaris van<input class="m-input" id="w-van" type="number" inputmode="numeric" min="0" step="50" placeholder="bijv. 2900" value="' + esc(w.van) + '"' + (w.error ? ' aria-invalid="true"' : '') + ' aria-describedby="w-err"></label>' +
         '<label class="m-label">tot, per maand<input class="m-input" id="w-tot" type="number" inputmode="numeric" min="0" step="50" placeholder="bijv. 5000" value="' + esc(w.tot) + '"' + (w.error ? ' aria-invalid="true"' : '') + ' aria-describedby="w-err"></label></div>' +
         '<p class="m-error" id="w-err" role="alert"' + (w.error ? '' : ' hidden') + '>' + esc(w.error) + '</p>' +
         '<label class="m-label">Bericht<textarea class="m-input" id="w-bericht" rows="3">' + esc(w.bericht) + '</textarea></label>' +
@@ -544,14 +553,14 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
         '<div class="m-card m-in" style="--d:100"><strong>' + esc(w.functie) + '</strong><span class="salary m-salary">' + fmt(w.van) + '–' + fmt(w.tot).slice(1) + '</span><span class="m-muted">per maand</span></div>' +
         '<div class="m-status">Verstuurd</div>' +
         (w.read ? '<div class="m-status m-in">Gelezen</div>' : '');
-      if (!w.read) { setHint('Je aanbod is onderweg. Even wachten tot de marketeer het leest…'); return html; }
+      if (!w.read) { setHint('Je aanbod is onderweg. Even wachten tot de kandidaat het leest…'); return html; }
       if (w.answer === 'nee') {
-        setHint('De marketeer zei nee. Je betaalt niets en ' + p.id + ' blijft anoniem. Wil je zien wat er bij ja gebeurt?', [{ id: 'w-retry', label: 'Laat ja zeggen', primary: true }]);
+        setHint('De kandidaat zei nee. Je betaalt niets en ' + p.id + ' blijft anoniem. Wil je zien wat er bij ja gebeurt?', [{ id: 'w-retry', label: 'Laat ja zeggen', primary: true }]);
         return html + '<div class="m-result m-in">' + p.id + ' zegt nee, bedankt. Je betaalt niets en de naam blijft verborgen.</div>';
       }
-      if (w.answer === 'ja') { setHint('Goed nieuws: de marketeer zegt ja.'); return html + '<div class="m-status m-status--ok m-in">' + p.id + ' zegt ja</div>'; }
-      setHint('In het echt beslist de marketeer. Hier mag jij dat even doen: kies wat ' + p.id + ' antwoordt.');
-      return html + '<div class="m-note m-in"><strong>Jij speelt nu de marketeer</strong>Wat zegt ' + p.id + ' op je aanbod?</div>' +
+      if (w.answer === 'ja') { setHint('Goed nieuws: de kandidaat zegt ja.'); return html + '<div class="m-status m-status--ok m-in">' + p.id + ' zegt ja</div>'; }
+      setHint('In het echt beslist de kandidaat. Hier mag jij dat even doen: kies wat ' + p.id + ' antwoordt.');
+      return html + '<div class="m-note m-in"><strong>Jij speelt nu de kandidaat</strong>Wat zegt ' + p.id + ' op je aanbod?</div>' +
         '<div class="m-actions"><button type="button" class="m-btn" data-act="w-yes">Ja, deel mijn naam</button><button type="button" class="m-btn m-btn--ghost" data-act="w-no">Nee, bedankt</button></div>';
     }
     // step 4
@@ -596,9 +605,9 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
     }
   }
   function finishHint() {
-    var other = state.role === 'kandidaat' ? 'Bekijk het als bedrijf' : 'Bekijk het als marketeer';
+    var other = state.role === 'kandidaat' ? 'Bekijk het als bedrijf' : 'Bekijk het als werkzoekende';
     setHint(state.role === 'kandidaat'
-      ? 'Zo werkt deedni voor marketeers: jij maakt een anoniem profiel, bedrijven komen naar jou en jij beslist wie je naam ziet.'
+      ? 'Zo werkt deedni voor werkzoekenden: jij maakt een anoniem profiel, bedrijven komen naar jou en jij beslist wie je naam ziet.'
       : 'Zo werkt deedni voor bedrijven: je zoekt zelf, stuurt een aanbod met salaris en ziet de naam pas na een ja.',
       [{ id: 'switch', label: other, primary: true }, { id: 'restart', label: 'Opnieuw' }], true);
   }
@@ -626,7 +635,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
     if (d.hint === 'k-retry') { k.answer = null; render(false); return; }
     if (d.hint === 'w-retry') { w.answer = null; render(false); return; }
 
-    if (d.kSpec) { k.spec = d.kSpec; refresh('[data-k-spec="' + d.kSpec + '"]'); return; }
+    if (d.kSpec) { if (k.spec !== d.kSpec) k.tools = []; k.spec = d.kSpec; refresh('[data-k-spec="' + d.kSpec + '"]'); return; }
     if (d.kTool) { var i = k.tools.indexOf(d.kTool); if (i > -1) k.tools.splice(i, 1); else k.tools.push(d.kTool); refresh('[data-k-tool="' + d.kTool + '"]'); return; }
     if (d.kSal) { k.sal = +d.kSal; refresh('[data-k-sal="' + d.kSal + '"]'); return; }
     if (d.kReply) {
@@ -656,7 +665,7 @@ textarea.m-input { resize: none; font-weight: 500; line-height: 1.35; }
         var van = parseFloat(w.van), tot = parseFloat(w.tot);
         if (!w.van || !w.tot) w.error = 'Vul het salaris in. Zonder salaris gaat het aanbod niet de deur uit.';
         else if (van > tot) w.error = 'Het eerste bedrag moet lager zijn dan het tweede.';
-        else if (van < 1000) w.error = 'Vul het bruto salaris per maand in, bijvoorbeeld 4500.';
+        else if (van < 1000) w.error = 'Vul het bruto salaris per maand in, bijvoorbeeld 2900.';
         else w.error = '';
         if (w.error) { refresh(); var bad = $('w-van'); if (bad) bad.focus(); return; }
         w.read = false; w.answer = null; go(3);

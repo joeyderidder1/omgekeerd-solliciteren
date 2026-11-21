@@ -18,6 +18,7 @@ function deedni_search_filters() {
 	$besch = $str( 'besch' );
 	return array(
 		'q'      => $str( 'q' ),
+		'vak'    => $list( 'vak' ),
 		'spec'   => $list( 'spec' ),
 		'tool'   => $list( 'tool' ),
 		'regio'  => $list( 'regio' ),
@@ -64,6 +65,9 @@ function deedni_zichtbare_ids() {
 
 /** Voldoet dit profiel aan de filters? */
 function deedni_past_filter( $k, $f ) {
+	if ( $f['vak'] && ! array_intersect( $f['vak'], deedni_vakgebied_slugs( $k['specialisme_ids'] ) ) ) {
+		return false;
+	}
 	if ( $f['spec'] && ! array_intersect( $f['spec'], deedni_term_slugs( $k['id'], 'specialisme' ) ) ) {
 		return false;
 	}
@@ -96,7 +100,7 @@ function deedni_past_filter( $k, $f ) {
 		return false;
 	}
 	if ( $f['q'] ) {
-		$hooi = mb_strtolower( implode( ' ', array_merge( array( $k['functietitel'], $k['samenvatting'], $k['regio'], $k['code'] ), $k['tools'], $k['specialisme'], $k['provincie'], wp_list_pluck( $k['werkervaring'], 'functie' ), wp_list_pluck( $k['werkervaring'], 'soort' ), wp_list_pluck( $k['projecten'], 'titel' ), wp_list_pluck( $k['projecten'], 'branche' ) ) ) );
+		$hooi = mb_strtolower( implode( ' ', array_merge( array( $k['functietitel'], $k['samenvatting'], $k['regio'], $k['code'] ), $k['tools'], $k['specialisme'], deedni_term_lijst( deedni_vakgebieden_van( $k['specialisme_ids'] ), 'specialisme' ), $k['provincie'], wp_list_pluck( $k['werkervaring'], 'functie' ), wp_list_pluck( $k['werkervaring'], 'soort' ), wp_list_pluck( $k['projecten'], 'titel' ), wp_list_pluck( $k['projecten'], 'branche' ) ) ) );
 		foreach ( preg_split( '/\s+/', mb_strtolower( $f['q'] ) ) as $woord ) {
 			if ( '' !== $woord && false === mb_strpos( $hooi, $woord ) ) {
 				return false;
@@ -104,6 +108,18 @@ function deedni_past_filter( $k, $f ) {
 		}
 	}
 	return true;
+}
+
+/** Slugs van de vakgebieden bij een lijst functies. */
+function deedni_vakgebied_slugs( $term_ids ) {
+	$slugs = array();
+	foreach ( deedni_vakgebieden_van( $term_ids ) as $id ) {
+		$t = get_term( $id, 'specialisme' );
+		if ( $t && ! is_wp_error( $t ) ) {
+			$slugs[] = $t->slug;
+		}
+	}
+	return $slugs;
 }
 
 function deedni_term_slugs( $post_id, $taxonomy ) {
@@ -117,10 +133,13 @@ function deedni_term_slugs( $post_id, $taxonomy ) {
 function deedni_zoek( $f, $per_pagina = 10 ) {
 	$alle  = deedni_zichtbare_ids();
 	$items = array();
-	$tel   = array( 'spec' => array(), 'tool' => array(), 'regio' => array(), 'plek' => array(), 'erv' => array( '0' => 0, '2' => 0, '5' => 0 ), 'besch' => array( '0' => 0, '1' => 0, '3' => 0 ) );
+	$tel   = array( 'vak' => array(), 'spec' => array(), 'tool' => array(), 'regio' => array(), 'plek' => array(), 'erv' => array( '0' => 0, '2' => 0, '5' => 0 ), 'besch' => array( '0' => 0, '1' => 0, '3' => 0 ) );
 	foreach ( $alle as $id ) {
 		$k = deedni_kandidaat( $id );
 		// Aantallen bij de filters: over alle zichtbare profielen.
+		foreach ( deedni_vakgebied_slugs( $k['specialisme_ids'] ) as $s ) {
+			$tel['vak'][ $s ] = ( isset( $tel['vak'][ $s ] ) ? $tel['vak'][ $s ] : 0 ) + 1;
+		}
 		foreach ( deedni_term_slugs( $id, 'specialisme' ) as $s ) {
 			$tel['spec'][ $s ] = ( isset( $tel['spec'][ $s ] ) ? $tel['spec'][ $s ] : 0 ) + 1;
 		}

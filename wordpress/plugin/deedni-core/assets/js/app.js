@@ -255,6 +255,25 @@
       namen.forEach(function (n) { var s = document.createElement('span'); s.className = 'tool'; s.textContent = n; box.appendChild(s); });
       pvTools.appendChild(box);
     });
+    // Vaardigheden: eerst wat bij het gekozen vakgebied past, plus wat al aangevinkt is.
+    var vakKeuze = $('[data-vak-keuze]', form), vaardig = $('[data-vaardigheden]', form);
+    if (vakKeuze && vaardig) {
+      var allesKnop = $('[data-vak-alles]', vaardig), uitleg = $('[data-vak-uitleg]', vaardig), alles = false;
+      var filterVaardig = function () {
+        var opt = vakKeuze.options[vakKeuze.selectedIndex], vak = opt ? opt.getAttribute('data-vak') : '';
+        var verborgen = 0;
+        $$('label[data-vakken]', vaardig).forEach(function (l) {
+          var bij = l.getAttribute('data-vakken'), aan = $('input', l).checked;
+          var toon = alles || !vak || bij === 'alle' || bij.split(',').indexOf(vak) > -1 || aan;
+          l.hidden = !toon; if (!toon) verborgen++;
+        });
+        allesKnop.hidden = !verborgen; uitleg.hidden = !verborgen;
+      };
+      vakKeuze.addEventListener('change', function () { alles = false; filterVaardig(); });
+      allesKnop.addEventListener('click', function () { alles = true; filterVaardig(); var c = $('label[data-vakken] input', vaardig); if (c) c.focus(); });
+      filterVaardig();
+    }
+
     $$('[data-als]', root).forEach(function (b) {
       b.addEventListener('click', function () {
         var als = b.getAttribute('data-als');

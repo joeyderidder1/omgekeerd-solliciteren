@@ -72,7 +72,7 @@ $termen = function ( $tax ) {
 				<div class="row"><?php echo deedni_logo_html( $b, 'logo-blok' ); // phpcs:ignore ?><div><h2 id="h-gegevens" class="h3">Bedrijfsgegevens</h2><div class="fine">Kandidaten zien dit bij elk aanbod</div></div></div>
 				<?php echo $veld( 'bedrijfsnaam', 'Naam van je bedrijf', $b['naam'], array( 'required' => true, 'auto' => 'organization' ) ); // phpcs:ignore ?>
 				<div class="fields">
-					<?php echo $veld( 'soort', 'Soort bedrijf', $b['soort'], array( 'ph' => 'Online marketingbureau' ) ); // phpcs:ignore ?>
+					<?php echo $veld( 'soort', 'Soort bedrijf', $b['soort'], array( 'ph' => 'Hoveniersbedrijf, accountantskantoor, webbureau' ) ); // phpcs:ignore ?>
 					<?php echo $veld( 'plaats', 'Plaats', $b['plaats'] ); // phpcs:ignore ?>
 				</div>
 				<div class="fields">
@@ -94,8 +94,38 @@ $termen = function ( $tax ) {
 
 			<section class="card stack" id="wie-je-zoekt" aria-labelledby="h-zoekt">
 				<div><h2 id="h-zoekt" class="h3">Wie je zoekt</h2><p class="fine">Hierop berekenen we je matches. Laat leeg wat niet uitmaakt.</p></div>
-				<fieldset><legend>Specialisme</legend><?php echo $chips( 'zoek_specialisme', $termen( 'specialisme' ), $b['zoek_specialisme'] ); // phpcs:ignore ?></fieldset>
-				<fieldset><legend>Tools</legend><?php echo $chips( 'zoek_tools', $termen( 'vaardigheid' ), $b['zoek_tools'] ); // phpcs:ignore ?></fieldset>
+				<fieldset class="stack-s"><legend>Vakgebied en functie</legend>
+					<p class="fine">Kies een heel vakgebied, of open het en kies de functies die je zoekt.</p>
+					<?php
+					$gekozen_vak = deedni_vakgebieden_van( $b['zoek_specialisme'] );
+					foreach ( deedni_vakgebieden_boom() as $rij ) :
+						$opties_vak = array( $rij[0]->term_id => 'Alle functies in ' . mb_strtolower( $rij[0]->name ) );
+						foreach ( $rij[1] as $t ) {
+							$opties_vak[ $t->term_id ] = $t->name;
+						}
+						?>
+						<details class="vak-groep"<?php echo in_array( (int) $rij[0]->term_id, $gekozen_vak, true ) ? ' open' : ''; ?>><summary><?php echo esc_html( $rij[0]->name ); ?></summary><?php echo $chips( 'zoek_specialisme', $opties_vak, $b['zoek_specialisme'] ); // phpcs:ignore ?></details>
+					<?php endforeach; ?>
+				</fieldset>
+				<fieldset class="stack-s"><legend>Vaardigheden, tools en certificaten</legend>
+					<?php
+					$relevant = array();
+					$overig   = array();
+					foreach ( deedni_filter_terms( 'vaardigheid' ) as $t ) {
+						$bij = deedni_vaardigheid_vakgebieden( $t->term_id );
+						if ( ! $gekozen_vak || ! $bij || array_intersect( $bij, $gekozen_vak ) || in_array( (int) $t->term_id, $b['zoek_tools'], true ) ) {
+							$relevant[ $t->term_id ] = $t->name;
+						} else {
+							$overig[ $t->term_id ] = $t->name;
+						}
+					}
+					echo $gekozen_vak ? '<p class="fine">Passend bij de vakgebieden die je zoekt. Sla op na het kiezen van een vakgebied om de lijst bij te werken.</p>' : ''; // phpcs:ignore
+					echo $chips( 'zoek_tools', $relevant, $b['zoek_tools'] ); // phpcs:ignore
+					if ( $overig ) {
+						echo '<details class="vak-groep"><summary>Meer vaardigheden (' . count( $overig ) . ')</summary>' . $chips( 'zoek_tools', $overig, $b['zoek_tools'] ) . '</details>'; // phpcs:ignore
+					}
+					?>
+				</fieldset>
 				<fieldset><legend>Salarisbudget per maand</legend><div class="fields mt-s">
 					<?php echo $veld( 'zoek_salaris_min', 'Van', $b['zoek_salaris_min'] ? deedni_number( $b['zoek_salaris_min'] ) : '', array( 'euro' => true ) ); // phpcs:ignore ?>
 					<?php echo $veld( 'zoek_salaris_max', 'Tot', $b['zoek_salaris_max'] ? deedni_number( $b['zoek_salaris_max'] ) : '', array( 'euro' => true ) ); // phpcs:ignore ?>

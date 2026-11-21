@@ -206,7 +206,7 @@
       num.textContent = n;
       if (link && basis) {
         var p = [];
-        if (spec) p.push('spec[]=' + encodeURIComponent(spec));
+        if (spec) p.push('vak[]=' + encodeURIComponent(spec));
         if (reg) p.push('regio[]=' + encodeURIComponent(reg));
         if (erv) p.push('erv=' + (erv >= 5 ? 5 : 2));
         link.href = basis + (p.length ? (basis.indexOf('?') < 0 ? '?' : '&') + p.join('&') : '');

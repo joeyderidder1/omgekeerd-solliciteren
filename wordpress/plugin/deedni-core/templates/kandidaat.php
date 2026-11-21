@@ -64,9 +64,12 @@ $aanbod   = $bestaand ? deedni_aanbod( $bestaand[0] ) : null;
 						<span class="tag">Nog niet online</span>
 					<?php endif; ?>
 				</div>
-				<h1 id="h-k"><?php echo esc_html( $k['functietitel'] ? $k['functietitel'] : 'Online marketeer' ); ?></h1>
+				<h1 id="h-k"><?php echo esc_html( $k['functietitel'] ? $k['functietitel'] : 'Kandidaat' ); ?></h1>
 				<p class="row">Naam <?php echo $v( deedni_naam( $k ), 'l' ); // phpcs:ignore ?></p>
 				<dl class="facts">
+					<?php if ( deedni_vak_tekst( $k ) ) : ?>
+						<div><dt>Vakgebied</dt><dd><?php echo esc_html( deedni_vak_tekst( $k ) ); ?></dd></div>
+					<?php endif; ?>
 					<div><dt>Ervaring</dt><dd><?php echo esc_html( $k['ervaring_jaren'] ? $k['ervaring_jaren'] . ' jaar' : '–' ); ?></dd></div>
 					<div><dt>Regio</dt><dd><?php echo esc_html( deedni_regio_tekst( $k ) ? deedni_regio_tekst( $k ) : '–' ); ?></dd></div>
 					<div><dt>Werkplek</dt><dd><?php echo esc_html( deedni_werkplek_tekst( $k['werkplekken'] ) ? deedni_werkplek_tekst( $k['werkplekken'] ) : '–' ); ?></dd></div>
@@ -104,7 +107,7 @@ $aanbod   = $bestaand ? deedni_aanbod( $bestaand[0] ) : null;
 
 			<?php if ( $k['projecten'] ) : ?>
 				<section class="blok" aria-labelledby="h-cases">
-					<div class="between"><h2 id="h-cases">Cases</h2><span class="fine">Resultaten zijn altijd zichtbaar</span></div>
+					<div class="between"><h2 id="h-cases">Projecten</h2><span class="fine">Klantnamen en links pas na een ja</span></div>
 					<div class="cases">
 						<?php foreach ( $k['projecten'] as $pr ) : ?>
 							<?php
@@ -196,7 +199,7 @@ $aanbod   = $bestaand ? deedni_aanbod( $bestaand[0] ) : null;
 				<h3>Wat deelt de kandidaat na een ja</h3>
 				<p class="fine">Nu al zichtbaar</p>
 				<ul>
-					<?php foreach ( array( 'Functie, ervaring, regio en werkplek', 'Tools, opleiding en certificaten', 'Resultaten van de cases', 'Werkervaring zonder werkgever', 'Salarisindicatie, afgerond' ) as $t ) : ?>
+					<?php foreach ( array( 'Functie, ervaring, regio en werkplek', 'Vaardigheden, opleiding en certificaten', 'Projecten en eventuele resultaten', 'Werkervaring zonder werkgever', 'Salarisindicatie, afgerond' ) as $t ) : ?>
 						<li><span class="ok-ico"><?php echo deedni_icon( 'check', 16 ); // phpcs:ignore ?></span><?php echo esc_html( $t ); ?></li>
 					<?php endforeach; ?>
 				</ul>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cijfers voor de marketeer: hoe vaak is het profiel bekeken en door wat voor bedrijven ("Wie keek mee").
+ * Cijfers voor de kandidaat: hoe vaak is het profiel bekeken en door wat voor bedrijven ("Wie keek mee").
  * Een werkgever die hetzelfde profiel binnen 12 uur opnieuw opent, telt één keer.
  */
 
@@ -30,7 +30,7 @@ function deedni_aantal_bekeken( $kandidaat_id, $dagen = 7 ) {
 	);
 }
 
-/** De laatste bedrijven die keken, zonder naam: "Een marketingbureau in Utrecht". */
+/** De laatste bedrijven die keken, zonder naam: "Een hoveniersbedrijf in Utrecht". */
 function deedni_wie_keek_mee( $kandidaat_id, $aantal = 3 ) {
 	$out  = array();
 	$seen = array();
