@@ -36,6 +36,9 @@ function deedni_mail_variabelen() {
 		'wijzigingen'    => array( 'Wat deedni aan het profiel heeft aangepast', 'functietitel, samenvatting' ),
 		'zichtbaarheid'  => array( 'Zin over een verborgen profiel, met de reden (leeg als het profiel zichtbaar is)', 'Je profiel is op dit moment niet zichtbaar voor bedrijven. We missen nog je regio.' ),
 		'doelgroep'      => array( 'Werkzoekende of werkgever', 'werkzoekende' ),
+		'rol'            => array( 'Wat iemand koos bij "Ik ben" in het contactformulier (leeg als er geen keuze is)', 'Werkgever' ),
+		'onderwerp'      => array( 'Onderwerp uit het contactformulier', 'Vraag over de kosten' ),
+		'bericht'        => array( 'Het bericht uit het contactformulier', 'Hoi, wat kost het als we twee mensen aannemen?' ),
 		'extra_velden'   => array( 'Extra velden die je zelf aan het formulier hebt toegevoegd (leeg als er geen zijn)', '<ul style="margin:0;padding-left:20px"><li><strong>Startdatum:</strong> 1 maart</li></ul>', true ),
 		'site'           => array( 'Naam van de website', get_bloginfo( 'name' ) ),
 		'site_url'       => array( 'Adres van de website', home_url( '/' ) ),
@@ -264,6 +267,17 @@ function deedni_mail_typen() {
 				'knop_url'   => true,
 				'variabelen' => array( 'naam', 'email', 'doelgroep', 'link' ),
 			),
+			'beheer_contact'          => array(
+				'titel'      => 'Bericht via het contactformulier',
+				'groep'      => 'Naar jou',
+				'aan'        => 'Beheerder (of het adres bij het blok Contact)',
+				'wanneer'    => 'Als iemand het contactformulier invult. Antwoorden kan direct op de mail.',
+				'onderwerp'  => 'Contactformulier: {onderwerp}',
+				'tekst'      => "**{naam}** ({email}) stuurde een bericht via het contactformulier.\n\nIk ben: {rol}\n\n{bericht}\n\n{extra_velden}\n\nAntwoord gewoon op deze mail.",
+				'knop'       => '',
+				'knop_url'   => false,
+				'variabelen' => array( 'naam', 'email', 'rol', 'onderwerp', 'bericht', 'extra_velden' ),
+			),
 		)
 	);
 }
@@ -333,6 +347,18 @@ function deedni_mail_alineas( $tekst, $vars ) {
 		$blok = trim( $blok );
 		if ( '' === $blok ) {
 			continue;
+		}
+		// Een alinea waarvan alle variabelen leeg zijn (bijvoorbeeld "Ik ben: {rol}" zonder keuze) laten we weg.
+		if ( preg_match_all( '/\{([a-z_]+)\}/', $blok, $gebruikt ) ) {
+			$bekend = array_intersect( $gebruikt[1], array_keys( $vars ) );
+			if ( $bekend && count( $bekend ) === count( $gebruikt[1] ) && ! array_filter(
+				$bekend,
+				function ( $n ) use ( $vars ) {
+					return '' !== trim( wp_strip_all_tags( (string) $vars[ $n ] ) ) || false !== strpos( (string) $vars[ $n ], '<ul' );
+				}
+			) ) {
+				continue;
+			}
 		}
 		$h = esc_html( $blok );
 		$h = preg_replace( '/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $h );

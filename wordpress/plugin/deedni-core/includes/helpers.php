@@ -16,6 +16,12 @@ function deedni_pagina_lijst() {
 		'profiel'     => array( 'Mijn profiel', 'mijn-profiel', 'deedni/mijn-profiel' ),
 		'zoeken'      => array( 'Kandidaten zoeken', 'kandidaten', 'deedni/zoeken' ),
 		'vooraanmelden' => array( 'Doe mee met de test', 'vooraanmelden', 'deedni/vooraanmelding' ),
+		// Sinds 3.1: inhoud uit deedni_pagina_inhoud(). De landingspagina komt als concept.
+		'contact'     => array( 'Contact', 'contact', 'inhoud' ),
+		'over-ons'    => array( 'Over ons', 'over-ons', 'inhoud' ),
+		'blog'        => array( 'Blog', 'blog', 'inhoud' ),
+		'nieuws'      => array( 'Nieuws', 'nieuws', 'inhoud' ),
+		'landing'     => array( 'Vacatures waarbij het salaris al vaststaat', 'vacatures', 'inhoud', 'draft' ),
 	);
 }
 

@@ -18,6 +18,21 @@ $mag = deedni_can_search() || deedni_in_editor();
 <?php
 if ( ! $mag ) :
 	$ingelogd = is_user_logged_in();
+	// Bezoekers zonder account: een kort, anoniem overzicht (zie includes/publiek.php). Staat het uit,
+	// of is dit geen gewone paginaweergave (REST API, feed), dan alleen de uitleg hieronder.
+	$publiek = deedni_publiek_overzicht_html(
+		array(
+			'kop'  => 'Een greep uit de kandidaten',
+			'lead' => '',
+		)
+	);
+	if ( $publiek && ! $ingelogd ) :
+		echo $publiek; // phpcs:ignore WordPress.Security.EscapeOutput
+		?>
+</div>
+		<?php
+		return;
+	endif;
 	?>
 	<div class="card stack zoeken-dicht">
 		<p><?php echo wp_kses_post( deedni_tekst( $a['gesloten'] ) ); ?></p>
@@ -31,6 +46,7 @@ if ( ! $mag ) :
 			</div>
 		<?php endif; ?>
 	</div>
+	<?php echo $publiek; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 </div>
 	<?php
 	return;

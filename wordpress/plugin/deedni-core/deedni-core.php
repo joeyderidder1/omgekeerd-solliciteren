@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       deedni Core
  * Description:       Het platform achter deedni: rollen (kandidaat en werkgever), inloggen, anonieme profielen, zoeken met matchpercentage, aanbiedingen met "Ja, maar..." en alle deedni-blokken voor de pagina's.
- * Version:           3.1.0
+ * Version:           3.2.0
  * Requires at least: 6.6
  * Requires PHP:      8.0
  * Author:            deedni
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DEEDNI_VERSION', '3.1.0' );
+define( 'DEEDNI_VERSION', '3.2.0' );
 define( 'DEEDNI_FILE', __FILE__ );
 define( 'DEEDNI_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DEEDNI_URL', plugin_dir_url( __FILE__ ) );
@@ -36,6 +36,8 @@ require_once DEEDNI_DIR . 'includes/zoeken.php';
 require_once DEEDNI_DIR . 'includes/statistiek.php';
 require_once DEEDNI_DIR . 'includes/menus.php';
 require_once DEEDNI_DIR . 'includes/blokken.php';
+require_once DEEDNI_DIR . 'includes/publiek.php';
+require_once DEEDNI_DIR . 'includes/paginas.php';
 require_once DEEDNI_DIR . 'includes/vooraanmelding.php';
 require_once DEEDNI_DIR . 'includes/installatie.php';
 require_once DEEDNI_DIR . 'includes/shortcodes.php';
@@ -59,6 +61,7 @@ function deedni_activate() {
 	deedni_insert_default_terms();
 	deedni_create_pages();
 	deedni_installeer_menus();
+	deedni_installeer_paginas_31();
 	deedni_installeer_homepage();
 	deedni_aanmeldingen_installeer();
 	update_option( 'deedni_db_version', DEEDNI_VERSION );

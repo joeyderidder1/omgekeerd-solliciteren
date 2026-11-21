@@ -26,6 +26,7 @@ function deedni_handle_forms() {
 		'aanbod_aangenomen' => 'deedni_handle_hired',
 		'bewaren'         => 'deedni_handle_bewaren',
 		'vooraanmelden'   => 'deedni_handle_vooraanmelden',
+		'contact'         => 'deedni_handle_contact',
 	);
 	if ( isset( $handlers[ $action ] ) && deedni_sleutel_start( $action ) ) {
 		call_user_func( $handlers[ $action ] );
@@ -404,6 +405,20 @@ function deedni_handle_profiel() {
 	// Blokkeerlijst.
 	if ( isset( $_POST['blokkeerlijst'] ) ) {
 		deedni_save_blokkeerlijst( $id, deedni_post( 'blokkeerlijst', 'textarea' ) );
+	}
+
+	// Openbaar overzicht voor bezoekers: alleen met toestemming. We bewaren wanneer die is gegeven.
+	if ( isset( $_POST['publiek_overzicht_veld'] ) ) {
+		$publiek = ! empty( $_POST['publiek_overzicht'] );
+		if ( $publiek && ! get_post_meta( $id, 'publiek_overzicht', true ) ) {
+			update_post_meta( $id, 'publiek_toestemming_op', time() );
+		}
+		if ( $publiek ) {
+			update_post_meta( $id, 'publiek_overzicht', 1 );
+		} else {
+			delete_post_meta( $id, 'publiek_overzicht' );
+			delete_post_meta( $id, 'publiek_toestemming_op' );
+		}
 	}
 
 	// Cv.

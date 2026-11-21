@@ -1,6 +1,6 @@
 # Formulieren en mail beheren in wp-admin
 
-Vanaf plugin **deedni Core 3.1.0** staat er in wp-admin een nieuw menu **Formulieren & mail** met drie pagina's. Alleen beheerders zien het.
+Vanaf plugin **deedni Core 3.2.0** staat er in wp-admin een nieuw menu **Formulieren & mail** met drie pagina's. Alleen beheerders zien het.
 
 ## E-maillog
 
@@ -51,7 +51,7 @@ Per formulier pas je aan:
 - de **volgorde** (slepen aan het handvat). Velden die op de site naast elkaar staan, verhuizen samen;
 - **eigen velden toevoegen**: tekst, tekstvak, keuzelijst, vinkje, getal, e-mailadres, telefoon of datum.
 
-Formulieren: Account aanmaken (met eigen velden alleen voor kandidaten of alleen voor werkgevers), Profiel van een kandidaat, Bedrijfsprofiel, Aanbod sturen, Reageren met "Ja, maar..." en Vooraanmelding. Een contactformulier heeft de site nog niet.
+Formulieren: Account aanmaken (met eigen velden alleen voor kandidaten of alleen voor werkgevers), Profiel van een kandidaat, Bedrijfsprofiel, Aanbod sturen, Reageren met "Ja, maar...", Contact en Vooraanmelding.
 
 **Kernvelden** (met een slotje) kun je wel anders noemen, maar niet verbergen of optioneel maken. Ze zijn nodig voor het account, de matching of de controle in de code. Zo kan een aanpassing de site nooit breken.
 
@@ -60,6 +60,7 @@ Waar komen de antwoorden op eigen velden terecht?
 - **Aanbod sturen**: bij het aanbod in wp-admin, en in de mail aan de kandidaat (`{extra_velden}`).
 - **Ja, maar...**: bij het aanbod in wp-admin, en in de mail aan de werkgever.
 - **Account aanmaken**: bij het account (Gebruikers) en bij het profiel, en in de mail "Nieuwe werkgever" aan jou.
+- **Contact**: alleen in de mail die jij krijgt. Er wordt niets bewaard.
 - **Profiel en bedrijfsprofiel**: bij het profiel in wp-admin. Werkgevers zien de extra profielvelden van kandidaten niet, zodat het profiel anoniem blijft.
 
 Bij het kandidaatprofiel betekent *verplicht*: nodig om het profiel te **publiceren**. Opslaan kan altijd, zodat niemand ingevuld werk kwijtraakt.

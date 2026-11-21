@@ -32,7 +32,8 @@ defined( 'ABSPATH' ) || exit;
  * Per formulier:
  *  'actie'    waarde van het verborgen veld deedni_action
  *  'context'  sleutel voor foutmeldingen (deedni_fout / deedni_flash)
- *  'opslag'   waar extra velden heen gaan: aanbod, reactie, gebruiker, kandidaat, bedrijf of '' (geen extra velden)
+ *  'opslag'   waar extra velden heen gaan: aanbod, reactie, gebruiker, kandidaat, bedrijf, mail (alleen in de mail)
+ *             of '' (geen extra velden)
  *  'groepen'  stukken van het formulier; de volgorde wijzigt alleen binnen een groep
  *  'velden'   per veld: label en hint (de standaard, ter info), groep, kern, verplicht (standaard),
  *             naam (name-attribuut), container (field, fieldset of check), placeholder (kan een voorbeeldtekst),
@@ -152,6 +153,23 @@ function deedni_formulieren_defs() {
 					'tegen_max'   => array( 'label' => 'Salaris tot', 'kern' => true, 'uitleg_kern' => 'Het bedrijf kan hiermee akkoord gaan.' ),
 					'tegen_wens'  => array( 'label' => 'Extra wens' ),
 					'bericht'     => array( 'label' => 'Bericht aan het bedrijf', 'hint' => 'Schrijf er duidelijk bij wat wel goed is. Dat helpt het bedrijf je aanbod aan te passen.', 'kern' => true, 'verplicht' => true, 'uitleg_kern' => 'Minstens 10 tekens, gecontroleerd door de site.' ),
+				),
+			),
+			'contact'       => array(
+				'titel'     => 'Contact',
+				'uitleg'    => 'Het contactformulier (blok Contact). De kop, de keuzes bij "Ik ben", de knop en de toestemmingstekst pas je aan in het blok zelf.',
+				'pagina'    => '',
+				'actie'     => 'contact',
+				'context'   => 'contact',
+				'opslag'    => 'mail',
+				'flash'     => array( 'rol', 'naam', 'email', 'onderwerp', 'bericht', 'akkoord' ),
+				'groepen'   => array( 'velden' => 'Velden' ),
+				'velden'    => array(
+					'naam'      => array( 'label' => 'Naam', 'kern' => true, 'verplicht' => true, 'uitleg_kern' => 'Nodig om te kunnen antwoorden.' ),
+					'email'     => array( 'label' => 'E-mailadres', 'kern' => true, 'verplicht' => true, 'uitleg_kern' => 'Nodig om te kunnen antwoorden.' ),
+					'onderwerp' => array( 'label' => 'Onderwerp' ),
+					'bericht'   => array( 'label' => 'Bericht', 'kern' => true, 'verplicht' => true, 'uitleg_kern' => 'Het bericht zelf.' ),
+					'akkoord'   => array( 'label' => 'Toestemming', 'kern' => true, 'verplicht' => true, 'container' => 'check', 'label_bewerkbaar' => false, 'hint_bewerkbaar' => false, 'placeholder' => false, 'volgorde' => false, 'uitleg_kern' => 'Wettelijk verplicht. De tekst pas je aan in het blok Contact.' ),
 				),
 			),
 			'vooraanmelding' => array(
@@ -1212,7 +1230,6 @@ function deedni_formulieren_pagina() {
 		echo '</td></tr>';
 	}
 	echo '</tbody></table>';
-	echo '<p class="description" style="margin-top:16px">Een contactformulier heeft de site nog niet. Komt dat er, dan verschijnt het hier ook.</p>';
 	echo '</div>';
 }
 
@@ -1334,6 +1351,7 @@ function deedni_formulier_bewerken( $form ) {
 			'gebruiker' => 'De antwoorden staan bij het account (Gebruikers) en bij het profiel in wp-admin.',
 			'kandidaat' => 'De antwoorden zie je alleen in wp-admin bij het profiel. Werkgevers zien ze niet, zodat het profiel anoniem blijft.',
 			'bedrijf'   => 'De antwoorden staan bij het bedrijfsprofiel in wp-admin.',
+			'mail'      => 'De antwoorden gaan mee in de mail naar jou (variabele {extra_velden}). Ze worden nergens bewaard.',
 		);
 		echo esc_html( $waar[ $def['opslag'] ] ) . '</p>';
 		echo '<table class="form-table"><tr><th><label for="nw-label">Label</label></th><td><input type="text" id="nw-label" name="nieuw[label]" class="regular-text" placeholder="Bijvoorbeeld: Gewenste startdatum"></td></tr>';

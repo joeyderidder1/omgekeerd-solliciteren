@@ -534,3 +534,35 @@ img.is-laden { opacity: 0; filter: blur(12px); }
   .acct-menu, .sub-menu, .site-nav, dialog.modal, dialog.modal::backdrop, img.is-laden { transition: none !important; }
   img.is-laden { opacity: 1; filter: none; }
 }
+
+/* ---------- Voet (versie 3.1): donker blok met oproep, logo, kolommen en een onderste regel ---------- */
+.site-footer--v2 { background: var(--bg); color: var(--muted); padding-block: clamp(24px, 4vw, 40px) 32px; border-top: 1px solid var(--line); }
+.site-footer--v2 .footer-stapel { display: flex; flex-direction: column; gap: clamp(36px, 5vw, 56px); }
+.footer-cta { position: relative; overflow: hidden; isolation: isolate; background: var(--night); color: var(--night-ink); border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 56px; }
+.footer-gloed { position: absolute; z-index: -1; width: 520px; height: 520px; right: -120px; top: -240px; border-radius: 50%; background: radial-gradient(circle, rgba(40, 66, 224, .55), rgba(40, 66, 224, 0) 65%); pointer-events: none; }
+.footer-cta-tekst { flex: 1 1 340px; display: flex; flex-direction: column; gap: 14px; }
+.footer-cta-kop { margin: 0; font-weight: 700; font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.625rem); line-height: 1.08; letter-spacing: -0.03em; color: var(--night-ink); text-wrap: balance; }
+.footer-cta-lead { margin: 0; color: var(--night-muted); max-width: 30em; }
+.footer-cta-knoppen { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.footer-pil { display: inline-flex; align-items: center; gap: 16px; min-height: 56px; padding: 6px 6px 6px 26px; border-radius: 999px; background: var(--night-ink); color: var(--night); font-weight: 700; font-size: 1.0625rem; text-decoration: none; }
+.footer-pil-ico { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--night); color: var(--night-ink); transition: transform .2s; }
+.footer-pil:hover .footer-pil-ico { transform: translateX(3px); }
+.footer-link2 { display: inline-flex; align-items: center; min-height: 44px; padding-left: 8px; color: var(--night-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.footer-midden { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px 56px; }
+.footer-merk { display: flex; flex-direction: column; gap: 12px; max-width: 280px; }
+.footer-merk p { margin: 0; }
+.site-footer--v2 .logo { color: var(--ink); font-size: 1.65rem; }
+.site-footer--v2 .logo i { background: var(--accent); }
+.footer-kolommen { display: flex; flex-wrap: wrap; gap: 32px 64px; }
+.footer-kol { min-width: 150px; }
+.footer-kol-kop { margin: 0 0 6px; font-weight: 600; color: var(--ink); }
+.footer-kol ul, .footer-onder ul { list-style: none; padding: 0; margin: 0; }
+.site-footer--v2 .footer-kol a { display: inline-flex; align-items: center; min-height: 40px; color: var(--muted); font-size: .9375rem; text-decoration: none; }
+.footer-kol a:hover, .footer-onder a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-kol a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.footer-onder { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; border-top: 1px solid var(--line); padding-top: 20px; font-size: .875rem; }
+.footer-onder ul { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.site-footer--v2 .footer-onder a { display: inline-flex; align-items: center; min-height: 40px; color: var(--muted); text-decoration: none; }
+.site-footer--v2 :focus-visible { outline-color: var(--focus); }
+.footer-cta :focus-visible { outline-color: #B5C2FF; }
+@media (prefers-reduced-motion: reduce) { .footer-pil-ico { transition: none; } }

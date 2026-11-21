@@ -28,6 +28,7 @@ add_action(
 		deedni_add_roles();
 		deedni_insert_default_terms();
 		deedni_create_pages();
+		deedni_installeer_paginas_31();
 		deedni_migreer_v1();
 		deedni_installeer_menus();
 		deedni_installeer_homepage();
